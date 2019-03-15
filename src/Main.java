@@ -14,5 +14,6 @@ public class Main {
         LoginWindow loginWindow = new LoginWindow();
         loginWindow.setVisible(true);
         //Hola em dic Alba Massa.
+        //Hola em dic Anna.
     }
 }
