@@ -1,4 +1,4 @@
 {
-  "serverIP": "test",
+  "serverIP": "192.168.64.2",
   "serverPort": 3306
 }
