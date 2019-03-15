@@ -13,6 +13,7 @@ public class LoginWindow extends JFrame {
 
 
     public LoginWindow(){
+
         createHeader();
         getContentPane().setBackground(new Color(173, 105, 127));
         setLocationRelativeTo(null);
