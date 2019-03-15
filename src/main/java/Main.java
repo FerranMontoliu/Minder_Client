@@ -1,4 +1,4 @@
-import View.LoginWindow;
+import view.LoginWindow;
 import model.ClientConfig;
 import model.Json;
 
@@ -13,7 +13,5 @@ public class Main {
         ClientConfig cc = Json.parseJson();
         LoginWindow loginWindow = new LoginWindow();
         loginWindow.setVisible(true);
-        //Hola em dic Alba Massa.
-        //Hola em dic Anna.
     }
 }

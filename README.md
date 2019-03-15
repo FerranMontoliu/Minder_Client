@@ -2,8 +2,7 @@
 Client de Minder
 
 TODO LIST:
-  - Arreglar paràmetres del JSON (estan ficats com a exemple els actuals per poder formatejar el JSON).
-  
+
   - Un cop llegit el fitxer, obrir GUI amb les següents opcions:
     - Registrar-se i/o iniciar sessió.
     - Editar perfil.
