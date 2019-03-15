@@ -61,7 +61,7 @@ public class LoginWindow extends JFrame {
         jlUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
         jpUsername.add(jlUsername);
 
-        jtfUsername = new JTextField(10);
+        jtfUsername = new JTextField(15);
         jtfUsername.setMaximumSize(jtfUsername.getPreferredSize());
         jpUsername.add(jtfUsername);
 
@@ -75,7 +75,7 @@ public class LoginWindow extends JFrame {
         jlPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
         jpPassword.add(jlPassword);
 
-        jtfPassword = new JPasswordField(10);
+        jtfPassword = new JPasswordField(15);
         jtfPassword.setMaximumSize(jtfPassword.getPreferredSize());
         jpPassword.add(jtfPassword);
         jpSignIn.add(jpPassword);
