@@ -6,27 +6,32 @@ import java.awt.*;
 public class LoginWindow extends JFrame {
     private JRadioButton jrbSignIn;
     private JRadioButton jrbSignUp;
-    private JTextField jtfUsername;
-    private JPasswordField jtfPassword;
-    private JButton jbDisplayPassword;
-    private JButton jbSingIn;
+    private CardLayout clSignInUp;
+    private JPanel jpCard;
+    //Atributs pel Panell de Sign In
+    private SignInPanel jpSignIn;
+    //Atributs pel Panell de Sign Up
+   private SignUpPanel jpSignUp;
+
+
 
 
     public LoginWindow(){
-
         createHeader();
         getContentPane().setBackground(new Color(173, 105, 127));
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(200, 150));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome to Minder");
-
+        clSignInUp = new CardLayout();
+        jpCard = new JPanel(clSignInUp);
         createSignInPanel();
-
-        pack();
+        createSignUpPanel();
+        clSignInUp.show(jpCard, "SIGN IN");  //Per a veure la de SIGN UP escriure aqui SIGN UP
+        resizeWindow("SIGN IN");    //I aqui
+        getContentPane().add(jpCard);
 
     }
-
 
     private void createHeader(){
         //faig un primer panell que englobi el label i el textfield dels talps
@@ -53,46 +58,32 @@ public class LoginWindow extends JFrame {
     }
 
     private void createSignInPanel(){
-        JPanel jpSignIn = new JPanel();
-        jpSignIn.setLayout(new BoxLayout(jpSignIn, BoxLayout.PAGE_AXIS));
-        JPanel jpUsername = new JPanel();
-        jpUsername.setLayout(new BoxLayout(jpUsername, BoxLayout.Y_AXIS));
-
-        JLabel jlUsername = new JLabel("Username: ");
-        jlUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jpUsername.add(jlUsername);
-
-        jtfUsername = new JTextField(15);
-        jtfUsername.setMaximumSize(jtfUsername.getPreferredSize());
-        jpUsername.add(jtfUsername);
-
-        jpSignIn.add(jpUsername);
-
-        //faig un altre panell que englobi el label i el textfield del tamany del taulell
-        JPanel jpPassword = new JPanel();
-        jpPassword.setLayout(new BoxLayout(jpPassword, BoxLayout.Y_AXIS));
-
-        JLabel jlPassword = new JLabel("Password: ");
-        jlPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jpPassword.add(jlPassword);
-
-        jtfPassword = new JPasswordField(15);
-        jtfPassword.setMaximumSize(jtfPassword.getPreferredSize());
-        jpPassword.add(jtfPassword);
-        jpSignIn.add(jpPassword);
-
-        jbDisplayPassword = new JButton("Display Password");
-        jbDisplayPassword.setHorizontalAlignment(SwingConstants.CENTER);
-        jbSingIn = new JButton("Sign In");
-        jbSingIn.setHorizontalAlignment(SwingConstants.CENTER);
-        JPanel jpButtons = new JPanel(new FlowLayout());
-        jpButtons.add(jbDisplayPassword);
-        jpButtons.add(jbSingIn);
-        jpSignIn.add(jpButtons);
-
-        getContentPane().add(jpSignIn);
+        jpSignIn = new SignInPanel(clSignInUp);
+        //Gestiono el panell pel CardLayout
+        jpCard.add("SIGN IN", jpSignIn);
     }
 
+    private void createSignUpPanel() {
+        jpSignUp = new SignUpPanel(clSignInUp);
+        //Gestiono el panell pel CardLayout
+        jpCard.add("SIGN UP", jpSignUp);
+    }
 
+    /**
+     * Metode que serveix per a canviar entre finestra de sign in (SIGN IN) o sign up (SIGN UP).
+     * @param cardLayoutName ID del panell a visualitzar. SIGN IN o SIGN UP.
+     */
+    public void changePanel(String cardLayoutName){
+        clSignInUp.show(jpCard, cardLayoutName);
+        resizeWindow(cardLayoutName);
+    }
+
+    public void resizeWindow(String cardLayoutName){
+        if(cardLayoutName.equals("SIGN IN")){
+            setSize(300, 240);
+        }else{
+            setSize(300, 400);
+        }
+    }
 
 }
