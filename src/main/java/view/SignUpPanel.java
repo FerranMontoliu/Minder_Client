@@ -7,6 +7,7 @@ public class SignUpPanel extends JPanel {
     private JTextField jtfNewUsername;
     private JPasswordField jtfNewPassword;
     private JPasswordField jtfNewPasswordConfirm;
+    private JCheckBox jcbShowPassword;
     private JRadioButton jrbPremium;
     private JRadioButton jrbNoPremium;
     private JTextField jtfEmail;
@@ -15,7 +16,7 @@ public class SignUpPanel extends JPanel {
 
     public SignUpPanel(CardLayout clSignInUp){
         super(clSignInUp);
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         createUsernameField();
         createPasswordFields();
@@ -23,6 +24,7 @@ public class SignUpPanel extends JPanel {
         createAgeField();
         createPremiumOption();
         createSignUp();
+
 
     }
 
@@ -66,8 +68,14 @@ public class SignUpPanel extends JPanel {
         jtfNewPasswordConfirm.setMaximumSize(jtfNewPasswordConfirm.getPreferredSize());
         jpPasswords.add(jtfNewPasswordConfirm);
 
+        JPanel jpShowPassword = new JPanel(new BorderLayout());
+        jcbShowPassword = new JCheckBox("Show Password");
+        jcbShowPassword.setHorizontalAlignment(SwingConstants.CENTER);
+        jpShowPassword.add(jcbShowPassword, BorderLayout.CENTER);
+
         //Afegim tot allo que hem creat
         add(jpPasswords);
+        add(jpShowPassword);
         add(Box.createVerticalStrut(10));
     }
 
@@ -135,6 +143,19 @@ public class SignUpPanel extends JPanel {
 
         add(jbSignUp);
         add(Box.createVerticalStrut(10));
+    }
+
+    /**
+     * Metode que mostra o amaga la Password en funcio de si el CheckBox exta seleccionat o no.
+     */
+    public void showPassword(){
+        if (jcbShowPassword.isSelected()) {
+            jtfNewPassword.setEchoChar((char) 0);
+            jtfNewPasswordConfirm.setEchoChar((char) 0);
+        } else {
+            jtfNewPassword.setEchoChar('*');
+            jtfNewPasswordConfirm.setEchoChar('*');
+        }
     }
 
 }

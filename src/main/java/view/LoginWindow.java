@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginWindow extends JFrame {
+    public static final Color HEADER_COLOR = new Color(255, 88, 100);
+    public static final Color BG_COLOR = new Color(255, 101, 91);
     private JRadioButton jrbSignIn;
     private JRadioButton jrbSignUp;
     private CardLayout clSignInUp;
@@ -14,21 +16,20 @@ public class LoginWindow extends JFrame {
    private SignUpPanel jpSignUp;
 
 
-
-
     public LoginWindow(){
-        createHeader();
-        getContentPane().setBackground(new Color(173, 105, 127));
+
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(200, 150));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome to Minder");
+
+        createHeader();
         clSignInUp = new CardLayout();
         jpCard = new JPanel(clSignInUp);
         createSignInPanel();
         createSignUpPanel();
-        clSignInUp.show(jpCard, "SIGN IN");  //Per a veure la de SIGN UP escriure aqui SIGN UP
-        resizeWindow("SIGN IN");    //I aqui
+        clSignInUp.show(jpCard, "SIGN UP");  //Per a veure la de SIGN UP escriure aqui SIGN UP
+        resizeWindow("SIGN UP");    //I aqui
         getContentPane().add(jpCard);
 
     }
@@ -40,12 +41,16 @@ public class LoginWindow extends JFrame {
 
         //Primer Radiobotó
         jrbSignIn = new JRadioButton("Sign in");
+        jrbSignIn.setForeground(Color.white);
+        jrbSignIn.setBackground(HEADER_COLOR);
         jpLoginOption.add(jrbSignIn);
         //estigui sempre seleccionat per defecte
         jrbSignIn.setSelected(true);
 
         //Segon RadioBotó
         jrbSignUp = new JRadioButton("Sign up");
+        jrbSignUp.setForeground(Color.white);
+        jrbSignUp.setBackground(HEADER_COLOR);
         jpLoginOption.add(jrbSignUp);
 
         //Agrupo els dos botons perquè només es pugui seleccionar un d'ells
@@ -53,6 +58,7 @@ public class LoginWindow extends JFrame {
         bgOption.add(jrbSignIn);
         bgOption.add(jrbSignUp);
 
+        jpLoginOption.setBackground(HEADER_COLOR);
         //Afegeixo els dos botons al nord del contenidor principal
         getContentPane().add(jpLoginOption, BorderLayout.NORTH);
     }
@@ -80,9 +86,9 @@ public class LoginWindow extends JFrame {
 
     public void resizeWindow(String cardLayoutName){
         if(cardLayoutName.equals("SIGN IN")){
-            setSize(300, 240);
+            setSize(300, 300);
         }else{
-            setSize(300, 400);
+            setSize(300, 450);
         }
     }
 
