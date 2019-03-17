@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SignUpPanel extends JPanel {
+    public static final Color BG_COLOR = new Color(255, 101, 91);
     private JTextField jtfNewUsername;
     private JPasswordField jtfNewPassword;
     private JPasswordField jtfNewPasswordConfirm;
@@ -17,14 +18,29 @@ public class SignUpPanel extends JPanel {
     public SignUpPanel(CardLayout clSignInUp){
         super(clSignInUp);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        setBackground(BG_COLOR);
+        createTitle();
         createUsernameField();
         createPasswordFields();
         createEmailField();
         createAgeField();
         createPremiumOption();
         createSignUp();
+    }
 
+    private void createTitle(){
+        JPanel jpTitle = new JPanel();
+        jpTitle.setLayout(new BoxLayout(jpTitle, BoxLayout.Y_AXIS));
+        JLabel jlTitle = new JLabel("MINDER");
+        jlTitle.setForeground(Color.WHITE);
+        jlTitle.setFont(new Font("Hobo Std", Font.PLAIN, 28));
+        jlTitle.setAlignmentX(CENTER_ALIGNMENT);
+        jpTitle.setBackground(BG_COLOR);
+        jpTitle.add(Box.createVerticalStrut(10));
+        jpTitle.add(jlTitle, BorderLayout.CENTER);
+
+        add(jpTitle);
+        add(Box.createVerticalStrut(20));
 
     }
 
@@ -32,8 +48,12 @@ public class SignUpPanel extends JPanel {
         //Username
         JPanel jpUsername = new JPanel();
         jpUsername.setLayout(new BoxLayout(jpUsername, BoxLayout.Y_AXIS));
+        jpUsername.setBackground(BG_COLOR);
+
         JLabel jlUsername = new JLabel("Username: ");
         jlUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlUsername.setForeground(Color.white);
+
         jpUsername.add(jlUsername);
         jtfNewUsername = new JTextField(15);
         jtfNewUsername.setMaximumSize(jtfNewUsername.getPreferredSize());
@@ -49,8 +69,11 @@ public class SignUpPanel extends JPanel {
         //Password and Confirm Password
         JPanel jpPasswords  = new JPanel();
         jpPasswords.setLayout(new BoxLayout(jpPasswords, BoxLayout.Y_AXIS));
+        jpPasswords.setBackground(BG_COLOR);
+
         JLabel jlPassword = new JLabel("Password: ");
         jlPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlPassword.setForeground(Color.white);
         jpPasswords.add(jlPassword);
         jpPasswords.add(Box.createVerticalStrut(5));
 
@@ -61,6 +84,8 @@ public class SignUpPanel extends JPanel {
 
         JLabel jlConfirmPassword = new JLabel("Confirm Password: ");
         jlConfirmPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlConfirmPassword.setForeground(Color.white);
+
         jpPasswords.add(jlConfirmPassword);
         jpPasswords.add(Box.createVerticalStrut(5));
 
@@ -69,9 +94,16 @@ public class SignUpPanel extends JPanel {
         jpPasswords.add(jtfNewPasswordConfirm);
 
         JPanel jpShowPassword = new JPanel(new BorderLayout());
+        jpShowPassword.setBackground(BG_COLOR);
+
+
         jcbShowPassword = new JCheckBox("Show Password");
         jcbShowPassword.setHorizontalAlignment(SwingConstants.CENTER);
-        jpShowPassword.add(jcbShowPassword, BorderLayout.CENTER);
+        jcbShowPassword.setBackground(BG_COLOR);
+        jcbShowPassword.setForeground(Color.white);
+        jpShowPassword.add(jcbShowPassword, BorderLayout.NORTH);
+        jpShowPassword.setMaximumSize(new Dimension(jpShowPassword.getPreferredSize().width, jcbShowPassword.getPreferredSize().height));
+
 
         //Afegim tot allo que hem creat
         add(jpPasswords);
@@ -83,16 +115,23 @@ public class SignUpPanel extends JPanel {
         //Premium or Not Premium
         JPanel jpPremiumOption = new JPanel();
         jpPremiumOption.setLayout(new FlowLayout());
+        jpPremiumOption.setBackground(BG_COLOR);
 
         //Primer Radiobotó
         jrbNoPremium= new JRadioButton("No Premium");
+        jrbNoPremium.setForeground(Color.white);
+        jrbNoPremium.setBackground(BG_COLOR);
         jpPremiumOption.add(jrbNoPremium);
         //estigui sempre seleccionat per defecte
         jrbNoPremium.setSelected(true);
 
         //Segon RadioBotó
         jrbPremium = new JRadioButton("Premium");
+        jrbPremium.setForeground(Color.white);
+        jrbPremium.setBackground(BG_COLOR);
         jpPremiumOption.add(jrbPremium);
+
+        jpPremiumOption.setMaximumSize(new Dimension(jpPremiumOption.getPreferredSize().width, jrbPremium.getPreferredSize().height));
 
         //Agrupo els dos botons perquè només es pugui seleccionar un d'ells
         ButtonGroup bgOption = new ButtonGroup();
@@ -101,15 +140,17 @@ public class SignUpPanel extends JPanel {
 
         //Afegim tot allo que hem creat
         add(jpPremiumOption);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(20));
     }
 
     private void createEmailField() {
         JPanel jpEmail = new JPanel();
         jpEmail.setLayout(new BoxLayout(jpEmail, BoxLayout.Y_AXIS));
+        jpEmail.setBackground(BG_COLOR);
 
         JLabel jlEmail = new JLabel("Email: ");
         jlEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlEmail.setForeground(Color.white);
         jpEmail.add(jlEmail);
 
         jtfEmail = new JTextField(15);
@@ -123,9 +164,12 @@ public class SignUpPanel extends JPanel {
     private void createAgeField(){
         JPanel jpAgeField = new JPanel();
         jpAgeField.setLayout(new BoxLayout(jpAgeField, BoxLayout.Y_AXIS));
+        jpAgeField.setBackground(BG_COLOR);
 
         JLabel jlAge = new JLabel("Age: ");
         jlAge.setAlignmentX(CENTER_ALIGNMENT);
+        jlAge.setForeground(Color.white);
+
         jpAgeField.add(jlAge);
         jpAgeField.add(Box.createVerticalStrut(5));
         jtfAge = new JTextField(15);
@@ -137,9 +181,10 @@ public class SignUpPanel extends JPanel {
     }
 
     private void createSignUp(){
-        jbSignUp = new JButton("Sign Up");
+        jbSignUp = new JButton("Sign Up", new ImageIcon("icons/check_icon.png"));
         jbSignUp.setHorizontalAlignment(SwingConstants.CENTER);
         jbSignUp.setAlignmentX(CENTER_ALIGNMENT);
+        jbSignUp.setBackground(Color.WHITE);
 
         add(jbSignUp);
         add(Box.createVerticalStrut(10));

@@ -28,8 +28,8 @@ public class LoginWindow extends JFrame {
         jpCard = new JPanel(clSignInUp);
         createSignInPanel();
         createSignUpPanel();
-        clSignInUp.show(jpCard, "SIGN UP");  //Per a veure la de SIGN UP escriure aqui SIGN UP
-        resizeWindow("SIGN UP");    //I aqui
+        clSignInUp.show(jpCard, "SIGN IN");  //Per a veure la de SIGN UP escriure aqui SIGN UP
+        resizeWindow("SIGN IN");    //I aqui
         getContentPane().add(jpCard);
 
     }
@@ -88,7 +88,7 @@ public class LoginWindow extends JFrame {
         if(cardLayoutName.equals("SIGN IN")){
             setSize(300, 300);
         }else{
-            setSize(300, 450);
+            setSize(300, 400);
         }
     }
 

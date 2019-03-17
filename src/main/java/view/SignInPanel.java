@@ -8,7 +8,7 @@ public class SignInPanel extends JPanel {
     private JTextField jtfUsername;
     private JPasswordField jtfPassword;
     private JCheckBox jcbShowPassword;
-    private JButton jbSingIn;
+    private JButton jbSignIn;
 
     public SignInPanel(CardLayout clSignInUp){
         super(clSignInUp);
@@ -24,7 +24,6 @@ public class SignInPanel extends JPanel {
         JPanel jpTitle = new JPanel();
         jpTitle.setLayout(new BoxLayout(jpTitle, BoxLayout.Y_AXIS));
         JLabel jlTitle = new JLabel("MINDER");
-        //jlTitle.setFont();
         jlTitle.setForeground(Color.WHITE);
         jlTitle.setFont(new Font("Hobo Std", Font.PLAIN, 28));
         jlTitle.setAlignmentX(CENTER_ALIGNMENT);
@@ -86,9 +85,10 @@ public class SignInPanel extends JPanel {
         //JPanel Buttons: Buttons Show Password i Sign In
         JPanel jpButtons = new JPanel(new FlowLayout());
         jpButtons.setBackground(BG_COLOR);
-        jbSingIn = new JButton("Sign In");
-        jbSingIn.setHorizontalAlignment(SwingConstants.CENTER);
-        jpButtons.add(jbSingIn);
+        jbSignIn = new JButton("Sign In", new ImageIcon("icons/check_icon.png"));
+        jbSignIn.setHorizontalAlignment(SwingConstants.CENTER);
+        jbSignIn.setBackground(Color.WHITE);
+        jpButtons.add(jbSignIn);
 
         add(jpButtons);
         add(Box.createVerticalStrut(10));
