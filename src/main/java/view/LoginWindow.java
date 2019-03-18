@@ -28,8 +28,8 @@ public class LoginWindow extends JFrame {
         jpCard = new JPanel(clSignInUp);
         createSignInPanel();
         createSignUpPanel();
-        clSignInUp.show(jpCard, "SIGN IN");  //Per a veure la de SIGN UP escriure aqui SIGN UP
-        resizeWindow("SIGN IN");    //I aqui
+        clSignInUp.show(jpCard, "SIGN UP");  //Per a veure la de SIGN UP escriure aqui SIGN UP
+        resizeWindow("SIGN UP");    //I aqui
         getContentPane().add(jpCard);
 
     }
@@ -40,7 +40,7 @@ public class LoginWindow extends JFrame {
         jpLoginOption.setLayout(new FlowLayout());
 
         //Primer Radiobotó
-        jrbSignIn = new JRadioButton("Sign in");
+        jrbSignIn = new JRadioButton("Sign in", new ImageIcon("icons/sign-in.png"));
         jrbSignIn.setForeground(Color.white);
         jrbSignIn.setBackground(HEADER_COLOR);
         jpLoginOption.add(jrbSignIn);
@@ -48,7 +48,7 @@ public class LoginWindow extends JFrame {
         jrbSignIn.setSelected(true);
 
         //Segon RadioBotó
-        jrbSignUp = new JRadioButton("Sign up");
+        jrbSignUp = new JRadioButton("Sign up", new ImageIcon("icons/sign_up.png"));
         jrbSignUp.setForeground(Color.white);
         jrbSignUp.setBackground(HEADER_COLOR);
         jpLoginOption.add(jrbSignUp);
