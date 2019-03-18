@@ -13,5 +13,8 @@ public class Main {
         ClientConfig cc = Json.parseJson();
         LoginWindow loginWindow = new LoginWindow();
         loginWindow.setVisible(true);
+        //Pol soplapolles.
+        //Pol tio ets super tonto.
+        //Pol t'han pres el pel
     }
 }
