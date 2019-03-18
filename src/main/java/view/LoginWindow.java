@@ -15,7 +15,7 @@ public class LoginWindow extends JFrame {
     //Atributs pel Panell de Sign In
     private SignInPanel jpSignIn;
     //Atributs pel Panell de Sign Up
-   private SignUpPanel jpSignUp;
+    private SignUpPanel jpSignUp;
 
 
     public LoginWindow(){
@@ -31,8 +31,7 @@ public class LoginWindow extends JFrame {
         jpCard = new JPanel(clSignInUp);
         createSignInPanel();
         createSignUpPanel();
-        clSignInUp.show(jpCard, "SIGN IN");  //Per a veure la de SIGN UP escriure aqui SIGN UP
-        resizeWindow("SIGN IN");    //I aqui
+        changePanel("SIGN IN");
         getContentPane().add(jpCard);
     }
 
@@ -65,6 +64,14 @@ public class LoginWindow extends JFrame {
         getContentPane().add(jpLoginOption, BorderLayout.NORTH);
     }
 
+    public SignInPanel getSignInPanel() {
+        return jpSignIn;
+    }
+
+    public SignUpPanel getSignUpPanel() {
+        return jpSignUp;
+    }
+
     private void createSignInPanel(){
         jpSignIn = new SignInPanel(clSignInUp);
         //Gestiono el panell pel CardLayout
@@ -88,9 +95,9 @@ public class LoginWindow extends JFrame {
 
     /**
      * Metode que fara resize de la finestra en funcio del CardLayout. (Podriem fer un scroll pane??)
-     * @param cardLayoutName
+     * @param cardLayoutName ID del panell a visualitzar. SIGN IN o SIGN UP.
      */
-    public void resizeWindow(String cardLayoutName){
+    private void resizeWindow(String cardLayoutName){
         if(cardLayoutName.equals("SIGN IN")){
             setSize(300, 300);
         }else{
@@ -168,4 +175,12 @@ public class LoginWindow extends JFrame {
         return jpSignUp.isPremium();
     }
 
+    /**
+     * Funció encarregada de mostrar un warning amb un missatge personalitzat.
+     *
+     * @param m Missatge que s'ha de mostrar al warning.
+     */
+    public void showWarning(String m) {
+        JOptionPane.showMessageDialog(null, m,"Warning", JOptionPane.WARNING_MESSAGE);
+    }
 }

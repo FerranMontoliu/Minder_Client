@@ -1,3 +1,4 @@
+import controller.LoginController;
 import view.LoginWindow;
 import model.ClientConfig;
 import model.Json;
@@ -11,11 +12,9 @@ public class Main {
      */
     public static void main(String[] args) {
         ClientConfig cc = Json.parseJson();
-        LoginWindow loginWindow = new LoginWindow();
-        loginWindow.setVisible(true);
-        //Pol soplapolles.
-        //Pol tio ets super tonto.
-        //Pol t'han pres el pel
-        //Puta ovella
+        LoginWindow w = new LoginWindow();
+        LoginController c = new LoginController(w);
+        w.registrarControlador(c);
+        w.setVisible(true);
     }
 }

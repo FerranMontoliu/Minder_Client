@@ -11,7 +11,7 @@ import java.util.Base64;
 
 public class User {
     private String username;
-    private int age;
+    private String age;
     private boolean premium;
     private String mail;
     private String password;
@@ -33,7 +33,7 @@ public class User {
      * Constructor que es crida quan es registra l'usuari.
      *
      **/
-    public User(String username, int age, boolean premium, String mail, String password, String passwordConfirmation) {
+    public User(String username, String age, boolean premium, String mail, String password, String passwordConfirmation) {
         this.username = username;
         this.age = age;
         this.premium = premium;
@@ -43,12 +43,12 @@ public class User {
     }
 
     /**
-     * Funció que s'encarrega de comprovar si totes les dades introduïdes són correctes.
+     * Constructor que es crida quan l'usuari fa login.
      *
-     * @return Retorna true si és major totes les dades són correctes, false sinó.
-     */
-    public boolean dataIsCorrect() {
-        return !usernameEmpty() && isAdult() && mailCorrectFormat() && passwordIsCorrect();
+     **/
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     /**
@@ -57,7 +57,13 @@ public class User {
      * @return Retorna true si es major d'edat, false sino.
      */
     public boolean isAdult() {
-        return age > 17;
+        int a = 0;
+        try {
+            a = Integer.parseInt(age);
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return a > 17;
     }
 
     /**
@@ -71,26 +77,12 @@ public class User {
     }
 
     /**
-     * Funcio que s'encarrega de comprovar si el camp del nom d'usuari esta buit.
-     *
-     * @return Retorna true si esta buit, false sino.
-     */
-    public boolean usernameEmpty() {
-        return username.isEmpty();
-    }
-
-    /**
      * Funcio que s'encarrega de comprovar si la password concorda amb el camp de confirmacio de password.
      *
-     * @return Retorna true si concorda i no esta buit, false sino.
+     * @return Retorna true si concorda, false sino.
      */
     public boolean passwordConfirm() {
-        //Si el camp de password no està buit, comprovar si coincideix:
-        if(!password.isEmpty()) {
-            return password.equals(passwordConfirmation);
-        }
-        //Si el camp de password està buit, retornar false:
-        return false;
+        return password.equals(passwordConfirmation);
     }
 
     /**
@@ -131,7 +123,13 @@ public class User {
      * @return Retorna un int que conté l'edat de l'usuari.
      */
     public int getAge() {
-        return age;
+        int a = 0;
+        try {
+            a = Integer.parseInt(age);
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return a;
     }
 
     /**

@@ -250,11 +250,30 @@ public class SignUpPanel extends JPanel {
      * Metode que retorna el contingut del JTextField Password (0) i ConfirmPassword (1)
      * @return array de 2 Strings que conte la Password (0) i la ConfirmPassword(1).
      */
-    public String[] getPasswordFields(){
+    public String[] getPasswordFields() {
         String[] passwords = new String[2];
         passwords[0] = String.valueOf(jtfNewPassword.getPassword());
         passwords[1] = String.valueOf(jtfNewPasswordConfirm.getPassword());
-
         return  passwords;
+    }
+
+    public JTextField getJtfNewUsername() {
+        return jtfNewUsername;
+    }
+
+    public JPasswordField getJtfNewPassword() {
+        return jtfNewPassword;
+    }
+
+    public JPasswordField getJtfNewPasswordConfirm() {
+        return jtfNewPasswordConfirm;
+    }
+
+    public JTextField getJtfEmail() {
+        return jtfEmail;
+    }
+
+    public JTextField getJtfAge() {
+        return jtfAge;
     }
 }

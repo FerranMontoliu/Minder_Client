@@ -38,6 +38,14 @@ public class SignInPanel extends JPanel {
 
     }
 
+    public JTextField getJtfUsername() {
+        return jtfUsername;
+    }
+
+    public JPasswordField getJtfPassword() {
+        return jtfPassword;
+    }
+
     private void createUsernameField(){
         //JPanel Username: Label i TextField.
         JPanel jpUsername = new JPanel();
