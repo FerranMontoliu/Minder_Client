@@ -94,6 +94,13 @@ public class SignInPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    public void regsitrarControlador(/**Controlador c***/){
+        jcbShowPassword.addActionListener(c);
+        jcbShowPassword.setActionCommand("SHOW-IN");
+        jbSignIn.addActionListener(c);
+        jbSignIn.setActionCommand("SIGN IN");
+    }
+
     /**
      * Metode que mostra o amaga la Password en funcio de si el CheckBox exta seleccionat o no.
      */

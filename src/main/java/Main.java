@@ -16,5 +16,6 @@ public class Main {
         //Pol soplapolles.
         //Pol tio ets super tonto.
         //Pol t'han pres el pel
+        //Puta ovella
     }
 }
