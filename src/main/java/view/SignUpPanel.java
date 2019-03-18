@@ -1,5 +1,7 @@
 package view;
 
+import controller.LoginController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,6 +16,7 @@ public class SignUpPanel extends JPanel {
     private JTextField jtfEmail;
     private JTextField jtfAge;
     private JButton jbSignUp;
+
 
     public SignUpPanel(CardLayout clSignInUp){
         super(clSignInUp);
@@ -190,6 +193,14 @@ public class SignUpPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+
+    public void regsitrarControlador(LoginController c){  //Flta el controlador com a parametre
+        jcbShowPassword.addActionListener(c);
+        jcbShowPassword.setActionCommand("SHOW-UP");
+        jbSignUp.addActionListener(c);
+        jbSignUp.setActionCommand("SIGN UP");
+    }
+
     /**
      * Metode que mostra o amaga la Password en funcio de si el CheckBox exta seleccionat o no.
      */
@@ -203,4 +214,47 @@ public class SignUpPanel extends JPanel {
         }
     }
 
+    /**
+     * Metode que retorna el contingut del JTextField Username
+     * @return Username introduit
+     */
+    public String getUsername(){
+        return jtfNewUsername.getText();
+    }
+
+    /**
+     * Metode que retorna el contingut del JTextField Email
+     * @return email introduit
+     */
+    public String getEmailField(){
+        return jtfEmail.getText();
+    }
+
+    /**
+     * Metode que retorna el contingut del JTextField Edat
+     * @return Edat introduida
+     */
+    public String getAgeField(){
+        return jtfAge.getText();
+    }
+
+    /**
+     * Metode que indica si l'usuari ha marcat ser premium o no.
+     * @return boolean que indica si l'usuari ha marcat ser premium.
+     */
+    public boolean isPremium(){
+        return jrbPremium.isSelected();
+    }
+
+    /**
+     * Metode que retorna el contingut del JTextField Password (0) i ConfirmPassword (1)
+     * @return array de 2 Strings que conte la Password (0) i la ConfirmPassword(1).
+     */
+    public String[] getPasswordFields(){
+        String[] passwords = new String[2];
+        passwords[0] = String.valueOf(jtfNewPassword.getPassword());
+        passwords[1] = String.valueOf(jtfNewPasswordConfirm.getPassword());
+
+        return  passwords;
+    }
 }

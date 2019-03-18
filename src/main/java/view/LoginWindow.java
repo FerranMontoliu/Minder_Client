@@ -1,5 +1,7 @@
 package view;
 
+import controller.LoginController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,6 +22,7 @@ public class LoginWindow extends JFrame {
 
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(200, 150));
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome to Minder");
 
@@ -28,10 +31,9 @@ public class LoginWindow extends JFrame {
         jpCard = new JPanel(clSignInUp);
         createSignInPanel();
         createSignUpPanel();
-        clSignInUp.show(jpCard, "SIGN UP");  //Per a veure la de SIGN UP escriure aqui SIGN UP
-        resizeWindow("SIGN UP");    //I aqui
+        clSignInUp.show(jpCard, "SIGN IN");  //Per a veure la de SIGN UP escriure aqui SIGN UP
+        resizeWindow("SIGN IN");    //I aqui
         getContentPane().add(jpCard);
-
     }
 
     private void createHeader(){
@@ -84,12 +86,86 @@ public class LoginWindow extends JFrame {
         resizeWindow(cardLayoutName);
     }
 
+    /**
+     * Metode que fara resize de la finestra en funcio del CardLayout. (Podriem fer un scroll pane??)
+     * @param cardLayoutName
+     */
     public void resizeWindow(String cardLayoutName){
         if(cardLayoutName.equals("SIGN IN")){
             setSize(300, 300);
         }else{
-            setSize(300, 400);
+            setSize(300, 500);
         }
+    }
+
+    /**
+     * Metode que registra els ActionListeners als components de la LoginWindow
+     * @param c Controlador
+     */
+    public void registrarControlador(LoginController c){
+        jpSignIn.regsitrarControlador(c);
+        jpSignUp.regsitrarControlador(c);
+        jrbSignIn.addActionListener(c);
+        jrbSignIn.setActionCommand("SIGN-IN-JRB");
+        jrbSignUp.addActionListener(c);
+        jrbSignUp.setActionCommand("SIGN-UP-JRB");
+    }
+
+    /**
+     * Metode que retorna el contingut del JTextField Username de Sign In
+     * @return Username introduit
+     */
+    public String getSingInUsername(){
+        return jpSignIn.getUsername();
+    }
+
+    /**
+     * Metode que retorna el contingut del JTextField Username de Sign Up
+     * @return Username introduit
+     */
+    public String getSingUpUsername(){
+        return jpSignUp.getUsername();
+    }
+
+    /**
+     * Metode que retorna la contrasenya introduida per l'usuari al Sign In.
+     * @return contrasenya introduida.
+     */
+    public String getSignInPassword(){
+        return jpSignIn.getPassword();
+    }
+
+
+    /**
+     * Metode que retorna el contingut del JTextField Password (0) i ConfirmPassword (1) de Sign Up
+     * @return array de 2 Strings que conte la Password (0) i la ConfirmPassword(1).
+     */
+    public String[] getSignUpPasswords(){
+        return jpSignUp.getPasswordFields();
+    }
+
+    /**
+     * Metode que retorna el contingut del JTextField Email de Sign Up
+     * @return email introduit
+     */
+    public String getSignUpEmail(){
+        return jpSignUp.getEmailField();
+    }
+
+    /**
+     * Metode que retorna el contingut del JTextField Edat de Sign Up
+     * @return Edat introduida
+     */
+    public String getSignUpAgeField(){
+        return jpSignUp.getAgeField();
+    }
+
+    /**
+     * Metode que indica si l'usuari ha marcat ser premium o no al Sign Up.
+     * @return boolean que indica si l'usuari ha marcat ser premium.
+     */
+    public boolean isPremiumSignUp(){
+        return jpSignUp.isPremium();
     }
 
 }

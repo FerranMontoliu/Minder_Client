@@ -54,16 +54,16 @@ public class User {
     /**
      * Funció que s'encarrega de comprovar si l'usuari és major d'edat o no.
      *
-     * @return Retorna true si és major d'edat, false sinó.
+     * @return Retorna true si es major d'edat, false sino.
      */
     public boolean isAdult() {
         return age > 17;
     }
 
     /**
-     * Funció que s'encarrega de comprovar si el format del mail és correcte o no.
+     * Funcio que s'encarrega de comprovar si el format del mail es correcte o no.
      *
-     * @return Retorna true si el format és correcte, false sinó.
+     * @return Retorna true si el format es correcte, false sino.
      */
     public boolean mailCorrectFormat() {
         EmailValidator v = EmailValidator.getInstance();
@@ -71,18 +71,18 @@ public class User {
     }
 
     /**
-     * Funció que s'encarrega de comprovar si el camp del nom d'usuari està buit.
+     * Funcio que s'encarrega de comprovar si el camp del nom d'usuari esta buit.
      *
-     * @return Retorna true si està buit, false sinó.
+     * @return Retorna true si esta buit, false sino.
      */
     public boolean usernameEmpty() {
         return username.isEmpty();
     }
 
     /**
-     * Funció que s'encarrega de comprovar si la password concorda amb el camp de confirmació de password.
+     * Funcio que s'encarrega de comprovar si la password concorda amb el camp de confirmacio de password.
      *
-     * @return Retorna true si concorda i no està buit, false sinó.
+     * @return Retorna true si concorda i no esta buit, false sino.
      */
     public boolean passwordConfirm() {
         //Si el camp de password no està buit, comprovar si coincideix:

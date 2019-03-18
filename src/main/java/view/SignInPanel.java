@@ -1,5 +1,7 @@
 package view;
 
+import controller.LoginController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -94,7 +96,7 @@ public class SignInPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
-    public void regsitrarControlador(/**Controlador c***/){
+    public void regsitrarControlador(LoginController c){  //Flta el controlador com a parametre
         jcbShowPassword.addActionListener(c);
         jcbShowPassword.setActionCommand("SHOW-IN");
         jbSignIn.addActionListener(c);
@@ -110,5 +112,17 @@ public class SignInPanel extends JPanel {
         } else {
             jtfPassword.setEchoChar('*');
         }
+    }
+
+    /**
+     * Metode que retorna la contrasenya introduida per l'usuari al Sign In.
+     * @return contrasenya introduida.
+     */
+    public String getPassword(){
+        return String.valueOf(jtfPassword.getPassword());
+    }
+
+    public String getUsername(){
+        return jtfUsername.getText();
     }
 }

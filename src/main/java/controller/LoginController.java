@@ -16,7 +16,7 @@ public class LoginController implements ActionListener {
             case "SIGN-UP-JRB":
                 break;
 
-            case "SHOW-PW":
+            case "SHOW-PW":  //En principi n'hi ha un pel sign in i un pel sign up
                 break;
 
             case "LOG-IN":
