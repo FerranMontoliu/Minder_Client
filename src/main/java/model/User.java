@@ -1,8 +1,8 @@
 package model;
-/*
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.validator.routines.EmailValidator;
-*/
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -47,10 +47,10 @@ public class User {
      *
      * @return Retorna true si és major totes les dades són correctes, false sinó.
      */
-  /*  public boolean dataIsCorrect() {
+    public boolean dataIsCorrect() {
         return !usernameEmpty() && isAdult() && mailCorrectFormat() && passwordIsCorrect();
     }
-*/
+
     /**
      * Funció que s'encarrega de comprovar si l'usuari és major d'edat o no.
      *
@@ -65,11 +65,11 @@ public class User {
      *
      * @return Retorna true si el format és correcte, false sinó.
      */
-   /* public boolean mailCorrectFormat() {
+    public boolean mailCorrectFormat() {
         EmailValidator v = EmailValidator.getInstance();
         return v.isValid(mail);
     }
-*/
+
     /**
      * Funció que s'encarrega de comprovar si el camp del nom d'usuari està buit.
      *
@@ -241,7 +241,7 @@ public class User {
     public ArrayList<User> getMatch() {
         return match;
     }
-/*
+
     public String imageToBase64() {
         String s = null;
         try {
@@ -258,5 +258,5 @@ public class User {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }
