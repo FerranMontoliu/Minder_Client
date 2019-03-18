@@ -14,5 +14,6 @@ public class Main {
         LoginWindow loginWindow = new LoginWindow();
         loginWindow.setVisible(true);
         //Pol soplapolles.
+        //Pol tio ets super tonto.
     }
 }
