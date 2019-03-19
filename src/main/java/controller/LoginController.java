@@ -22,10 +22,12 @@ public class LoginController implements ActionListener {
 
         switch (actionCommand) {
             case "SIGN-IN-JRB":
+                w.cleanSignInPanel();
                 w.changePanel("SIGN IN");
                 break;
 
             case "SIGN-UP-JRB":
+                w.cleanSignUpPanel();
                 w.changePanel("SIGN UP");
                 break;
 
@@ -39,14 +41,14 @@ public class LoginController implements ActionListener {
 
             case "SIGN IN":
                 u = new User(w.getSingInUsername(), w.getSignInPassword());
-                if(w.getSingInUsername().isEmpty()) {
+                if(u.getUsername().isEmpty()) {
                     w.showWarning("El camp del nom no pot estar buit!");
-                    w.getSignInPanel().getJtfUsername().requestFocus();
+                    w.focusUserIn();
                     break;
                 }
-                if(w.getSignInPassword().isEmpty()) {
+                if(u.getPassword().isEmpty()) {
                     w.showWarning("El camp de password no pot estar buit!");
-                    w.getSignInPanel().getJtfPassword().requestFocus();
+                    w.focusPasswordIn();
                     break;
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
@@ -54,49 +56,56 @@ public class LoginController implements ActionListener {
 
             case "SIGN UP":
                 u = new User(w.getSingUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
-                if(w.getSingUpUsername().isEmpty()) {
+                if(u.getUsername().isEmpty()) {
                     w.showWarning("El camp del nom no pot estar buit!");
-                    w.getSignUpPanel().getJtfNewUsername().requestFocus();
+                    w.focusUserUp();
                     break;
                 }
-                if(w.getSignUpPasswords()[0].isEmpty()) {
+                if(u.getPassword().isEmpty()) {
                     w.showWarning("El camp de password no pot estar buit!");
-                    w.getSignUpPanel().getJtfNewPassword().requestFocus();
+                    w.focusPasswordUp();
                     break;
                 }
                 if(!u.passwordCorrectFormat()) {
                     w.showWarning("La teva password ha de contenir al menys una majúscula, una minúscula, un número i tenir 8 o més caràcters!");
-                    w.getSignUpPanel().getJtfNewPassword().requestFocus();
+                    w.focusPasswordUp();
                     break;
                 }
-                if(w.getSignUpPasswords()[1].isEmpty()) {
+                if(u.getPasswordConfirmation().isEmpty()) {
                     w.showWarning("El camp de confirmació de password no pot estar buit!");
-                    w.getSignUpPanel().getJtfNewPasswordConfirm().requestFocus();
+                    w.focusPasswordConfirmUp();
                     break;
                 }
                 if(!u.passwordConfirm()) {
                     w.showWarning("El camp de confirmació de password no coincideix amb el de password!");
-                    w.getSignUpPanel().getJtfNewPasswordConfirm().requestFocus();
+                    w.focusPasswordConfirmUp();
                     break;
                 }
-                if(w.getSignUpEmail().isEmpty()) {
+                if(u.getMail().isEmpty()) {
                     w.showWarning("El camp del mail no pot estar buit!");
-                    w.getSignUpPanel().getJtfEmail().requestFocus();
+                    w.focusMailUp();
                     break;
                 }
                 if(!u.mailCorrectFormat()) {
                     w.showWarning("El mail ha de tenir un format correcte!");
-                    w.getSignUpPanel().getJtfEmail().requestFocus();
+                    w.focusMailUp();
                     break;
                 }
                 if(w.getSignUpAgeField().isEmpty()) {
                     w.showWarning("El camp de l'edat no pot estar buit!");
-                    w.getSignUpPanel().getJtfAge().requestFocus();
+                    w.focusAgeUp();
                     break;
                 }
-                if(!u.isAdult()) {
-                    w.showWarning("L'edat ha de ser un número enter major a 17!");
-                    w.getSignUpPanel().getJtfAge().requestFocus();
+                try {
+                    boolean a = u.isAdult();
+                    if(!a) {
+                        w.showWarning("L'edat ha de ser un número enter major a 17!");
+                        w.focusAgeUp();
+                        break;
+                    }
+                } catch(NumberFormatException e1) {
+                    w.showWarning("L'edat ha de ser un número enter!");
+                    w.focusAgeUp();
                     break;
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.

@@ -56,14 +56,8 @@ public class User {
      *
      * @return Retorna true si es major d'edat, false sino.
      */
-    public boolean isAdult() {
-        int a = 0;
-        try {
-            a = Integer.parseInt(age);
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return a > 17;
+    public boolean isAdult() throws NumberFormatException {
+        return Integer.parseInt(age) > 17;
     }
 
     /**
@@ -157,6 +151,10 @@ public class User {
      */
     public String getPassword() {
         return password;
+    }
+
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
     }
 
     /**

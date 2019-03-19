@@ -183,4 +183,40 @@ public class LoginWindow extends JFrame {
     public void showWarning(String m) {
         JOptionPane.showMessageDialog(null, m,"Warning", JOptionPane.WARNING_MESSAGE);
     }
+
+    public void focusUserIn() {
+        jpSignIn.getJtfUsername().requestFocus();
+    }
+
+    public void focusPasswordIn() {
+        jpSignIn.getJtfPassword().requestFocus();
+    }
+
+    public void focusUserUp() {
+        jpSignUp.getJtfNewUsername().requestFocus();
+    }
+
+    public void focusPasswordUp() {
+        jpSignUp.getJtfNewPassword().requestFocus();
+    }
+
+    public void focusPasswordConfirmUp() {
+        jpSignUp.getJtfNewPasswordConfirm().requestFocus();
+    }
+
+    public void focusMailUp() {
+        jpSignUp.getJtfEmail().requestFocus();
+    }
+
+    public void focusAgeUp() {
+        jpSignUp.getJtfAge().requestFocus();
+    }
+
+    public void cleanSignInPanel() {
+        jpSignIn.clean();
+    }
+
+    public void cleanSignUpPanel() {
+        jpSignUp.clean();
+    }
 }

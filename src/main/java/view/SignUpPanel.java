@@ -83,6 +83,7 @@ public class SignUpPanel extends JPanel {
         jtfNewPassword = new JPasswordField(15);
         jtfNewPassword.setMaximumSize(jtfNewPassword.getPreferredSize());
         jpPasswords.add(jtfNewPassword);
+        jtfNewPassword.setEchoChar('*');
         jpPasswords.add(Box.createVerticalStrut(5));
 
         JLabel jlConfirmPassword = new JLabel("Confirm Password: ");
@@ -94,6 +95,7 @@ public class SignUpPanel extends JPanel {
 
         jtfNewPasswordConfirm = new JPasswordField(15);
         jtfNewPasswordConfirm.setMaximumSize(jtfNewPasswordConfirm.getPreferredSize());
+        jtfNewPasswordConfirm.setEchoChar('*');
         jpPasswords.add(jtfNewPasswordConfirm);
 
         JPanel jpShowPassword = new JPanel(new BorderLayout());
@@ -254,7 +256,7 @@ public class SignUpPanel extends JPanel {
         String[] passwords = new String[2];
         passwords[0] = String.valueOf(jtfNewPassword.getPassword());
         passwords[1] = String.valueOf(jtfNewPasswordConfirm.getPassword());
-        return  passwords;
+        return passwords;
     }
 
     public JTextField getJtfNewUsername() {
@@ -275,5 +277,16 @@ public class SignUpPanel extends JPanel {
 
     public JTextField getJtfAge() {
         return jtfAge;
+    }
+
+    public void clean() {
+        jtfNewUsername.setText("");
+        jtfNewPassword.setText("");
+        jtfNewPasswordConfirm.setText("");
+        jtfEmail.setText("");
+        jtfAge.setText("");
+        jcbShowPassword.setSelected(false);
+        showPassword();
+        jrbNoPremium.setSelected(true);
     }
 }

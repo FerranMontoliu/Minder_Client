@@ -79,6 +79,7 @@ public class SignInPanel extends JPanel {
         jtfPassword = new JPasswordField(15);
         jtfPassword.setMaximumSize(jtfPassword.getPreferredSize());
         jpPassword.add(Box.createVerticalStrut(5));
+        jtfPassword.setEchoChar('*');
         jpPassword.add(jtfPassword);
 
         jcbShowPassword = new JCheckBox("Show Password");
@@ -132,5 +133,12 @@ public class SignInPanel extends JPanel {
 
     public String getUsername(){
         return jtfUsername.getText();
+    }
+
+    public void clean() {
+        jtfUsername.setText("");
+        jtfPassword.setText("");
+        jcbShowPassword.setSelected(false);
+        showPassword();
     }
 }
