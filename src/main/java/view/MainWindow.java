@@ -74,9 +74,12 @@ public class MainWindow extends JFrame{
      * de l'aplicacio
      */
     private void createMenu() {
+        //El JMenuBar es com un panell que agrupa els JMenuItems
         JMenuBar menuBar;
         menuBar = new JMenuBar();
 
+        //un JMenuItem simula un boto que s'inclou al JMenuBar i que canvia el color del text quan aquest es prem, i
+        //permet incloure submenus i iconImages facilment
         menuChat = new JMenuItem("Chat");
 
         menuConnect = new JMenuItem("Connect");
@@ -88,6 +91,8 @@ public class MainWindow extends JFrame{
 
         menuBar.setForeground(new Color(255, 88, 100));
 
+        //L'unic IconImage que ha d'estar seleccionat es el del panell per defecte: ConnectPanel. Tots els altres
+        //han d'estar desseleccionats
         deselectLogout();
         deselectProfile();
         deselectChat();
@@ -124,28 +129,28 @@ public class MainWindow extends JFrame{
      * Es mostra la imatge de color mes clar per a indicar que el Chat no esta seleccionat
      */
     public void deselectChat(){
-        menuChat.setIcon(new ImageIcon("data/chatLight.png"));
+        menuChat.setIcon(new ImageIcon("icons/chatLight.png"));
     }
 
     /**
      * Es mostra la imatge de color mes clar per a indicar que el Profile no esta seleccionat
      */
     public void deselectProfile(){
-        menuProfile.setIcon(new ImageIcon("data/userLight.png"));
+        menuProfile.setIcon(new ImageIcon("icons/userLight.png"));
     }
 
     /**
      * Es mostra la imatge de color mes clar per a indicar que el Connect (la pagina principal) no esta seleccionat
      */
     public void deselectConnect(){
-        menuConnect.setIcon(new ImageIcon("data/minderLight.png"));
+        menuConnect.setIcon(new ImageIcon("icons/minderLight.png"));
     }
 
     /**
      * Es mostra la imatge de color mes clar per a indicar que el Logout no esta seleccionat
      */
     public void deselectLogout(){
-        menuLogout.setIcon(new ImageIcon("data/logoutLight.png"));
+        menuLogout.setIcon(new ImageIcon("icons/logoutLight.png"));
     }
 
     /**
@@ -154,7 +159,7 @@ public class MainWindow extends JFrame{
      */
     public void selectChat(){
         selected = "CHAT";
-        menuChat.setIcon(new ImageIcon("data/chatDark.png"));
+        menuChat.setIcon(new ImageIcon("icons/chatDark.png"));
 
         deselectLogout();
         deselectProfile();
@@ -167,7 +172,7 @@ public class MainWindow extends JFrame{
      */
     public void selectProfile(){
         selected = "PROFILE";
-        menuProfile.setIcon(new ImageIcon("data/userDark.png"));
+        menuProfile.setIcon(new ImageIcon("icons/userDark.png"));
 
         deselectLogout();
         deselectChat();
@@ -180,7 +185,7 @@ public class MainWindow extends JFrame{
      */
     public void selectConnect(){
         selected = "CONNECT";
-        menuConnect.setIcon(new ImageIcon("data/minderDark.png"));
+        menuConnect.setIcon(new ImageIcon("icons/minderDark.png"));
 
         deselectLogout();
         deselectChat();
@@ -193,7 +198,7 @@ public class MainWindow extends JFrame{
      */
     public void selectLogout(){
         selected = "LOGOUT";
-        menuLogout.setIcon(new ImageIcon("data/logoutDark.png"));
+        menuLogout.setIcon(new ImageIcon("icons/logoutDark.png"));
 
         deselectProfile();
         deselectChat();
