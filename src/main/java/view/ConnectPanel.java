@@ -11,5 +11,8 @@ public class ConnectPanel extends JPanel {
 
 
     }
+    /*public void mostraInformacio(){
+
+    }*/
 
 }
