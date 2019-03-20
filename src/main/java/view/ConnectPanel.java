@@ -1,6 +1,5 @@
 package view;
 
-import model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +14,10 @@ public class ConnectPanel extends JPanel {
     private JLabel lblProfilePic;
     private ImageIcon profileIcon;
 
+    /**
+     * Constructor del panell principal de connexions entre usuaris.
+     * @param clMainWindow CardLayout que el contindra i mostrara en cas desitjat
+     */
     public ConnectPanel(CardLayout clMainWindow){
         super(clMainWindow);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //mostrarem els components vesrticalment
@@ -22,23 +25,26 @@ public class ConnectPanel extends JPanel {
         createBottonsOptions();
     }
 
+    /**
+     * Metode que inicialitza els camps de l'usuari per a poder mostrar-los a partir de la base de dades
+     */
     private void createUserSpace() {
         lblProfilename = new JLabel();
         add(lblProfilename);
 
         lblProfilePic = new JLabel();
-        //profileIcon = new ImageIcon("Pictures/WhatsApp Image 2019-02-25 at 11.20.29.jpeg");
-        //setIcon(new ImageIcon("data/chatLight.png"));
-        //lblProfilePic.setIcon(profileIcon);
-
         lblProfilePic.setSize(20, 20);
         add(lblProfilePic);
 
+        showUser();
     }
+
+    /**
+     * Metode que crea el panell de botons inferiors per a donar Like, Dislike, o mostrar mes informacio
+     */
     private void createBottonsOptions(){
         JPanel jpButtons = new JPanel();
-        jpButtons.setLayout(new BoxLayout(jpButtons, BoxLayout.LINE_AXIS));
-
+        jpButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ImageIcon iDislike = new ImageIcon("icons/dislike.png");
         JButton jbDislike = new JButton(iDislike);
@@ -56,15 +62,25 @@ public class ConnectPanel extends JPanel {
         jpButtons.add(jbLike);
 
         add(jpButtons);
-        //this.jPanel1.add(label);
-        //this.setVisible(true);
-        //this.jPanel1.revalidate();
-        //this.repaint();
+
     }
 
-    private void showUser(User user){
-        lblProfilename.setText(user.getUsername()+ " ," + user.getAge());
-        lblProfilePic.setIcon((Icon)user.getPhoto());
+    /**
+     * TEMPORAL: metode que mostra l'usuari desitjat des del controlador per tal de mostrar les seves dades: Nom, edat,
+     * i fotografia de perfil
+     */
+    //public void showUser(User user){
+        //lblProfilename.setText(user.getUsername()+ " ," + user.getAge());
+        //lblProfilePic.setIcon((Icon)user.getPhoto());
+    public void showUser(){
+        lblProfilename.setText("Pol Espurnes"+ " ," + "19");
+        lblProfilename.setFont(new Font(Font.DIALOG,  Font.ROMAN_BASELINE, 15));
+        lblProfilename.setHorizontalAlignment(SwingConstants.CENTER);
+        lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 50, 0, 0));
+
+        lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
+        lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
+        lblProfilePic.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 40));
     }
 
 

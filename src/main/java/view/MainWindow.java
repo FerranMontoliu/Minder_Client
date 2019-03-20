@@ -64,7 +64,7 @@ public class MainWindow extends JFrame{
      */
     private void windowPreferences() {
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(400, 150));
+        setMinimumSize(new Dimension(420, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Minder");
     }
