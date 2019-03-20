@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class Json {
+
     /**
      * Funció encarregada de parsejar el Json per a extreure'n la informació.
      *

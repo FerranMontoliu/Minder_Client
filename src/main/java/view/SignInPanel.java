@@ -6,12 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SignInPanel extends JPanel {
-    public static final Color BG_COLOR = new Color(255, 101, 91);
+    private static final Color BG_COLOR = new Color(255, 101, 91);
     private JTextField jtfUsername;
     private JPasswordField jtfPassword;
     private JCheckBox jcbShowPassword;
     private JButton jbSignIn;
 
+    /**
+     * Constructor del panell de Sign-In.
+     *
+     */
     public SignInPanel(CardLayout clSignInUp){
         super(clSignInUp);
         setBackground(BG_COLOR);
@@ -22,6 +26,10 @@ public class SignInPanel extends JPanel {
         createButtons();
     }
 
+    /**
+     * Mètode que afegeix la capçalera de la pantalla.
+     *
+     */
     private void createTitle(){
         JPanel jpTitle = new JPanel();
         jpTitle.setLayout(new BoxLayout(jpTitle, BoxLayout.Y_AXIS));
@@ -38,14 +46,28 @@ public class SignInPanel extends JPanel {
 
     }
 
+    /**
+     * Getter del nom d'usuari.
+     *
+     * @return Retorna un String que conté el contingut del camp del nom d'usuari.
+     */
     public JTextField getJtfUsername() {
         return jtfUsername;
     }
 
+    /**
+     * Getter de la password.
+     *
+     * @return Retorna un String que conté el contingut del camp de la password de l'usuari.
+     */
     public JPasswordField getJtfPassword() {
         return jtfPassword;
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el lloc on l'usuari fica el seu nom.
+     *
+     */
     private void createUsernameField(){
         //JPanel Username: Label i TextField.
         JPanel jpUsername = new JPanel();
@@ -65,6 +87,10 @@ public class SignInPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el lloc on l'usuari fica la seva password.
+     *
+     */
     private void createPasswordField(){
         //JPanel Password: Label i Password Text Field
         JPanel jpPassword = new JPanel();
@@ -92,6 +118,10 @@ public class SignInPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el botó de Sign In.
+     *
+     */
     private void createButtons(){
         //JPanel Buttons: Buttons Show Password i Sign In
         JPanel jpButtons = new JPanel(new FlowLayout());
@@ -105,6 +135,11 @@ public class SignInPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Mètode encarregat de registrar el controlador associat a aquesta vista.
+     *
+     * @param c  Controlador de la pantalla de Log-In.
+     */
     public void regsitrarControlador(LoginController c){  //Flta el controlador com a parametre
         jcbShowPassword.addActionListener(c);
         jcbShowPassword.setActionCommand("SHOW-IN");
@@ -131,10 +166,18 @@ public class SignInPanel extends JPanel {
         return String.valueOf(jtfPassword.getPassword());
     }
 
+    /**
+     * Metode que retorna el nom introduït per l'usuari al Sign In.
+     * @return nom introduït per l'usuari.
+     */
     public String getUsername(){
         return jtfUsername.getText();
     }
 
+    /**
+     * Mètode encarregat de netejar tots els camps del panell de Sign-In.
+     *
+     */
     public void clean() {
         jtfUsername.setText("");
         jtfPassword.setText("");

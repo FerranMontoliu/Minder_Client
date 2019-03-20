@@ -153,6 +153,11 @@ public class User {
         return password;
     }
 
+    /**
+     * Getter de la confirmació de password de l'usuari.
+     *
+     * @return Retorna un String que conté la confirmació de la password de l'usuari.
+     */
     public String getPasswordConfirmation() {
         return passwordConfirmation;
     }
@@ -238,6 +243,11 @@ public class User {
         return match;
     }
 
+    /**
+     * Funció encarregada de transformar una imatge a text.
+     *
+     * @return Retorna el text en Base64 que representa la imatge.
+     */
     public String imageToBase64() {
         String s = null;
         try {
@@ -248,6 +258,11 @@ public class User {
         return s;
     }
 
+    /**
+     * Mètode encarregat de reconstruir una imatge a partir d'un String.
+     *
+     * @param encodedString String que conté la imatge codificada en Base64.
+     */
     public void base64ToImage(String encodedString) {
         try {
             FileUtils.writeByteArrayToFile(new File("data/imageConverted.jpg"), Base64.getDecoder().decode(encodedString));

@@ -9,6 +9,10 @@ public class MenuController implements ActionListener {
     private MainWindow mainWindow;
 
 
+    /**
+     * Constructor del controlador associat a la pantalla principal del programa.
+     *
+     */
     public MenuController(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
@@ -20,25 +24,25 @@ public class MenuController implements ActionListener {
         switch (actionCommand) {
             case "CHAT":
 
-                if (!mainWindow.isSelected("CHAT")){
+                if(!mainWindow.isSelected("CHAT")) {
                     mainWindow.selectChat();
                 }
                 break;
 
             case "CONNECT":
-                if (!mainWindow.isSelected("CONNECT")){
+                if(!mainWindow.isSelected("CONNECT")) {
                     mainWindow.selectConnect();
                 }
                 break;
 
             case "PROFILE":
-                if (!mainWindow.isSelected("PROFILE")){
+                if(!mainWindow.isSelected("PROFILE")) {
                     mainWindow.selectProfile();
                 }
                 break;
 
             case "LOGOUT":
-                if (!mainWindow.isSelected("LOGOUT")){
+                if(!mainWindow.isSelected("LOGOUT")) {
                     mainWindow.selectLogout();
                 }
                 break;

@@ -17,7 +17,10 @@ public class LoginWindow extends JFrame {
     //Atributs pel Panell de Sign Up
     private SignUpPanel jpSignUp;
 
-
+    /**
+     * Constructor de la pantalla on l'usuari pot fer Sign-In o Sign-Up.
+     *
+     */
     public LoginWindow(){
 
         setLocationRelativeTo(null);
@@ -35,6 +38,10 @@ public class LoginWindow extends JFrame {
         getContentPane().add(jpCard);
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el header de la pantalla.
+     *
+     */
     private void createHeader(){
         //faig un primer panell que englobi el label i el textfield dels talps
         JPanel jpLoginOption = new JPanel();
@@ -64,20 +71,38 @@ public class LoginWindow extends JFrame {
         getContentPane().add(jpLoginOption, BorderLayout.NORTH);
     }
 
+    /**
+     * Getter del JPanel que conté els camps per fer Sign-In.
+     *
+     * @return Retorna el JPanel que conté els camps per fer Sign-In.
+     */
     public SignInPanel getSignInPanel() {
         return jpSignIn;
     }
 
+    /**
+     * Getter del JPanel que conté els camps per fer Sign-Up.
+     *
+     * @return Retorna el JPanel que conté els camps per fer Sign-Up.
+     */
     public SignUpPanel getSignUpPanel() {
         return jpSignUp;
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el panell de Sign-In.
+     *
+     */
     private void createSignInPanel(){
         jpSignIn = new SignInPanel(clSignInUp);
         //Gestiono el panell pel CardLayout
         jpCard.add("SIGN IN", jpSignIn);
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el panell de Sign-Up.
+     *
+     */
     private void createSignUpPanel() {
         jpSignUp = new SignUpPanel(clSignInUp);
         //Gestiono el panell pel CardLayout
@@ -111,7 +136,7 @@ public class LoginWindow extends JFrame {
      */
     public void registrarControlador(LoginController c){
         jpSignIn.regsitrarControlador(c);
-        jpSignUp.regsitrarControlador(c);
+        jpSignUp.registerController(c);
         jrbSignIn.addActionListener(c);
         jrbSignIn.setActionCommand("SIGN-IN-JRB");
         jrbSignUp.addActionListener(c);
@@ -141,7 +166,6 @@ public class LoginWindow extends JFrame {
     public String getSignInPassword(){
         return jpSignIn.getPassword();
     }
-
 
     /**
      * Metode que retorna el contingut del JTextField Password (0) i ConfirmPassword (1) de Sign Up
@@ -184,38 +208,74 @@ public class LoginWindow extends JFrame {
         JOptionPane.showMessageDialog(null, m,"Warning", JOptionPane.WARNING_MESSAGE);
     }
 
+    /**
+     * Mètode encarregat de fer focus al camp on s'introdueix el nom d'usuari en la pantalla de Sign-In.
+     *
+     */
     public void focusUserIn() {
         jpSignIn.getJtfUsername().requestFocus();
     }
 
+    /**
+     * Mètode encarregat de fer focus al camp on s'introdueix la password de l'usuari en la pantalla de Sign-In.
+     *
+     */
     public void focusPasswordIn() {
         jpSignIn.getJtfPassword().requestFocus();
     }
 
+    /**
+     * Mètode encarregat de fer focus al camp on s'introdueix el nom d'usuari en la pantalla de Sign-Up.
+     *
+     */
     public void focusUserUp() {
         jpSignUp.getJtfNewUsername().requestFocus();
     }
 
+    /**
+     * Mètode encarregat de fer focus al camp on s'introdueix la password de l'usuari en la pantalla de Sign-Up.
+     *
+     */
     public void focusPasswordUp() {
         jpSignUp.getJtfNewPassword().requestFocus();
     }
 
+    /**
+     * Mètode encarregat de fer focus al camp on s'introdueix la confirmació de la password de l'usuari en la pantalla de Sign-Up.
+     *
+     */
     public void focusPasswordConfirmUp() {
         jpSignUp.getJtfNewPasswordConfirm().requestFocus();
     }
 
+    /**
+     * Mètode encarregat de fer focus al camp on s'introdueix el mail de l'usuari en la pantalla de Sign-Up.
+     *
+     */
     public void focusMailUp() {
         jpSignUp.getJtfEmail().requestFocus();
     }
 
+    /**
+     * Mètode encarregat de fer focus al camp on s'introdueix l'edat de l'usuari en la pantalla de Sign-Up.
+     *
+     */
     public void focusAgeUp() {
         jpSignUp.getJtfAge().requestFocus();
     }
 
+    /**
+     * Mètode encarregat de netejar tots els camps de la pantalla de Sign-In.
+     *
+     */
     public void cleanSignInPanel() {
         jpSignIn.clean();
     }
 
+    /**
+     * Mètode encarregat de netejar tots els camps de la pantalla de Sign-Up.
+     *
+     */
     public void cleanSignUpPanel() {
         jpSignUp.clean();
     }

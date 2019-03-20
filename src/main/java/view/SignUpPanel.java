@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SignUpPanel extends JPanel {
-    public static final Color BG_COLOR = new Color(255, 101, 91);
+    private static final Color BG_COLOR = new Color(255, 101, 91);
     private JTextField jtfNewUsername;
     private JPasswordField jtfNewPassword;
     private JPasswordField jtfNewPasswordConfirm;
@@ -17,7 +17,10 @@ public class SignUpPanel extends JPanel {
     private JTextField jtfAge;
     private JButton jbSignUp;
 
-
+    /**
+     * Constructor del panell de Sign-Up.
+     *
+     */
     public SignUpPanel(CardLayout clSignInUp){
         super(clSignInUp);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -31,6 +34,10 @@ public class SignUpPanel extends JPanel {
         createSignUp();
     }
 
+    /**
+     * Mètode que afegeix la capçalera de la pantalla.
+     *
+     */
     private void createTitle(){
         JPanel jpTitle = new JPanel();
         jpTitle.setLayout(new BoxLayout(jpTitle, BoxLayout.Y_AXIS));
@@ -47,6 +54,10 @@ public class SignUpPanel extends JPanel {
 
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el camp del nom d'usuari.
+     *
+     */
     private void createUsernameField(){
         //Username
         JPanel jpUsername = new JPanel();
@@ -68,6 +79,10 @@ public class SignUpPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Mètode encarregat de crear i afegir els camps de les passwords.
+     *
+     */
     private void createPasswordFields(){
         //Password and Confirm Password
         JPanel jpPasswords  = new JPanel();
@@ -116,6 +131,10 @@ public class SignUpPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el camp de si l'usuari és Premium o Normal.
+     *
+     */
     private void createPremiumOption(){
         //Premium or Not Premium
         JPanel jpPremiumOption = new JPanel();
@@ -148,6 +167,10 @@ public class SignUpPanel extends JPanel {
         add(Box.createVerticalStrut(20));
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el camp del mail.
+     *
+     */
     private void createEmailField() {
         JPanel jpEmail = new JPanel();
         jpEmail.setLayout(new BoxLayout(jpEmail, BoxLayout.Y_AXIS));
@@ -166,6 +189,10 @@ public class SignUpPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el camp de l'edat.
+     *
+     */
     private void createAgeField(){
         JPanel jpAgeField = new JPanel();
         jpAgeField.setLayout(new BoxLayout(jpAgeField, BoxLayout.Y_AXIS));
@@ -185,6 +212,10 @@ public class SignUpPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
+    /**
+     * Mètode encarregat de crear i afegir el botó de Sign-Up.
+     *
+     */
     private void createSignUp(){
         jbSignUp = new JButton("Sign Up", new ImageIcon("icons/check_icon.png"));
         jbSignUp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -195,8 +226,12 @@ public class SignUpPanel extends JPanel {
         add(Box.createVerticalStrut(10));
     }
 
-
-    public void regsitrarControlador(LoginController c){  //Flta el controlador com a parametre
+    /**
+     * Mètode encarregat de registrar el controlador associat a aquesta vista.
+     *
+     * @param c  Controlador de la pantalla de Log-In.
+     */
+    public void registerController(LoginController c){  //Flta el controlador com a parametre
         jcbShowPassword.addActionListener(c);
         jcbShowPassword.setActionCommand("SHOW-UP");
         jbSignUp.addActionListener(c);
@@ -259,26 +294,55 @@ public class SignUpPanel extends JPanel {
         return passwords;
     }
 
+    /**
+     * Getter del JTextField on l'usuari introdueix el seu nom.
+     *
+     * @return Retorna el JTextField on l'usuari introdueix el seu nom.
+     */
     public JTextField getJtfNewUsername() {
         return jtfNewUsername;
     }
 
+    /**
+     * Getter del JPasswordField on l'usuari introdueix la seva password.
+     *
+     * @return Retorna el JpasswordField on l'usuari introdueix la seva password.
+     */
     public JPasswordField getJtfNewPassword() {
         return jtfNewPassword;
     }
 
+    /**
+     * Getter del JPasswordField on l'usuari introdueix la seva confirmació de password.
+     *
+     * @return Retorna el JPasswordField on l'usuari introdueix la seva confirmació de password.
+     */
     public JPasswordField getJtfNewPasswordConfirm() {
         return jtfNewPasswordConfirm;
     }
 
+    /**
+     * Getter del JTextField on l'usuari introdueix el seu mail.
+     *
+     * @return Retorna el JTextField on l'usuari introdueix el seu mail.
+     */
     public JTextField getJtfEmail() {
         return jtfEmail;
     }
 
+    /**
+     * Getter del JTextField on l'usuari introdueix la seva edat.
+     *
+     * @return Retorna el JTextField on l'usuari introdueix la seva edat.
+     */
     public JTextField getJtfAge() {
         return jtfAge;
     }
 
+    /**
+     * Mètode encarregat de netejar tots els camps del panell de Sign-Up.
+     *
+     */
     public void clean() {
         jtfNewUsername.setText("");
         jtfNewPassword.setText("");

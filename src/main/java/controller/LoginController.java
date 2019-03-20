@@ -11,6 +11,10 @@ public class LoginController implements ActionListener {
     private LoginWindow w;
     private User u;
 
+    /**
+     * Constructor del controlador associat a la pantalla de Log-In.
+     *
+     */
     public LoginController(LoginWindow w) {
         this.w = w;
         this.u = null;

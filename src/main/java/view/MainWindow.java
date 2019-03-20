@@ -12,11 +12,19 @@ public class MainWindow extends JFrame{
     private JMenuItem menuProfile;
     private String selected;
 
+    /**
+     * Constructor de la vista de la pantalla principal del programa.
+     *
+     */
     public MainWindow(){
         createMenu();
         windowPreferences();
     }
 
+    /**
+     * Mètode encarregat d'inicialitzar els valors per defecte de la finestra principal.
+     *
+     */
     private void windowPreferences() {
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(400, 150));
@@ -93,7 +101,7 @@ public class MainWindow extends JFrame{
 
     /**
      * Metode que vincula events de cada un dels JMenuItem al controlador del menu
-     * @param controller
+     * @param controller Controlador associat a la vista.
      */
     public void registraController(MenuController controller) {
         menuChat.addActionListener(controller);
@@ -188,7 +196,6 @@ public class MainWindow extends JFrame{
         deselectChat();
         deselectConnect();
     }
-
 
     public boolean isSelected(String menu){
         return menu.equals(selected);
