@@ -1,5 +1,6 @@
 package controller;
 
+import view.ConnectPanel;
 import view.MainWindow;
 
 import java.awt.event.ActionEvent;
@@ -23,7 +24,6 @@ public class MenuController implements ActionListener {
 
         switch (actionCommand) {
             case "CHAT":
-
                 if(!mainWindow.isSelected("CHAT")) {
                     mainWindow.selectChat();
                 }
@@ -33,6 +33,7 @@ public class MenuController implements ActionListener {
                 if(!mainWindow.isSelected("CONNECT")) {
                     mainWindow.selectConnect();
                 }
+
                 break;
 
             case "PROFILE":

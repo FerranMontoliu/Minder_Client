@@ -1,7 +1,11 @@
 import controller.LoginController;
+import controller.MenuController;
 import view.LoginWindow;
 import model.ClientConfig;
 import model.Json;
+import view.MainWindow;
+
+import java.awt.*;
 
 public class Main {
 
@@ -15,6 +19,10 @@ public class Main {
         LoginWindow w = new LoginWindow();
         LoginController c = new LoginController(w);
         w.registrarControlador(c);
-        w.setVisible(true);
+        MainWindow mw = new MainWindow();
+        MenuController mc = new MenuController(mw);
+        mw.registraController(mc);
+        mw.setVisible(true);
+        //w.setVisible(true);
     }
 }
