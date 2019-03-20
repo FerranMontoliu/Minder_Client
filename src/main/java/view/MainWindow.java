@@ -11,6 +11,8 @@ public class MainWindow extends JFrame{
     private JMenuItem menuLogout;
     private JMenuItem menuProfile;
     private String selected;
+    private JPanel panelSelected;
+
 
     public MainWindow(){
         createMenu();
@@ -54,6 +56,7 @@ public class MainWindow extends JFrame{
         menuBar.add(menuLogout);
 
         getContentPane().add(menuBar, BorderLayout.PAGE_START);
+
     }
 
     /*private void setMinderBackground() {
