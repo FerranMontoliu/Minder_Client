@@ -61,17 +61,17 @@ public class SignUpPanel extends JPanel {
     private void createUsernameField(){
         //Username
         JPanel jpUsername = new JPanel();
-        jpUsername.setLayout(new BoxLayout(jpUsername, BoxLayout.Y_AXIS));
+        jpUsername.setLayout(new FlowLayout());
         jpUsername.setBackground(BG_COLOR);
 
-        JLabel jlUsername = new JLabel("Username: ");
-        jlUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel jlUsername = new JLabel("Username:");
+        jlUsername.setHorizontalAlignment(SwingConstants.CENTER);
         jlUsername.setForeground(Color.white);
 
         jpUsername.add(jlUsername);
         jtfNewUsername = new JTextField(15);
         jtfNewUsername.setMaximumSize(jtfNewUsername.getPreferredSize());
-        jpUsername.add(Box.createVerticalStrut(5));
+        jtfNewUsername.setAlignmentX(CENTER_ALIGNMENT);
         jpUsername.add(jtfNewUsername);
 
         //Afegim tot allo que hem creat
@@ -86,32 +86,32 @@ public class SignUpPanel extends JPanel {
     private void createPasswordFields(){
         //Password and Confirm Password
         JPanel jpPasswords  = new JPanel();
-        jpPasswords.setLayout(new BoxLayout(jpPasswords, BoxLayout.Y_AXIS));
+        jpPasswords.setLayout(new FlowLayout());
         jpPasswords.setBackground(BG_COLOR);
 
-        JLabel jlPassword = new JLabel("Password: ");
-        jlPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel jlPassword = new JLabel("Password:");
+        jlPassword.setHorizontalAlignment(SwingConstants.CENTER);
         jlPassword.setForeground(Color.white);
         jpPasswords.add(jlPassword);
-        jpPasswords.add(Box.createVerticalStrut(5));
+
 
         jtfNewPassword = new JPasswordField(15);
         jtfNewPassword.setMaximumSize(jtfNewPassword.getPreferredSize());
         jpPasswords.add(jtfNewPassword);
         jtfNewPassword.setEchoChar('*');
-        jpPasswords.add(Box.createVerticalStrut(5));
 
-        JLabel jlConfirmPassword = new JLabel("Confirm Password: ");
-        jlConfirmPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel jpConfirm = new JPanel(new FlowLayout());
+        jpConfirm.setBackground(BG_COLOR);
+        JLabel jlConfirmPassword = new JLabel("Confirm:   ");
+        jlConfirmPassword.setHorizontalAlignment(SwingConstants.CENTER);
         jlConfirmPassword.setForeground(Color.white);
 
-        jpPasswords.add(jlConfirmPassword);
-        jpPasswords.add(Box.createVerticalStrut(5));
+        jpConfirm.add(jlConfirmPassword);
 
         jtfNewPasswordConfirm = new JPasswordField(15);
         jtfNewPasswordConfirm.setMaximumSize(jtfNewPasswordConfirm.getPreferredSize());
         jtfNewPasswordConfirm.setEchoChar('*');
-        jpPasswords.add(jtfNewPasswordConfirm);
+        jpConfirm.add(jtfNewPasswordConfirm);
 
         JPanel jpShowPassword = new JPanel(new BorderLayout());
         jpShowPassword.setBackground(BG_COLOR);
@@ -127,6 +127,7 @@ public class SignUpPanel extends JPanel {
 
         //Afegim tot allo que hem creat
         add(jpPasswords);
+        add(jpConfirm);
         add(jpShowPassword);
         add(Box.createVerticalStrut(10));
     }
@@ -173,11 +174,11 @@ public class SignUpPanel extends JPanel {
      */
     private void createEmailField() {
         JPanel jpEmail = new JPanel();
-        jpEmail.setLayout(new BoxLayout(jpEmail, BoxLayout.Y_AXIS));
+        jpEmail.setLayout(new FlowLayout());
         jpEmail.setBackground(BG_COLOR);
 
-        JLabel jlEmail = new JLabel("Email: ");
-        jlEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel jlEmail = new JLabel("Email:        ");
+        jlEmail.setHorizontalAlignment(SwingConstants.CENTER);
         jlEmail.setForeground(Color.white);
         jpEmail.add(jlEmail);
 
@@ -195,15 +196,14 @@ public class SignUpPanel extends JPanel {
      */
     private void createAgeField(){
         JPanel jpAgeField = new JPanel();
-        jpAgeField.setLayout(new BoxLayout(jpAgeField, BoxLayout.Y_AXIS));
+        jpAgeField.setLayout(new FlowLayout());
         jpAgeField.setBackground(BG_COLOR);
 
-        JLabel jlAge = new JLabel("Age: ");
+        JLabel jlAge = new JLabel("Age:          ");
         jlAge.setAlignmentX(CENTER_ALIGNMENT);
         jlAge.setForeground(Color.white);
 
         jpAgeField.add(jlAge);
-        jpAgeField.add(Box.createVerticalStrut(5));
         jtfAge = new JTextField(15);
         jtfAge.setMaximumSize(jtfAge.getPreferredSize());
         jpAgeField.add(jtfAge);

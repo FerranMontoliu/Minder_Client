@@ -25,7 +25,7 @@ public class LoginWindow extends JFrame {
 
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(200, 150));
-        setResizable(false);
+        //setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome to Minder");
 

@@ -19,7 +19,7 @@ public class SignInPanel extends JPanel {
     public SignInPanel(CardLayout clSignInUp){
         super(clSignInUp);
         setBackground(BG_COLOR);
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         createTitle();
         createUsernameField();
         createPasswordField();
@@ -71,18 +71,18 @@ public class SignInPanel extends JPanel {
     private void createUsernameField(){
         //JPanel Username: Label i TextField.
         JPanel jpUsername = new JPanel();
-        jpUsername.setLayout(new BoxLayout(jpUsername, BoxLayout.Y_AXIS));
+        jpUsername.setLayout(new FlowLayout());
         jpUsername.setBackground(BG_COLOR);
         JLabel jlUsername = new JLabel("Username: ");
-        jlUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlUsername.setHorizontalAlignment(SwingConstants.CENTER);
         jlUsername.setForeground(Color.white);
         jpUsername.add(jlUsername);
 
         jtfUsername = new JTextField(15);
         jtfUsername.setMaximumSize(jtfUsername.getPreferredSize());
-        jpUsername.add(Box.createVerticalStrut(5));
         jpUsername.add(jtfUsername);
 
+        //add(jlUsername);
         add(jpUsername);
         add(Box.createVerticalStrut(10));
     }
@@ -94,11 +94,11 @@ public class SignInPanel extends JPanel {
     private void createPasswordField(){
         //JPanel Password: Label i Password Text Field
         JPanel jpPassword = new JPanel();
-        jpPassword.setLayout(new BoxLayout(jpPassword, BoxLayout.Y_AXIS));
+        jpPassword.setLayout(new FlowLayout());
         jpPassword.setBackground(BG_COLOR);
 
         JLabel jlPassword = new JLabel("Password: ");
-        jlPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlPassword.setHorizontalAlignment(SwingConstants.CENTER);
         jlPassword.setForeground(Color.WHITE);
         jpPassword.add(jlPassword);
 
@@ -113,6 +113,7 @@ public class SignInPanel extends JPanel {
         jcbShowPassword.setForeground(Color.WHITE);
         jcbShowPassword.setBackground(BG_COLOR);
 
+        //add(jlPassword);
         add(jpPassword);
         add(jcbShowPassword);
         add(Box.createVerticalStrut(10));
@@ -176,7 +177,6 @@ public class SignInPanel extends JPanel {
 
     /**
      * Mètode encarregat de netejar tots els camps del panell de Sign-In.
-     *
      */
     public void clean() {
         jtfUsername.setText("");
