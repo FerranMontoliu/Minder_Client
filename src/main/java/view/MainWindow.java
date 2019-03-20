@@ -11,16 +11,51 @@ public class MainWindow extends JFrame{
     private JMenuItem menuLogout;
     private JMenuItem menuProfile;
     private String selected;
-    private JPanel panelSelected;
+    private JPanel jpSelected;
+    private CardLayout clMainWindow;
+    private ConnectPanel jpConnect;
 
 
     /**
-     * Constructor de la vista de la pantalla principal del programa.
-     *
+     * Constructor de la vista de la pantalla principal del programa. Es crea la barra de menú superior i s'inicialitzen
+     * tots els panells que es mostraran a la part central de la pantalla, mostrant unicament al principi la pantalla de
+     * Connect (like o dislike d'usuaris)
      */
     public MainWindow(){
         createMenu();
+        createContentPanels();
         windowPreferences();
+    }
+
+    /**
+     * Metode que crea el CardLayout que permetra mostrar un panell o un altre. Aqui, tambe es creen els panells que
+     * aquest conte, mostrant per defecte el panell Connect.
+     */
+    private void createContentPanels() {
+        clMainWindow = new CardLayout();
+        jpSelected = new JPanel(clMainWindow);
+        createConnectPanel();
+        //aqui crear tants panells com opcions del menu: profile, chat, connect...
+        changePanel("CONNECT");
+        getContentPane().add(jpSelected);
+    }
+
+    /**
+     * Es crida al constructor que inicialitza aquest panell de connexio entre usuaris, mostrant la foto, nom i edat de
+     * l'usuari amb 3 botons: acceptar, declinar o obtenir més informacio
+     */
+    private void createConnectPanel() {
+        jpConnect = new ConnectPanel(clMainWindow);
+        //Gestiono el panell pel CardLayout
+        jpSelected.add("CONNECT", jpConnect);
+    }
+
+    /**
+     * Metode que mostra el panell desitjat pel card layout principal
+     * @param panelName String que conte el nom del panell a mostrar. Poden ser: "CONNECT", "CHAT", "PROFILE" o "LOGOUT"
+     */
+    private void changePanel(String panelName) {
+        clMainWindow.show(jpSelected, panelName);
     }
 
     /**
@@ -66,41 +101,6 @@ public class MainWindow extends JFrame{
         getContentPane().add(menuBar, BorderLayout.PAGE_START);
 
     }
-
-    /*private void setMinderBackground() {
-        //menuChat.setForeground(Color.WHITE);
-        menuChat.setBackground(new Color(255, 88, 100));
-
-        //menuLogout.setForeground(Color.WHITE);
-        menuLogout.setBackground(new Color(255, 88, 100));
-
-        //menuConnect.setForeground(Color.WHITE);
-        menuConnect.setBackground(new Color(255, 88, 100));
-
-        //menuProfile.setForeground(Color.WHITE);
-        menuProfile.setBackground(new Color(255, 88, 100));
-
-        //submenuEditProfile.setForeground(Color.WHITE);
-
-    }*/
-
-    /*public void selectMenuItem(String item){
-        switch (item){
-            case "Connect":
-                menuConnect.setForeground(Color.PINK);
-                break;
-            case "Messenger":
-                menuChat.setForeground(Color.PINK);
-                break;
-            case "Profile":
-                //menuProfile.setForeground(Color.PINK);
-        break;
-        default:
-        menuLogout.setForeground(Color.PINK);
-        break;
-
-        }
-    }*/
 
     /**
      * Metode que vincula events de cada un dels JMenuItem al controlador del menu
