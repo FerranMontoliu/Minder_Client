@@ -32,6 +32,7 @@ public class MenuController implements ActionListener {
             case "CONNECT":
                 if(!mainWindow.isSelected("CONNECT")) {
                     mainWindow.selectConnect();
+                    mainWindow.changePanel("CONNECT");
                 }
 
                 break;
@@ -39,6 +40,7 @@ public class MenuController implements ActionListener {
             case "PROFILE":
                 if(!mainWindow.isSelected("PROFILE")) {
                     mainWindow.selectProfile();
+                    mainWindow.changePanel("PROFILE");
                 }
                 break;
 
