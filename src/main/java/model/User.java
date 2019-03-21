@@ -32,6 +32,27 @@ public class User {
     private ArrayList<User> match;
     private ArrayList<User> acceptedMe;
 
+
+    public User(boolean completed, String username, String age, boolean premium, String mail, String password, String passwordConfirmation, Image photo, String description, boolean likesJava, boolean likesC, String favSong, ArrayList<String> hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
+        this.completed = completed;
+        this.username = username;
+        this.age = age;
+        this.premium = premium;
+        this.mail = mail;
+        this.password = password;
+        this.passwordConfirmation = passwordConfirmation;
+        this.photo = photo;
+        this.description = description;
+        this.likesJava = likesJava;
+        this.likesC = likesC;
+        this.favSong = favSong;
+        this.hobbies = hobbies;
+        this.viewed = viewed;
+        this.accepted = accepted;
+        this.match = match;
+        this.acceptedMe = acceptedMe;
+    }
+
     /**
      * Constructor que es crida quan es registra l'usuari.
      *
@@ -52,26 +73,6 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public User(boolean completed, String username, String age, boolean premium, String mail, String password, String passwordConfirmation, Image photo, String description, boolean likesJava, boolean likesC, String favSong, ArrayList<String> hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
-        this.completed = completed;
-        this.username = username;
-        this.age = age;
-        this.premium = premium;
-        this.mail = mail;
-        this.password = password;
-        this.passwordConfirmation = passwordConfirmation;
-        this.photo = photo;
-        this.description = description;
-        this.likesJava = likesJava;
-        this.likesC = likesC;
-        this.favSong = favSong;
-        this.hobbies = hobbies;
-        this.viewed = viewed;
-        this.accepted = accepted;
-        this.match = match;
-        this.acceptedMe = acceptedMe;
     }
 
     /**
@@ -264,6 +265,10 @@ public class User {
      */
     public ArrayList<User> getMatch() {
         return match;
+    }
+
+    public ArrayList<User> getAcceptedMe() {
+        return acceptedMe;
     }
 
     /**
