@@ -57,11 +57,20 @@ public class LoginController implements ActionListener {
                     break;
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+                //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
+                User user = new User(true, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
                 w.dispose();
-                MainWindow mw = new MainWindow();
-                MenuController mc = new MenuController(mw);
-                mw.registraController(mc);
-                mw.setVisible(true);
+                if(user.isCompleted()) {
+                    MainWindow mw = new MainWindow("CONNECT");
+                    MenuController mc = new MenuController(mw);
+                    mw.registraController(mc);
+                    mw.setVisible(true);
+                } else {
+                    MainWindow mw = new MainWindow("PROFILE");
+                    MenuController mc = new MenuController(mw);
+                    mw.registraController(mc);
+                    mw.setVisible(true);
+                }
                 break;
 
             case "SIGN UP":

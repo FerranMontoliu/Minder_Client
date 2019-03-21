@@ -22,13 +22,12 @@ public class MainWindow extends JFrame{
      * tots els panells que es mostraran a la part central de la pantalla, mostrant unicament al principi la pantalla de
      * Connect (like o dislike d'usuaris)
      */
-    public MainWindow(){
+    public MainWindow(String s){
         createMenu();
         createContentPanels();
         windowPreferences();
+        changePanel(s);
     }
-
-
 
     /**
      * Metode que crea el CardLayout que permetra mostrar un panell o un altre. Aqui, tambe es creen els panells que
