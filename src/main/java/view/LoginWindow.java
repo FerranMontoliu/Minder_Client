@@ -16,6 +16,7 @@ public class LoginWindow extends JFrame {
     private SignInPanel jpSignIn;
     //Atributs pel Panell de Sign Up
     private SignUpPanel jpSignUp;
+    private EditPanel jpEdit;
 
     /**
      * Constructor de la pantalla on l'usuari pot fer Sign-In o Sign-Up.
@@ -34,7 +35,9 @@ public class LoginWindow extends JFrame {
         jpCard = new JPanel(clSignInUp);
         createSignInPanel();
         createSignUpPanel();
-        changePanel("SIGN IN");
+        jpEdit = new EditPanel(clSignInUp);
+        jpCard.add("EDIT", jpEdit);
+        changePanel("EDIT");
         getContentPane().add(jpCard);
     }
 

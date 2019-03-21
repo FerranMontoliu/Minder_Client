@@ -22,7 +22,7 @@ public class Main {
         MainWindow mw = new MainWindow();
         MenuController mc = new MenuController(mw);
         mw.registraController(mc);
-        mw.setVisible(true);
-        //w.setVisible(true);
+        //mw.setVisible(true);
+        w.setVisible(true);
     }
 }
