@@ -11,20 +11,24 @@ public class ProfilePanel extends JPanel {
      */
     public ProfilePanel(CardLayout clMainWindow){
         super(clMainWindow);
-        //vull que sigui BorderLayout
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //mostrarem els components vesrticalment
         includePhoto();
         includeUserInfo();
     }
 
     private void includeUserInfo() {
         JPanel jpUserInfo = new JPanel();
+        JLabel jlNameTag = new JLabel("Name: ");
+        JLabel jlName = new JLabel();
+        //jpUserInfo.add();
 
     }
 
     private void includePhoto() {
 
     }
+
+
+
 
 
 }

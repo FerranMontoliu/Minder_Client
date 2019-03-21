@@ -14,6 +14,8 @@ public class MainWindow extends JFrame{
     private JPanel jpSelected;
     private CardLayout clMainWindow;
     private ConnectPanel jpConnect;
+    private ProfilePanel jpProfile;
+
     //private EditPanel jpEditProfile;
 
 
@@ -38,9 +40,14 @@ public class MainWindow extends JFrame{
         clMainWindow = new CardLayout();
         jpSelected = new JPanel(clMainWindow);
         createConnectPanel();
+        createProfilePanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
+    }
+
+    private void createProfilePanel() {
+        jpProfile = new ProfilePanel(clMainWindow);
     }
 
     /**
