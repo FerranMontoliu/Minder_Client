@@ -1,17 +1,20 @@
 package view;
-
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.File;
 
 public class EditPanel extends JPanel {
-    private JFileChooser jfcImage;
 
-    public EditPanel(){
-        jfcImage = new JFileChooser();
-        jfcImage.setCurrentDirectory(new File(System.getProperty("user.home")));
-        //filter the files
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","gif","png");
-        jfcImage.addChoosableFileFilter(filter);
+
+    public EditPanel(CardLayout clMainWindow){
+        super(clMainWindow);
+        setProfileImage();
+    }
+
+    public void setProfileImage(){
+        JLabel jlProva = new JLabel();
+        File f = new File("icons/cancel.png");
+        jlProva.setIcon((Icon) f);
+        add(jlProva);
     }
 }
