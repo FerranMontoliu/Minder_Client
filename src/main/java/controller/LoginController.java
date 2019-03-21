@@ -58,7 +58,7 @@ public class LoginController implements ActionListener {
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
                 //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                User user = new User(true, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
+                User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
                 w.dispose();
                 if(user.isCompleted()) {
                     MainWindow mw = new MainWindow("CONNECT");
