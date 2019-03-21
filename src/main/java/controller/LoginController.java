@@ -2,6 +2,7 @@ package controller;
 
 import model.User;
 import view.LoginWindow;
+import view.MainWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +57,20 @@ public class LoginController implements ActionListener {
                     break;
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+                //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
+                User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
+                w.dispose();
+                if(user.isCompleted()) {
+                    MainWindow mw = new MainWindow("CONNECT");
+                    MenuController mc = new MenuController(mw);
+                    mw.registraController(mc);
+                    mw.setVisible(true);
+                } else {
+                    MainWindow mw = new MainWindow("PROFILE");
+                    MenuController mc = new MenuController(mw);
+                    mw.registraController(mc);
+                    mw.setVisible(true);
+                }
                 break;
 
             case "SIGN UP":
@@ -113,6 +128,8 @@ public class LoginController implements ActionListener {
                     break;
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+                w.cleanSignInPanel();
+                w.changePanel("SIGN IN");
                 break;
         }
     }

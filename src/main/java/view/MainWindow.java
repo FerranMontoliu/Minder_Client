@@ -14,7 +14,9 @@ public class MainWindow extends JFrame{
     private JPanel jpSelected;
     private CardLayout clMainWindow;
     private ConnectPanel jpConnect;
-    private EditPanel jpEditProfile;
+    private ProfilePanel jpProfile;
+
+    //private EditPanel jpEditProfile;
 
 
     /**
@@ -22,25 +24,31 @@ public class MainWindow extends JFrame{
      * tots els panells que es mostraran a la part central de la pantalla, mostrant unicament al principi la pantalla de
      * Connect (like o dislike d'usuaris)
      */
-    public MainWindow(){
+    public MainWindow(String s){
         createMenu();
         createContentPanels();
         windowPreferences();
+        changePanel(s);
     }
-
-
 
     /**
      * Metode que crea el CardLayout que permetra mostrar un panell o un altre. Aqui, tambe es creen els panells que
      * aquest conte, mostrant per defecte el panell Connect.
      */
-    private void createContentPanels() {
+    public void createContentPanels() {
         clMainWindow = new CardLayout();
         jpSelected = new JPanel(clMainWindow);
         createConnectPanel();
+        createProfilePanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
+    }
+
+    private void createProfilePanel() {
+        jpProfile = new ProfilePanel(clMainWindow);
+        jpSelected.add("PROFILE", jpProfile);
+
     }
 
     /**
