@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 public class User {
+
+    private boolean completed;
+
     private String username;
     private String age;
     private boolean premium;

@@ -2,6 +2,7 @@ package controller;
 
 import model.User;
 import view.LoginWindow;
+import view.MainWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +57,11 @@ public class LoginController implements ActionListener {
                     break;
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+                w.dispose();
+                MainWindow mw = new MainWindow();
+                MenuController mc = new MenuController(mw);
+                mw.registraController(mc);
+                mw.setVisible(true);
                 break;
 
             case "SIGN UP":
@@ -113,6 +119,8 @@ public class LoginController implements ActionListener {
                     break;
                 }
                 //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+                w.cleanSignInPanel();
+                w.changePanel("SIGN IN");
                 break;
         }
     }
