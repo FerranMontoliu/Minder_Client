@@ -1,11 +1,8 @@
 import controller.LoginController;
-import controller.MenuController;
 import view.LoginWindow;
 import model.ClientConfig;
 import model.Json;
-import view.MainWindow;
 
-import java.awt.*;
 
 public class Main {
 
@@ -15,14 +12,13 @@ public class Main {
      * @param args Paràmetres d'entrada del programa.
      */
     public static void main(String[] args) {
+        //Configuració inicial del client:
         ClientConfig cc = Json.parseJson();
+
+        //Crea la vista i el controlador de la pestanya de login/registre i els vincula:
         LoginWindow w = new LoginWindow();
         LoginController c = new LoginController(w);
         w.registrarControlador(c);
-        MainWindow mw = new MainWindow();
-        MenuController mc = new MenuController(mw);
-        mw.registraController(mc);
-        mw.setVisible(true);
-        //w.setVisible(true);
+        w.setVisible(true);
     }
 }
