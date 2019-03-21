@@ -1,6 +1,8 @@
 package view;
 
 
+import controller.ConnectController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +14,9 @@ public class ConnectPanel extends JPanel {
 
     private JLabel lblProfilename;
     private JLabel lblProfilePic;
-    private ImageIcon profileIcon;
+    private JButton jbDislike;
+    private JButton jbMoreInfo;
+    private JButton jbLike;
 
     /**
      * Constructor del panell principal de connexions entre usuaris.
@@ -47,17 +51,17 @@ public class ConnectPanel extends JPanel {
         jpButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ImageIcon iDislike = new ImageIcon("icons/cancel.png");
-        JButton jbDislike = new JButton(iDislike);
+        jbDislike = new JButton(iDislike);
 
         jpButtons.add(jbDislike);
 
         ImageIcon iMoreInfo = new ImageIcon("icons/infoBlue.png");
-        JButton jbMoreInfo = new JButton(iMoreInfo);
+        jbMoreInfo = new JButton(iMoreInfo);
 
         jpButtons.add(jbMoreInfo);
 
         ImageIcon ilike = new ImageIcon("icons/checked.png");
-        JButton jbLike = new JButton(ilike);
+        jbLike = new JButton(ilike);
 
         jpButtons.add(jbLike);
 
@@ -81,6 +85,17 @@ public class ConnectPanel extends JPanel {
         lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
         lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
         lblProfilePic.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 130));
+    }
+
+    public void registraController(ConnectController controller) {
+        jbDislike.addActionListener(controller);
+        jbDislike.setActionCommand("DISLIKE");
+
+        jbLike.addActionListener(controller);
+        jbLike.setActionCommand("LIKE");
+
+        jbMoreInfo.addActionListener(controller);
+        jbMoreInfo.setActionCommand("INFO");
     }
 
 

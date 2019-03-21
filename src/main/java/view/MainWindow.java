@@ -14,7 +14,7 @@ public class MainWindow extends JFrame{
     private JPanel jpSelected;
     private CardLayout clMainWindow;
     private ConnectPanel jpConnect;
-    private EditPanel jpEditProfile;
+    //private EditPanel jpEditProfile;
 
 
     /**
@@ -33,7 +33,7 @@ public class MainWindow extends JFrame{
      * Metode que crea el CardLayout que permetra mostrar un panell o un altre. Aqui, tambe es creen els panells que
      * aquest conte, mostrant per defecte el panell Connect.
      */
-    private void createContentPanels() {
+    public void createContentPanels() {
         clMainWindow = new CardLayout();
         jpSelected = new JPanel(clMainWindow);
         createConnectPanel();
