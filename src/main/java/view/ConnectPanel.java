@@ -46,17 +46,17 @@ public class ConnectPanel extends JPanel {
         JPanel jpButtons = new JPanel();
         jpButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        ImageIcon iDislike = new ImageIcon("icons/dislike.png");
+        ImageIcon iDislike = new ImageIcon("icons/cancel.png");
         JButton jbDislike = new JButton(iDislike);
 
         jpButtons.add(jbDislike);
 
-        ImageIcon iMoreInfo = new ImageIcon("icons/information.png");
+        ImageIcon iMoreInfo = new ImageIcon("icons/infoBlue.png");
         JButton jbMoreInfo = new JButton(iMoreInfo);
 
         jpButtons.add(jbMoreInfo);
 
-        ImageIcon ilike = new ImageIcon("icons/like.png");
+        ImageIcon ilike = new ImageIcon("icons/checked.png");
         JButton jbLike = new JButton(ilike);
 
         jpButtons.add(jbLike);
@@ -76,11 +76,11 @@ public class ConnectPanel extends JPanel {
         lblProfilename.setText("Pol Espurnes"+ " ," + "19");
         lblProfilename.setFont(new Font(Font.DIALOG,  Font.ROMAN_BASELINE, 15));
         lblProfilename.setHorizontalAlignment(SwingConstants.CENTER);
-        lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 50, 0, 0));
+        lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 100));
 
         lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
         lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
-        lblProfilePic.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 40));
+        lblProfilePic.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 130));
     }
 
 
