@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ProfilePanel extends JPanel {
+    private JLabel jlName;
 
     /**
      * Constructor del panell principal de connexions entre usuaris.
@@ -18,8 +19,8 @@ public class ProfilePanel extends JPanel {
     private void includeUserInfo() {
         JPanel jpUserInfo = new JPanel();
         JLabel jlNameTag = new JLabel("Name: ");
-        JLabel jlName = new JLabel();
-        //jpUserInfo.add();
+        jlName = new JLabel();
+
 
     }
 

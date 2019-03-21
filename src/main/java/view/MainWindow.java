@@ -47,6 +47,8 @@ public class MainWindow extends JFrame{
 
     private void createProfilePanel() {
         jpProfile = new ProfilePanel(clMainWindow);
+        jpSelected.add("PROFILE", jpProfile);
+
     }
 
     /**
