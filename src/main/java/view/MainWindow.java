@@ -14,7 +14,7 @@ public class MainWindow extends JFrame{
     private JPanel jpSelected;
     private CardLayout clMainWindow;
     private ConnectPanel jpConnect;
-    private EditPanel jpEditProfile;
+    //private EditPanel jpEditProfile;
 
 
     /**

@@ -47,7 +47,7 @@ public class ChatPanel extends JPanel{
         JPanel jpCentre = new JPanel();
         jpCentre.setLayout(new BoxLayout(jpCentre, BoxLayout.PAGE_AXIS)); //Finestra xat
 
-        jpCentre.add(new JLabel("Here you will be able to chat with your matches");
+        jpCentre.add(new JLabel("Here you will be able to chat with your matches"));
 
         JPanel jpBottom = new JPanel(); //JPanel del SOUTH -> Text + button send
 
