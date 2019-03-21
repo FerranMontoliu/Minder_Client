@@ -28,7 +28,6 @@ public class SignInPanel extends JPanel {
 
     /**
      * Mètode que afegeix la capçalera de la pantalla.
-     *
      */
     private void createTitle(){
         JPanel jpTitle = new JPanel();
@@ -48,7 +47,6 @@ public class SignInPanel extends JPanel {
 
     /**
      * Getter del nom d'usuari.
-     *
      * @return Retorna un String que conté el contingut del camp del nom d'usuari.
      */
     public JTextField getJtfUsername() {
