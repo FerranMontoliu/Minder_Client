@@ -67,7 +67,7 @@ public class LoginController implements ActionListener {
                     mw.setVisible(true);
                 } else {
                     MainWindow mw = new MainWindow("PROFILE"); //Si, es mostra el perfil, pero pq s'ha de completar.
-                    MenuController mc = new MenuController(mw, user);
+                    MenuController mc = new MenuController(mw, user); //Potser estaria millor escriure EDIT i no PROFILE no?
                     mw.registraController(mc);
                     mw.setVisible(true);
                 }

@@ -17,7 +17,7 @@ public class EditController implements ActionListener, MouseListener {
      * Constructor per parametres.
      * @param editPanel Panell d'edicio de perfil associat.
      * @param menuController controlador de Menu associat.
-     * @param associatedUser usuari associat a l'edicio de perfil
+     * @param associatedUser usuari associat al editPanel
      */
     public EditController(EditPanel editPanel, MenuController menuController, User associatedUser){
         this.editPanel = editPanel;
