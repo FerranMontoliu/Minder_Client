@@ -62,12 +62,12 @@ public class LoginController implements ActionListener {
                 w.dispose();
                 if(user.isCompleted()) {
                     MainWindow mw = new MainWindow("CONNECT");
-                    MenuController mc = new MenuController(mw);
+                    MenuController mc = new MenuController(mw, user);
                     mw.registraController(mc);
                     mw.setVisible(true);
                 } else {
-                    MainWindow mw = new MainWindow("PROFILE");
-                    MenuController mc = new MenuController(mw);
+                    MainWindow mw = new MainWindow("PROFILE"); //Si, es mostra el perfil, pero pq s'ha de completar.
+                    MenuController mc = new MenuController(mw, user);
                     mw.registraController(mc);
                     mw.setVisible(true);
                 }

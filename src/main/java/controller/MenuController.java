@@ -1,5 +1,6 @@
 package controller;
 
+import model.User;
 import view.ConnectPanel;
 import view.MainWindow;
 
@@ -7,15 +8,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuController implements ActionListener {
+    private User associatedUser;
     private MainWindow mainWindow;
+    private ConnectController connectController;
+    private EditController editController;
 
 
-    /**
-     * Constructor del controlador associat a la pantalla principal del programa.
-     *
-     */
-    public MenuController(MainWindow mainWindow) {
+
+    public MenuController(MainWindow mainWindow, User associatedUser) {
         this.mainWindow = mainWindow;
+        this.associatedUser = associatedUser;
+        connectController = new ConnectController(mainWindow.getJpConnect());  //Aixo trenca paradigmes??
+        mainWindow.getJpConnect().registraController(connectController);
+        editController = new EditController(mainWindow.getJpEdit(), this, this.associatedUser);
+        mainWindow.getJpEdit().registerController(editController);
     }
 
     @Override
@@ -50,8 +56,16 @@ public class MenuController implements ActionListener {
                 }
                 break;
 
-            default:
+            case "EDIT":
+                mainWindow.changePanel("EDIT");
                 break;
         }
+    }
+
+    /**
+     * Metode que cancela la edicio de perfil i es retorna al panell Profile.
+     */
+    public void cancelEdition() {
+        mainWindow.changePanel("PROFILE");
     }
 }
