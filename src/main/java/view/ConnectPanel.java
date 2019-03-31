@@ -80,10 +80,12 @@ public class ConnectPanel extends JPanel {
         lblProfilename.setText("Pol Espurnes"+ " ," + "19");
         lblProfilename.setFont(new Font(Font.DIALOG,  Font.ROMAN_BASELINE, 15));
         lblProfilename.setHorizontalAlignment(SwingConstants.CENTER);
+        lblProfilename.setVerticalAlignment(SwingConstants.CENTER);
         lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 100));
 
         lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
         lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
+        lblProfilePic.setVerticalAlignment(SwingConstants.CENTER);
         lblProfilePic.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 130));
     }
 
