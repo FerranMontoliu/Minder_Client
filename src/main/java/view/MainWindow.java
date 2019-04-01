@@ -1,5 +1,7 @@
 package view;
 
+import controller.ConnectController;
+import controller.EditController;
 import controller.MenuController;
 
 import javax.swing.*;
@@ -247,7 +249,7 @@ public class MainWindow extends JFrame{
      * Getter del Panel Connect
      * @return Panel Connect
      */
-    public ConnectPanel getJpConnect() {
+    public ConnectPanel getConnect() {
         return jpConnect;
     }
 
@@ -263,7 +265,15 @@ public class MainWindow extends JFrame{
      * Getter del Panel Edit Profile
      * @return Panel Edit Profile
      */
-    public EditPanel getJpEdit() {
+    public EditPanel getEdit() {
         return jpEdit;
+    }
+
+    public void registraConnectController(ConnectController connectController) {
+        jpConnect.registraController(connectController);
+    }
+
+    public void registraEditController(EditController editController) {
+        jpEdit.registerController(editController);
     }
 }

@@ -1,7 +1,6 @@
 package controller;
 
 import model.User;
-import view.ConnectPanel;
 import view.MainWindow;
 
 import java.awt.event.ActionEvent;
@@ -18,10 +17,10 @@ public class MenuController implements ActionListener {
     public MenuController(MainWindow mainWindow, User associatedUser) {
         this.mainWindow = mainWindow;
         this.associatedUser = associatedUser;
-        connectController = new ConnectController(mainWindow.getJpConnect());  //Aixo trenca paradigmes??
-        mainWindow.getJpConnect().registraController(connectController);
-        editController = new EditController(mainWindow.getJpEdit(), this, this.associatedUser);
-        mainWindow.getJpEdit().registerController(editController);
+        connectController = new ConnectController(mainWindow.getConnect());  //Aixo trenca paradigmes??
+        mainWindow.registraConnectController(connectController);
+        editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
+        mainWindow.registraEditController(editController);
     }
 
     @Override
