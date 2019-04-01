@@ -115,5 +115,21 @@ public class ConnectPanel extends JPanel {
         jbMoreInfo.setActionCommand("INFO");
     }
 
+    /**
+     * metode que mostra un nou disseny avisamt a l'usuari que hi ha hagut un match amb un altre usuari. Aqui se li dona
+     * la possibilitat de començar a xatejar amb aquesta persona o seguir "jugant". Es passaria la informacio dels dos
+     * usuaris per tal de mostrar les seves fotografies de perfil i noms
+     */
+    public void matchDesign(){
+        JFrame jfMatch = new JFrame();
+        JPanel jpMatch = new JPanel();
+        jpMatch.setLayout(new BorderLayout());
+        JLabel jlMatch = new JLabel();
+        jlMatch.setIcon(new ImageIcon("icons/itsAMatch.png"));
+
+        jpMatch.setBackground(Color.LIGHT_GRAY);
+        jfMatch.add(jpMatch);
+        jfMatch.setVisible(true);
+    }
 
 }

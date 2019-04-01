@@ -27,7 +27,7 @@ public class ConnectController implements ActionListener {
 
             case "INFO":
                 System.out.println("I like trains");
-                //MOSTRAR LA INFO DE L'USUARI!!!!!
+                connectPanel.matchDesign();//MOSTRAR LA INFO DE L'USUARI!!!!!
                 break;
 
             default:

@@ -50,28 +50,26 @@ public class ProfilePanel extends JPanel {
         TitledBorder border = new TitledBorder("Basic Information");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
+
         JPanel jpUserInfo = new JPanel();
         jpUserInfo.setLayout(new BoxLayout(jpUserInfo, BoxLayout.PAGE_AXIS));
         jpUserInfo.setBorder(border);
 
         jlDescription = new JLabel("Description:"); //omplire amb la informacio de l'usuari
         jlDescription.setIcon(new ImageIcon("icons/DescriptionIcon.png"));
-        //jlDescription.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 1));
+        jlDescription.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         jpUserInfo.add (jlDescription);
 
         jlFavHobbies = new JLabel("Favorite Hobbies:"); //omplire amb la informacio de l'usuari
         jlFavHobbies.setIcon(new ImageIcon("icons/HobbiesIcon.png"));
-        //jlFavHobbies.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 1));
+        jlFavHobbies.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         jpUserInfo.add (jlFavHobbies);
 
         jlFavProgramming = new JLabel("Favorite programming language:"); //omplire amb la informacio de l'usuari
         jlFavProgramming.setIcon(new ImageIcon("icons/programming-code.png"));
-        //jlFavProgramming.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 1));
+        jlFavProgramming.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         jpUserInfo.add (jlFavProgramming);
 
-        //jlAge = new JLabel("Age: 19");
-        //jpUserInfo.add(jlAge);
-        //jpUserInfo.setSize(jpUserInfo.getPreferredSize());
 
         add(jpUserInfo, BorderLayout.CENTER);
 
