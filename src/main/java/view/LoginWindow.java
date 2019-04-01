@@ -147,7 +147,7 @@ public class LoginWindow extends JFrame {
      * Metode que retorna el contingut del JTextField Username de Sign In
      * @return Username introduit
      */
-    public String getSingInUsername(){
+    public String getSignInUsername(){
         return jpSignIn.getUsername();
     }
 

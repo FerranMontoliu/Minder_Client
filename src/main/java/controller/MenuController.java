@@ -57,6 +57,7 @@ public class MenuController implements ActionListener {
 
             case "EDIT":
                 mainWindow.changePanel("EDIT");
+                //mainWindow.setSelectedImage(associatedUser.getImage());
                 break;
         }
     }

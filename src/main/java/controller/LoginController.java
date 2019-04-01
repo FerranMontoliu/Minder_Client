@@ -45,7 +45,7 @@ public class LoginController implements ActionListener {
                 break;
 
             case "SIGN IN":
-                u = new User(w.getSingInUsername(), w.getSignInPassword());
+                u = new User(w.getSignInUsername(), w.getSignInPassword());
                 if(u.getUsername().isEmpty()) {
                     w.showWarning("El camp del nom no pot estar buit!");
                     w.focusUserIn();
