@@ -1,6 +1,8 @@
 package controller;
 
+import model.EmptyTextFieldException;
 import model.User;
+import model.UserManager;
 import network.ServerComunication;
 import view.LoginWindow;
 import view.MainWindow;
@@ -51,91 +53,49 @@ public class LoginController implements ActionListener, WindowListener {
                 break;
 
             case "SIGN IN":
-                u = new User(w.getSignInUsername(), w.getSignInPassword());
-                if(u.getUsername().isEmpty()) {
-                    w.showWarning("El camp del nom no pot estar buit!");
-                    w.focusUserIn();
-                    break;
-                }
-                if(u.getPassword().isEmpty()) {
-                    w.showWarning("El camp de password no pot estar buit!");
-                    w.focusPasswordIn();
-                    break;
-                }
-                //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
-                //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
-                w.dispose();
-                if(user.isCompleted()) {
-                    MainWindow mw = new MainWindow("CONNECT");
-                    MenuController mc = new MenuController(mw, user);
-                    mw.registraController(mc);
-                    mw.setVisible(true);
-                } else {
-                    MainWindow mw = new MainWindow("PROFILE"); //Si, es mostra el perfil, pero pq s'ha de completar.
-                    MenuController mc = new MenuController(mw, user); //Potser estaria millor escriure EDIT i no PROFILE no?
-                    mw.registraController(mc);
-                    mw.setVisible(true);
+                try {
+                    UserManager.isEmpty(w.getSignInUsername(), "nom");
+                    UserManager.isEmpty(w.getSignInPassword(), "password");
+                    u = new User(w.getSignInUsername(), w.getSignInPassword());
+                    //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+                    //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
+                    User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
+                    w.dispose();
+                    if(user.isCompleted()) {
+                        MainWindow mw = new MainWindow("CONNECT");
+                        MenuController mc = new MenuController(mw, user);
+                        mw.registraController(mc);
+                        mw.setVisible(true);
+                    } else {
+                        MainWindow mw = new MainWindow("PROFILE"); //Si, es mostra el perfil, pero pq s'ha de completar.
+                        MenuController mc = new MenuController(mw, user); //Potser estaria millor escriure EDIT i no PROFILE no?
+                        mw.registraController(mc);
+                        mw.setVisible(true);
+                    }
+
+                } catch (EmptyTextFieldException e1) {  //Focus??
+                    w.showWarning(e1.getMessage());
                 }
                 break;
 
             case "SIGN UP":
-                u = new User(w.getSingUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
-                if(u.getUsername().isEmpty()) {
-                    w.showWarning("El camp del nom no pot estar buit!");
-                    w.focusUserUp();
-                    break;
-                }
-                if(u.getPassword().isEmpty()) {
-                    w.showWarning("El camp de password no pot estar buit!");
-                    w.focusPasswordUp();
-                    break;
-                }
-                if(!u.passwordCorrectFormat()) {
-                    w.showWarning("La teva password ha de contenir al menys una majúscula, una minúscula, un número i tenir 8 o més caràcters!");
-                    w.focusPasswordUp();
-                    break;
-                }
-                if(u.getPasswordConfirmation().isEmpty()) {
-                    w.showWarning("El camp de confirmació de password no pot estar buit!");
-                    w.focusPasswordConfirmUp();
-                    break;
-                }
-                if(!u.passwordConfirm()) {
-                    w.showWarning("El camp de confirmació de password no coincideix amb el de password!");
-                    w.focusPasswordConfirmUp();
-                    break;
-                }
-                if(u.getMail().isEmpty()) {
-                    w.showWarning("El camp del mail no pot estar buit!");
-                    w.focusMailUp();
-                    break;
-                }
-                if(!u.mailCorrectFormat()) {
-                    w.showWarning("El mail ha de tenir un format correcte!");
-                    w.focusMailUp();
-                    break;
-                }
-                if(w.getSignUpAgeField().isEmpty()) {
-                    w.showWarning("El camp de l'edat no pot estar buit!");
-                    w.focusAgeUp();
-                    break;
-                }
                 try {
-                    boolean a = u.isAdult();
-                    if(!a) {
-                        w.showWarning("L'edat ha de ser un número enter major a 17!");
-                        w.focusAgeUp();
-                        break;
-                    }
-                } catch(NumberFormatException e1) {
-                    w.showWarning("L'edat ha de ser un número enter!");
-                    w.focusAgeUp();
-                    break;
+                    UserManager.isEmpty(w.getSignUpUsername(), "nom");
+                    String[] passwords = w.getSignUpPasswords();
+                    UserManager.isEmpty(passwords[0], "password");
+                    UserManager.isEmpty(passwords[1], "password confirm");
+                    UserManager.isEmpty(w.getSignUpEmail(), "mail");
+                    UserManager.isEmpty(w.getSignUpAgeField(), "age");
+                    UserManager.signUpPasswordIsCorrect(passwords[0], passwords[1]);
+                    UserManager.mailCorrectFormat(w.getSignUpEmail());
+                    UserManager.isAdult(w.getSignUpAgeField());
+                    u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
+                    //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+                    w.cleanSignInPanel();
+                    w.changePanel("SIGN IN");
+                } catch (Exception e1) {
+                    w.showWarning(e1.getMessage());
                 }
-                //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
-                w.cleanSignInPanel();
-                w.changePanel("SIGN IN");
                 break;
         }
     }

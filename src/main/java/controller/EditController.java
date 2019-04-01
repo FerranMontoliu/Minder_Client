@@ -1,7 +1,9 @@
 package controller;
 
 import model.FileChooser;
+import model.InvalidFormatException;
 import model.User;
+import model.UserManager;
 import view.EditPanel;
 
 import javax.swing.*;
@@ -35,12 +37,16 @@ public class EditController implements ActionListener, MouseListener {
 
         switch(actionCommand){
             case "SAVE":
-                ImageIcon img = editPanel.getSelectedImage();
-                String description = editPanel.getNewDescription();
-                boolean Java = editPanel.likesJava();
-                boolean C = editPanel.likesC();
-                //UserManager?
-                //associatedUser.update()
+                try {
+                    ImageIcon img = editPanel.getSelectedImage();
+                    String description = editPanel.getNewDescription();
+                    boolean Java = editPanel.likesJava();
+                    boolean C = editPanel.likesC();
+                    UserManager.checkEditProfileNewData(img, description, Java, C);
+                    //associatedUser.update()
+                } catch (InvalidFormatException e1) {
+                    editPanel.showWarning(e1.getMessage());
+                }
                 break;
             case "CANCEL":
                 menuController.cancelEdition();

@@ -180,4 +180,8 @@ public class EditPanel extends JPanel {
     public boolean likesC() {
         return jcbC.isSelected();
     }
+
+    public void showWarning(String message) {
+        JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
+    }
 }

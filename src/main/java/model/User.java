@@ -77,57 +77,6 @@ public class User implements Serializable {
     }
 
     /**
-     * Funció que s'encarrega de comprovar si l'usuari és major d'edat o no.
-     *
-     * @return Retorna true si es major d'edat, false sino.
-     */
-    public boolean isAdult() throws NumberFormatException {
-        return Integer.parseInt(age) > 17;
-    }
-
-    /**
-     * Funcio que s'encarrega de comprovar si el format del mail es correcte o no.
-     *
-     * @return Retorna true si el format es correcte, false sino.
-     */
-    public boolean mailCorrectFormat() {
-        EmailValidator v = EmailValidator.getInstance();
-        return v.isValid(mail);
-    }
-
-    /**
-     * Funcio que s'encarrega de comprovar si la password concorda amb el camp de confirmacio de password.
-     *
-     * @return Retorna true si concorda, false sino.
-     */
-    public boolean passwordConfirm() {
-        return password.equals(passwordConfirmation);
-    }
-
-    /**
-     * Funció que s'encarrega de comprovar si el format de la password és correcte o no
-     *
-     * @return Retorna true si el format és correcte, false sinó.
-     */
-    public boolean passwordCorrectFormat() {
-        boolean hasUppercase = !password.equals(password.toLowerCase());
-        boolean hasLowercase = !password.equals(password.toUpperCase());
-        boolean hasNumber  = password.matches(".*\\d.*");
-        boolean isLongEnough = password.length() > 7;
-
-        return hasUppercase && hasLowercase && hasNumber && isLongEnough;
-    }
-
-    /**
-     * Funció que s'encarrega de comprovar si la password és correcta o no.
-     *
-     * @return Retorna true si és correcta, false sinó.
-     */
-    public boolean passwordIsCorrect() {
-        return passwordConfirm() && passwordCorrectFormat();
-    }
-
-    /**
      * Getter del username de l'usuari.
      *
      * @return Retorna un String que conté el nom de l'usuari.
@@ -136,20 +85,6 @@ public class User implements Serializable {
         return username;
     }
 
-    /**
-     * Getter de l'edat de l'usuari.
-     *
-     * @return Retorna un int que conté l'edat de l'usuari.
-     */
-    public int getAge() {
-        int a = 0;
-        try {
-            a = Integer.parseInt(age);
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return a;
-    }
 
     /**
      * Getter del tipus de compte de l'usuari.
