@@ -27,7 +27,7 @@ public class ConnectPanel extends JPanel {
         super(clMainWindow);
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //mostrarem els components vesrticalment
         createUserSpace();
-        createBottonsOptions();
+        createButtonsOptions();
 
         this.setBackground(new Color (173, 105, 127));
     }
@@ -52,7 +52,7 @@ public class ConnectPanel extends JPanel {
     /**
      * Metode que crea el panell de botons inferiors per a donar Like, Dislike, o mostrar mes informacio
      */
-    private void createBottonsOptions(){
+    private void createButtonsOptions(){
         JPanel jpButtons = new JPanel();
         jpButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
