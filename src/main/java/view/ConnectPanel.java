@@ -4,6 +4,7 @@ package view;
 import controller.ConnectController;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 /**
@@ -24,22 +25,27 @@ public class ConnectPanel extends JPanel {
      */
     public ConnectPanel(CardLayout clMainWindow){
         super(clMainWindow);
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //mostrarem els components vesrticalment
+        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //mostrarem els components vesrticalment
         createUserSpace();
         createBottonsOptions();
+
+        this.setBackground(new Color (173, 105, 127));
     }
 
     /**
      * Metode que inicialitza els camps de l'usuari per a poder mostrar-los a partir de la base de dades
      */
     private void createUserSpace() {
+        JPanel jpUserSpace = new JPanel();
         lblProfilename = new JLabel();
-        add(lblProfilename);
+        jpUserSpace.add(lblProfilename);
 
         lblProfilePic = new JLabel();
         lblProfilePic.setSize(20, 20);
-        add(lblProfilePic);
+        jpUserSpace.add(lblProfilePic);
+        jpUserSpace.setBackground(new Color(231, 165, 187));
 
+        add(jpUserSpace, BorderLayout.PAGE_START);
         showUser();
     }
 
@@ -65,7 +71,9 @@ public class ConnectPanel extends JPanel {
 
         jpButtons.add(jbLike);
 
-        add(jpButtons);
+        add(jpButtons, BorderLayout.SOUTH);
+
+        jpButtons.setBackground(new Color(202, 123, 148));
 
     }
 
@@ -77,16 +85,21 @@ public class ConnectPanel extends JPanel {
         //lblProfilename.setText(user.getUsername()+ " ," + user.getAge());
         //lblProfilePic.setIcon((Icon)user.getPhoto());
     public void showUser(){
+        JPanel jpUserImage = new JPanel();
+        jpUserImage.setLayout(new BoxLayout(jpUserImage, BoxLayout.PAGE_AXIS));
         lblProfilename.setText("Pol Espurnes"+ " ," + "19");
         lblProfilename.setFont(new Font(Font.DIALOG,  Font.ROMAN_BASELINE, 15));
+        lblProfilename.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblProfilename.setHorizontalAlignment(SwingConstants.CENTER);
         lblProfilename.setVerticalAlignment(SwingConstants.CENTER);
         lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 100));
-
+        jpUserImage.add(lblProfilename);
         lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
+        lblProfilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
         lblProfilePic.setVerticalAlignment(SwingConstants.CENTER);
         lblProfilePic.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 130));
+        add(jpUserImage, BorderLayout.CENTER);
     }
 
     public void registraController(ConnectController controller) {
