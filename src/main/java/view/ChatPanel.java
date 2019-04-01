@@ -3,13 +3,17 @@ package view;
 import model.User;
 
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
 
-public class ChatPanel extends JPanel{
+public class ChatPanel extends JFrame {
 
     private JTextField jtfMissatge;
     private JButton jbSend;
     private JPanel jpImages[];
+    private JScrollPane jspTop;
+    private JScrollPane jspCentre;
+    private JPanel jpTop;
 
     /**
      * Constructor del panell de chats
@@ -20,19 +24,40 @@ public class ChatPanel extends JPanel{
         this.setLayout(new BorderLayout());
 
         //Generar els dos scroll panes
-        JScrollPane jspTop = new JScrollPane();
+        jspTop = new JScrollPane();
         jspTop.createHorizontalScrollBar(); //Scroll d'imatges amb els matches
-        JScrollPane jspCentre = new JScrollPane();
+        jspCentre = new JScrollPane();
         jspCentre.createVerticalScrollBar();
+        JTextPane pane = new JTextPane();
+        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
 
-        JPanel jpTop = new JPanel();
+        attributeSet = new SimpleAttributeSet();
+        StyleConstants.setItalic(attributeSet, true);
+        StyleConstants.setForeground(attributeSet, Color.red);
+        StyleConstants.setBackground(attributeSet, Color.blue);
+
+        Document doc = pane.getStyledDocument();
+        try {
+            doc.insertString(doc.getLength(), "Pol: ", attributeSet);
+            attributeSet = new SimpleAttributeSet();
+            doc.insertString(doc.getLength(), "14:21", attributeSet);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        StyleConstants.setBold(attributeSet, true);
+
+        // Set the attributes before adding text
+        pane.setCharacterAttributes(attributeSet, true);
+        pane.setText("Text de prova");
+
+        jpTop = new JPanel();
         jpTop.setLayout(new BoxLayout(jpTop, BoxLayout.LINE_AXIS));
 
         jpImages = new JPanel[user.getMatch().size()]; //?
         int i = 0;
 
         //Iterar per tots els matches afegint les imatges a cada panell corresponent
-        for(User u:user.getMatch()){
+        for(User u:user.getMatch()) {
             JLabel jlImage = new JLabel();
             jlImage.setIcon((Icon)u.getPhoto());
             jpImages[i] = new JPanel();

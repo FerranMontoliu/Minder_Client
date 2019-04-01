@@ -1,8 +1,8 @@
 import controller.LoginController;
+import network.ServerComunication;
 import view.LoginWindow;
-import model.ClientConfig;
-import model.Json;
 
+import javax.swing.*;
 
 public class Main {
 
@@ -12,13 +12,14 @@ public class Main {
      * @param args Paràmetres d'entrada del programa.
      */
     public static void main(String[] args) {
-        //Configuració inicial del client:
-        ClientConfig cc = Json.parseJson();
+        SwingUtilities.invokeLater(() -> {
+            //Crea la vista i el controlador de la pestanya de login/registre i els vincula:
+            LoginWindow w = new LoginWindow();
+            ServerComunication sc = new ServerComunication(w);
+            LoginController c = new LoginController(w, sc);
 
-        //Crea la vista i el controlador de la pestanya de login/registre i els vincula:
-        LoginWindow w = new LoginWindow();
-        LoginController c = new LoginController(w);
-        w.registrarControlador(c);
-        w.setVisible(true);
+            w.registrarControlador(c);
+            w.setVisible(true);
+        });
     }
 }

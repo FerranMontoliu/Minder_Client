@@ -1,24 +1,30 @@
 package controller;
 
 import model.User;
+import network.ServerComunication;
 import view.LoginWindow;
 import view.MainWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class LoginController implements ActionListener {
+public class LoginController implements ActionListener, WindowListener {
 
     private LoginWindow w;
     private User u;
+    private ServerComunication sc;
 
     /**
      * Constructor del controlador associat a la pantalla de Log-In.
      *
      */
-    public LoginController(LoginWindow w) {
+    public LoginController(LoginWindow w, ServerComunication sc) {
         this.w = w;
         this.u = null;
+        this.sc = sc;
+        sc.startServerComunication();
     }
 
     @Override
@@ -132,5 +138,40 @@ public class LoginController implements ActionListener {
                 w.changePanel("SIGN IN");
                 break;
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        //Not used.
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        sc.stopServerComunication();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        //Not used.
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        //Not used.
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        //Not used.
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        //Not used.
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        //Not used.
     }
 }

@@ -21,7 +21,7 @@ public class SignUpPanel extends JPanel {
      * Constructor del panell de Sign-Up.
      *
      */
-    public SignUpPanel(CardLayout clSignInUp){
+    public SignUpPanel(CardLayout clSignInUp) {
         super(clSignInUp);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(BG_COLOR);
@@ -241,7 +241,7 @@ public class SignUpPanel extends JPanel {
     /**
      * Metode que mostra o amaga la Password en funcio de si el CheckBox exta seleccionat o no.
      */
-    public void showPassword(){
+    public void showPassword() {
         if (jcbShowPassword.isSelected()) {
             jtfNewPassword.setEchoChar((char) 0);
             jtfNewPasswordConfirm.setEchoChar((char) 0);
@@ -252,10 +252,10 @@ public class SignUpPanel extends JPanel {
     }
 
     /**
-     * Metode que retorna el contingut del JTextField Username
+     * Mètode que retorna el contingut del JTextField Username
      * @return Username introduit
      */
-    public String getUsername(){
+    public String getUsername() {
         return jtfNewUsername.getText();
     }
 
