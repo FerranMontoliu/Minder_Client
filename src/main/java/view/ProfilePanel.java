@@ -3,6 +3,7 @@ package view;
 import controller.MenuController;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
@@ -10,6 +11,9 @@ public class ProfilePanel extends JPanel {
     private JLabel jlName;
     private JLabel jlPhoto;
     private JLabel jlAge;
+    private JLabel jlDescription;
+    private JLabel jlFavHobbies;
+    private JLabel jlFavProgramming;
     private JButton jbEditProfile;
 
     /**
@@ -50,12 +54,25 @@ public class ProfilePanel extends JPanel {
         jpUserInfo.setLayout(new BoxLayout(jpUserInfo, BoxLayout.PAGE_AXIS));
         jpUserInfo.setBorder(border);
 
-        jlName = new JLabel("Name: Alba"); //omplire amb la informacio de l'usuari
-        jpUserInfo.add (jlName);
+        jlDescription = new JLabel("Description:"); //omplire amb la informacio de l'usuari
+        jlDescription.setIcon(new ImageIcon("icons/DescriptionIcon.png"));
+        //jlDescription.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 1));
+        jpUserInfo.add (jlDescription);
 
-        jlAge = new JLabel("Age: 19");
-        jpUserInfo.add(jlAge);
-        jpUserInfo.setSize(jpUserInfo.getPreferredSize());
+        jlFavHobbies = new JLabel("Favorite Hobbies:"); //omplire amb la informacio de l'usuari
+        jlFavHobbies.setIcon(new ImageIcon("icons/HobbiesIcon.png"));
+        //jlFavHobbies.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 1));
+        jpUserInfo.add (jlFavHobbies);
+
+        jlFavProgramming = new JLabel("Favorite programming language:"); //omplire amb la informacio de l'usuari
+        jlFavProgramming.setIcon(new ImageIcon("icons/programming-code.png"));
+        //jlFavProgramming.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 1));
+        jpUserInfo.add (jlFavProgramming);
+
+        //jlAge = new JLabel("Age: 19");
+        //jpUserInfo.add(jlAge);
+        //jpUserInfo.setSize(jpUserInfo.getPreferredSize());
+
         add(jpUserInfo, BorderLayout.CENTER);
 
 
@@ -68,20 +85,24 @@ public class ProfilePanel extends JPanel {
     private void createPhoto() {
         JPanel jpUserPhoto = new JPanel();
         jpUserPhoto.setLayout(new BoxLayout(jpUserPhoto, BoxLayout.PAGE_AXIS));
-        jlPhoto = new JLabel(new ImageIcon("Pictures/espies.jpg"));
-        jlPhoto.setHorizontalAlignment(SwingConstants.CENTER);
-        jlPhoto.setVerticalAlignment(SwingConstants.CENTER);
+        jlPhoto = new JLabel(new ImageIcon("Pictures/user-64px.png"));
+        jlPhoto.setAlignmentX(Component.CENTER_ALIGNMENT);
         jlPhoto.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         jpUserPhoto.add(jlPhoto);
 
         jlName = new JLabel("Pol Rayos"); //omplire amb la informacio de l'usuari
-        //jlName.setHorizontalTextPosition(SwingConstants.CENTER);
-        jlName.setHorizontalAlignment(SwingConstants.CENTER);
-        //jlName.setVerticalAlignment(SwingConstants.CENTER);
-        jlName.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        jlName.setFont(new Font(Font.DIALOG,  Font.BOLD, 15));
+        jlName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlName.setBorder(BorderFactory.createEmptyBorder(10, 0, 3, 0));
 
-        jpUserPhoto.setAlignmentX(CENTER_ALIGNMENT);
+        jlAge = new JLabel("19");
+        jlAge.setFont(new Font(Font.DIALOG,  Font.PLAIN, 10));
+        jlAge.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jlAge.setBorder(BorderFactory.createEmptyBorder(3, 0, 10, 0));
+
         jpUserPhoto.add(jlName);
+        jpUserPhoto.add(jlAge);
+        jpUserPhoto.setBackground(new Color(202, 123, 148));
         add(jpUserPhoto, BorderLayout.NORTH);
 
 
