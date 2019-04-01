@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 
-public class ChatPanel extends JFrame {
+public class ChatPanel extends JPanel {
 
     private JTextField jtfMissatge;
     private JButton jbSend;
@@ -14,52 +14,70 @@ public class ChatPanel extends JFrame {
     private JScrollPane jspTop;
     private JScrollPane jspCentre;
     private JPanel jpTop;
+    private JPanel jpMessage;
 
     /**
-     * Constructor del panell de chats
-     * @param user
+     * Constructor
+     * @param clMainWindow
      */
-    public ChatPanel(User user) {
+    public ChatPanel(CardLayout clMainWindow) {
+        super(clMainWindow);
+        User u= new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
 
-        this.setLayout(new BorderLayout());
+        createChatPanel(u);
+    }
+    public void createChatPanel(User user) {
+        /*this.setLayout(new BorderLayout());
+        JPanel jpUserSpace = new JPanel();
+        JLabel lblProfilename = new JLabel();
+        jpUserSpace.add(lblProfilename);
 
+        JLabel lblProfilePic = new JLabel();
+        lblProfilePic.setSize(20, 20);
+        jpUserSpace.add(lblProfilePic);
+        jpUserSpace.setBackground(new Color(231, 165, 187));
+        this.add(jpUserSpace, BorderLayout.PAGE_START);
+        */
         //Generar els dos scroll panes
+        this.setLayout(new BorderLayout());
         jspTop = new JScrollPane();
         jspTop.createHorizontalScrollBar(); //Scroll d'imatges amb els matches
+        jspTop.setPreferredSize(new Dimension(30,60));
+        this.add(jspTop,BorderLayout.NORTH);
         jspCentre = new JScrollPane();
         jspCentre.createVerticalScrollBar();
-        JTextPane pane = new JTextPane();
+        JTextPane jtpane = new JTextPane();
+        jtpane.setEditable(false);
         SimpleAttributeSet attributeSet = new SimpleAttributeSet();
+        StyledDocument doc = jtpane.getStyledDocument();
 
-        attributeSet = new SimpleAttributeSet();
-        StyleConstants.setItalic(attributeSet, true);
-        StyleConstants.setForeground(attributeSet, Color.red);
-        StyleConstants.setBackground(attributeSet, Color.blue);
+        Style style = jtpane.addStyle("I'm a Style", null);
+        StyleConstants.setForeground(style, Color.red);
 
-        Document doc = pane.getStyledDocument();
-        try {
-            doc.insertString(doc.getLength(), "Pol: ", attributeSet);
-            attributeSet = new SimpleAttributeSet();
-            doc.insertString(doc.getLength(), "14:21", attributeSet);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-        StyleConstants.setBold(attributeSet, true);
+        try { doc.insertString(doc.getLength(), "BLAH ",style); }
+        catch (BadLocationException e){}
+
+        StyleConstants.setForeground(style, Color.blue);
+
+        try { doc.insertString(doc.getLength(), "BLEH",style); }
+        catch (BadLocationException e){}
 
         // Set the attributes before adding text
-        pane.setCharacterAttributes(attributeSet, true);
-        pane.setText("Text de prova");
-
-        jpTop = new JPanel();
-        jpTop.setLayout(new BoxLayout(jpTop, BoxLayout.LINE_AXIS));
-
-        jpImages = new JPanel[user.getMatch().size()]; //?
-        int i = 0;
+        jtpane.setCharacterAttributes(attributeSet, true);
+        jtpane.setText("Agusti: Text de prova");
+        this.add(jtpane,BorderLayout.CENTER);
+        jtfMissatge = new JTextField(40);
+        jpMessage = new JPanel(new BorderLayout());
+        jpMessage.add(jtfMissatge,BorderLayout.CENTER);
+        this.add(jpMessage,BorderLayout.SOUTH);
+        ImageIcon iSend = new ImageIcon("icons/send.png");
+        jbSend = new JButton(iSend);
+        jpMessage.add(jbSend,BorderLayout.EAST);
 
         //Iterar per tots els matches afegint les imatges a cada panell corresponent
-        for(User u:user.getMatch()) {
+        /*for (User u : user.getMatch()) {
             JLabel jlImage = new JLabel();
-            jlImage.setIcon((Icon)u.getPhoto());
+            jlImage.setIcon((Icon) u.getPhoto());
             jpImages[i] = new JPanel();
             jpImages[i].add(jlImage);
             i++;
@@ -76,21 +94,21 @@ public class ChatPanel extends JFrame {
 
         JPanel jpBottom = new JPanel(); //JPanel del SOUTH -> Text + button send
 
-        ImageIcon iSend = new ImageIcon("icons/send.png");
-        jbSend = new JButton(iSend);
 
 
-        jpBottom.add (jtfMissatge, BorderLayout.CENTER); //Text
-        jpBottom.add(jbSend,BorderLayout.EAST); //Send icon
+
+        jpBottom.add(jtfMissatge, BorderLayout.CENTER); //Text
+        jpBottom.add(jbSend, BorderLayout.EAST); //Send icon
 
 
         jspTop.add(jspTop);
         jspCentre.add(jpCentre);
 
         this.add(jspTop, BorderLayout.NORTH);
-        this.add(jspCentre,BorderLayout.CENTER);
-
-
+        this.add(jspCentre, BorderLayout.CENTER);*/
     }
 
+
+
 }
+
