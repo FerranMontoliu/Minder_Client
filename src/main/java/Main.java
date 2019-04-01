@@ -17,7 +17,6 @@ public class Main {
             LoginWindow w = new LoginWindow();
             ServerComunication sc = new ServerComunication(w);
             LoginController c = new LoginController(w, sc);
-
             w.registrarControlador(c);
             w.setVisible(true);
         });
