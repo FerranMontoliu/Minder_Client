@@ -25,7 +25,7 @@ public class ConnectPanel extends JPanel {
      */
     public ConnectPanel(CardLayout clMainWindow){
         super(clMainWindow);
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //mostrarem els components vesrticalment
+        setLayout(new BorderLayout()); //mostrarem els components vesrticalment
         createUserSpace();
         createButtonsOptions();
 
@@ -90,15 +90,17 @@ public class ConnectPanel extends JPanel {
         lblProfilename.setText("Pol Espurnes"+ " ," + "19");
         lblProfilename.setFont(new Font(Font.DIALOG,  Font.ROMAN_BASELINE, 15));
         lblProfilename.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblProfilename.setHorizontalAlignment(SwingConstants.CENTER);
-        lblProfilename.setVerticalAlignment(SwingConstants.CENTER);
-        lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 100));
+        //lblProfilename.setHorizontalAlignment(SwingConstants.CENTER);
+        //lblProfilename.setVerticalAlignment(SwingConstants.CENTER);
+        lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         jpUserImage.add(lblProfilename);
         lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
         lblProfilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
-        lblProfilePic.setVerticalAlignment(SwingConstants.CENTER);
-        lblProfilePic.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 130));
+        //lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
+        //lblProfilePic.setVerticalAlignment(SwingConstants.CENTER);
+        lblProfilePic.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 3));
+        jpUserImage.add(lblProfilePic);
+        jpUserImage.setBackground(new Color(231, 165, 187));
         add(jpUserImage, BorderLayout.CENTER);
     }
 
