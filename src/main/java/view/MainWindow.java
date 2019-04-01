@@ -1,5 +1,7 @@
 package view;
 
+import controller.ConnectController;
+import controller.EditController;
 import controller.MenuController;
 
 import javax.swing.*;
@@ -15,6 +17,7 @@ public class MainWindow extends JFrame{
     private CardLayout clMainWindow;
     private ConnectPanel jpConnect;
     private ProfilePanel jpProfile;
+    private EditPanel jpEdit;
 
     //private EditPanel jpEditProfile;
 
@@ -25,7 +28,7 @@ public class MainWindow extends JFrame{
      * Connect (like o dislike d'usuaris)
      */
     public MainWindow(String s){
-        createMenu();
+        createMenu(s);
         createContentPanels();
         windowPreferences();
         changePanel(s);
@@ -40,11 +43,23 @@ public class MainWindow extends JFrame{
         jpSelected = new JPanel(clMainWindow);
         createConnectPanel();
         createProfilePanel();
+        createEditPanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
     }
 
+    /**
+     * Metode que crida al constructor que crea el panell d'edicio de perfil.
+     */
+    private void createEditPanel() {
+        jpEdit = new EditPanel(clMainWindow);
+        jpSelected.add("EDIT", jpEdit);
+    }
+
+    /**
+     * Metode que crida el constructor que crea el panell de Perfil. Mostra imatge de perfil i dades proporcionades.
+     */
     private void createProfilePanel() {
         jpProfile = new ProfilePanel(clMainWindow);
         jpSelected.add("PROFILE", jpProfile);
@@ -83,8 +98,9 @@ public class MainWindow extends JFrame{
     /**
      * Metode que serveix per generar la barra de menu superior que sera visible i accessible des de qualsevol finestra
      * de l'aplicacio
+     * @param initialSelection string que determina quin JMenuItem seleccionar en el moment inicial.
      */
-    private void createMenu() {
+    private void createMenu(String initialSelection) {
         //El JMenuBar es com un panell que agrupa els JMenuItems
         JMenuBar menuBar;
         menuBar = new JMenuBar();
@@ -94,7 +110,7 @@ public class MainWindow extends JFrame{
         menuChat = new JMenuItem("Chat");
 
         menuConnect = new JMenuItem("Connect");
-        selected = "CONNECT";
+        selected = initialSelection;
 
         menuProfile = new JMenuItem("Profile");
 
@@ -102,12 +118,19 @@ public class MainWindow extends JFrame{
 
         menuBar.setForeground(new Color(255, 88, 100));
 
-        //L'unic IconImage que ha d'estar seleccionat es el del panell per defecte: ConnectPanel. Tots els altres
-        //han d'estar desseleccionats
         deselectLogout();
         deselectProfile();
         deselectChat();
-        selectConnect();
+        deselectConnect();
+        switch (initialSelection){
+            case "CONNECT":
+                selectConnect();
+                break;
+            case "PROFILE":
+                selectProfile();
+                break;
+        }
+
 
         menuBar.add(menuChat);
         menuBar.add(menuConnect);
@@ -119,7 +142,7 @@ public class MainWindow extends JFrame{
     }
 
     /**
-     * Metode que vincula events de cada un dels JMenuItem al controlador del menu
+     * Metode que vincula events de cada un dels JMenuItem i al boto d'edicio de perfil al controlador del menu.
      * @param controller Controlador associat a la vista.
      */
     public void registraController(MenuController controller) {
@@ -134,6 +157,8 @@ public class MainWindow extends JFrame{
 
         menuLogout.addActionListener(controller);
         menuLogout.setActionCommand("CONNECT");
+
+        jpProfile.registraController(controller);
     }
 
     /**
@@ -218,5 +243,37 @@ public class MainWindow extends JFrame{
 
     public boolean isSelected(String menu){
         return menu.equals(selected);
+    }
+
+    /**
+     * Getter del Panel Connect
+     * @return Panel Connect
+     */
+    public ConnectPanel getConnect() {
+        return jpConnect;
+    }
+
+    /**
+     * Getter del Panel Profile
+     * @return Panel Profile
+     */
+    public ProfilePanel getJpProfile() {
+        return jpProfile;
+    }
+
+    /**
+     * Getter del Panel Edit Profile
+     * @return Panel Edit Profile
+     */
+    public EditPanel getEdit() {
+        return jpEdit;
+    }
+
+    public void registraConnectController(ConnectController connectController) {
+        jpConnect.registraController(connectController);
+    }
+
+    public void registraEditController(EditController editController) {
+        jpEdit.registerController(editController);
     }
 }

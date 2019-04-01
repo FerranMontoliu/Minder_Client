@@ -1,7 +1,8 @@
 package view;
 
+import controller.MenuController;
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
@@ -9,6 +10,7 @@ public class ProfilePanel extends JPanel {
     private JLabel jlName;
     private JLabel jlPhoto;
     private JLabel jlAge;
+    private JButton jbEditProfile;
 
     /**
      * Constructor del panell principal de connexions entre usuaris.
@@ -19,6 +21,19 @@ public class ProfilePanel extends JPanel {
         setLayout(new BorderLayout());
         createPhoto();
         createUserInfo();
+        createEditButton();
+    }
+
+    /**
+     * Metode que crea i col·loca el JButton d'edicio de perfil.
+     */
+    private void createEditButton() {
+        JPanel jpButton = new JPanel(new FlowLayout());
+        jbEditProfile = new JButton("Edit Profile", new ImageIcon("icons/edit_profile_icon.png"));
+        jbEditProfile.setBackground(Color.WHITE);
+        jpButton.add(jbEditProfile);
+
+        add(jpButton, BorderLayout.SOUTH);
     }
 
     /**
@@ -72,6 +87,13 @@ public class ProfilePanel extends JPanel {
 
     }
 
+    /**
+     * Metode que registra un ActionListener al JButton d'edicio de perfil
+     */
+    public void registraController(MenuController mc){
+        jbEditProfile.addActionListener(mc);
+        jbEditProfile.setActionCommand("EDIT");
+    }
 
 
 

@@ -26,6 +26,7 @@ public class ConnectController implements ActionListener {
                 break;
 
             case "INFO":
+                System.out.println("I like trains");
                 //MOSTRAR LA INFO DE L'USUARI!!!!!
                 break;
 

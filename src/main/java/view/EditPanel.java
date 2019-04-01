@@ -16,6 +16,10 @@ public class EditPanel extends JPanel {
     private JLabel jlProfilePic;
 
 
+    /**
+     * Constructor i generador del EditPanel
+     * @param clMainWindow cardLayout al qual pertany.
+     */
     public EditPanel(CardLayout clMainWindow){
         super(clMainWindow);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -27,6 +31,9 @@ public class EditPanel extends JPanel {
         //setProfileImage();
     }
 
+    /**
+     * Metode que genera el Border principal del EditPanel
+     */
     public void createBorder(){
         TitledBorder border = new TitledBorder("\u2328 Edit Profile");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -34,6 +41,9 @@ public class EditPanel extends JPanel {
         this.setBorder(border);
     }
 
+    /**
+     * Metode que crea la seccio de canviar imatge de perfil.
+     */
     public void createImagePanel(){
         TitledBorder border = new TitledBorder("Change Picture");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -52,6 +62,9 @@ public class EditPanel extends JPanel {
         add(jpImage);
     }
 
+    /**
+     * Metode que crea la seccio de canviar descripcio d'usuari.
+     */
     public void createDescriptionPanel(){
         TitledBorder border = new TitledBorder("Change Description");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -78,6 +91,9 @@ public class EditPanel extends JPanel {
         add(jpDescription);
     }
 
+    /**
+     * Metode que crea la seccio de triar llenguatge de Programacio preferit.
+     */
     public void createProgrammingOptions(){
         TitledBorder border = new TitledBorder("Favourite Languages");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -94,6 +110,9 @@ public class EditPanel extends JPanel {
         add(jpCheckBoxes);
     }
 
+    /**
+     * Metode que crea la seccio dels JButtons Cancel i Save
+     */
     public void createButtons(){
         JPanel jpButtons = new JPanel(new FlowLayout());
         jbSave = new JButton(" Save ", new ImageIcon("icons/save.png"));
