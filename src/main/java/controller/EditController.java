@@ -1,12 +1,16 @@
 package controller;
 
+import model.FileChooser;
 import model.User;
 import view.EditPanel;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class EditController implements ActionListener, MouseListener {
     private User associatedUser;
@@ -31,6 +35,11 @@ public class EditController implements ActionListener, MouseListener {
 
         switch(actionCommand){
             case "SAVE":
+                ImageIcon img = editPanel.getSelectedImage();
+                String description = editPanel.getNewDescription();
+                boolean Java = editPanel.likesJava();
+                boolean C = editPanel.likesC();
+                //UserManager?
                 //associatedUser.update()
                 break;
             case "CANCEL":
@@ -45,7 +54,17 @@ public class EditController implements ActionListener, MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("M'has clicat la imatge.");
+        FileChooser fileChooser = new FileChooser();
+
+        try {
+            Image newImage = fileChooser.findImage();
+            if(newImage != null){
+                editPanel.setNewProfilePic(newImage);
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
     }
 
     @Override
