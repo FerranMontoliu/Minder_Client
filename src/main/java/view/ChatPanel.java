@@ -2,11 +2,15 @@ package view;
 
 import model.User;
 
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.*;
 import java.awt.*;
+
+
+//Next: Fer controller de la classe
+//Afegir funció perque canvii el color alhora d'enviar
 
 public class ChatPanel extends JPanel {
 
@@ -19,23 +23,28 @@ public class ChatPanel extends JPanel {
     private JPanel jpMessage; //Missatge a enviar bottom
     private JButton[] jbMatches;
 
+
+
     /**
      * Constructor
      * @param clMainWindow
      */
     public ChatPanel(CardLayout clMainWindow) {
+
         super(clMainWindow);
         User u= new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
-
         createChatPanel(u);
     }
+
 
     /**
      * TEMPORAL: Cal rebre tots els usuari amb qui s'ha fet match, extreure'n la foto i el nom
      * Quan es clica sobre un d'ells, s'obre el xat
+     * amb aquella persona
      * @param users
      */
     public void createChatPanel(User users) {
+
 
         /*this.setLayout(new BorderLayout());
         JPanel jpUserSpace = new JPanel();
@@ -48,7 +57,11 @@ public class ChatPanel extends JPanel {
         jpUserSpace.setBackground(new Color(231, 165, 187));
         this.add(jpUserSpace, BorderLayout.PAGE_START);
         */
+
+
         //Generar els dos scroll panes
+
+
         this.setLayout(new BorderLayout());
         jspMatches = new JScrollPane();
         TitledBorder tb = new TitledBorder("Matches");
@@ -91,6 +104,8 @@ public class ChatPanel extends JPanel {
         Style style = jtpane.addStyle("I'm a Style", null);
         StyleConstants.setForeground(style, Color.red);
 
+
+
         try { doc.insertString(doc.getLength(), "BLAH ",style); }
         catch (BadLocationException e){}
 
@@ -98,21 +113,34 @@ public class ChatPanel extends JPanel {
 
         try { doc.insertString(doc.getLength(), "BLEH",style); }
         catch (BadLocationException e){}
+        try { doc.insertString(doc.getLength(), "test",style); }
+        catch (BadLocationException e){}
+        try { doc.insertString(doc.getLength(), "BLEH",style); }
+        catch (BadLocationException e){}
+
 
         // Set the attributes before adding text
         jtpane.setCharacterAttributes(attributeSet, true);
         jtpane.setText("Agusti: Text de prova");
-        jtfMissatge = new JTextField(43);
+
+        jtfMissatge = new JTextField(50);
+
         jpMessage = new JPanel(new BorderLayout());
         jpMessage.add(jtfMissatge,BorderLayout.CENTER);
         ImageIcon iSend = new ImageIcon("icons/send.png");
         jbSend = new JButton(iSend);
         jpMessage.add(jbSend,BorderLayout.EAST);
+
+        //Afegeixo:
+        //1: JScrollPane superior de les fotos dels matches
+        //2: JTextPane amb la conversa en si
+        //3: JTextField per escriure-hi i botó d'enviar
         this.add(jspMatches,BorderLayout.NORTH);
         this.add(jtpane,BorderLayout.CENTER);
         this.add(jpMessage,BorderLayout.SOUTH);
 
-        /*for (User u : user.getMatch()) {
+        /*for (User u : user.getMatch()) { //Gotta change that
+
             JLabel jlImage = new JLabel();
             jlImage.setIcon((Icon) u.getPhoto());
             jpImages[i] = new JPanel();
@@ -125,13 +153,22 @@ public class ChatPanel extends JPanel {
 
 
         JPanel jpCentre = new JPanel();
-        jpCentre.setLayout(new BoxLayout(jpCentre, BoxLayout.PAGE_AXIS)); //Finestra xat
+        jpCentre.setLayout(new BoxLayout(jpCentre, BoxLayout.PAGE_AXIS));
 
         jpCentre.add(new JLabel("Here you will be able to chat with your matches"));
 
         jpBottom.add(jtfMissatge, BorderLayout.CENTER); //Text
         jpBottom.add(jbSend, BorderLayout.EAST); //Send icon
+        JPanel jpBottom = new JPanel();
+        jpCentre.setLayout(new BoxLayout(jpCentre, BoxLayout.PAGE_AXIS));
+        jspTop.add(jspTop);
 
+        jspCentre.add(jpCentre);jspTop.add(jspTop);
+        jspCentre.add(jpBottom);
+        jpCentre.add(new JLabel("Here you will be able to chat with your matches"));
+
+        jpBottom.add(jtfMissatge, BorderLayout.CENTER); //Text
+        jpBottom.add(jbSend, BorderLayout.EAST); //Send icon
 
         jspTop.add(jspTop);
         jspCentre.add(jpCentre);
@@ -139,6 +176,23 @@ public class ChatPanel extends JPanel {
         this.add(jspTop, BorderLayout.NORTH);
         this.add(jspCentre, BorderLayout.CENTER);*/
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
