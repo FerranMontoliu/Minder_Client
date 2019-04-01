@@ -4,7 +4,6 @@ import controller.EditController;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.io.File;
 
 public class EditPanel extends JPanel {
     private JLabel jlNewImage;
@@ -14,6 +13,7 @@ public class EditPanel extends JPanel {
     private JButton jbCancel;
     private JButton jbSave;
     private JLabel jlProfilePic;
+    private ImageIcon selectedImage; //Tambe es podria guardar com a Image.
 
 
     /**
@@ -28,7 +28,6 @@ public class EditPanel extends JPanel {
         createDescriptionPanel();
         createProgrammingOptions();
         createButtons();
-        //setProfileImage();
     }
 
     /**
@@ -56,7 +55,12 @@ public class EditPanel extends JPanel {
         jpImage.add(Box.createHorizontalStrut(60));
 
         jlProfilePic = new JLabel();
-        jlProfilePic.setIcon(new ImageIcon(new ImageIcon("Pictures/images.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
+        if(selectedImage == null){
+            jlProfilePic.setIcon(new ImageIcon(new ImageIcon("Pictures/images.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
+        }else{
+            jlProfilePic.setIcon(selectedImage);
+        }
+
         jpImage.add(jlProfilePic);
 
         add(jpImage);
@@ -135,8 +139,13 @@ public class EditPanel extends JPanel {
 
     }
 
-    public void setNewProfilePic(String filename){
-        jlProfilePic.setIcon(new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+    /**
+     * Metode que canvia la imatge de perfil seleccionada.
+     * @param newImage nova imatge seleccionada.
+     */
+    public void setNewProfilePic(Image newImage){
+        selectedImage = new ImageIcon(newImage);
+        jlProfilePic.setIcon(new ImageIcon(newImage.getScaledInstance(jlProfilePic.getWidth(), jlProfilePic.getHeight(), Image.SCALE_SMOOTH)));
     }
 
 
@@ -148,19 +157,31 @@ public class EditPanel extends JPanel {
         return jtaNewDescription.getText();
     }
 
-    public JCheckBox getJcbJava() {
-        return jcbJava;
+    /**
+     * Metode que retorna la imatge de perfil seleccionada.
+     * @return imatge seleccionada.
+     */
+    public ImageIcon getSelectedImage() {
+        return selectedImage;
     }
 
-    public JCheckBox getJcbC() {
-        return jcbC;
+    /**
+     * Metode que informa si l'usuari ha seleccionat que li agrada Java
+     * @return indica si ha seleccionat el CheckBox
+     */
+    public boolean likesJava() {
+        return jcbJava.isSelected();
     }
 
-    public JButton getJbCancel() {
-        return jbCancel;
+    /**
+     * Metode que informa si l'usuari ha seleccionat que li agrada C
+     * @return indica si ha seleccionat el CheckBox
+     */
+    public boolean likesC() {
+        return jcbC.isSelected();
     }
 
-    public JButton getJbSave() {
-        return jbSave;
+    public void showWarning(String message) {
+        JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
     }
 }

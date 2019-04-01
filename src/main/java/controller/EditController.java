@@ -1,12 +1,18 @@
 package controller;
 
+import model.FileChooser;
+import model.InvalidFormatException;
 import model.User;
+import model.UserManager;
 import view.EditPanel;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class EditController implements ActionListener, MouseListener {
     private User associatedUser;
@@ -31,7 +37,16 @@ public class EditController implements ActionListener, MouseListener {
 
         switch(actionCommand){
             case "SAVE":
-                //associatedUser.update()
+                try {
+                    ImageIcon img = editPanel.getSelectedImage();
+                    String description = editPanel.getNewDescription();
+                    boolean Java = editPanel.likesJava();
+                    boolean C = editPanel.likesC();
+                    UserManager.checkEditProfileNewData(img, description, Java, C);
+                    //associatedUser.update()
+                } catch (InvalidFormatException e1) {
+                    editPanel.showWarning(e1.getMessage());
+                }
                 break;
             case "CANCEL":
                 menuController.cancelEdition();
@@ -45,7 +60,17 @@ public class EditController implements ActionListener, MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("M'has clicat la imatge.");
+        FileChooser fileChooser = new FileChooser();
+
+        try {
+            Image newImage = fileChooser.findImage();
+            if(newImage != null){
+                editPanel.setNewProfilePic(newImage);
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
     }
 
     @Override

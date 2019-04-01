@@ -282,4 +282,12 @@ public class MainWindow extends JFrame{
     public void registraEditController(EditController editController) {
         jpEdit.registerController(editController);
     }
+
+    /**
+     * Metode que defineix l'atribut imatge de perfil seleccionada del EditPanel
+     * @param userImage imatge guardada de l'usuari.
+     */
+    public void setSelectedImage(Image userImage) {
+        jpEdit.setNewProfilePic(userImage);
+    }
 }
