@@ -34,8 +34,8 @@ public class MenuController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
 
-        switch (actionCommand) {
-            case "CHAT":
+        switch (actionCommand) {        //Aqui cal fer la comprovacio del boolean del User isCompleted
+            case "CHAT":                //perque l'opcio de canviar de menu ha d'estar inhabilitada.
                 if(!mainWindow.isSelected("CHAT")) {
                     mainWindow.selectChat();
                     mainWindow.changePanel("CHAT");
@@ -61,6 +61,7 @@ public class MenuController implements ActionListener {
             case "LOGOUT":
                 if(!mainWindow.isSelected("LOGOUT")) {
                     mainWindow.selectLogout();
+                    mainWindow.changePanel("LOGOUT");
                 }
                 break;
 
@@ -68,7 +69,14 @@ public class MenuController implements ActionListener {
                 mainWindow.changePanel("EDIT");
                 //mainWindow.setSelectedImage(associatedUser.getImage());
                 break;
-
+            case "YES LOGOUT":
+                //FER COSES DE SERVIDOR I MERDES VARIES
+                mainWindow.dispose();
+                break;
+            case "NO LOGOUT":
+                mainWindow.selectConnect();
+                mainWindow.changePanel("CONNECT");
+                break;
 
         }
     }
@@ -106,4 +114,6 @@ public class MenuController implements ActionListener {
         mainWindow.changePanel("MATCH");
 
     }
+
+
 }
