@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import view.ConnectPanel;
 import view.MainWindow;
 import view.MatchPanel;
@@ -15,7 +14,7 @@ public class ConnectController implements ActionListener {
 
     public ConnectController(ConnectPanel connectPanel) {
         this.connectPanel = connectPanel;
-        this.matchController = new MatchController();
+        //this.matchController = new MatchController();
     }
 
     @Override
