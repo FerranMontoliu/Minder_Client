@@ -46,9 +46,19 @@ public class MatchController implements ActionListener {
         }
 
     }
+
+    /**
+     * TEMPORAL: aquest metode mostrara al "It's a Match" les dades (nom i fotografia de perfil) dels dos usuaris
+     * ara no estic passant cap usuari com a parametre
+     */
     public void showUsers(){
         matchPanel.setUsersMatched();
     }
+
+    /**
+     * Setter de l'usuari que ja havia donat anteriorment like al associated(el que ara ha donat like)
+     * @param matched primer usuari que ha donat like a l'altre
+     */
     public void setMatchedUser (User matched){
         usersMatched[1] = matched;
     }

@@ -92,12 +92,17 @@ public class MenuController implements ActionListener {
      */
     public void goToChatWith(User[] usersMatched) {
         mainWindow.changePanel("CHAT");
+        mainWindow.selectChat();
         //aqui s'haura d'anar al chat nou entre els dos usuaris
     }
 
+    /**
+     * Metode que canvia el panell Connect a Match en cas de que hi hagi match entre dos usuaris
+     */
     public void showMatch() {
         //a la funcio showUsers es passarien els usuaris en questio
         matchController.showUsers();
         mainWindow.changePanel("MATCH");
+
     }
 }
