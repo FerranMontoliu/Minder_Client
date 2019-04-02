@@ -31,6 +31,7 @@ public class MenuController implements ActionListener {
             case "CHAT":
                 if(!mainWindow.isSelected("CHAT")) {
                     mainWindow.selectChat();
+                    mainWindow.changePanel("CHAT");
                 }
                 break;
 

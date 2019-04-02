@@ -18,6 +18,7 @@ public class MainWindow extends JFrame{
     private ConnectPanel jpConnect;
     private ProfilePanel jpProfile;
     private EditPanel jpEdit;
+    private ChatPanel jpChat;
 
     //private EditPanel jpEditProfile;
 
@@ -41,9 +42,11 @@ public class MainWindow extends JFrame{
     public void createContentPanels() {
         clMainWindow = new CardLayout();
         jpSelected = new JPanel(clMainWindow);
+
         createConnectPanel();
         createProfilePanel();
         createEditPanel();
+        createChatPanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
@@ -65,7 +68,10 @@ public class MainWindow extends JFrame{
         jpSelected.add("PROFILE", jpProfile);
 
     }
-
+    private void createChatPanel() {
+        jpChat = new ChatPanel(clMainWindow);
+        jpSelected.add("CHAT",jpChat);
+    }
     /**
      * Es crida al constructor que inicialitza aquest panell de connexio entre usuaris, mostrant la foto, nom i edat de
      * l'usuari amb 3 botons: acceptar, declinar o obtenir més informacio
