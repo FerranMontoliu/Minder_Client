@@ -39,6 +39,7 @@ public class MenuController implements ActionListener {
                 if(!mainWindow.isSelected("CHAT")) {
                     mainWindow.selectChat();
                     mainWindow.changePanel("CHAT");
+                    chatController.runDefaultAppearance();
                 }
                 break;
 

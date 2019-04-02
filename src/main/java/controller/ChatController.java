@@ -4,8 +4,6 @@ import view.ChatPanel;
 
 import java.awt.event.*;
 
-import static java.lang.Thread.sleep;
-
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
     private ChatPanel chatPanel;
     private boolean buttonPressed;
@@ -16,16 +14,39 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        buttonPressed = true;
-        if(e.getActionCommand().equals("SEND")) {
-            String message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
+
+        if(e.getActionCommand().charAt(0) == 'Z') {
+            chatPanel.setChosen(true); //A chat has been chosen
+            chatPanel.showMatchConversation((e.getActionCommand().charAt(1) - '0'));
+        }
+
+        if(e.getActionCommand().equals("SEND")) { //Ens han apretat el boto d'enviar
+            buttonPressed = true;
+            if(chatPanel.isChosen()) {
+                String message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
+            }
+            else {
+                chatPanel.throwErrorMessage();
+            }
             chatPanel.resetJTextField();
         }
-        if(e.getActionCommand().equals("TEXT")) {
-            System.out.println("Buenas");
+        if(e.getActionCommand().equals("TEXT")) { //Faig que amb l'enter també es pugui enviar
+
+            if(chatPanel.isChosen()) {
+                chatPanel.setSentIcon();
+                chatPanel.retrieveTextToSend();
+                chatPanel.resetJTextField();
+            }
+            else {
+                chatPanel.throwErrorMessage();
+            }
         }
     }
 
+    /**
+     * Unimplemented.
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -42,13 +63,22 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         buttonPressed = false;
     }
 
+    /**
+     * Unimplemented.
+     * @param e
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        //chatPanel.setSendIcon();
     }
 
+    /**
+     * Unimplemented.
+     * @param e
+     */
     @Override
     public void mouseExited(MouseEvent e) {
+        //chatPanel.setSendIcon();
 
     }
 
@@ -59,6 +89,11 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     @Override
     public void focusLost(FocusEvent e) {
+        //chatPanel.setTextFieldMessage();
+        //chatPanel.setSendIcon();
+    }
 
+    public void runDefaultAppearance() {
+        chatPanel.setDefaultText();
     }
 }
