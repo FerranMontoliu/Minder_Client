@@ -14,6 +14,7 @@ public class MenuController implements ActionListener {
 
 
 
+
     public MenuController(MainWindow mainWindow, User associatedUser) {
         this.mainWindow = mainWindow;
         this.associatedUser = associatedUser;
@@ -21,6 +22,7 @@ public class MenuController implements ActionListener {
         mainWindow.registraConnectController(connectController);
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
         mainWindow.registraEditController(editController);
+
     }
 
     @Override

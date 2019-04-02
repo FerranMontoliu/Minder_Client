@@ -1,15 +1,21 @@
 package controller;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import view.ConnectPanel;
 import view.MainWindow;
+import view.MatchPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ConnectController implements ActionListener {
     private ConnectPanel connectPanel;
+    //private MatchPanel matchPanel;
+    private MatchController matchController;
+
     public ConnectController(ConnectPanel connectPanel) {
         this.connectPanel = connectPanel;
+        this.matchController = new MatchController();
     }
 
     @Override

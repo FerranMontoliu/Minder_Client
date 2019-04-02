@@ -19,6 +19,7 @@ public class MainWindow extends JFrame{
     private ProfilePanel jpProfile;
     private EditPanel jpEdit;
     private ChatPanel jpChat;
+    private MatchPanel jpMatch;
 
     //private EditPanel jpEditProfile;
 
@@ -47,9 +48,19 @@ public class MainWindow extends JFrame{
         createProfilePanel();
         createEditPanel();
         createChatPanel();
+        createMatchPanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
+    }
+
+    /**
+     * Metode que crida al constructor que crea el panell de "It's a Match!". Mostrara els dos usuaris associats i dues
+     * opcions per a xatejar o seguir conectant amb altres usuaris
+     */
+    private void createMatchPanel() {
+        jpMatch = new MatchPanel(clMainWindow);
+        jpSelected.add("MATCH", jpMatch);
     }
 
     /**
@@ -273,6 +284,14 @@ public class MainWindow extends JFrame{
      */
     public EditPanel getEdit() {
         return jpEdit;
+    }
+
+    /**
+     * Getter del Panel Match
+     * @return Match Panell
+     */
+    public MatchPanel getMatch() {
+        return jpMatch;
     }
 
     public void registraConnectController(ConnectController connectController) {
