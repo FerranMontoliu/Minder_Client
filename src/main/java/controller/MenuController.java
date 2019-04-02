@@ -11,7 +11,7 @@ public class MenuController implements ActionListener {
     private MainWindow mainWindow;
     private ConnectController connectController;
     private EditController editController;
-
+    private ChatController chatController;
 
 
     public MenuController(MainWindow mainWindow, User associatedUser) {
@@ -20,6 +20,8 @@ public class MenuController implements ActionListener {
         connectController = new ConnectController(mainWindow.getConnect());  //Aixo trenca paradigmes??
         mainWindow.registraConnectController(connectController);
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
+        chatController = new ChatController(mainWindow.getChat());
+        mainWindow.registraChatController(chatController);
         mainWindow.registraEditController(editController);
     }
 
