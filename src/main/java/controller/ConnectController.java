@@ -10,11 +10,12 @@ import java.awt.event.ActionListener;
 public class ConnectController implements ActionListener {
     private ConnectPanel connectPanel;
     //private MatchPanel matchPanel;
-    private MatchController matchController;
+    private MenuController menuController;
 
-    public ConnectController(ConnectPanel connectPanel) {
+
+    public ConnectController(ConnectPanel connectPanel, MenuController menuController) {
         this.connectPanel = connectPanel;
-        //this.matchController = new MatchController();
+        this.menuController = menuController;
     }
 
     @Override
@@ -28,11 +29,13 @@ public class ConnectController implements ActionListener {
 
             case "LIKE":
                 System.out.println("I like you!");
+                //si hi ha match
+                menuController.showMatch();
                 break;
 
             case "INFO":
                 System.out.println("I like trains");
-                connectPanel.matchDesign();//MOSTRAR LA INFO DE L'USUARI!!!!!
+                //mostra la info de l'usuari
                 break;
 
             default:

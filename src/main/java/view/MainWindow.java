@@ -1,9 +1,6 @@
 package view;
 
-import controller.ChatController;
-import controller.ConnectController;
-import controller.EditController;
-import controller.MenuController;
+import controller.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -319,5 +316,13 @@ public class MainWindow extends JFrame{
      */
     public void setSelectedImage(Image userImage) {
         jpEdit.setNewProfilePic(userImage);
+    }
+
+    /**
+     * Metode que vincula les accions dels botons del MatchPanel amb el controlador d'aquest
+     * @param matchController
+     */
+    public void registraMatchController(MatchController matchController) {
+        jpMatch.registraController(matchController);
     }
 }
