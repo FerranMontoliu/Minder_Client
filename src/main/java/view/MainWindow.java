@@ -1,5 +1,6 @@
 package view;
 
+import controller.ChatController;
 import controller.ConnectController;
 import controller.EditController;
 import controller.MenuController;
@@ -286,18 +287,29 @@ public class MainWindow extends JFrame{
         return jpEdit;
     }
 
+<<<<<<< HEAD
     /**
      * Getter del Panel Match
      * @return Match Panell
      */
     public MatchPanel getMatch() {
         return jpMatch;
+=======
+    public ChatPanel getChat() {
+        return jpChat;
+    }
+
+    public void setChat(ChatPanel jpChat) {
+        this.jpChat = jpChat;
+>>>>>>> a84e8cf99cf7f28e7456427316f6a127a87246ec
     }
 
     public void registraConnectController(ConnectController connectController) {
         jpConnect.registraController(connectController);
     }
-
+    public void registraChatController(ChatController chatController) {
+        jpChat.registraControlador(chatController);
+    }
     public void registraEditController(EditController editController) {
         jpEdit.registerController(editController);
     }

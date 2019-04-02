@@ -1,5 +1,7 @@
 package view;
 
+import controller.ChatController;
+import controller.ConnectController;
 import model.User;
 
 
@@ -91,8 +93,8 @@ public class ChatPanel extends JPanel {
         Send[0] = new ImageIcon("icons/userDark.png");
         Send[1] = new ImageIcon("icons/userLight.png");
 
-        jbMatches[0] = new JButton(Send[0]);
-        jbMatches[1] = new JButton(Send[1]);
+        jbMatches[0] = new JButton("Conill Peluix ",Send[0]);
+        jbMatches[1] = new JButton("Agus",Send[1]);
 
         for(int i=0;i<jbMatches.length;i++) {
             jpMatches.add(jbMatches[i]);
@@ -138,6 +140,7 @@ public class ChatPanel extends JPanel {
         this.add(jspMatches,BorderLayout.NORTH);
         this.add(jtpane,BorderLayout.CENTER);
         this.add(jpMessage,BorderLayout.SOUTH);
+        this.setTextFieldMessage();
 
         /*for (User u : user.getMatch()) { //Gotta change that
 
@@ -176,6 +179,33 @@ public class ChatPanel extends JPanel {
         this.add(jspTop, BorderLayout.NORTH);
         this.add(jspCentre, BorderLayout.CENTER);*/
     }
+
+    public void registraControlador(ChatController controller) {
+        jbSend.addActionListener(controller);
+        jtfMissatge.addFocusListener(controller);
+        jtfMissatge.setActionCommand("TEXT");
+        jbSend.addMouseListener(controller);
+        jbSend.setActionCommand("SEND");
+
+    }
+    public String retrieveTextToSend() {
+        return jtfMissatge.getText();
+    }
+    public void resetJTextField() {
+        jtfMissatge.setText("");
+    }
+    public void setSentIcon() {
+        ImageIcon iSent = new ImageIcon("icons/sent.png");
+        jbSend.setIcon(iSent);
+    }
+    public void setSendIcon() {
+        ImageIcon iSend = new ImageIcon("icons/send.png");
+        jbSend.setIcon(iSend);
+    }
+    public void setTextFieldMessage() {
+        jtfMissatge.setText("Write a Message ");
+    }
+
 
 
 
