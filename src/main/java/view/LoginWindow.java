@@ -137,10 +137,14 @@ public class LoginWindow extends JFrame {
     public void registrarControlador(LoginController c){
         jpSignIn.regsitrarControlador(c);
         jpSignUp.registerController(c);
+
         jrbSignIn.addActionListener(c);
         jrbSignIn.setActionCommand("SIGN-IN-JRB");
+
         jrbSignUp.addActionListener(c);
         jrbSignUp.setActionCommand("SIGN-UP-JRB");
+
+        this.addWindowListener(c);
     }
 
     /**
