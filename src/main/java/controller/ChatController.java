@@ -2,6 +2,7 @@ package controller;
 
 import view.ChatPanel;
 
+import javax.swing.*;
 import java.awt.event.*;
 
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
@@ -16,8 +17,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     public void actionPerformed(ActionEvent e) {
 
         if(e.getActionCommand().charAt(0) == 'Z') {
+            chatPanel.setTextFieldMessage();
             chatPanel.setChosen(true); //A chat has been chosen
             chatPanel.showMatchConversation((e.getActionCommand().charAt(1) - '0'));
+
         }
 
         if(e.getActionCommand().equals("SEND")) { //Ens han apretat el boto d'enviar
@@ -33,7 +36,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         if(e.getActionCommand().equals("TEXT")) { //Faig que amb l'enter també es pugui enviar
 
             if(chatPanel.isChosen()) {
-                chatPanel.setSentIcon();
                 chatPanel.retrieveTextToSend();
                 chatPanel.resetJTextField();
             }
@@ -49,12 +51,17 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        System.out.println("Unmatch User");
+        if(SwingUtilities.isRightMouseButton(e) ) {
+            boolean remove = chatPanel.throwUnmatchMessage();
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         if(!buttonPressed) chatPanel.setSentIcon();
+
+
     }
 
     @Override
@@ -69,7 +76,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      */
     @Override
     public void mouseEntered(MouseEvent e) {
-        //chatPanel.setSendIcon();
     }
 
     /**
@@ -84,13 +90,11 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     @Override
     public void focusGained(FocusEvent e) {
-        chatPanel.resetJTextField();
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-        //chatPanel.setTextFieldMessage();
-        //chatPanel.setSendIcon();
+        chatPanel.setTextFieldMessage();
     }
 
     public void runDefaultAppearance() {
