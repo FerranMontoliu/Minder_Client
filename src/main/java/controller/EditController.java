@@ -44,6 +44,7 @@ public class EditController implements ActionListener, MouseListener {
                     boolean C = editPanel.likesC();
                     UserManager.checkEditProfileNewData(img, description, Java, C);
                     //associatedUser.update()
+                    //associatedUser.setCompleted(true);
                 } catch (InvalidFormatException e1) {
                     editPanel.showWarning(e1.getMessage());
                 }

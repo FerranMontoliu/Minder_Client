@@ -3,6 +3,7 @@ package controller;
 import model.User;
 import view.MainWindow;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,8 +35,8 @@ public class MenuController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
 
-        switch (actionCommand) {        //Aqui cal fer la comprovacio del boolean del User isCompleted
-            case "CHAT":                //perque l'opcio de canviar de menu ha d'estar inhabilitada.
+        switch (actionCommand) {  //TODO:Aqui cal fer la comprovacio del boolean del User isCompleted perque l'opcio de canviar de menu ha d'estar inhabilitada.
+            case "CHAT":
                 if(!mainWindow.isSelected("CHAT")) {
                     mainWindow.selectChat();
                     mainWindow.changePanel("CHAT");
@@ -67,7 +68,13 @@ public class MenuController implements ActionListener {
 
             case "EDIT":
                 mainWindow.changePanel("EDIT");
-                //mainWindow.setSelectedImage(associatedUser.getImage());
+                //TODO: Aquestes variables realment les hauria d'agafar del atribut associatedUser, però de moment són proves
+                Image profilePicture = null;
+                String userDescription = "hola";
+                boolean java = true;
+                boolean c = false;
+                mainWindow.initiateEdit(profilePicture, userDescription, java, c);
+                //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
             case "YES LOGOUT":
                 //FER COSES DE SERVIDOR I MERDES VARIES
