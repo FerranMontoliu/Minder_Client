@@ -37,11 +37,13 @@ public class LoginController implements ActionListener, WindowListener {
             case "SIGN-IN-JRB":
                 w.cleanSignInPanel();
                 w.changePanel("SIGN IN");
+                w.focusUserIn();
                 break;
 
             case "SIGN-UP-JRB":
                 w.cleanSignUpPanel();
                 w.changePanel("SIGN UP");
+                w.focusUserUp();
                 break;
 
             case "SHOW-UP":
