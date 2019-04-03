@@ -37,11 +37,13 @@ public class LoginController implements ActionListener, WindowListener {
             case "SIGN-IN-JRB":
                 w.cleanSignInPanel();
                 w.changePanel("SIGN IN");
+                w.focusUserIn();
                 break;
 
             case "SIGN-UP-JRB":
                 w.cleanSignUpPanel();
                 w.changePanel("SIGN UP");
+                w.focusUserUp();
                 break;
 
             case "SHOW-UP":
@@ -90,9 +92,15 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
                     u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
+
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
-                    w.cleanSignInPanel();
-                    w.changePanel("SIGN IN");
+
+                    w.dispose();
+                    MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
+                    MenuController mc = new MenuController(mw, u); //Potser estaria millor escriure EDIT i no PROFILE no?
+                    mw.firstEdition();
+                    mw.registraController(mc);
+                    mw.setVisible(true);
                 } catch (Exception e1) {
                     w.showWarning(e1.getMessage());
                 }

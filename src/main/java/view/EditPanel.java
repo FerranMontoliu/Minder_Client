@@ -56,7 +56,8 @@ public class EditPanel extends JPanel {
 
         jlProfilePic = new JLabel();
         if(selectedImage == null){
-            jlProfilePic.setIcon(new ImageIcon(new ImageIcon("Pictures/images.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
+            jlProfilePic.setText("No image selected.");
+            //jlProfilePic.setIcon(new ImageIcon(new ImageIcon("Pictures/images.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
         }else{
             jlProfilePic.setIcon(selectedImage);
         }
@@ -81,7 +82,7 @@ public class EditPanel extends JPanel {
         jlDescription.setHorizontalAlignment(SwingConstants.LEFT);
         JPanel jpDescriptionLabel = new JPanel(new BorderLayout());
         jpDescriptionLabel.add(jlDescription, BorderLayout.WEST);
-        jpDescriptionLabel.setMaximumSize(new Dimension(250, 10)); //Per confirmar
+        jpDescriptionLabel.setMaximumSize(new Dimension(jpDescriptionLabel.getPreferredSize().width, 10)); //Per confirmar
         jpDescription.add(jpDescriptionLabel);
 
         jtaNewDescription = new JTextArea(5, 25);
@@ -183,5 +184,13 @@ public class EditPanel extends JPanel {
 
     public void showWarning(String message) {
         JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void disableCancel() {
+        jbCancel.setEnabled(false);
+    }
+
+    public void enableCancel() {
+        jbCancel.setEnabled(true);
     }
 }
