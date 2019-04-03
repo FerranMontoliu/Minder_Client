@@ -13,6 +13,7 @@ public class EditPanel extends JPanel {
     private JButton jbCancel;
     private JButton jbSave;
     private JLabel jlProfilePic;
+    private ImageIcon provisionalImage;
     private ImageIcon selectedImage; //Tambe es podria guardar com a Image.
 
 
@@ -145,8 +146,11 @@ public class EditPanel extends JPanel {
      * @param newImage nova imatge seleccionada.
      */
     public void setNewProfilePic(Image newImage){
-        selectedImage = new ImageIcon(newImage);
-        jlProfilePic.setIcon(new ImageIcon(newImage.getScaledInstance(jlProfilePic.getWidth(), jlProfilePic.getHeight(), Image.SCALE_SMOOTH)));
+        if(selectedImage == null){
+            jlProfilePic.setText("");
+        }
+        provisionalImage = new ImageIcon(newImage);
+        jlProfilePic.setIcon(new ImageIcon(newImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
     }
 
 
@@ -163,7 +167,7 @@ public class EditPanel extends JPanel {
      * @return imatge seleccionada.
      */
     public ImageIcon getSelectedImage() {
-        return selectedImage;
+        return (ImageIcon) jlProfilePic.getIcon();
     }
 
     /**
@@ -192,5 +196,25 @@ public class EditPanel extends JPanel {
 
     public void enableCancel() {
         jbCancel.setEnabled(true);
+    }
+
+    public void initateEdit(Image profilePicture, String userDescription, boolean java, boolean c) {
+        if(profilePicture == null){
+            provisionalImage = null;
+            jlProfilePic.setText("No image selected.");
+        }else{
+            jlProfilePic.setIcon(new ImageIcon(profilePicture.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+        }
+        if((userDescription == null)||(userDescription.length() == 0)){
+            jtaNewDescription.setText("");
+        }else{
+            jtaNewDescription.setText(userDescription);
+        }
+        if(java){
+            jcbJava.setSelected(true);
+        }
+        if(c){
+            jcbC.setSelected(true);
+        }
     }
 }
