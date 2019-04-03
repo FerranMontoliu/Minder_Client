@@ -58,7 +58,7 @@ public class ChatPanel extends JPanel {
         jspMatches.setBorder(tb);
         jspMatches.createVerticalScrollBar(); //Scroll d'imatges amb els matches
         jspMatches.setPreferredSize(new Dimension(80,70));
-        jspMatches.setToolTipText("These are the users you have made match with");
+        jspMatches.setToolTipText("These are the users you have made match with. Right-Click to unmatch the user");
 
         //Iterar per tots els matches afegint les imatges a cada panell corresponent
 
@@ -119,6 +119,7 @@ public class ChatPanel extends JPanel {
 
         for(int i=0;i<jbMatches.length;i++) {
             jbMatches[i].addActionListener(controller);
+            //jbMatches[i].addMouseListener(controller);
             jbMatches[i].setActionCommand("Z"+String.valueOf(i));
         }
 
@@ -224,6 +225,19 @@ public class ChatPanel extends JPanel {
         JOptionPane.showMessageDialog(this, "You have not chosen a chat!", "Alert", JOptionPane.ERROR_MESSAGE);
     }
 
+    public boolean throwUnmatchMessage() {
+         //JOptionPane.YES_NO_OPTION;
+        int dialogButton  = 0;
+        dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","WARNING", dialogButton);
+            if(dialogButton == JOptionPane.NO_OPTION) {
+                remove(dialogButton);
+                return true;
+            }
+            return false;
+
+
+    }
+
 
 
 
@@ -249,4 +263,5 @@ public class ChatPanel extends JPanel {
 
 
 }
+
 
