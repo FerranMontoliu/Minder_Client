@@ -58,6 +58,7 @@ public class ChatPanel extends JPanel {
         jspMatches.setBorder(tb);
         jspMatches.createVerticalScrollBar(); //Scroll d'imatges amb els matches
         jspMatches.setPreferredSize(new Dimension(80,70));
+        jspMatches.setToolTipText("These are the users you have made match with");
 
         //Iterar per tots els matches afegint les imatges a cada panell corresponent
 
@@ -68,7 +69,8 @@ public class ChatPanel extends JPanel {
         jspCentre.createVerticalScrollBar();
         jtpane = new JTextPane();
         jtpane.setEditable(false);
-
+        jtpane.setToolTipText("You can chat with your matches here");
+        //jtpane.setBackground(new Color(255, 155, 215));
         //Temporal!!!
         jpMatches = new JPanel();
         jbMatches = new JButton[2]; //Array de matches, per les seves fotos
@@ -86,12 +88,13 @@ public class ChatPanel extends JPanel {
         }
         jspMatches.getViewport().add(jpMatches);
 
+        //Inicialitzacio de la finestra superior
         jtfMissatge = new JTextField(50);
 
         jpMessage = new JPanel(new BorderLayout());
         jpMessage.add(jtfMissatge,BorderLayout.CENTER);
         ImageIcon iSend = new ImageIcon("icons/send.png");
-        jbSend = new JButton(iSend);
+        jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
         jpMessage.add(jbSend,BorderLayout.EAST);
 
         //Afegeixo:
