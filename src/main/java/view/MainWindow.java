@@ -337,4 +337,9 @@ public class MainWindow extends JFrame{
     public void firstEdition() {
         jpEdit.disableCancel();
     }
+
+
+    public void initiateEdit(Image profilePicture, String userDescription, boolean java, boolean c) {
+        jpEdit.initateEdit(profilePicture, userDescription, java, c);
+    }
 }

@@ -36,7 +36,9 @@ public class ServerComunicationLogin extends Thread {
             this.socketToServer = new Socket(cc.getServerIP(), cc.getServerPort());
             this.dataIn = new DataInputStream(socketToServer.getInputStream());
             this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
+            System.out.println("pene");
             //this.objectIn = new ObjectInputStream(socketToServer.getInputStream());//TODO: WTF PQ MERDA NO VA
+            System.out.println("nepe");
             this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
         } catch(IOException e) {
             e.printStackTrace();
