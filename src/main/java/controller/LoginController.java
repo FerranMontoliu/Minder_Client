@@ -3,7 +3,7 @@ package controller;
 import model.EmptyTextFieldException;
 import model.User;
 import model.UserManager;
-import network.ServerComunication;
+import network.ServerComunicationLogin;
 import view.LoginWindow;
 import view.MainWindow;
 
@@ -16,17 +16,16 @@ public class LoginController implements ActionListener, WindowListener {
 
     private LoginWindow w;
     private User u;
-    private ServerComunication sc;
+    private ServerComunicationLogin sc;
 
     /**
      * Constructor del controlador associat a la pantalla de Log-In.
      *
      */
-    public LoginController(LoginWindow w, ServerComunication sc) {
+    public LoginController(LoginWindow w, ServerComunicationLogin sc) {
         this.w = w;
         this.u = null;
         this.sc = sc;
-        sc.startServerComunication();
     }
 
     @Override
@@ -37,11 +36,13 @@ public class LoginController implements ActionListener, WindowListener {
             case "SIGN-IN-JRB":
                 w.cleanSignInPanel();
                 w.changePanel("SIGN IN");
+                w.focusUserIn();
                 break;
 
             case "SIGN-UP-JRB":
                 w.cleanSignUpPanel();
                 w.changePanel("SIGN UP");
+                w.focusUserUp();
                 break;
 
             case "SHOW-UP":
@@ -57,9 +58,12 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
                     u = new User(w.getSignInUsername(), w.getSignInPassword());
+                    sc.startServerComunication('a');
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
+
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
                     User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
+
                     w.dispose();
                     if(user.isCompleted()) {
                         MainWindow mw = new MainWindow("CONNECT");
@@ -90,9 +94,15 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
                     u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
+
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
-                    w.cleanSignInPanel();
-                    w.changePanel("SIGN IN");
+
+                    w.dispose();
+                    MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
+                    MenuController mc = new MenuController(mw, u); //Potser estaria millor escriure EDIT i no PROFILE no?
+                    mw.firstEdition();
+                    mw.registraController(mc);
+                    mw.setVisible(true);
                 } catch (Exception e1) {
                     w.showWarning(e1.getMessage());
                 }

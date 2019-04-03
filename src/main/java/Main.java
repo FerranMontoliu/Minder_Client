@@ -1,5 +1,5 @@
 import controller.LoginController;
-import network.ServerComunication;
+import network.ServerComunicationLogin;
 import view.LoginWindow;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             //Crea la vista i el controlador de la pestanya de login/registre i els vincula:
             LoginWindow w = new LoginWindow();
-            ServerComunication sc = new ServerComunication(w);
+            ServerComunicationLogin sc = new ServerComunicationLogin(w);
             LoginController c = new LoginController(w, sc);
             w.registrarControlador(c);
             w.setVisible(true);
