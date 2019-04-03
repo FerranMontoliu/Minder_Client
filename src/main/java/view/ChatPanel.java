@@ -223,13 +223,18 @@ public class ChatPanel extends JPanel {
 
     public boolean throwUnmatchMessage() {
         int dialogButton  = 0;
-        dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","WARNING", dialogButton);
+        dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","Warning", dialogButton);
             if(dialogButton == JOptionPane.NO_OPTION) {
                 remove(dialogButton);
                 return true;
             }
             return false;
 
+
+    }
+
+    public void noTextMessage() {
+        JOptionPane.showMessageDialog(this, "You have not written anything!!", "Alert", JOptionPane.ERROR_MESSAGE);
 
     }
 
