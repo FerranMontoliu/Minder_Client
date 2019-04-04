@@ -1,7 +1,6 @@
 package view;
 
 import controller.MatchController;
-import model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +10,7 @@ public class MatchPanel extends JPanel {
     private JButton jbPlay;
     private JLabel jlphotoAssociated;
     private JLabel jlphotoMatched;
+    private JLabel jldescription;
 
     /**
      * Constructor del panell que es mostrara en cas d'haver-hi un match entre dos usuaris.
@@ -29,7 +29,9 @@ public class MatchPanel extends JPanel {
      * Metode que inclou els botons i el missatge que conte els dos noms dels usuaris
      */
     private void createOptions() {
-        JLabel jldescription = new JLabel("You and x have liked each other");
+        jldescription = new JLabel();
+        //TODO: substituir aquesta funcio i cridar-la des del controlador passant usuari matched
+        showNamesMessage();
         jldescription.setAlignmentX(Component.CENTER_ALIGNMENT);
         jldescription.setBorder(BorderFactory.createEmptyBorder(3, 0, 10, 0));
         add(jldescription);
@@ -51,6 +53,16 @@ public class MatchPanel extends JPanel {
         jpButtons.setBackground(new Color(129, 110, 115));
         jpButtons.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
         add(jpButtons);
+    }
+
+    /**
+     * Metode que mostra el missatge de connexio entre l'usuari que ha donat el segon like amb el que ja li havia donat
+     * anteriorment
+     */
+    public void showNamesMessage(){
+        String name = "Pol";
+        //TODO: Enviar per parametre el MatchedUser
+        jldescription.setText("You and "+ name + " have liked each other!");
     }
 
     /**
@@ -87,6 +99,7 @@ public class MatchPanel extends JPanel {
      */
     //public void setUsersMatched(User userAssociated, User userMatched){
     public void setUsersMatched(){
+        //TODO: Canviar les imatges dels dos usuaris corresponents al match
         jlphotoAssociated.setIcon(new ImageIcon("Pictures/user-64px.png"));
         jlphotoMatched.setIcon(new ImageIcon("Pictures/user-64px.png"));
     }
