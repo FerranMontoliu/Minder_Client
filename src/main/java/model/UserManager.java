@@ -38,6 +38,15 @@ public class UserManager {
         }
     }
 
+    public static boolean mailInSignIn(String usernameField){
+        try{
+            mailCorrectFormat(usernameField);
+            return true;
+        } catch (InvalidFormatException e) {
+            return false;
+        }
+    }
+
     /**
      * Funcio que s'encarrega de comprovar si la password concorda amb el camp de confirmacio de password.
      *

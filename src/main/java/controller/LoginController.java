@@ -60,6 +60,11 @@ public class LoginController implements ActionListener, WindowListener {
                 try {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
+                    if(UserManager.mailInSignIn(w.getSignInUsername())){
+                        //constructor amb el mail en comptes de username
+                    }else{
+                        //constructor amb el username com a username
+                    }
                     u = new User(w.getSignInUsername(), w.getSignInPassword());
                     sc.startServerComunication(LOGIN_USER);
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
