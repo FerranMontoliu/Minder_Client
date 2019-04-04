@@ -18,6 +18,7 @@ public class MainWindow extends JFrame{
     private EditPanel jpEdit;
     private ChatPanel jpChat;
     private MatchPanel jpMatch;
+    private LogoutPanel jpLogOut;
 
     //private EditPanel jpEditProfile;
 
@@ -47,9 +48,15 @@ public class MainWindow extends JFrame{
         createEditPanel();
         createChatPanel();
         createMatchPanel();
+        createLogoutPanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
+    }
+
+    private void createLogoutPanel() {
+        jpLogOut = new LogoutPanel(clMainWindow);
+        jpSelected.add("LOGOUT", jpLogOut);
     }
 
     /**
@@ -171,9 +178,10 @@ public class MainWindow extends JFrame{
         menuProfile.setActionCommand("PROFILE");
 
         menuLogout.addActionListener(controller);
-        menuLogout.setActionCommand("CONNECT");
+        menuLogout.setActionCommand("LOGOUT");
 
         jpProfile.registraController(controller);
+        jpLogOut.registerController(controller);
     }
 
     /**
@@ -324,5 +332,14 @@ public class MainWindow extends JFrame{
      */
     public void registraMatchController(MatchController matchController) {
         jpMatch.registraController(matchController);
+    }
+
+    public void firstEdition() {
+        jpEdit.disableCancel();
+    }
+
+
+    public void initiateEdit(Image profilePicture, String userDescription, boolean java, boolean c) {
+        jpEdit.initateEdit(profilePicture, userDescription, java, c);
     }
 }

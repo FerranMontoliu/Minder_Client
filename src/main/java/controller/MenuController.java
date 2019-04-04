@@ -3,6 +3,7 @@ package controller;
 import model.User;
 import view.MainWindow;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,11 +35,12 @@ public class MenuController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
 
-        switch (actionCommand) {
+        switch (actionCommand) {  //TODO:Aqui cal fer la comprovacio del boolean del User isCompleted perque l'opcio de canviar de menu ha d'estar inhabilitada.
             case "CHAT":
                 if(!mainWindow.isSelected("CHAT")) {
                     mainWindow.selectChat();
                     mainWindow.changePanel("CHAT");
+                    chatController.runDefaultAppearance();
                 }
                 break;
 
@@ -60,14 +62,28 @@ public class MenuController implements ActionListener {
             case "LOGOUT":
                 if(!mainWindow.isSelected("LOGOUT")) {
                     mainWindow.selectLogout();
+                    mainWindow.changePanel("LOGOUT");
                 }
                 break;
 
             case "EDIT":
                 mainWindow.changePanel("EDIT");
-                //mainWindow.setSelectedImage(associatedUser.getImage());
+                //TODO: Aquestes variables realment les hauria d'agafar del atribut associatedUser, però de moment són proves
+                Image profilePicture = null;
+                String userDescription = "hola";
+                boolean java = true;
+                boolean c = false;
+                mainWindow.initiateEdit(profilePicture, userDescription, java, c);
+                //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
-
+            case "YES LOGOUT":
+                //FER COSES DE SERVIDOR I MERDES VARIES
+                mainWindow.dispose();
+                break;
+            case "NO LOGOUT":
+                mainWindow.selectConnect();
+                mainWindow.changePanel("CONNECT");
+                break;
 
         }
     }
@@ -106,6 +122,7 @@ public class MenuController implements ActionListener {
 
     }
 
+<<<<<<< HEAD
     /**
      * Metode que obre el panell del perfil (sense seleccionar-no, ja que estem al connect panel) mostrar l'usuari del que
      * es vol veure tota la informacio (Es passa com a parametre)
@@ -114,4 +131,7 @@ public class MenuController implements ActionListener {
     public void showUserToConnectProfile() {
         mainWindow.changePanel("PROFILE");
     }
+=======
+
+>>>>>>> 503135070a77b96f7f35a7f285bafab17f2ad2da
 }
