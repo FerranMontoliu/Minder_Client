@@ -1,7 +1,6 @@
 package view;
 
 import controller.ChatController;
-import controller.ConnectController;
 import model.User;
 
 
@@ -9,11 +8,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-import static java.awt.Font.BOLD;
 
-
-//Next: Fer controller de la classe
-//Afegir funció perque canvii el color alhora d'enviar
+//TODO: Boto per remove usuari de la llista de matches
+//TODO: Quan tinguem usuaris, provar xat
 
 public class ChatPanel extends JPanel {
 
@@ -114,12 +111,11 @@ public class ChatPanel extends JPanel {
         jtfMissatge.addFocusListener(controller);
         jtfMissatge.addActionListener(controller);
         jtfMissatge.setActionCommand("TEXT");
-        jbSend.addMouseListener(controller);
         jbSend.setActionCommand("SEND");
 
         for(int i=0;i<jbMatches.length;i++) {
             jbMatches[i].addActionListener(controller);
-            //jbMatches[i].addMouseListener(controller);
+            jbMatches[i].addMouseListener(controller);
             jbMatches[i].setActionCommand("Z"+String.valueOf(i));
         }
 
@@ -226,15 +222,19 @@ public class ChatPanel extends JPanel {
     }
 
     public boolean throwUnmatchMessage() {
-         //JOptionPane.YES_NO_OPTION;
         int dialogButton  = 0;
-        dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","WARNING", dialogButton);
+        dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","Warning", dialogButton);
             if(dialogButton == JOptionPane.NO_OPTION) {
                 remove(dialogButton);
                 return true;
             }
             return false;
 
+
+    }
+
+    public void noTextMessage() {
+        JOptionPane.showMessageDialog(this, "You have not written anything!!", "Alert", JOptionPane.ERROR_MESSAGE);
 
     }
 
