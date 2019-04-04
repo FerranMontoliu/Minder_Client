@@ -103,7 +103,6 @@ public class ProfilePanel extends JPanel {
         jpUserPhoto.setBackground(new Color(202, 123, 148));
         add(jpUserPhoto, BorderLayout.NORTH);
 
-
     }
 
     /**
