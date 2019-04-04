@@ -86,7 +86,7 @@ public class ServerComunicationLogin extends Thread {
             case REGISTER_USER:
                 try {
                     dataOut.writeChar(REGISTER_USER);
-                    User u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
+                    User u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], null);
                     objectOut.writeObject(u);
                     boolean existsL = dataIn.readBoolean();
                     if(existsL) {
