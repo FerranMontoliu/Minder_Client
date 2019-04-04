@@ -105,4 +105,13 @@ public class MenuController implements ActionListener {
         mainWindow.changePanel("MATCH");
 
     }
+
+    /**
+     * Metode que obre el panell del perfil (sense seleccionar-no, ja que estem al connect panel) mostrar l'usuari del que
+     * es vol veure tota la informacio (Es passa com a parametre)
+     */
+    //public void showUserToConnectProfile(User user)
+    public void showUserToConnectProfile() {
+        mainWindow.changePanel("PROFILE");
+    }
 }
