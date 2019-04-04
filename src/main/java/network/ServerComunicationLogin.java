@@ -34,10 +34,11 @@ public class ServerComunicationLogin extends Thread {
             ClientConfig cc = Json.parseJson();
 
             this.socketToServer = new Socket(cc.getServerIP(), cc.getServerPort());
-            this.dataIn = new DataInputStream(socketToServer.getInputStream());
+
             this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
-            //this.objectIn = new ObjectInputStream(socketToServer.getInputStream());//TODO: WTF PQ MERDA NO VA
+            this.dataIn = new DataInputStream(socketToServer.getInputStream());
             this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
+            this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -88,10 +89,10 @@ public class ServerComunicationLogin extends Thread {
                     User u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
                     objectOut.writeObject(u);
                     boolean existsL = dataIn.readBoolean();
-                    /*if(existsL) {
+                    if(existsL) {
                         u = (User) objectIn.readObject();
-                    }*/
-                } catch (IOException e) {
+                    }
+                } catch (ClassNotFoundException | IOException e) {
                     e.printStackTrace();
                 }
                 stopServerComunication();

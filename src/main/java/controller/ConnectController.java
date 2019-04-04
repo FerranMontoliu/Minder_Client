@@ -35,7 +35,8 @@ public class ConnectController implements ActionListener {
 
             case "INFO":
                 System.out.println("I like trains");
-                //mostra la info de l'usuari
+                //a aquesta funcio es passaria l'usuari
+                //menuController.showUserToConnectProfile();
                 break;
 
             default:

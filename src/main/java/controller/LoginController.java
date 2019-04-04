@@ -14,6 +14,9 @@ import java.awt.event.WindowListener;
 
 public class LoginController implements ActionListener, WindowListener {
 
+    private static final char LOGIN_USER = 'a';
+    private static final char REGISTER_USER = 'b';
+
     private LoginWindow w;
     private User u;
     private ServerComunicationLogin sc;
@@ -58,7 +61,7 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
                     u = new User(w.getSignInUsername(), w.getSignInPassword());
-                    sc.startServerComunication('a');
+                    sc.startServerComunication(LOGIN_USER);
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
 
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
@@ -95,6 +98,7 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.isAdult(w.getSignUpAgeField());
                     u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
 
+                    sc.startServerComunication(REGISTER_USER);
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
 
                     w.dispose();
