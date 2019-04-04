@@ -70,7 +70,7 @@ public class LoginController implements ActionListener, WindowListener {
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
 
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                    User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", "Polete777", null, "", true, true, "Church Of Hell", null, null, null, null, null);
+                    User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
 
                     w.dispose();
                     if(user.isCompleted()) {
@@ -101,7 +101,7 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.signUpPasswordIsCorrect(passwords[0], passwords[1]);
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
-                    u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
+                    u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], null);
 
                     sc.startServerComunication(REGISTER_USER);
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
