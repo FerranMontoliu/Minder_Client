@@ -113,7 +113,7 @@ public class MainWindow extends JFrame{
     private void windowPreferences() {
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(420, 500));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Minder");
     }
 
@@ -182,6 +182,8 @@ public class MainWindow extends JFrame{
 
         jpProfile.registraController(controller);
         jpLogOut.registerController(controller);
+
+        this.addWindowListener(controller);
     }
 
     /**
@@ -341,5 +343,9 @@ public class MainWindow extends JFrame{
 
     public void initiateEdit(Image profilePicture, String userDescription, boolean java, boolean c) {
         jpEdit.initateEdit(profilePicture, userDescription, java, c);
+    }
+
+    public void showWarning(String message) {
+        JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
     }
 }

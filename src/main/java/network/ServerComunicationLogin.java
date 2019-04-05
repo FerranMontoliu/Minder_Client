@@ -25,7 +25,7 @@ public class ServerComunicationLogin extends Thread {
      *
      * @param w Vista associada on es veuran reflexats els canvis.
      */
-    public ServerComunicationLogin(LoginWindow w) {
+    public ServerComunicationLogin(LoginWindow w) { //TODO: No pots passar la vista al Network. Trenques paradigmes.
         try {
             this.isOn = false;
             this.w = w;

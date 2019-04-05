@@ -6,8 +6,10 @@ import view.MainWindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class MenuController implements ActionListener {
+public class MenuController implements ActionListener, WindowListener {
     private User associatedUser;
     private MainWindow mainWindow;
     private ConnectController connectController;
@@ -37,32 +39,39 @@ public class MenuController implements ActionListener {
 
         switch (actionCommand) {  //TODO:Aqui cal fer la comprovacio del boolean del User isCompleted perque l'opcio de canviar de menu ha d'estar inhabilitada.
             case "CHAT":
-                if(!mainWindow.isSelected("CHAT")) {
-                    mainWindow.selectChat();
-                    mainWindow.changePanel("CHAT");
-                    chatController.runDefaultAppearance();
+                if(associatedUser.isCompleted()){
+                    if(!mainWindow.isSelected("CHAT")) {
+                        mainWindow.selectChat();
+                        mainWindow.changePanel("CHAT");
+                        chatController.runDefaultAppearance();
+                    }
                 }
                 break;
 
             case "CONNECT":
-                if(!mainWindow.isSelected("CONNECT")) {
-                    mainWindow.selectConnect();
-                    mainWindow.changePanel("CONNECT");
+                if(associatedUser.isCompleted()){
+                    if(!mainWindow.isSelected("CONNECT")) {
+                        mainWindow.selectConnect();
+                        mainWindow.changePanel("CONNECT");
+                    }
                 }
-
                 break;
 
             case "PROFILE":
-                if(!mainWindow.isSelected("PROFILE")) {
-                    mainWindow.selectProfile();
-                    mainWindow.changePanel("PROFILE");
+                if(associatedUser.isCompleted()){
+                    if(!mainWindow.isSelected("PROFILE")) {
+                        mainWindow.selectProfile();
+                        mainWindow.changePanel("PROFILE");
+                    }
                 }
                 break;
 
             case "LOGOUT":
-                if(!mainWindow.isSelected("LOGOUT")) {
-                    mainWindow.selectLogout();
-                    mainWindow.changePanel("LOGOUT");
+                if(associatedUser.isCompleted()){
+                    if(!mainWindow.isSelected("LOGOUT")) {
+                        mainWindow.selectLogout();
+                        mainWindow.changePanel("LOGOUT");
+                    }
                 }
                 break;
 
@@ -77,7 +86,7 @@ public class MenuController implements ActionListener {
                 //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
             case "YES LOGOUT":
-                //FER COSES DE SERVIDOR I MERDES VARIES
+                //TODO: FER COSES DE SERVIDOR I MERDES VARIES
                 mainWindow.dispose();
                 break;
             case "NO LOGOUT":
@@ -131,4 +140,45 @@ public class MenuController implements ActionListener {
         mainWindow.changePanel("PROFILE");
     }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        if(associatedUser.isCompleted()){
+            if(!mainWindow.isSelected("LOGOUT")) {
+                mainWindow.selectLogout();
+                mainWindow.changePanel("LOGOUT");
+            }
+        }else{
+            mainWindow.showWarning("No pots abandonar fins que el perfil no estigui complert.");
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }

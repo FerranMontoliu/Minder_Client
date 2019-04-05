@@ -70,7 +70,7 @@ public class LoginController implements ActionListener, WindowListener {
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
 
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                    User user = new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
+                    User user = new User(true, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
 
                     w.dispose();
                     if(user.isCompleted()) {
@@ -78,7 +78,7 @@ public class LoginController implements ActionListener, WindowListener {
                         MenuController mc = new MenuController(mw, user);
                         mw.registraController(mc);
                         mw.setVisible(true);
-                    } else {
+                    } else {  //TODO: En principi no et fara SIGN IN un no completed perque sóbliga a completar quan es fa SIGN UP
                         MainWindow mw = new MainWindow("PROFILE"); //Si, es mostra el perfil, pero pq s'ha de completar.
                         MenuController mc = new MenuController(mw, user); //Potser estaria millor escriure EDIT i no PROFILE no?
                         mw.registraController(mc);
