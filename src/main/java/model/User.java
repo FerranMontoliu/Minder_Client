@@ -19,7 +19,7 @@ public class User implements Serializable {
     private boolean premium;
     private String mail;
     private String password;
-    private String passwordConfirmation;
+    private byte[] salt;
 
     private Image photo;
     private String description;
@@ -34,14 +34,14 @@ public class User implements Serializable {
     private ArrayList<User> acceptedMe;
 
 
-    public User(boolean completed, String username, String age, boolean premium, String mail, String password, String passwordConfirmation, Image photo, String description, boolean likesJava, boolean likesC, String favSong, ArrayList<String> hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
+    public User(boolean completed, String username, String age, boolean premium, String mail, String password, byte[] salt, Image photo, String description, boolean likesJava, boolean likesC, String favSong, ArrayList<String> hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
         this.completed = completed;
         this.username = username;
         this.age = age;
         this.premium = premium;
         this.mail = mail;
         this.password = password;
-        this.passwordConfirmation = passwordConfirmation;
+        this.salt = salt;
         this.photo = photo;
         this.description = description;
         this.likesJava = likesJava;
@@ -58,22 +58,27 @@ public class User implements Serializable {
      * Constructor que es crida quan es registra l'usuari.
      *
      **/
-    public User(String username, String age, boolean premium, String mail, String password, String passwordConfirmation) {
+    public User(String username, String age, boolean premium, String mail, String password, byte[] salt) {
         this.username = username;
         this.age = age;
         this.premium = premium;
         this.mail = mail;
         this.password = password;
-        this.passwordConfirmation = passwordConfirmation;
+        this.salt = salt;
+        this.completed = false;
     }
 
     /**
-     * Constructor que es crida quan l'usuari fa login.
+     * Constructor que es crida quan l'usuari fa login amb el username.
      *
      **/
-    public User(String username, String password) {
-        this.username = username;
+    public User(String identificator, String password) {
         this.password = password;
+        if(UserManager.mailInSignIn(identificator)){
+            this.mail = identificator;
+        }else{
+            this.username = identificator;
+        }
     }
 
     /**
@@ -111,15 +116,6 @@ public class User implements Serializable {
      */
     public String getPassword() {
         return password;
-    }
-
-    /**
-     * Getter de la confirmació de password de l'usuari.
-     *
-     * @return Retorna un String que conté la confirmació de la password de l'usuari.
-     */
-    public String getPasswordConfirmation() {
-        return passwordConfirmation;
     }
 
     /**

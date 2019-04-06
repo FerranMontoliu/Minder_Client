@@ -85,6 +85,7 @@ public class ConnectPanel extends JPanel {
         //lblProfilename.setText(user.getUsername()+ " ," + user.getAge());
         //lblProfilePic.setIcon((Icon)user.getPhoto());
     public void showUser() {
+        //TODO: lblProfileName i ProfilePic per parametre
         JPanel jpUserImage = new JPanel();
         jpUserImage.setLayout(new BoxLayout(jpUserImage, BoxLayout.PAGE_AXIS));
         lblProfilename.setText("Pol Espurnes"+ " ," + "19");

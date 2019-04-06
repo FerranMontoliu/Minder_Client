@@ -1,5 +1,6 @@
 package network;
 
+import controller.LoginController;
 import model.*;
 import view.LoginWindow;
 
@@ -12,6 +13,7 @@ public class ServerComunicationLogin extends Thread {
     private static final char REGISTER_USER = 'b';
 
     private LoginWindow w;
+    private LoginController loginController;
     private boolean isOn;
     private Socket socketToServer;
     private DataInputStream dataIn;
@@ -25,10 +27,11 @@ public class ServerComunicationLogin extends Thread {
      *
      * @param w Vista associada on es veuran reflexats els canvis.
      */
-    public ServerComunicationLogin(LoginWindow w) {
+    public ServerComunicationLogin(LoginWindow w, LoginController controller) { //TODO: No pots passar la vista al Network. Trenques paradigmes.
         try {
             this.isOn = false;
             this.w = w;
+            this.loginController = controller;
 
             //Configuració inicial del client:
             ClientConfig cc = Json.parseJson();
@@ -75,8 +78,9 @@ public class ServerComunicationLogin extends Thread {
                     User u = new User(w.getSignInUsername(), w.getSignInPassword());
                     objectOut.writeObject(u);
                     boolean existsL = dataIn.readBoolean();
-                    /*if(existsL) {
+                   /* if(existsL) {
                         u = (User) objectIn.readObject();
+                        loginController.setSignInUser(u);
                     }*/
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -85,12 +89,15 @@ public class ServerComunicationLogin extends Thread {
                 break;
             case REGISTER_USER:
                 try {
-                    dataOut.writeChar(REGISTER_USER);
-                    User u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], w.getSignUpPasswords()[1]);
-                    objectOut.writeObject(u);
-                    boolean existsL = dataIn.readBoolean();
-                    if(existsL) {
-                        u = (User) objectIn.readObject();
+                    dataOut.writeChar(REGISTER_USER); //TODO: Per a no trencar paradigmes s'hauria de demanar el User al controller no?
+                    User newUser = loginController.getRegisteredUser();
+                    objectOut.writeObject(newUser);
+                    boolean existsR = dataIn.readBoolean();
+                    if(existsR) {
+                        //Això perque es fa?? Si existeix tenim problemes i cal avisar al controller per a que no obri la seguent finestra
+                        newUser = (User) objectIn.readObject();
+                    }else{
+
                     }
                 } catch (ClassNotFoundException | IOException e) {
                     e.printStackTrace();
