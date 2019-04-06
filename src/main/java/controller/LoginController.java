@@ -1,6 +1,7 @@
 package controller;
 
 import model.EmptyTextFieldException;
+import model.PasswordHasher;
 import model.User;
 import model.UserManager;
 import network.ServerComunicationLogin;
@@ -25,10 +26,10 @@ public class LoginController implements ActionListener, WindowListener {
      * Constructor del controlador associat a la pantalla de Log-In.
      *
      */
-    public LoginController(LoginWindow w, ServerComunicationLogin sc) {
+    public LoginController(LoginWindow w) {
         this.w = w;
         this.u = null;
-        this.sc = sc;
+        this.sc =  new ServerComunicationLogin(w, this);
     }
 
     @Override
@@ -60,15 +61,11 @@ public class LoginController implements ActionListener, WindowListener {
                 try {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
-                    if(UserManager.mailInSignIn(w.getSignInUsername())){
-                        //constructor amb el mail en comptes de username
-                    }else{
-                        //constructor amb el username com a username
-                    }
-                    u = new User(w.getSignInUsername(), w.getSignInPassword());
+                    u = new User(w.getSignInUsername(), w.getSignInPassword());  //Constructor que ja comprova si es mail o Username
                     sc.startServerComunication(LOGIN_USER);
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
 
+                    //TODO: Potser caldria fer un sc.join perque cal esperar a que ens acceptin el user abans de passar.
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
                     User user = new User(true, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
 
@@ -78,7 +75,7 @@ public class LoginController implements ActionListener, WindowListener {
                         MenuController mc = new MenuController(mw, user);
                         mw.registraController(mc);
                         mw.setVisible(true);
-                    } else {  //TODO: En principi no et fara SIGN IN un no completed perque sóbliga a completar quan es fa SIGN UP
+                    } else {  //TODO: En principi no et fara SIGN IN un no completed perque s'obliga a completar-se quan es fa SIGN UP
                         MainWindow mw = new MainWindow("PROFILE"); //Si, es mostra el perfil, pero pq s'ha de completar.
                         MenuController mc = new MenuController(mw, user); //Potser estaria millor escriure EDIT i no PROFILE no?
                         mw.registraController(mc);
@@ -101,11 +98,12 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.signUpPasswordIsCorrect(passwords[0], passwords[1]);
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
-                    u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), w.getSignUpPasswords()[0], null);
+                    PasswordHasher ph = new PasswordHasher(passwords[0]);
+                    u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), ph.getSecurePassword(), ph.getSalt());
 
                     sc.startServerComunication(REGISTER_USER);
                     //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
-
+                    //TODO: Potser caldria fer un sc.join perque cal esperar a que ens acceptin el nou user.
                     w.dispose();
                     MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
                     MenuController mc = new MenuController(mw, u); //Potser estaria millor escriure EDIT i no PROFILE no?
@@ -152,5 +150,13 @@ public class LoginController implements ActionListener, WindowListener {
     @Override
     public void windowDeactivated(WindowEvent e) {
         //Not used.
+    }
+
+    public User getRegisteredUser() {
+        return u;
+    }
+
+    public void setSignInUser(User u) {
+        this.u = u;
     }
 }

@@ -19,7 +19,7 @@ public class User implements Serializable {
     private boolean premium;
     private String mail;
     private String password;
-    private Byte[] salt;
+    private byte[] salt;
 
     private Image photo;
     private String description;
@@ -34,7 +34,7 @@ public class User implements Serializable {
     private ArrayList<User> acceptedMe;
 
 
-    public User(boolean completed, String username, String age, boolean premium, String mail, String password, Byte[] salt, Image photo, String description, boolean likesJava, boolean likesC, String favSong, ArrayList<String> hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
+    public User(boolean completed, String username, String age, boolean premium, String mail, String password, byte[] salt, Image photo, String description, boolean likesJava, boolean likesC, String favSong, ArrayList<String> hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
         this.completed = completed;
         this.username = username;
         this.age = age;
@@ -58,7 +58,7 @@ public class User implements Serializable {
      * Constructor que es crida quan es registra l'usuari.
      *
      **/
-    public User(String username, String age, boolean premium, String mail, String password, Byte[] salt) {
+    public User(String username, String age, boolean premium, String mail, String password, byte[] salt) {
         this.username = username;
         this.age = age;
         this.premium = premium;
@@ -73,12 +73,12 @@ public class User implements Serializable {
      *
      **/
     public User(String identificator, String password) {
-        if(true) {
-            this.username = identificator;
-        } else {
-            this.mail = mail;
-        }
         this.password = password;
+        if(UserManager.mailInSignIn(identificator)){
+            this.mail = identificator;
+        }else{
+            this.username = identificator;
+        }
     }
 
     /**

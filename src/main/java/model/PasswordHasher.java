@@ -11,10 +11,10 @@ public class PasswordHasher {
 
     public PasswordHasher(String passwordToHash) throws NoSuchProviderException, NoSuchAlgorithmException {
         this.passwordToHash = passwordToHash;
-        this.salt = getSalt();
+        this.salt = generateSalt();
     }
 
-    public String getSecurePassword(String passwordToHash, byte[] salt)
+    public String getSecurePassword()
     {
         String generatedPassword = null;
         try {
@@ -40,7 +40,7 @@ public class PasswordHasher {
         return generatedPassword;
     }
 
-    public byte[] getSalt() throws NoSuchAlgorithmException, NoSuchProviderException
+    public byte[] generateSalt() throws NoSuchAlgorithmException, NoSuchProviderException
     {
         //Always use a SecureRandom generator
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
@@ -49,6 +49,10 @@ public class PasswordHasher {
         //Get a random salt
         sr.nextBytes(salt);
         //return salt
+        return salt;
+    }
+
+    public byte[] getSalt() {
         return salt;
     }
 }

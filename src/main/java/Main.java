@@ -15,8 +15,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             //Crea la vista i el controlador de la pestanya de login/registre i els vincula:
             LoginWindow w = new LoginWindow();
-            ServerComunicationLogin sc = new ServerComunicationLogin(w);
-            LoginController c = new LoginController(w, sc);
+            LoginController c = new LoginController(w);
             w.registrarControlador(c);
             w.setVisible(true);
         });
