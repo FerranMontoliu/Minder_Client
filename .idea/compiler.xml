@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="kk" />
         <module name="Minder_Client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="kk" target="8" />
       <module name="Minder_Client" target="8" />
     </bytecodeTargetLevel>
   </component>

@@ -10,7 +10,7 @@ import static java.lang.Thread.sleep;
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
     private ChatPanel chatPanel;
     private String message;
-    private boolean buttonPressed;
+
 
     public ChatController(ChatPanel chatPanel) {
         this.chatPanel = chatPanel;
@@ -32,11 +32,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         }
 
         if(e.getActionCommand().equals("SEND")) { //Ens han apretat el BOTÓ d'enviar
-            buttonPressed = true;
             System.out.println("SEND MESSAGE");
             if(chatPanel.isChosen()) {
                 message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
-                if(message.length() > 0) {
+                if(message.length() > 0 & !message.equals("Write a Message... ")) {
                     chatPanel.setSentIcon();
                     try {
                         sleep(100);
@@ -46,7 +45,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                     chatPanel.setSendIcon();
                 }
                 else {
-                    chatPanel.noTextMessage();
+                    chatPanel.noTextMessageError();
                 }
             }
             else {
@@ -58,7 +57,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
             System.out.println("SEND MESSAGE");
             if(chatPanel.isChosen()) {
                 message = chatPanel.retrieveTextToSend();
-                System.out.println(message.length());
                 chatPanel.resetJTextField();
                 if(message.length() > 0) {
                     chatPanel.setSentIcon();
@@ -70,7 +68,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                     chatPanel.setSendIcon();
                 }
                 else {
-                    chatPanel.noTextMessage(); //Error si s'intenta enviar res de text
+                    chatPanel.noTextMessageError(); //Error si s'intenta enviar res de text
                 }
             }
             else {
@@ -89,6 +87,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         if(SwingUtilities.isRightMouseButton(e) ) {
             System.out.println("UNMATCH");
             boolean remove = chatPanel.throwUnmatchMessage();
+            if(remove) {
+                System.out.println("Match has been removed");
+            }
         }
     }
 
@@ -108,7 +109,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     @Override
     public void mouseReleased(MouseEvent e) {
         chatPanel.setSendIcon();
-        buttonPressed = false;
     }
 
     /**

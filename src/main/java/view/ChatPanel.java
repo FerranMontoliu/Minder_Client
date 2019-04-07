@@ -57,7 +57,6 @@ public class ChatPanel extends JPanel {
         jspMatches.setPreferredSize(new Dimension(80,70));
         jspMatches.setToolTipText("These are the users you have made match with. Right-Click to unmatch the user");
 
-        //Iterar per tots els matches afegint les imatges a cada panell corresponent
 
         //ScrollPane de la conversa
         jspCentre = new JScrollPane();
@@ -67,28 +66,16 @@ public class ChatPanel extends JPanel {
         jtpane = new JTextPane();
         jtpane.setEditable(false);
         jtpane.setToolTipText("You can chat with your matches here");
-        //jtpane.setBackground(new Color(255, 155, 215));
-        //Temporal!!!
-        jpMatches = new JPanel();
-        jbMatches = new JButton[2]; //Array de matches, per les seves fotos
-        ImageIcon[] Send = new ImageIcon[2];
-        Send[0] = new ImageIcon("icons/userDark.png");
-        Send[1] = new ImageIcon("icons/userLight.png");
-
-        //CANVIAR!!
-        jbMatches[0] = new JButton("Conill Peluix ",Send[0]);
-        jbMatches[1] = new JButton("Atlas",Send[1]);
 
         //Afegeixo JPanels de matches
-        for(int i=0;i<jbMatches.length;i++) {
-            jpMatches.add(jbMatches[i]);
-        }
-        jspMatches.getViewport().add(jpMatches);
 
-        //Inicialitzacio de la finestra superior
-        jtfMissatge = new JTextField(50);
+        showUserPhotos();
+
+        //Inicialitzacio de la finestra inferior
 
         jpMessage = new JPanel(new BorderLayout());
+        jtfMissatge = new JTextField(50);
+
         jpMessage.add(jtfMissatge,BorderLayout.CENTER);
         ImageIcon iSend = new ImageIcon("icons/send.png");
         jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
@@ -122,17 +109,29 @@ public class ChatPanel extends JPanel {
     }
 
     /**
+     *
+     */
+    //TODO: CANVIAR!!
+    public void showUserPhotos() {
+        jpMatches = new JPanel();
+        jbMatches = new JButton[2]; //Array de matches, per les seves fotos
+        ImageIcon[] Send = new ImageIcon[2];
+        Send[0] = new ImageIcon("icons/userDark.png");
+        Send[1] = new ImageIcon("icons/userLight.png");
+        jbMatches[0] = new JButton("Conill Peluix ",Send[0]);
+        jbMatches[1] = new JButton("Atlas",Send[1]);
+        for(int i=0;i<jbMatches.length;i++) {
+            jpMatches.add(jbMatches[i]);
+        }
+        jspMatches.getViewport().add(jpMatches);
+    }
+
+    /**
      * Retorna el missatge a enviar
      * @return
      */
     public String retrieveTextToSend() {
         return jtfMissatge.getText();
-    }
-    /**
-     * Neteja JTextField
-     */
-    public void resetJTextField() {
-        jtfMissatge.setText("");
     }
 
     /**
@@ -155,8 +154,16 @@ public class ChatPanel extends JPanel {
      * Escriu un missatge inicial al JTextField
      */
     public void setTextFieldMessage() {
-        jtfMissatge.setText("Write a Message ");
+        jtfMissatge.setText("Write a Message... ");
     }
+
+    /**
+     * Neteja el JTextField
+     */
+    public void resetJTextField() {
+        jtfMissatge.setText("");
+    }
+
     public int numberOfMatches() {
         return jbMatches.length;
     }
@@ -178,10 +185,11 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Metode que posa la conversa entre els matches al JTextPane, en funcio del numero de match que se li passa
+     * Posa la conversa entre els matches al JTextPane, en funcio del numero de match que se li passa
      * @param index
      */
-    public void showMatchConversation(int index) {
+    //TODO: CANVIAR
+    public void showMatchConversation(int index) { //String de missatges
         if(index == 0) {
             jtpane.setText("\n\n\n\n\t \n\nAgusti: Text de prova");
             changeBorderName("Conill Peluix");
@@ -194,7 +202,7 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Metode que escriu el nom de la persona amb qui s'esta xatejant
+     * Escriu el nom de la persona amb qui s'esta xatejant al Border
      * @param name
      */
     public void changeBorderName(String name) {
@@ -218,23 +226,23 @@ public class ChatPanel extends JPanel {
      * Llança missatge d'error si algun element no es correcte
      */
     public void throwErrorMessage() {
-        JOptionPane.showMessageDialog(this, "You have not chosen a chat!", "Alert", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "You have not chosen a chat!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public boolean throwUnmatchMessage() {
         int dialogButton  = 0;
         dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","Warning", dialogButton);
-            if(dialogButton == JOptionPane.NO_OPTION) {
-                remove(dialogButton);
-                return true;
-            }
-            return false;
+        if(dialogButton == JOptionPane.NO_OPTION) {
+            remove(dialogButton);
+            return true;
+        }
+        return false;
 
 
     }
 
-    public void noTextMessage() {
-        JOptionPane.showMessageDialog(this, "You have not written anything!!", "Alert", JOptionPane.ERROR_MESSAGE);
+    public void noTextMessageError() {
+        JOptionPane.showMessageDialog(this, "There is no message to send!", "Error", JOptionPane.ERROR_MESSAGE);
 
     }
 

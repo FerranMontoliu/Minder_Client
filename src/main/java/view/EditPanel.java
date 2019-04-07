@@ -109,7 +109,7 @@ public class EditPanel extends JPanel {
         jcbJava = new JCheckBox();
         jcbC = new JCheckBox();
         jpCheckBoxes.add(jcbC);
-        jpCheckBoxes.add(new JLabel(new ImageIcon("icons/c-logo.png")));  //Posar icones corresponents.
+        jpCheckBoxes.add(new JLabel(new ImageIcon("icons/c-logo.png")));  //Posar icones corresponents...
         jpCheckBoxes.add(jcbJava);
         jpCheckBoxes.add(new JLabel(new ImageIcon("icons/java-2.png")));
 

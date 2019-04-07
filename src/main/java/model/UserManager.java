@@ -18,10 +18,10 @@ public class UserManager {
         try{
             int a = getAge(age);
             if(a < 18){
-                throw new InvalidFormatException("S'ha de ser major de 18 anys per a poder-se registrar.");
+                throw new InvalidFormatException("In order to register you have to be at least 18");
             }
         }catch (NumberFormatException e1){
-            throw new InvalidFormatException("El camp edat ha de ser un nombre.");
+            throw new InvalidFormatException("Age field must be a number");
         }
 
     }
@@ -94,19 +94,19 @@ public class UserManager {
 
     public static void isEmpty(String fieldContent, String fieldName) throws EmptyTextFieldException {
         if(fieldContent.isEmpty()){
-            throw new EmptyTextFieldException("El camp "+fieldName+" no pot estar buit!");
+            throw new EmptyTextFieldException("The field "+fieldName+" cannot be empty!");
         }
     }
 
     public static void checkEditProfileNewData(ImageIcon img, String description, boolean java, boolean c) throws InvalidFormatException {
         if(img == null){
-            throw new InvalidFormatException("S'ha de seleccionar una imatge obligatoriament.");
+            throw new InvalidFormatException("An image must be selected!");
         }
         if(description.isEmpty()){
-            throw new InvalidFormatException("S'ha d'afegir una descipció.");
+            throw new InvalidFormatException("Description field must be added!");
         }
         if((java == false)&&(c == false)){
-            throw new InvalidFormatException("S'ha de seleccionar llenguatge preferit.");
+            throw new InvalidFormatException("A favourite programming language must be added!");
         }
     }
 }
