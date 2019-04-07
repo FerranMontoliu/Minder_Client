@@ -24,7 +24,7 @@ public class ServerComunicationLogin extends Thread {
 
     /**
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
-     *
+     * @param controller controlador que inicia la comunicacio
      * @param w Vista associada on es veuran reflexats els canvis.
      */
     public ServerComunicationLogin(LoginWindow w, LoginController controller) { //TODO: No pots passar la vista al Network. Trenques paradigmes.
@@ -48,8 +48,7 @@ public class ServerComunicationLogin extends Thread {
     }
 
     /**
-     * Mètode encarregat d'establir la comunicació client-servidor.
-     *
+     * Metode encarregat d'establir la comunicacio client-servidor.
      */
     public void startServerComunication(char command) {
         this.command = command;
@@ -58,8 +57,7 @@ public class ServerComunicationLogin extends Thread {
     }
 
     /**
-     * Mètode encarregat de tancar la comunicació client-servidor.
-     *
+     * Metode encarregat de tancar la comunicació client-servidor.
      */
     public void stopServerComunication() {
         this.isOn = false;
@@ -67,8 +65,7 @@ public class ServerComunicationLogin extends Thread {
     }
 
     /**
-     * Mètode que s'executa quan es crea el fil d'execució.
-     *
+     * Metode que s'executa quan es crea el fil d'execució.
      */
     public void run() {
         switch(command) {

@@ -82,7 +82,9 @@ public class MenuController implements ActionListener, WindowListener {
                 String userDescription = "hola";
                 boolean java = true;
                 boolean c = false;
-                mainWindow.initiateEdit(profilePicture, userDescription, java, c);
+                String song = "Frozen";
+                String hobbies = null;
+                mainWindow.initiateEdit(profilePicture, userDescription, java, c, song, hobbies);
                 //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
             case "YES LOGOUT":
