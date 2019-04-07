@@ -15,6 +15,9 @@ public class EditPanel extends JPanel {
     private JLabel jlProfilePic;
     private ImageIcon provisionalImage;
     private ImageIcon selectedImage; //Tambe es podria guardar com a Image.
+    private JTextField jtfSong;
+    private JTextArea jtaHobbies;
+
 
 
     /**
@@ -28,6 +31,7 @@ public class EditPanel extends JPanel {
         createImagePanel();
         createDescriptionPanel();
         createProgrammingOptions();
+        createOptionalFields();
         createButtons();
     }
 
@@ -87,7 +91,6 @@ public class EditPanel extends JPanel {
         jpDescription.add(jpDescriptionLabel);
 
         jtaNewDescription = new JTextArea(5, 25);
-        //jtaNewDescription.setMaximumSize();
         jtaNewDescription.setEditable(true);
         jtaNewDescription.setLineWrap(true);
         jtaNewDescription.setWrapStyleWord(true);
@@ -130,6 +133,27 @@ public class EditPanel extends JPanel {
         jpButtons.add(jbSave);
 
         add(jpButtons);
+    }
+
+    public void createOptionalFields(){
+        TitledBorder border = new TitledBorder("Favourite Song");
+        border.setTitleJustification(TitledBorder.LEFT);
+        border.setTitlePosition(TitledBorder.TOP);
+        JPanel jpSong = new JPanel(new FlowLayout());
+        jpSong.setBorder(border);
+
+        jtfSong = new JTextField(15);
+        jpSong.add(jtfSong);
+        add(jpSong);
+
+        JPanel jpHobbies = new JPanel(new BorderLayout());
+        jpHobbies.setBorder(border);
+
+        jtaHobbies = new JTextArea(5, 25);
+        jpHobbies.add(new JLabel("Separate with commas"), BorderLayout.NORTH);
+        jpHobbies.add(jtaHobbies, BorderLayout.CENTER);
+
+        add(jpHobbies);
     }
 
     public void registerController(EditController ec){
@@ -198,6 +222,13 @@ public class EditPanel extends JPanel {
         jbCancel.setEnabled(true);
     }
 
+    /**
+     * Metode que omple el EditPanel amb els continguts del User.
+     * @param profilePicture imatge seleccionada
+     * @param userDescription descripcio del User
+     * @param java boolean que es true si li agrada Java
+     * @param c boolean que es true si li agrada C
+     */
     public void initateEdit(Image profilePicture, String userDescription, boolean java, boolean c) {
         if(profilePicture == null){
             provisionalImage = null;
