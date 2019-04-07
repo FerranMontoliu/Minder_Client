@@ -146,3 +146,15 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         chatPanel.setDefaultText();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

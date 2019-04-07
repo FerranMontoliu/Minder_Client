@@ -243,6 +243,71 @@ public class ChatPanel extends JPanel {
 
     public void noTextMessageError() {
         JOptionPane.showMessageDialog(this, "You have not written anything!!", "Error", JOptionPane.ERROR_MESSAGE);
+        /*
+        jspCentre = new JScrollPane();
+        jspCentre = new JScrollPane();
+
+        jspCentre.createVerticalScrollBar();
+        jtpane = new JTextPane();
+        jtpane.setEditable(false);
+        jtpane.setToolTipText("You can chat with your matches here");
+
+        //Afegeixo JPanels de matches
+
+        showUserPhotos();
+
+        //Inicialitzacio de la finestra inferior
+
+        jpMessage = new JPanel(new BorderLayout());
+        jtfMissatge = new JTextField(50);
+
+        jpMessage.add(jtfMissatge,BorderLayout.CENTER);
+        ImageIcon iSend = new ImageIcon("icons/send.png");
+        jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
+        jpMessage.add(jbSend,BorderLayout.EAST);
+        jspCentre = new JScrollPane();
+        jspCentre = new JScrollPane();
+
+        jspCentre.createVerticalScrollBar();
+        jtpane = new JTextPane();
+        jtpane.setEditable(false);
+        jtpane.setToolTipText("You can chat with your matches here");
+
+        //Afegeixo JPanels de matches
+
+        showUserPhotos();
+
+        //Inicialitzacio de la finestra inferior
+
+        jpMessage = new JPanel(new BorderLayout());
+        jtfMissatge = new JTextField(50);
+
+        jpMessage.add(jtfMissatge,BorderLayout.CENTER);
+        ImageIcon iSend = new ImageIcon("icons/send.png");
+        jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
+        jpMessage.add(jbSend,BorderLayout.EAST);
+        jspCentre = new JScrollPane();
+        jspCentre = new JScrollPane();
+
+        jspCentre.createVerticalScrollBar();
+        jtpane = new JTextPane();
+        jtpane.setEditable(false);
+        jtpane.setToolTipText("You can chat with your matches here");
+
+        //Afegeixo JPanels de matches
+
+        showUserPhotos();
+
+        //Inicialitzacio de la finestra inferior
+
+        jpMessage = new JPanel(new BorderLayout());
+        jtfMissatge = new JTextField(50);
+
+        jpMessage.add(jtfMissatge,BorderLayout.CENTER);
+        ImageIcon iSend = new ImageIcon("icons/send.png");
+        jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
+        jpMessage.add(jbSend,BorderLayout.EAST);
+         */
 
     }
 

@@ -18,10 +18,10 @@ public class UserManager {
         try{
             int a = getAge(age);
             if(a < 18){
-                throw new InvalidFormatException("S'ha de ser major de 18 anys per a poder-se registrar.");
+                throw new InvalidFormatException("You must be at least 18 in order to register");
             }
         }catch (NumberFormatException e1){
-            throw new InvalidFormatException("El camp edat ha de ser un nombre.");
+            throw new InvalidFormatException("Age field must be a number");
         }
 
     }
@@ -34,7 +34,7 @@ public class UserManager {
     public static void mailCorrectFormat(String mail) throws InvalidFormatException {
         EmailValidator v = EmailValidator.getInstance();
         if(!v.isValid(mail)){
-            throw new InvalidFormatException("El camp email no és correcte.");
+            throw new InvalidFormatException("Email field is not correct");
         }
     }
 
@@ -54,7 +54,7 @@ public class UserManager {
      */
     public static void passwordConfirm(String password, String passwordConfirmation) throws InvalidFormatException {
         if(!password.equals(passwordConfirmation)){
-            throw new InvalidFormatException("El camp password i password confirm no coincideixen.");
+            throw new InvalidFormatException("Password field and password do not match");
         }
     }
 
@@ -70,7 +70,7 @@ public class UserManager {
         boolean isLongEnough = password.length() > 7;
 
         if(!(hasUppercase && hasLowercase && hasNumber && isLongEnough)){
-            throw new InvalidFormatException("El camp password no és correcte. Ha de tenir minim 8 caracters, una majuscula, una minuscula i un nombre.");
+            throw new InvalidFormatException("Invalid password: It must be 8 characters long, contain an uppercase letter, a lowercase letter and a number");
         }
     }
 
@@ -94,19 +94,19 @@ public class UserManager {
 
     public static void isEmpty(String fieldContent, String fieldName) throws EmptyTextFieldException {
         if(fieldContent.isEmpty()){
-            throw new EmptyTextFieldException("El camp "+fieldName+" no pot estar buit!");
+            throw new EmptyTextFieldException("The field "+fieldName+" must not be empty!");
         }
     }
 
     public static void checkEditProfileNewData(ImageIcon img, String description, boolean java, boolean c) throws InvalidFormatException {
         if(img == null){
-            throw new InvalidFormatException("S'ha de seleccionar una imatge obligatoriament.");
+            throw new InvalidFormatException("An image must be selected");
         }
         if(description.isEmpty()){
-            throw new InvalidFormatException("S'ha d'afegir una descipció.");
+            throw new InvalidFormatException("Description must be added.");
         }
         if((java == false)&&(c == false)){
-            throw new InvalidFormatException("S'ha de seleccionar llenguatge preferit.");
+            throw new InvalidFormatException("Favourite programming language must be added");
         }
     }
 }
