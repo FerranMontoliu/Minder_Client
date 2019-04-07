@@ -6,6 +6,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class EditPanel extends JPanel {
+    private final static String HOBBIES_DEFAULT_TEXT = "Separate them with commas...";
     private JLabel jlNewImage;
     private JTextArea jtaNewDescription;
     private JCheckBox jcbJava;
@@ -15,6 +16,9 @@ public class EditPanel extends JPanel {
     private JLabel jlProfilePic;
     private ImageIcon provisionalImage;
     private ImageIcon selectedImage; //Tambe es podria guardar com a Image.
+    private JTextField jtfSong;
+    private JTextArea jtaHobbies;
+
 
 
     /**
@@ -28,6 +32,7 @@ public class EditPanel extends JPanel {
         createImagePanel();
         createDescriptionPanel();
         createProgrammingOptions();
+        createOptionalFields();
         createButtons();
     }
 
@@ -87,12 +92,13 @@ public class EditPanel extends JPanel {
         jpDescription.add(jpDescriptionLabel);
 
         jtaNewDescription = new JTextArea(5, 25);
-        //jtaNewDescription.setMaximumSize();
         jtaNewDescription.setEditable(true);
         jtaNewDescription.setLineWrap(true);
         jtaNewDescription.setWrapStyleWord(true);
+        JScrollPane jspDescription = new JScrollPane(jtaNewDescription);
+
         //jtaNewDescription.setText(user.getDesciption()); Caldria passar el usuari per parametre i ensenyarli la descripcio actual.
-        jpDescription.add(jtaNewDescription);
+        jpDescription.add(jspDescription);
 
         add(jpDescription);
     }
@@ -109,7 +115,7 @@ public class EditPanel extends JPanel {
         jcbJava = new JCheckBox();
         jcbC = new JCheckBox();
         jpCheckBoxes.add(jcbC);
-        jpCheckBoxes.add(new JLabel(new ImageIcon("icons/c-logo.png")));  //Posar icones corresponents.
+        jpCheckBoxes.add(new JLabel(new ImageIcon("icons/c-logo.png")));  //Posar icones corresponents...
         jpCheckBoxes.add(jcbJava);
         jpCheckBoxes.add(new JLabel(new ImageIcon("icons/java-2.png")));
 
@@ -132,8 +138,35 @@ public class EditPanel extends JPanel {
         add(jpButtons);
     }
 
+    public void createOptionalFields(){
+        TitledBorder border = new TitledBorder("Favourite Song");
+        border.setTitleJustification(TitledBorder.LEFT);
+        border.setTitlePosition(TitledBorder.TOP);
+        JPanel jpSong = new JPanel(new FlowLayout());
+        jpSong.setBorder(border);
+
+        jtfSong = new JTextField(15);
+        jpSong.add(jtfSong);
+        add(jpSong);
+
+        JPanel jpHobbies = new JPanel(new BorderLayout());
+        TitledBorder border2 = new TitledBorder("Hobbies");
+        border2.setTitleJustification(TitledBorder.LEFT);
+        border2.setTitlePosition(TitledBorder.TOP);
+        jpHobbies.setBorder(border2);
+
+        jtaHobbies = new JTextArea(5, 25);
+        jtaHobbies.setLineWrap(true);
+        jtaHobbies.setWrapStyleWord(true);
+        JScrollPane jscHobbies = new JScrollPane(jtaHobbies);
+        jpHobbies.add(jscHobbies, BorderLayout.CENTER);
+
+        add(jpHobbies);
+    }
+
     public void registerController(EditController ec){
         jlNewImage.addMouseListener(ec);
+        jtaHobbies.addFocusListener(ec);
         jbSave.addActionListener(ec);
         jbSave.setActionCommand("SAVE");
         jbCancel.addActionListener(ec);
@@ -155,7 +188,7 @@ public class EditPanel extends JPanel {
 
 
     /**
-     * Getter del TextArea NewDescription
+     * Getter del text del TextArea NewDescription
      * @return Text que conte el TextArea
      */
     public String getNewDescription() {
@@ -198,7 +231,14 @@ public class EditPanel extends JPanel {
         jbCancel.setEnabled(true);
     }
 
-    public void initateEdit(Image profilePicture, String userDescription, boolean java, boolean c) {
+    /**
+     * Metode que omple el EditPanel amb els continguts del User.
+     * @param profilePicture imatge seleccionada
+     * @param userDescription descripcio del User
+     * @param java boolean que es true si li agrada Java
+     * @param c boolean que es true si li agrada C
+     */
+    public void initiateEdit(Image profilePicture, String userDescription, boolean java, boolean c, String song, String hobbies) {
         if(profilePicture == null){
             provisionalImage = null;
             jlProfilePic.setText("No image selected.");
@@ -216,5 +256,44 @@ public class EditPanel extends JPanel {
         if(c){
             jcbC.setSelected(true);
         }
+        if(song == null){
+            jtfSong.setText("");
+        }else{
+            jtfSong.setText(song);
+        }
+        if(hobbies == null){
+            jtaHobbies.setText(HOBBIES_DEFAULT_TEXT);
+        }else{
+            jtaHobbies.setText(hobbies);
+        }
+    }
+
+
+    /**
+     * Metode que esborra el text per defecte del TextArea Hobbies
+     */
+    public void resetHobbies() {
+        if(jtaHobbies.getText().equals(HOBBIES_DEFAULT_TEXT)){
+           jtaHobbies.setText("");
+        }
+    }
+
+    /**
+     * Getter del text del TextField Song
+     * @return Text que conte el TextField
+     */
+    public String getFavouriteSong() {
+        return jtfSong.getText();
+    }
+
+    /**
+     * Getter del text del TextArea Hobbies
+     * @return Text que conte el TextArea
+     */
+    public String getUserHobbies() {
+        if(jtaHobbies.getText().equals(HOBBIES_DEFAULT_TEXT)){
+            return "";
+        }
+        return jtaHobbies.getText();
     }
 }

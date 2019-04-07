@@ -4,20 +4,23 @@ import model.FileChooser;
 import model.InvalidFormatException;
 import model.User;
 import model.UserManager;
+import network.ServerComunicationEdit;
 import view.EditPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.IOException;
 
-public class EditController implements ActionListener, MouseListener {
+public class EditController implements ActionListener, MouseListener, FocusListener {
+    private static final char EDIT_PROFILE = 'c';
+
     private User associatedUser;
     private EditPanel editPanel;
     private MenuController menuController;
+    private ServerComunicationEdit sc;
+    private boolean editResult;
+
 
     /**
      * Constructor per parametres.
@@ -29,6 +32,7 @@ public class EditController implements ActionListener, MouseListener {
         this.editPanel = editPanel;
         this.menuController = menuController;
         this.associatedUser = associatedUser;
+        sc = new ServerComunicationEdit(this);
     }
 
     @Override
@@ -42,9 +46,19 @@ public class EditController implements ActionListener, MouseListener {
                     String description = editPanel.getNewDescription();
                     boolean Java = editPanel.likesJava();
                     boolean C = editPanel.likesC();
-                    UserManager.checkEditProfileNewData(img, description, Java, C);
-                    //associatedUser.update()
+                    UserManager.checkEditProfileNewData(img, description, Java, C); //Camps obligatoris
+                    String song = editPanel.getFavouriteSong();
+                    String hobbies = editPanel.getUserHobbies();
+                    //associatedUser.edited()
                     //associatedUser.setCompleted(true);
+                    //sc.startServerComunication(EDIT_PROFILE);
+                    //sc.join();
+                    if(editResult){
+                        //L'edicio s'ha guardat satisfactoriament i podem canviar de finestra
+                    }else{ //L'edicio no s'ha guardat be en el servidor i no podem fer el canvi de finestra
+                        editPanel.showWarning("Hi ha hagut problemes amb la connexió al servidor.");
+                    }
+
                 } catch (InvalidFormatException e1) {
                     editPanel.showWarning(e1.getMessage());
                 }
@@ -92,5 +106,23 @@ public class EditController implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
         //Not implemented.
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        editPanel.resetHobbies();
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+
+    }
+
+    public User getUser() {
+        return associatedUser;
+    }
+
+    public void setEditResult(boolean editOK) {
+        editResult = editOK;
     }
 }

@@ -232,16 +232,17 @@ public class ChatPanel extends JPanel {
     public boolean throwUnmatchMessage() {
         int dialogButton  = 0;
         dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","Warning", dialogButton);
-            if(dialogButton == JOptionPane.NO_OPTION) {
-                remove(dialogButton);
-                return true;
-            }
-            return false;
+        if(dialogButton == JOptionPane.NO_OPTION) {
+            remove(dialogButton);
+            return true;
+        }
+        return false;
 
 
     }
 
     public void noTextMessageError() {
+<<<<<<< HEAD
         JOptionPane.showMessageDialog(this, "You have not written anything!!", "Error", JOptionPane.ERROR_MESSAGE);
         /*
         jspCentre = new JScrollPane();
@@ -308,6 +309,9 @@ public class ChatPanel extends JPanel {
         jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
         jpMessage.add(jbSend,BorderLayout.EAST);
          */
+=======
+        JOptionPane.showMessageDialog(this, "There is no message to send!", "Error", JOptionPane.ERROR_MESSAGE);
+>>>>>>> e855050e7027cef5180ae9ca5965e9465bb582c0
 
     }
 
