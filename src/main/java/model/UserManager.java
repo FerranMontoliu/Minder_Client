@@ -18,11 +18,7 @@ public class UserManager {
         try{
             int a = getAge(age);
             if(a < 18){
-<<<<<<< HEAD
                 throw new InvalidFormatException("You must be at least 18 in order to register");
-=======
-                throw new InvalidFormatException("In order to register you have to be at least 18");
->>>>>>> e855050e7027cef5180ae9ca5965e9465bb582c0
             }
         }catch (NumberFormatException e1){
             throw new InvalidFormatException("Age field must be a number");
@@ -98,25 +94,18 @@ public class UserManager {
 
     public static void isEmpty(String fieldContent, String fieldName) throws EmptyTextFieldException {
         if(fieldContent.isEmpty()){
-<<<<<<< HEAD
-            throw new EmptyTextFieldException("The field "+fieldName+" must not be empty!");
-=======
             throw new EmptyTextFieldException("The field "+fieldName+" cannot be empty!");
->>>>>>> e855050e7027cef5180ae9ca5965e9465bb582c0
         }
     }
 
     public static void checkEditProfileNewData(ImageIcon img, String description, boolean java, boolean c) throws InvalidFormatException {
         if(img == null){
-<<<<<<< HEAD
             throw new InvalidFormatException("An image must be selected");
         }
         if(description.isEmpty()){
             throw new InvalidFormatException("Description must be added.");
         }
         if((java == false)&&(c == false)){
-            throw new InvalidFormatException("Favourite programming language must be added");
-=======
             throw new InvalidFormatException("An image must be selected!");
         }
         if(description.isEmpty()){
@@ -124,7 +113,6 @@ public class UserManager {
         }
         if((java == false)&&(c == false)){
             throw new InvalidFormatException("A favourite programming language must be added!");
->>>>>>> e855050e7027cef5180ae9ca5965e9465bb582c0
         }
     }
 }
