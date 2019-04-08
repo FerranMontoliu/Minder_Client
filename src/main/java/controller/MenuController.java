@@ -2,6 +2,7 @@ package controller;
 
 import model.User;
 import view.MainWindow;
+import view.NotificationPopUp;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
