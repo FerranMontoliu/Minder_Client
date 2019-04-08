@@ -105,14 +105,12 @@ public class UserManager {
         if(description.isEmpty()){
             throw new InvalidFormatException("Description must be added.");
         }
-        if((java == false)&&(c == false)){
-            throw new InvalidFormatException("An image must be selected!");
-        }
-        if(description.isEmpty()){
-            throw new InvalidFormatException("Description field must be added!");
-        }
-        if((java == false)&&(c == false)){
+        if((!java)&&(!c)){
             throw new InvalidFormatException("A favourite programming language must be added!");
         }
+    }
+
+    public static String fixSQLBugs(String fixThis){
+        return fixThis.replace("'","`");
     }
 }

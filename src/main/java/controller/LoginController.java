@@ -65,7 +65,7 @@ public class LoginController implements ActionListener, WindowListener {
                 try {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
-                    u = new User(w.getSignInUsername());  //Constructor que ja comprova si es mail o Username
+                    u = new User(UserManager.fixSQLBugs(w.getSignInUsername()));  //Constructor que ja comprova si es mail o Username
 
                     sc.startServerComunication(LOGIN_USER);
                     sc.join();
@@ -108,7 +108,7 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
                     PasswordHasher ph = new PasswordHasher(passwords[0]);
-                    u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), ph.getSecurePassword(), ph.getSalt());
+                    u = new User(UserManager.fixSQLBugs(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), ph.getSecurePassword(), ph.getSalt());
 
                     sc.startServerComunication(REGISTER_USER);
                     sc.join();
