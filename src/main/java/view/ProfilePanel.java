@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuController;
+import model.User;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -46,6 +47,7 @@ public class ProfilePanel extends JPanel {
      * s'incloura al metode includeUserInfo on se li passara la informacio de l'usuari en concret
      */
     private void createUserInfo() {
+        //TODO: omplir els camps amb la informacio de l'usuari en questio
 
         TitledBorder border = new TitledBorder("Basic Information");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -81,6 +83,8 @@ public class ProfilePanel extends JPanel {
      * imatge, ja que aquesta nomes es posara quan es cridi a la funcio IncludePhoto amb la info de l'usuari
      */
     private void createPhoto() {
+        //TODO: aquest metode nomes crea els jlabels per a que a la funcio de AddUserInfo s'atualitzi la informacio de les
+        //TODO: etiquetes
         JPanel jpUserPhoto = new JPanel();
         jpUserPhoto.setLayout(new BoxLayout(jpUserPhoto, BoxLayout.PAGE_AXIS));
         jlPhoto = new JLabel(new ImageIcon("Pictures/user-64px.png"));
@@ -88,12 +92,12 @@ public class ProfilePanel extends JPanel {
         jlPhoto.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         jpUserPhoto.add(jlPhoto);
 
-        jlName = new JLabel("Pol Rayos"); //omplire amb la informacio de l'usuari
+        jlName = new JLabel(); //omplire amb la informacio de l'usuari
         jlName.setFont(new Font(Font.DIALOG,  Font.BOLD, 15));
         jlName.setAlignmentX(Component.CENTER_ALIGNMENT);
         jlName.setBorder(BorderFactory.createEmptyBorder(10, 0, 3, 0));
 
-        jlAge = new JLabel("19");
+        jlAge = new JLabel();
         jlAge.setFont(new Font(Font.DIALOG,  Font.PLAIN, 10));
         jlAge.setAlignmentX(Component.CENTER_ALIGNMENT);
         jlAge.setBorder(BorderFactory.createEmptyBorder(3, 0, 10, 0));
@@ -113,7 +117,18 @@ public class ProfilePanel extends JPanel {
         jbEditProfile.setActionCommand("EDIT");
     }
 
-
-
+    /**
+     * Metode que actualitza la informacio de l'usuari segons la informacio que se li passa com a parametre, de tal
+     * manera que omple els camps del perfil amb aquesta informacio
+     * @param user: usuari que ha iniciat sessio i que vol accedir a la seva informacio
+     */
+    public void updateInfo(User user){
+        //TODO: cridar la funcio des del controller amb l'usuari per paramtre
+        jlName.setText("Pol Rayos");
+        jlAge.setText("19");
+        jlFavProgramming.setText ("Java");
+        jlFavHobbies.setText("Destrossar el github, Fer cafès");
+        jlDescription.setText("M'agrada passar hores al lab de compus");
+    }
 
 }

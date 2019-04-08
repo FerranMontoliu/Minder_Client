@@ -19,6 +19,7 @@ public class MainWindow extends JFrame{
     private ChatPanel jpChat;
     private MatchPanel jpMatch;
     private LogoutPanel jpLogOut;
+    private OtherUserProfilePanel jpOtherProfile;
 
     //private EditPanel jpEditProfile;
 
@@ -49,6 +50,7 @@ public class MainWindow extends JFrame{
         createChatPanel();
         createMatchPanel();
         createLogoutPanel();
+        createOtherUserProfilePanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
@@ -96,6 +98,16 @@ public class MainWindow extends JFrame{
         jpConnect = new ConnectPanel(clMainWindow);
         //Gestiono el panell pel CardLayout
         jpSelected.add("CONNECT", jpConnect);
+    }
+
+    /**
+     * Metode que crida al constructor que inicialitza el panell de conte la informacio addicional de l'usuari del que
+     * es vol saber més informacio des del panell de connect
+     */
+    private void createOtherUserProfilePanel(){
+        jpOtherProfile = new OtherUserProfilePanel(clMainWindow);
+        //Gestiono el panell pel CardLayout
+        jpSelected.add("OTHER-USER PROFILE", jpOtherProfile);
     }
 
     /**
@@ -282,7 +294,7 @@ public class MainWindow extends JFrame{
      * Getter del Panel Profile
      * @return Panel Profile
      */
-    public ProfilePanel getJpProfile() {
+    public ProfilePanel getProfile() {
         return jpProfile;
     }
 
@@ -304,6 +316,14 @@ public class MainWindow extends JFrame{
 
     public ChatPanel getChat() {
         return jpChat;
+    }
+
+    /**
+     * Getter del panell que conte la info addicional de l'usuari del que es vol saber mes informacio des del connect panel
+     * @return
+     */
+    public OtherUserProfilePanel getOtherUserProfile() {
+        return jpOtherProfile;
     }
 
     public void setChat(ChatPanel jpChat) {
@@ -336,6 +356,13 @@ public class MainWindow extends JFrame{
         jpMatch.registraController(matchController);
     }
 
+    /**
+     * Metode que vincula el controlador del OtherUserProfile amb la seva vista
+     */
+    public void registraOtherProfileController(OtherUserProfileController otherUserProfileController){
+        jpOtherProfile.registraController(otherUserProfileController);
+    }
+
     public void firstEdition() {
         jpEdit.disableCancel();
     }
@@ -347,5 +374,13 @@ public class MainWindow extends JFrame{
 
     public void showWarning(String message) {
         JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
+     * metode que es crida per a incloure la notificacio al lloc on estigui el frame principal
+     * @return localitzacio del frame principal
+     */
+    public Point getLocations() {
+        return this.getLocation();
     }
 }

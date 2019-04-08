@@ -16,7 +16,8 @@ public class MenuController implements ActionListener, WindowListener {
     private EditController editController;
     private ChatController chatController;
     private MatchController matchController;
-
+    private ProfileController profileController;
+    private OtherUserProfileController otherUserProfileController;
 
 
     public MenuController(MainWindow mainWindow, User associatedUser) {
@@ -27,10 +28,13 @@ public class MenuController implements ActionListener, WindowListener {
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
         chatController = new ChatController(mainWindow.getChat());
         matchController = new MatchController(mainWindow.getMatch(), this, connectController, this.associatedUser);
+        profileController = new ProfileController(mainWindow.getProfile());
+        otherUserProfileController = new OtherUserProfileController(mainWindow.getOtherUserProfile(), this);
         mainWindow.registraChatController(chatController);
         mainWindow.registraEditController(editController);
         mainWindow.registraMatchController(matchController);
-
+        mainWindow.registraOtherProfileController(otherUserProfileController);
+        updateNotifications();
     }
 
     @Override
@@ -62,6 +66,7 @@ public class MenuController implements ActionListener, WindowListener {
                     if(!mainWindow.isSelected("PROFILE")) {
                         mainWindow.selectProfile();
                         mainWindow.changePanel("PROFILE");
+                        profileController.showUser(associatedUser);
                     }
                 }
                 break;
@@ -71,6 +76,7 @@ public class MenuController implements ActionListener, WindowListener {
                     if(!mainWindow.isSelected("LOGOUT")) {
                         mainWindow.selectLogout();
                         mainWindow.changePanel("LOGOUT");
+
                     }
                 }
                 break;
@@ -120,7 +126,7 @@ public class MenuController implements ActionListener, WindowListener {
     public void goToChatWith(User[] usersMatched) {
         mainWindow.changePanel("CHAT");
         mainWindow.selectChat();
-        //aqui s'haura d'anar al chat nou entre els dos usuaris
+        //TODO: s'ha d'anar al xat de les dues persones passades per parametre
     }
 
     /**
@@ -134,12 +140,40 @@ public class MenuController implements ActionListener, WindowListener {
     }
 
     /**
+     * Metode que es crida quan l'usuari ha iniciat sessio, on es mostra si te algun nou match o no. Tanmateix es crida
+     * quan a la meitat de la sessió algú li retorna el match.
+     */
+    public void updateNotifications(){
+        //TODO: bloquejar el frame principal mentres no es faci cap accio amb aquest??
+        NotificationPopUp notificationView = new NotificationPopUp(mainWindow.getLocations());
+        NotificationController notificationController = new NotificationController(notificationView,this);
+        notificationView.registraController(notificationController);
+        notificationView.start();
+        //TODO: cridar a aquesta funcio sempre que algu li retorni un match i aquest estigui log in
+    }
+
+    /**
      * Metode que obre el panell del perfil (sense seleccionar-no, ja que estem al connect panel) mostrar l'usuari del que
      * es vol veure tota la informacio (Es passa com a parametre)
      */
     //public void showUserToConnectProfile(User user)
     public void showUserToConnectProfile() {
-        mainWindow.changePanel("PROFILE");
+        mainWindow.changePanel("OTHER-USER PROFILE");
+    }
+
+    /**
+     * Metode que retorna a l'usuari al panell connect
+     */
+    public void goToConnectPanel() {
+        mainWindow.changePanel("CONNECT");
+    }
+
+    /**
+     * Metode que porta a l'usuari al panell de chats, sense anar a cap chat en concret
+     */
+    public void goToChatPanel() {
+        mainWindow.changePanel("CHAT");
+        mainWindow.selectChat();
     }
 
     @Override

@@ -91,14 +91,10 @@ public class ConnectPanel extends JPanel {
         lblProfilename.setText("Pol Espurnes"+ " ," + "19");
         lblProfilename.setFont(new Font(Font.DIALOG,  Font.ROMAN_BASELINE, 15));
         lblProfilename.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //lblProfilename.setHorizontalAlignment(SwingConstants.CENTER);
-        //lblProfilename.setVerticalAlignment(SwingConstants.CENTER);
         lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         jpUserImage.add(lblProfilename);
         lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
         lblProfilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //lblProfilePic.setHorizontalAlignment(SwingConstants.CENTER);
-        //lblProfilePic.setVerticalAlignment(SwingConstants.CENTER);
         lblProfilePic.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 3));
         jpUserImage.add(lblProfilePic);
         jpUserImage.setBackground(new Color(231, 165, 187));
@@ -114,6 +110,9 @@ public class ConnectPanel extends JPanel {
 
         jbMoreInfo.addActionListener(controller);
         jbMoreInfo.setActionCommand("INFO");
+
+        lblProfilePic.setTransferHandler(new TransferHandler("text"));
+        lblProfilePic.addMouseListener(controller);
     }
 
     /**
