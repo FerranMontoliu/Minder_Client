@@ -75,10 +75,18 @@ public class ServerComunicationLogin extends Thread {
                     if(existsL) {
                         loginUser = (User) objectIn.readObject();
                         loginController.setSignInUser(loginUser);
+                        loginUser = loginController.loginWithHashedPassword();
+                        objectOut.writeObject(loginUser);
+                        boolean correctUser = dataIn.readBoolean();
+                        if(correctUser){
+                            loginController.setCorrectLogin(true);
+                            loginUser = (User) objectIn.readObject();
+                            loginController.setSignInUser(loginUser);
+                        }else{
+                            loginController.setCorrectLogin(false);
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 stopServerComunication();
@@ -89,13 +97,8 @@ public class ServerComunicationLogin extends Thread {
                     User newUser = loginController.getRegisteredUser();
                     objectOut.writeObject(newUser);
                     boolean existsR = dataIn.readBoolean();
-                    if(existsR) {
-                        //Això perque es fa?? Si existeix tenim problemes i cal avisar al controller per a que no obri la seguent finestra
-                        newUser = (User) objectIn.readObject();
-                    }else{
-
-                    }
-                } catch (ClassNotFoundException | IOException e) {
+                    loginController.setCorrectRegister(existsR);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 stopServerComunication();

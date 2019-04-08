@@ -55,4 +55,8 @@ public class PasswordHasher {
     public byte[] getSalt() {
         return salt;
     }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
 }

@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 public class LoginController implements ActionListener, WindowListener {
 
@@ -21,6 +23,8 @@ public class LoginController implements ActionListener, WindowListener {
     private LoginWindow w;
     private User u;
     private ServerComunicationLogin sc;
+    private boolean correctLogin;
+    private boolean correctRegister;
 
     /**
      * Constructor del controlador associat a la pantalla de Log-In.
@@ -62,22 +66,27 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
                     u = new User(w.getSignInUsername());  //Constructor que ja comprova si es mail o Username
+
                     sc.startServerComunication(LOGIN_USER);
                     sc.join();
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
                     User user = new User(true, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
 
-                    w.dispose();
-                    if(user.isCompleted()) {
-                        MainWindow mw = new MainWindow("CONNECT");
-                        MenuController mc = new MenuController(mw, user);
-                        mw.registraController(mc);
-                        mw.setVisible(true);
-                    } else {
-                        MainWindow mw = new MainWindow("EDIT");
-                        MenuController mc = new MenuController(mw, user);
-                        mw.registraController(mc);
-                        mw.setVisible(true);
+                    if(true/*correctLogin*/){
+                        w.dispose();
+                        if(user.isCompleted()) { //TODO: Canviar user pel atribut u
+                            MainWindow mw = new MainWindow("CONNECT");
+                            MenuController mc = new MenuController(mw, user);
+                            mw.registraController(mc);
+                            mw.setVisible(true);
+                        } else {
+                            MainWindow mw = new MainWindow("EDIT");
+                            MenuController mc = new MenuController(mw, user);
+                            mw.registraController(mc);
+                            mw.setVisible(true);
+                        }
+                    }else{
+                        w.showWarning("L'usuari o contrasenya no són correctes!");
                     }
 
                 } catch (EmptyTextFieldException e1) {
@@ -102,14 +111,19 @@ public class LoginController implements ActionListener, WindowListener {
                     u = new User(w.getSignUpUsername(), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), ph.getSecurePassword(), ph.getSalt());
 
                     sc.startServerComunication(REGISTER_USER);
-                    //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
-                    //TODO: Potser caldria fer un sc.join perque cal esperar a que ens acceptin el nou user.
-                    w.dispose();
-                    MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
-                    MenuController mc = new MenuController(mw, u); //Potser estaria millor escriure EDIT i no PROFILE no?
-                    mw.firstEdition();
-                    mw.registraController(mc);
-                    mw.setVisible(true);
+                    sc.join();
+
+                    if(correctRegister){
+                        w.dispose();
+                        MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
+                        MenuController mc = new MenuController(mw, u); //Potser estaria millor escriure EDIT i no PROFILE no?
+                        mw.firstEdition();
+                        mw.registraController(mc);
+                        mw.setVisible(true);
+                    }else{
+                        w.showWarning("El registre no ha sigut satisfactori.");
+                    }
+
                 } catch (Exception e1) {
                     w.showWarning(e1.getMessage());
                 }
@@ -162,5 +176,27 @@ public class LoginController implements ActionListener, WindowListener {
 
     public User getLoginUser() {
         return u;
+    }
+
+    public User loginWithHashedPassword() {
+        try {
+            PasswordHasher ph = new PasswordHasher(w.getSignInPassword());
+            ph.setSalt(u.getSalt());
+            u.setPassword(ph.getSecurePassword());
+            return u;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
+
+    public void setCorrectLogin(boolean b) {
+        correctLogin = b;
+    }
+
+    public void setCorrectRegister(boolean existsR) {
+        correctRegister = existsR;
     }
 }

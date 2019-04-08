@@ -1,7 +1,6 @@
 package model;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.awt.*;
 import java.io.File;
@@ -89,6 +88,9 @@ public class User implements Serializable {
         return username;
     }
 
+    public int getAge() {
+        return Integer.parseInt(age);
+    }
 
     /**
      * Getter del tipus de compte de l'usuari.
@@ -140,7 +142,7 @@ public class User implements Serializable {
      *
      * @return Retorna true si a l'usuari li agrada Java, false sinó.
      */
-    public boolean isLikesJava() {
+    public boolean getLikesJava() {
         return likesJava;
     }
 
@@ -149,8 +151,12 @@ public class User implements Serializable {
      *
      * @return Retorna true si a l'usuari li agrada C, false sinó.
      */
-    public boolean isLikesC() {
+    public boolean getLikesC() {
         return likesC;
+    }
+
+    public byte[] getSalt() {
+        return salt;
     }
 
     /**
@@ -236,5 +242,9 @@ public class User implements Serializable {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
