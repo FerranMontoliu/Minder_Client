@@ -148,7 +148,7 @@ public class MainWindow extends JFrame{
             case "CONNECT":
                 selectConnect();
                 break;
-            case "PROFILE":
+            case "EDIT":
                 selectProfile();
                 break;
         }

@@ -12,7 +12,6 @@ public class ServerComunicationLogin extends Thread {
     private static final char LOGIN_USER = 'a';
     private static final char REGISTER_USER = 'b';
 
-    private LoginWindow w;
     private LoginController loginController;
     private boolean isOn;
     private Socket socketToServer;
@@ -25,12 +24,10 @@ public class ServerComunicationLogin extends Thread {
     /**
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
      * @param controller controlador que inicia la comunicacio
-     * @param w Vista associada on es veuran reflexats els canvis.
      */
-    public ServerComunicationLogin(LoginWindow w, LoginController controller) { //TODO: No pots passar la vista al Network. Trenques paradigmes.
+    public ServerComunicationLogin(LoginController controller) { //TODO: No pots passar la vista al Network. Trenques paradigmes.
         try {
             this.isOn = false;
-            this.w = w;
             this.loginController = controller;
 
             //Configuració inicial del client:
@@ -72,14 +69,16 @@ public class ServerComunicationLogin extends Thread {
             case LOGIN_USER:
                 try {
                     dataOut.writeChar(LOGIN_USER);
-                    User u = new User(w.getSignInUsername(), w.getSignInPassword());
-                    objectOut.writeObject(u);
+                    User loginUser = loginController.getLoginUser();
+                    objectOut.writeObject(loginUser);
                     boolean existsL = dataIn.readBoolean();
-                   /* if(existsL) {
-                        u = (User) objectIn.readObject();
-                        loginController.setSignInUser(u);
-                    }*/
+                    if(existsL) {
+                        loginUser = (User) objectIn.readObject();
+                        loginController.setSignInUser(loginUser);
+                    }
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 stopServerComunication();

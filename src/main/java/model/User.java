@@ -72,8 +72,7 @@ public class User implements Serializable {
      * Constructor que es crida quan l'usuari fa login amb el username.
      *
      **/
-    public User(String identificator, String password) {
-        this.password = password;
+    public User(String identificator) {
         if(UserManager.mailInSignIn(identificator)){
             this.mail = identificator;
         }else{

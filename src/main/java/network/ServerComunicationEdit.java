@@ -13,7 +13,6 @@ public class ServerComunicationEdit extends Thread {
     private static final char EDIT_PROFILE = 'c';
 
     private EditController editController;
-    private boolean isOn;
     private Socket socketToServer;
     private DataInputStream dataIn;
     private DataOutputStream dataOut;
@@ -23,7 +22,6 @@ public class ServerComunicationEdit extends Thread {
 
     public ServerComunicationEdit(EditController editController){
         try {
-            this.isOn = false;
             this.editController = editController;
 
             //Configuració inicial del client:
@@ -45,7 +43,6 @@ public class ServerComunicationEdit extends Thread {
      */
     public void startServerComunication(char command) {
         this.command = command;
-        isOn = true;
         this.start();
     }
 
@@ -53,7 +50,6 @@ public class ServerComunicationEdit extends Thread {
      * Metode encarregat de tancar la comunicació client-servidor.
      */
     public void stopServerComunication() {
-        this.isOn = false;
         this.interrupt();
     }
 

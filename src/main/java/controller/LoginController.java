@@ -29,7 +29,7 @@ public class LoginController implements ActionListener, WindowListener {
     public LoginController(LoginWindow w) {
         this.w = w;
         this.u = null;
-        this.sc =  new ServerComunicationLogin(w, this);
+        this.sc =  new ServerComunicationLogin(this);
     }
 
     @Override
@@ -61,11 +61,9 @@ public class LoginController implements ActionListener, WindowListener {
                 try {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
-                    u = new User(w.getSignInUsername(), w.getSignInPassword());  //Constructor que ja comprova si es mail o Username
+                    u = new User(w.getSignInUsername());  //Constructor que ja comprova si es mail o Username
                     sc.startServerComunication(LOGIN_USER);
-                    //Enviar dades al servidor i si aquestes són correctes tancar pestanya.
-
-                    //TODO: Potser caldria fer un sc.join perque cal esperar a que ens acceptin el user abans de passar.
+                    sc.join();
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
                     User user = new User(true, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
 
@@ -75,15 +73,17 @@ public class LoginController implements ActionListener, WindowListener {
                         MenuController mc = new MenuController(mw, user);
                         mw.registraController(mc);
                         mw.setVisible(true);
-                    } else {  //TODO: En principi no et fara SIGN IN un no completed perque s'obliga a completar-se quan es fa SIGN UP
-                        MainWindow mw = new MainWindow("PROFILE"); //Si, es mostra el perfil, pero pq s'ha de completar.
-                        MenuController mc = new MenuController(mw, user); //Potser estaria millor escriure EDIT i no PROFILE no?
+                    } else {
+                        MainWindow mw = new MainWindow("EDIT");
+                        MenuController mc = new MenuController(mw, user);
                         mw.registraController(mc);
                         mw.setVisible(true);
                     }
 
-                } catch (EmptyTextFieldException e1) {  //Focus??
+                } catch (EmptyTextFieldException e1) {
                     w.showWarning(e1.getMessage());
+                } catch (InterruptedException e1) {
+                    w.showWarning("Hi ha hagut un problema amb la connexió al servidor.");
                 }
                 break;
 
@@ -158,5 +158,9 @@ public class LoginController implements ActionListener, WindowListener {
 
     public void setSignInUser(User u) {
         this.u = u;
+    }
+
+    public User getLoginUser() {
+        return u;
     }
 }
