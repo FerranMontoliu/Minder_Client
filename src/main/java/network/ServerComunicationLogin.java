@@ -93,7 +93,7 @@ public class ServerComunicationLogin extends Thread {
                 break;
             case REGISTER_USER:
                 try {
-                    dataOut.writeChar(REGISTER_USER); //TODO: Per a no trencar paradigmes s'hauria de demanar el User al controller no?
+                    dataOut.writeChar(REGISTER_USER);
                     User newUser = loginController.getRegisteredUser();
                     objectOut.writeObject(newUser);
                     boolean existsR = dataIn.readBoolean();
