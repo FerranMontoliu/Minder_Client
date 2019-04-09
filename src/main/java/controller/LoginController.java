@@ -107,8 +107,8 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.signUpPasswordIsCorrect(passwords[0], passwords[1]);
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
-                    PasswordHasher ph = new PasswordHasher(passwords[0]);
-                    u = new User(UserManager.fixSQLBugs(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), ph.getSecurePassword(), ph.getSalt());
+                    //PasswordHasher ph = new PasswordHasher(passwords[0]);
+                   // u = new User(UserManager.fixSQLBugs(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), ph.getSecurePassword(), ph.getSalt());
 
                     sc.startServerComunication(REGISTER_USER);
                     sc.join();
@@ -179,6 +179,7 @@ public class LoginController implements ActionListener, WindowListener {
     }
 
     public User loginWithHashedPassword() {
+        /*
         try {
             PasswordHasher ph = new PasswordHasher(w.getSignInPassword());
             ph.setSalt(u.getSalt());
@@ -188,7 +189,7 @@ public class LoginController implements ActionListener, WindowListener {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
+        }*/
         return u;
     }
 
