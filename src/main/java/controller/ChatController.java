@@ -1,5 +1,6 @@
 package controller;
 
+import model.User;
 import view.ChatPanel;
 
 import javax.swing.*;
@@ -10,10 +11,12 @@ import static java.lang.Thread.sleep;
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
     private ChatPanel chatPanel;
     private String message;
+    private User associatedUser;
 
 
-    public ChatController(ChatPanel chatPanel) {
+    public ChatController(ChatPanel chatPanel, User associatedUser) {
         this.chatPanel = chatPanel;
+        this.associatedUser = associatedUser;
     }
 
     /**
@@ -144,6 +147,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     public void runDefaultAppearance() {
         chatPanel.setDefaultText();
+    }
+
+    public User getAssociatedUser() {
+        return associatedUser;
     }
 }
 

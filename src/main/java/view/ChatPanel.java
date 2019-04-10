@@ -191,12 +191,12 @@ public class ChatPanel extends JPanel {
     //TODO: CANVIAR
     public void showMatchConversation(int index) { //String de missatges
         if(index == 0) {
-            jtpane.setText("\n\n\n\n\t \n\nAgusti: Text de prova");
-            changeBorderName("Conill Peluix");
+            jtpane.setText("\n\n\n\n\t \n\nPol: Em vull morir");
+            changeBorderName("La vida");
         }
         if(index == 1) {
-            jtpane.setText("\nOsu: Text de prova");
-            changeBorderName("Atlas");
+            jtpane.setText("\nFerran: Sóc de Balaguer i m'agraden els tractors");
+            changeBorderName("Ferran");
 
         }
     }

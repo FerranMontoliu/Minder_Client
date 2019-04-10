@@ -25,7 +25,7 @@ public class ServerComunicationLogin extends Thread {
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
      * @param controller controlador que inicia la comunicacio
      */
-    public ServerComunicationLogin(LoginController controller) { //TODO: No pots passar la vista al Network. Trenques paradigmes.
+    public ServerComunicationLogin(LoginController controller) {
         try {
             this.isOn = false;
             this.loginController = controller;
@@ -73,15 +73,11 @@ public class ServerComunicationLogin extends Thread {
                     objectOut.writeObject(loginUser);
                     boolean existsL = dataIn.readBoolean();
                     if(existsL) {
-                        User possibleUser = (User) objectIn.readObject();
-                        //Comparar els Hash
-                        //boolean sameUser = compareHash(loginUser.getPassword(), possibleUser.getPassword());
-                        boolean sameUser = true; //TODO: Canviar amb el comentari de sobre quan estigui implementat (10/04/2019)
-                        dataOut.writeBoolean(sameUser);
+                        boolean sameUser = dataIn.readBoolean();
                         if(sameUser){
+                            User dataBaseUser = (User) objectIn.readObject();
                             loginController.setCorrectLogin(true);
-                            loginUser = (User) objectIn.readObject();
-                            loginController.setSignInUser(loginUser);
+                            loginController.setSignInUser(dataBaseUser);
                         }else{
                             loginController.setCorrectLogin(false);
                         }
