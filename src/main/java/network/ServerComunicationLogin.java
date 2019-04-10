@@ -73,12 +73,12 @@ public class ServerComunicationLogin extends Thread {
                     objectOut.writeObject(loginUser);
                     boolean existsL = dataIn.readBoolean();
                     if(existsL) {
-                        loginUser = (User) objectIn.readObject();
-                        loginController.setSignInUser(loginUser);
-                        loginUser = loginController.loginWithHashedPassword();
-                        objectOut.writeObject(loginUser);
-                        boolean correctUser = dataIn.readBoolean();
-                        if(correctUser){
+                        User possibleUser = (User) objectIn.readObject();
+                        //Comparar els Hash
+                        //boolean sameUser = compareHash(loginUser.getPassword(), possibleUser.getPassword());
+                        boolean sameUser = true; //TODO: Canviar amb el comentari de sobre quan estigui implementat (10/04/2019)
+                        dataOut.writeBoolean(sameUser);
+                        if(sameUser){
                             loginController.setCorrectLogin(true);
                             loginUser = (User) objectIn.readObject();
                             loginController.setSignInUser(loginUser);
@@ -95,6 +95,7 @@ public class ServerComunicationLogin extends Thread {
                 try {
                     dataOut.writeChar(REGISTER_USER);
                     User newUser = loginController.getRegisteredUser();
+                    //TODO:El newUSer ja té el Hash aplicat
                     objectOut.writeObject(newUser);
                     boolean existsR = dataIn.readBoolean();
                     loginController.setCorrectRegister(existsR);

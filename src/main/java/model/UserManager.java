@@ -111,6 +111,6 @@ public class UserManager {
     }
 
     public static String fixSQLBugs(String fixThis){
-        return fixThis.replace("'","\'");
+        return fixThis.replace("'","`");
     }
 }

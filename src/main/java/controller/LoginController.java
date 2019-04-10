@@ -65,15 +65,18 @@ public class LoginController implements ActionListener, WindowListener {
                 try {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
-                    u = new User(UserManager.fixSQLBugs(w.getSignInUsername()), w.getSignInPassword());  //Constructor que ja comprova si es mail o Username
+                    String hashedPassword = w.getSignInPassword(); //TODO: Substituir per la linia de sota quan estigui implementat. (10/04/2019)
+                    //String hashedPassword = generateHash(w.getSignInPassword());
+                    u = new User(UserManager.fixSQLBugs(w.getSignInUsername()), hashedPassword);  //Constructor que ja comprova si es mail o Username
 
                     sc.startServerComunication(LOGIN_USER);
                     sc.join();
+
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
                     User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
                     if(true/*correctLogin*/){
                         w.dispose();
-                        if(user.isCompleted()) { //TODO: Canviar user pel atribut u
+                        if(user.isCompleted()) { //TODO: Canviar user pel atribut u. La variable user és de Test.
                             MainWindow mw = new MainWindow("CONNECT");
                             MenuController mc = new MenuController(mw, user);
                             mw.registraController(mc);
@@ -106,16 +109,17 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.signUpPasswordIsCorrect(passwords[0], passwords[1]);
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
-                    //PasswordHasher ph = new PasswordHasher(passwords[0]);
-                   // u = new User(UserManager.fixSQLBugs(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), ph.getSecurePassword(), ph.getSalt());
+                    String hashedPassword = passwords[0]; //TODO: Substituir per la linia de sota quan estigui implementat el hash. (10/04/2019)
+                    //String hashedPassword = generateHash(passwords[0]);
+                    u = new User(UserManager.fixSQLBugs(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword);
 
                     sc.startServerComunication(REGISTER_USER);
                     sc.join();
 
-                    if(correctRegister){
+                    if(true/*correctRegister*/){ //TODO: Descomentar-ho si volem deixar de fer proves.
                         w.dispose();
                         MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
-                        MenuController mc = new MenuController(mw, u); //Potser estaria millor escriure EDIT i no PROFILE no?
+                        MenuController mc = new MenuController(mw, u);
                         mw.firstEdition();
                         mw.registraController(mc);
                         mw.setVisible(true);
@@ -174,21 +178,6 @@ public class LoginController implements ActionListener, WindowListener {
     }
 
     public User getLoginUser() {
-        return u;
-    }
-
-    public User loginWithHashedPassword() {
-        /*
-        try {
-            PasswordHasher ph = new PasswordHasher(w.getSignInPassword());
-            ph.setSalt(u.getSalt());
-            u.setPassword(ph.getSecurePassword());
-            return u;
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }*/
         return u;
     }
 
