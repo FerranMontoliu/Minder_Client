@@ -18,14 +18,13 @@ public class User implements Serializable {
     private boolean premium;
     private String mail;
     private String password;
-    private byte[] salt;
 
-    private Image photo;
+    private String photo;
     private String description;
     private boolean likesJava;
     private boolean likesC;
     private String favSong;
-    private ArrayList<String> hobbies;
+    private String[] hobbies;
 
     private ArrayList<User> viewed;
     private ArrayList<User> accepted;
@@ -33,14 +32,17 @@ public class User implements Serializable {
     private ArrayList<User> acceptedMe;
 
 
-    public User(boolean completed, String username, String age, boolean premium, String mail, String password, byte[] salt, Image photo, String description, boolean likesJava, boolean likesC, String favSong, ArrayList<String> hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
+    /**
+     *Constructor que ompla TOTS els camps de l'usuari.
+     *
+     */
+    public User(boolean completed, String username, String age, boolean premium, String mail, String password, String photo, String description, boolean likesJava, boolean likesC, String favSong, String[] hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
         this.completed = completed;
         this.username = username;
         this.age = age;
         this.premium = premium;
         this.mail = mail;
         this.password = password;
-        this.salt = salt;
         this.photo = photo;
         this.description = description;
         this.likesJava = likesJava;
@@ -57,13 +59,12 @@ public class User implements Serializable {
      * Constructor que es crida quan es registra l'usuari.
      *
      **/
-    public User(String username, String age, boolean premium, String mail, String password, byte[] salt) {
+    public User(String username, String age, boolean premium, String mail, String password) {
         this.username = username;
         this.age = age;
         this.premium = premium;
         this.mail = mail;
         this.password = password;
-        this.salt = salt;
         this.completed = false;
     }
 
@@ -71,7 +72,8 @@ public class User implements Serializable {
      * Constructor que es crida quan l'usuari fa login amb el username.
      *
      **/
-    public User(String identificator) {
+    public User(String identificator, String password) {
+        this.password = password;
         if(UserManager.mailInSignIn(identificator)){
             this.mail = identificator;
         }else{
@@ -88,6 +90,11 @@ public class User implements Serializable {
         return username;
     }
 
+    /**
+     * Getter de l'edat de l'usuari.
+     *
+     * @return Retorna un enter que conté l'edat de l'usuari.
+     */
     public int getAge() {
         return Integer.parseInt(age);
     }
@@ -124,7 +131,7 @@ public class User implements Serializable {
      *
      * @return Retorna una Image que és la foto de perfil de l'usuari.
      */
-    public Image getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
@@ -155,10 +162,6 @@ public class User implements Serializable {
         return likesC;
     }
 
-    public byte[] getSalt() {
-        return salt;
-    }
-
     /**
      * Getter de la cançó preferida de l'usuari.
      *
@@ -173,7 +176,7 @@ public class User implements Serializable {
      *
      * @return Retorna una llista de Strings que conté els hobbies de l'usuari.
      */
-    public ArrayList<String> getHobbies() {
+    public String[] getHobbies() {
         return hobbies;
     }
 
@@ -204,6 +207,11 @@ public class User implements Serializable {
         return match;
     }
 
+    /**
+     * Getter de la llista de perfils que han acceptat a l'usuari.
+     *
+     * @return Retorna una llista de Users que conté els perfils que ja han acceptat a l'usuari.
+     */
     public ArrayList<User> getAcceptedMe() {
         return acceptedMe;
     }
@@ -236,15 +244,21 @@ public class User implements Serializable {
         }
     }
 
+    /**
+     * Funció encarregada de comprovar si un usuari està completat o no.
+     *
+     * @return Retorna true si està completat, no altrament.
+     */
     public boolean isCompleted() {
         return completed;
     }
 
+    /**
+     * Setter de l'atribut de completed.
+     *
+     * @param completed nou valor que contindrà el paràmetre completed.
+     */
     public void setCompleted(boolean completed) {
         this.completed = completed;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

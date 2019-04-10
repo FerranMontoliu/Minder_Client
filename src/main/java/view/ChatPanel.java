@@ -34,7 +34,7 @@ public class ChatPanel extends JPanel {
     public ChatPanel(CardLayout clMainWindow) {
 
         super(clMainWindow);
-        User u= new User(false, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
+        User u = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
         createChatPanel(u);
     }
 

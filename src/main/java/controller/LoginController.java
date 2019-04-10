@@ -65,13 +65,12 @@ public class LoginController implements ActionListener, WindowListener {
                 try {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
-                    u = new User(UserManager.fixSQLBugs(w.getSignInUsername()));  //Constructor que ja comprova si es mail o Username
+                    u = new User(UserManager.fixSQLBugs(w.getSignInUsername()), w.getSignInPassword());  //Constructor que ja comprova si es mail o Username
 
                     sc.startServerComunication(LOGIN_USER);
                     sc.join();
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                    User user = new User(true, "Polete", "19", true, "polete@polete.polete", "Polete777", null, null, "", true, true, "Church Of Hell", null, null, null, null, null);
-
+                    User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
                     if(true/*correctLogin*/){
                         w.dispose();
                         if(user.isCompleted()) { //TODO: Canviar user pel atribut u
