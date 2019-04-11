@@ -118,8 +118,8 @@ public class ChatPanel extends JPanel {
         ImageIcon[] Send = new ImageIcon[2];
         Send[0] = new ImageIcon("icons/userDark.png");
         Send[1] = new ImageIcon("icons/userLight.png");
-        jbMatches[0] = new JButton("Conill Peluix ",Send[0]);
-        jbMatches[1] = new JButton("Atlas",Send[1]);
+        jbMatches[0] = new JButton("Pene",Send[0]);
+        jbMatches[1] = new JButton("Nepe",Send[1]);
         for(int i=0;i<jbMatches.length;i++) {
             jpMatches.add(jbMatches[i]);
         }

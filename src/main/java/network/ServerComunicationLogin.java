@@ -91,7 +91,6 @@ public class ServerComunicationLogin extends Thread {
                 try {
                     dataOut.writeChar(REGISTER_USER);
                     User newUser = loginController.getRegisteredUser();
-                    //TODO:El newUSer ja té el Hash aplicat
                     objectOut.writeObject(newUser);
                     boolean existsR = dataIn.readBoolean();
                     loginController.setCorrectRegister(existsR);
