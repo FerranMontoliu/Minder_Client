@@ -1,10 +1,11 @@
 package controller;
 
 import model.EmptyTextFieldException;
-import model.PasswordHasher;
 import model.User;
 import model.UserManager;
 import network.ServerComunicationLogin;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import view.LoginWindow;
 import view.MainWindow;
 
@@ -12,8 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 public class LoginController implements ActionListener, WindowListener {
 
@@ -39,7 +38,7 @@ public class LoginController implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
         switch (actionCommand) {
             case "SIGN-IN-JRB":
                 w.cleanSignInPanel();
@@ -65,8 +64,7 @@ public class LoginController implements ActionListener, WindowListener {
                 try {
                     UserManager.isEmpty(w.getSignInUsername(), "nom");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
-                    String hashedPassword = w.getSignInPassword(); //TODO: Substituir per la linia de sota quan estigui implementat. (10/04/2019)
-                    //String hashedPassword = generateHash(w.getSignInPassword());
+                    String hashedPassword = encoder.encode(w.getSignInPassword());
                     u = new User(UserManager.fixSQLBugs(w.getSignInUsername()), hashedPassword);  //Constructor que ja comprova si es mail o Username
 
                     sc.startServerComunication(LOGIN_USER);
@@ -109,8 +107,7 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.signUpPasswordIsCorrect(passwords[0], passwords[1]);
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
-                    String hashedPassword = passwords[0]; //TODO: Substituir per la linia de sota quan estigui implementat el hash. (10/04/2019)
-                    //String hashedPassword = generateHash(passwords[0]);
+                    String hashedPassword = encoder.encode(passwords[0]);
                     u = new User(UserManager.fixSQLBugs(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword);
 
                     sc.startServerComunication(REGISTER_USER);
