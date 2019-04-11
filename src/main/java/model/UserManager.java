@@ -110,7 +110,7 @@ public class UserManager {
         }
     }
 
-    public static String fixSQLBugs(String fixThis){
+    public static String fixSQLInjections(String fixThis){
         return fixThis.replace("'","`");
     }
 }

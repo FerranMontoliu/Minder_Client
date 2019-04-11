@@ -43,12 +43,12 @@ public class EditController implements ActionListener, MouseListener, FocusListe
             case "SAVE":
                 try {
                     ImageIcon img = editPanel.getSelectedImage();
-                    String description = UserManager.fixSQLBugs(editPanel.getNewDescription());
+                    String description = UserManager.fixSQLInjections(editPanel.getNewDescription());
                     boolean Java = editPanel.likesJava();
                     boolean C = editPanel.likesC();
                     UserManager.checkEditProfileNewData(img, description, Java, C); //Camps obligatoris
-                    String song = UserManager.fixSQLBugs(editPanel.getFavouriteSong());
-                    String hobbies = UserManager.fixSQLBugs(editPanel.getUserHobbies());
+                    String song = UserManager.fixSQLInjections(editPanel.getFavouriteSong());
+                    String hobbies = UserManager.fixSQLInjections(editPanel.getUserHobbies());
                     //associatedUser.edited()
                     //associatedUser.setCompleted(true);
                     //sc.startServerComunication(EDIT_PROFILE);

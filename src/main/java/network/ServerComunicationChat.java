@@ -62,7 +62,7 @@ public class ServerComunicationChat extends Thread {
         try {
             dataOut.writeChar(command);
             switch (command){
-                case USER_MATCH_LIST: //Obte i carrega la llista de matches del user
+                case USER_MATCH_LIST: //Obte i carrega la llista de matches del user associat
                     objectOut.writeObject(chatController.getAssociatedUser());
                     //TODO: Rebre la llista
                     //chatController.loadMatchesList();

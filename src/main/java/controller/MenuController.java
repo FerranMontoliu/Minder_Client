@@ -1,6 +1,7 @@
 package controller;
 
 import model.User;
+import network.ServerComunicationChat;
 import view.MainWindow;
 import view.NotificationPopUp;
 
@@ -11,6 +12,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class MenuController implements ActionListener, WindowListener {
+    private static final char USER_MATCH_LIST = 'h';
+
     private User associatedUser;
     private MainWindow mainWindow;
     private ConnectController connectController;
@@ -19,6 +22,7 @@ public class MenuController implements ActionListener, WindowListener {
     private MatchController matchController;
     private ProfileController profileController;
     private OtherUserProfileController otherUserProfileController;
+    private ServerComunicationChat serverComunicationChat;
 
 
     public MenuController(MainWindow mainWindow, User associatedUser) {
@@ -46,9 +50,18 @@ public class MenuController implements ActionListener, WindowListener {
             case "CHAT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CHAT")) {
-                        mainWindow.selectChat();
-                        mainWindow.changePanel("CHAT");
-                        chatController.runDefaultAppearance();
+                        try {
+                            serverComunicationChat = new ServerComunicationChat(chatController);
+                            serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+                            serverComunicationChat.join();
+
+                            mainWindow.selectChat();
+                            mainWindow.changePanel("CHAT");
+                            chatController.runDefaultAppearance();
+                        } catch (InterruptedException e1) {
+                            mainWindow.showWarning("Error with server communication.");
+                        }
+
                     }
                 }
                 break;
@@ -95,7 +108,7 @@ public class MenuController implements ActionListener, WindowListener {
                 //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
             case "YES LOGOUT":
-                //TODO: FER COSES DE SERVIDOR I MERDES VARIES
+                //TODO: TANCAR COMUNICACIO DE SERVIDOR I MERDES VARIES
                 mainWindow.dispose();
                 break;
             case "NO LOGOUT":
