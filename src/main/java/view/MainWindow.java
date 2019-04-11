@@ -19,7 +19,7 @@ public class MainWindow extends JFrame{
     private ChatPanel jpChat;
     private MatchPanel jpMatch;
     private LogoutPanel jpLogOut;
-    private OtherUserProfilePanel jpOtherProfile;
+    private ProfilePanel jpOtherProfile;
 
     //private EditPanel jpEditProfile;
 
@@ -82,7 +82,7 @@ public class MainWindow extends JFrame{
      * Metode que crida el constructor que crea el panell de Perfil. Mostra imatge de perfil i dades proporcionades.
      */
     private void createProfilePanel() {
-        jpProfile = new ProfilePanel(clMainWindow);
+        jpProfile = new ProfilePanel(clMainWindow, "ASSOCIATED");
         jpSelected.add("PROFILE", jpProfile);
 
     }
@@ -105,7 +105,7 @@ public class MainWindow extends JFrame{
      * es vol saber més informacio des del panell de connect
      */
     private void createOtherUserProfilePanel(){
-        jpOtherProfile = new OtherUserProfilePanel(clMainWindow);
+        jpOtherProfile = new ProfilePanel(clMainWindow, "OTHER");
         //Gestiono el panell pel CardLayout
         jpSelected.add("OTHER-USER PROFILE", jpOtherProfile);
     }
@@ -192,8 +192,10 @@ public class MainWindow extends JFrame{
         menuLogout.addActionListener(controller);
         menuLogout.setActionCommand("LOGOUT");
 
-        jpProfile.registraController(controller);
         jpLogOut.registerController(controller);
+        jpProfile.registraAssociatedProfileController(controller);
+        //jpOtherProfile.registraOtherProfileController(controller);
+
 
         this.addWindowListener(controller);
     }
@@ -322,7 +324,7 @@ public class MainWindow extends JFrame{
      * Getter del panell que conte la info addicional de l'usuari del que es vol saber mes informacio des del connect panel
      * @return
      */
-    public OtherUserProfilePanel getOtherUserProfile() {
+    public ProfilePanel getOtherUserProfile() {
         return jpOtherProfile;
     }
 
@@ -360,7 +362,7 @@ public class MainWindow extends JFrame{
      * Metode que vincula el controlador del OtherUserProfile amb la seva vista
      */
     public void registraOtherProfileController(OtherUserProfileController otherUserProfileController){
-        jpOtherProfile.registraController(otherUserProfileController);
+        jpOtherProfile.registraOtherProfileController(otherUserProfileController);
     }
 
     public void firstEdition() {
@@ -383,4 +385,5 @@ public class MainWindow extends JFrame{
     public Point getLocations() {
         return this.getLocation();
     }
+
 }

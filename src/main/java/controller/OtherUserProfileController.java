@@ -1,17 +1,17 @@
 package controller;
 
-import view.OtherUserProfilePanel;
+import view.ProfilePanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class OtherUserProfileController implements ActionListener {
-    private OtherUserProfilePanel otherUserProfilePanel;
+    private ProfilePanel otherUserProfilePanel;
     private MenuController menuController;
 
     //TODO: passar per parametre l'usuari que sesta mostrant actualment al panell i cridar a panel.updateInfo(user) per
     //TODO: a mostrar la info d'aquest
-    public OtherUserProfileController(OtherUserProfilePanel otherUserProfilePanel, MenuController menuController) {
+    public OtherUserProfileController(ProfilePanel otherUserProfilePanel, MenuController menuController) {
         this.otherUserProfilePanel = otherUserProfilePanel;
         this.menuController = menuController;
     }

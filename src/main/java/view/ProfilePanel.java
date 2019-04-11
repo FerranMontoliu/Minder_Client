@@ -1,6 +1,8 @@
 package view;
 
 import controller.MenuController;
+import controller.OtherUserProfileController;
+import controller.ProfileController;
 import model.User;
 
 import javax.swing.*;
@@ -16,17 +18,38 @@ public class ProfilePanel extends JPanel {
     private JLabel jlFavHobbies;
     private JLabel jlFavProgramming;
     private JButton jbEditProfile;
+    private JButton jbBack;
 
     /**
-     * Constructor del panell principal de connexions entre usuaris.
+     * Constructor del panell principal de connexions entre usuaris. aquest panell es genera en dos casos: per a mostrar
+     * la informacio de l'usuari associat a la compta, o be per a mostrar els usuaris dels que demana informació addicional.
+     * Ho distingim a partir de l'String que passem per paràmetre
      * @param clMainWindow CardLayout que el contindra i mostrara en cas desitjat
+     * @param user string que indica si es tracta del panell de l'usuari associat o dels altres usuaris
      */
-    public ProfilePanel(CardLayout clMainWindow){
+    public ProfilePanel(CardLayout clMainWindow, String user){
         super(clMainWindow);
         setLayout(new BorderLayout());
         createPhoto();
         createUserInfo();
-        createEditButton();
+        if (user.equals("ASSOCIATED")){
+            createEditButton();
+        }else{ //user.equals("OTHER")
+            createReturnButton();
+        }
+
+    }
+
+    /**
+     * Metode que crea el button que permet tornar al connect panel
+     */
+    private void createReturnButton() {
+        JPanel jpButton = new JPanel(new FlowLayout());
+        jbBack = new JButton("Return", new ImageIcon("icons/back-arrow.png"));
+        //jpButton.setBackground(new Color(202, 123, 148));
+        jpButton.add(jbBack);
+
+        add(jpButton, BorderLayout.SOUTH);
     }
 
     /**
@@ -112,9 +135,14 @@ public class ProfilePanel extends JPanel {
     /**
      * Metode que registra un ActionListener al JButton d'edicio de perfil
      */
-    public void registraController(MenuController mc){
+    public void registraAssociatedProfileController(MenuController mc){
         jbEditProfile.addActionListener(mc);
         jbEditProfile.setActionCommand("EDIT");
+    }
+
+    public void registraOtherProfileController(OtherUserProfileController c){
+        jbBack.addActionListener(c);
+        jbBack.setActionCommand("BACK");
     }
 
     /**

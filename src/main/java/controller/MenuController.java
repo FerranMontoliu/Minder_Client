@@ -28,13 +28,15 @@ public class MenuController implements ActionListener, WindowListener {
     public MenuController(MainWindow mainWindow, User associatedUser) {
         this.mainWindow = mainWindow;
         this.associatedUser = associatedUser;
+
         connectController = new ConnectController(mainWindow.getConnect(), this);  //Aixo trenca paradigmes??
-        mainWindow.registraConnectController(connectController);
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
         chatController = new ChatController(mainWindow.getChat(), associatedUser);
         matchController = new MatchController(mainWindow.getMatch(), this, connectController, this.associatedUser);
         profileController = new ProfileController(mainWindow.getProfile());
         otherUserProfileController = new OtherUserProfileController(mainWindow.getOtherUserProfile(), this);
+
+        mainWindow.registraConnectController(connectController);
         mainWindow.registraChatController(chatController);
         mainWindow.registraEditController(editController);
         mainWindow.registraMatchController(matchController);
