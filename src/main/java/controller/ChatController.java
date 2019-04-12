@@ -12,6 +12,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private ChatPanel chatPanel;
     private String message;
     private User associatedUser;
+    private String destinationUsername;
 
 
     public ChatController(ChatPanel chatPanel, User associatedUser) {
@@ -149,8 +150,20 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         chatPanel.setDefaultText();
     }
 
+    /**
+     * Metode que retorna el User associat a la finestra, es a dir, el que ha iniciat sessio.
+     * @return User associat.
+     */
     public User getAssociatedUser() {
         return associatedUser;
+    }
+
+    /**
+     * Metode que retorna el nom del usuari amb qui s'esta xatejant
+     * @return nom del usuari amb qui s'esta xatejant.
+     */
+    public String getDestinationUsername() {
+        return destinationUsername;
     }
 }
 

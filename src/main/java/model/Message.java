@@ -3,28 +3,33 @@ package model;
 import java.io.Serializable;
 
 public class Message implements Serializable {
-    private String user;
+    private String source;
     private String text;
     private String destination;
+    private String time;
 
     private Message(){}
 
     public Message (String user, String text) {
-        this.user = user;
+        this.source = user;
         this.text = text;
     }
 
-    public String getUser () {
-        return user;
+    public String getSource() {
+        return source;
     }
 
     public String getText () {
         return text;
     }
 
+    public String getDestination() {
+        return destination;
+    }
+
     @Override
     public String toString () {
-        return user + ": " + text;
+        return "(" + time + ") "+ source + ": " + text;
     }
 }
 

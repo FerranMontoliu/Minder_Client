@@ -1,6 +1,7 @@
 package network;
 
 import controller.ChatController;
+import model.Chat;
 import model.ClientConfig;
 import model.Json;
 
@@ -68,11 +69,16 @@ public class ServerComunicationChat extends Thread {
                     //chatController.loadMatchesList();
                     break;
                 case LOAD_CHAT:
+                    dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
+                    dataOut.writeUTF(chatController.getDestinationUsername());
+                    Chat receivedChat = (Chat) objectIn.readObject();
                     break;
                 case SEND_MESSAGE:
                     break;
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
