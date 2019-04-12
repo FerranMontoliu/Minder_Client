@@ -1,12 +1,13 @@
 package view;
 
 import controller.ChatController;
-import model.User;
+import model.entity.User;
 
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.LinkedList;
 
 
 //TODO: Boto per remove usuari de la llista de matches
@@ -31,11 +32,9 @@ public class ChatPanel extends JPanel {
      * Constructor
      * @param clMainWindow
      */
-    public ChatPanel(CardLayout clMainWindow) {
-
+    public ChatPanel(CardLayout clMainWindow, LinkedList<String> userMatchs) {
         super(clMainWindow);
-        User u = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
-        createChatPanel(u);
+        createChatPanel(userMatchs);
     }
 
 
@@ -43,9 +42,9 @@ public class ChatPanel extends JPanel {
      * TEMPORAL: Cal rebre tots els usuari amb qui s'ha fet match, extreure'n la foto i el nom
      * Quan es clica sobre un d'ells, s'obre el xat
      * amb aquella persona
-     * @param users
+     * @param userMatchs
      */
-    public void createChatPanel(User users) {
+    public void createChatPanel(LinkedList<String> userMatchs) {
 
         //Assigno un borderlayout pel chat
         this.setLayout(new BorderLayout());
@@ -69,7 +68,7 @@ public class ChatPanel extends JPanel {
 
         //Afegeixo JPanels de matches
 
-        showUserPhotos();
+        showUserPhotos(userMatchs);
 
         //Inicialitzacio de la finestra inferior
 
@@ -110,10 +109,13 @@ public class ChatPanel extends JPanel {
 
     /**
      *
+     * @param userMatchs
      */
     //TODO: CANVIAR!!
-    public void showUserPhotos() {
+    public void showUserPhotos(LinkedList<String> userMatchs) {
         jpMatches = new JPanel();
+
+        //Opcio ESTÀTICA
         jbMatches = new JButton[2]; //Array de matches, per les seves fotos
         ImageIcon[] Send = new ImageIcon[2];
         Send[0] = new ImageIcon("icons/userDark.png");
@@ -123,6 +125,23 @@ public class ChatPanel extends JPanel {
         for(int i=0;i<jbMatches.length;i++) {
             jpMatches.add(jbMatches[i]);
         }
+
+        //Opció DINÀMICA
+        /*
+        if((userMatchs == null)||(userMatchs.size() == 0)){
+            JLabel jlNoMatches = new JLabel("You don't have any chats");
+            jpMatches.add(jlNoMatches);
+        }else{
+            //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
+            int size = userMatchs.size();
+            jbMatches = new JButton[size];
+            for(int i = 0; i < size; i++){
+                jbMatches[i] = new JButton(userMatchs.get(i));
+                //Falta fer el setIcon
+                jpMatches.add(jbMatches[i]);
+            }
+        }*/
+
         jspMatches.getViewport().add(jpMatches);
     }
 

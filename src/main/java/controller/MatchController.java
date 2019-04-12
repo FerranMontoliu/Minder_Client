@@ -1,6 +1,6 @@
 package controller;
 
-import model.User;
+import model.entity.User;
 import view.MatchPanel;
 
 import java.awt.event.ActionEvent;

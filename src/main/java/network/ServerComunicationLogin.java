@@ -2,7 +2,7 @@ package network;
 
 import controller.LoginController;
 import model.*;
-import view.LoginWindow;
+import model.entity.User;
 
 import java.io.*;
 import java.net.Socket;

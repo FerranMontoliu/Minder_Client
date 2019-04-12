@@ -1,6 +1,6 @@
 package controller;
 
-import model.User;
+import model.entity.User;
 import network.ServerComunicationChat;
 import view.MainWindow;
 import view.NotificationPopUp;

@@ -1,7 +1,7 @@
 package controller;
 
 import model.EmptyTextFieldException;
-import model.User;
+import model.entity.User;
 import model.UserManager;
 import network.ServerComunicationLogin;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,10 +1,9 @@
 package network;
 
 import controller.EditController;
-import controller.LoginController;
 import model.ClientConfig;
 import model.Json;
-import model.User;
+import model.entity.User;
 
 import java.io.*;
 import java.net.Socket;

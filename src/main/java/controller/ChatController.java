@@ -1,12 +1,13 @@
 package controller;
 
-import model.Chat;
-import model.Message;
-import model.User;
+import model.entity.Chat;
+import model.entity.Message;
+import model.entity.User;
 import view.ChatPanel;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 
 import static java.lang.Thread.sleep;
 
@@ -175,6 +176,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
             stringBuilder.append(m.toString()).append(System.lineSeparator());
         }
         chatPanel.writeChat(stringBuilder.toString());
+    }
+
+    public void loadMatchesList(LinkedList<String> matchedUsernames) {
+
     }
 }
 

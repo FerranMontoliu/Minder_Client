@@ -2,7 +2,7 @@ package controller;
 
 import model.FileChooser;
 import model.InvalidFormatException;
-import model.User;
+import model.entity.User;
 import model.UserManager;
 import network.ServerComunicationEdit;
 import view.EditPanel;

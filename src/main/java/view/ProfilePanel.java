@@ -2,11 +2,9 @@ package view;
 
 import controller.MenuController;
 import controller.OtherUserProfileController;
-import controller.ProfileController;
-import model.User;
+import model.entity.User;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
