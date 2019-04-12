@@ -30,6 +30,7 @@ public class MenuController implements ActionListener, WindowListener {
     public MenuController(MainWindow mainWindow, User associatedUser) {
         this.mainWindow = mainWindow;
         this.associatedUser = associatedUser;
+        this.matchedUsernames = new LinkedList<>();
 
         connectController = new ConnectController(mainWindow.getConnect(), this);  //Aixo trenca paradigmes??
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
@@ -54,18 +55,15 @@ public class MenuController implements ActionListener, WindowListener {
             case "CHAT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CHAT")) {
-                        try {
-                            serverComunicationChat = new ServerComunicationChat(this, chatController);
-                            serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-                            serverComunicationChat.join();
+                        //TODO: Descomentar la Comunicacio quan tot funcioni
+                        //serverComunicationChat = new ServerComunicationChat(this, chatController);
+                        //serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+                        //serverComunicationChat.join();
 
-                            mainWindow.generateMatchList(matchedUsernames);
-                            mainWindow.selectChat();
-                            mainWindow.changePanel("CHAT");
-                            chatController.runDefaultAppearance();
-                        } catch (InterruptedException e1) {
-                            mainWindow.showWarning("Error with server communication.");
-                        }
+                        mainWindow.generateMatchList(matchedUsernames);
+                        mainWindow.selectChat();
+                        mainWindow.changePanel("CHAT");
+                        chatController.runDefaultAppearance();
 
                     }
                 }

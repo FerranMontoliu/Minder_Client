@@ -73,10 +73,12 @@ public class ChatPanel extends JPanel {
 
         jpMessage = new JPanel(new BorderLayout());
         jtfMissatge = new JTextField(50);
+        jtfMissatge.setEnabled(false);      //TODO: Quan es cliqui a un chat, habilitar el jtf i el jbutton send
 
         jpMessage.add(jtfMissatge,BorderLayout.CENTER);
         ImageIcon iSend = new ImageIcon("icons/send.png");
         jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
+        disableSend();
         jpMessage.add(jbSend,BorderLayout.EAST);
 
         //Afegeixo:
@@ -123,6 +125,7 @@ public class ChatPanel extends JPanel {
         }
         */
         jlNoMatchs = new JLabel("You don't have any chats");
+        jpMatches.add(jlNoMatchs);
         jspMatches.getViewport().add(jpMatches);
     }
 
@@ -130,7 +133,7 @@ public class ChatPanel extends JPanel {
 
         //Opció DINÀMICA
 
-        if((userMatchs != null)||(userMatchs.size() > 0)){
+        if(userMatchs.size() > 0){
             //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
             int size = userMatchs.size();
             for(int i = 0; i < size; i++){
@@ -268,6 +271,14 @@ public class ChatPanel extends JPanel {
      */
     public void writeChat(String generatedChat) {
         jtpane.setText(generatedChat);
+    }
+
+    public void disableSend(){
+        jbSend.setEnabled(false);
+    }
+
+    public void enableSend(){
+        jbSend.setEnabled(true);
     }
 }
 
