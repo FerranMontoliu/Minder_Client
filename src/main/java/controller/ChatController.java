@@ -177,10 +177,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         }
         chatPanel.writeChat(stringBuilder.toString());
     }
-
-    public void loadMatchesList(LinkedList<String> matchedUsernames) {
-
-    }
 }
 
 

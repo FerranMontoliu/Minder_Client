@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.LinkedList;
 
 public class MenuController implements ActionListener, WindowListener {
     private static final char USER_MATCH_LIST = 'h';
@@ -23,6 +24,7 @@ public class MenuController implements ActionListener, WindowListener {
     private ProfileController profileController;
     private OtherUserProfileController otherUserProfileController;
     private ServerComunicationChat serverComunicationChat;
+    private LinkedList<String> matchedUsernames;
 
 
     public MenuController(MainWindow mainWindow, User associatedUser) {
@@ -53,10 +55,11 @@ public class MenuController implements ActionListener, WindowListener {
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CHAT")) {
                         try {
-                            serverComunicationChat = new ServerComunicationChat(chatController);
+                            serverComunicationChat = new ServerComunicationChat(this, chatController);
                             serverComunicationChat.startServerComunication(USER_MATCH_LIST);
                             serverComunicationChat.join();
 
+                            mainWindow.generateMatchList(matchedUsernames);
                             mainWindow.selectChat();
                             mainWindow.changePanel("CHAT");
                             chatController.runDefaultAppearance();
@@ -232,5 +235,10 @@ public class MenuController implements ActionListener, WindowListener {
     @Override
     public void windowDeactivated(WindowEvent e) {
 
+    }
+
+    public void loadMatchesList(LinkedList<String> matchedUsernames) {
+        this.matchedUsernames = new LinkedList<>();
+        this.matchedUsernames = matchedUsernames;
     }
 }

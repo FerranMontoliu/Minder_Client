@@ -22,19 +22,19 @@ public class ChatPanel extends JPanel {
     private JScrollPane jspCentre;
     private JPanel jpMatches;
     private JPanel jpMessage; //Panell dels missatges a enviar
-    private JButton[] jbMatches;
+    private LinkedList<JButton> jbMatches;
     private JTextPane jtpane; //Lloc dels missatges
     private boolean chosen; //Es posara a true quan s'entri a la conversa d'algun match
-
+    private JLabel jlNoMatchs;
 
 
     /**
      * Constructor
      * @param clMainWindow
      */
-    public ChatPanel(CardLayout clMainWindow, LinkedList<String> userMatchs) {
+    public ChatPanel(CardLayout clMainWindow) {
         super(clMainWindow);
-        createChatPanel(userMatchs);
+        createChatPanel();
     }
 
 
@@ -42,9 +42,8 @@ public class ChatPanel extends JPanel {
      * TEMPORAL: Cal rebre tots els usuari amb qui s'ha fet match, extreure'n la foto i el nom
      * Quan es clica sobre un d'ells, s'obre el xat
      * amb aquella persona
-     * @param userMatchs
      */
-    public void createChatPanel(LinkedList<String> userMatchs) {
+    public void createChatPanel() {
 
         //Assigno un borderlayout pel chat
         this.setLayout(new BorderLayout());
@@ -68,7 +67,7 @@ public class ChatPanel extends JPanel {
 
         //Afegeixo JPanels de matches
 
-        showUserPhotos(userMatchs);
+        showUserPhotos();
 
         //Inicialitzacio de la finestra inferior
 
@@ -99,50 +98,49 @@ public class ChatPanel extends JPanel {
         jtfMissatge.setActionCommand("TEXT");
         jbSend.setActionCommand("SEND");
 
-        for(int i=0;i<jbMatches.length;i++) {
-            jbMatches[i].addActionListener(controller);
-            jbMatches[i].addMouseListener(controller);
-            jbMatches[i].setActionCommand("Z"+String.valueOf(i));
+        for(int i=0;i<jbMatches.size();i++) {
+            jbMatches.get(i).addActionListener(controller);
+            jbMatches.get(i).addMouseListener(controller);
+            jbMatches.get(i).setActionCommand("Z"+String.valueOf(i));
         }
 
     }
 
-    /**
-     *
-     * @param userMatchs
-     */
-    //TODO: CANVIAR!!
-    public void showUserPhotos(LinkedList<String> userMatchs) {
-        jpMatches = new JPanel();
 
+    public void showUserPhotos() {
+        jpMatches = new JPanel();
+        jbMatches = new LinkedList<>();
         //Opcio ESTÀTICA
-        jbMatches = new JButton[2]; //Array de matches, per les seves fotos
+        /*
+        jbMatches = new LinkedList<>(); //Array de matches, per les seves fotos
         ImageIcon[] Send = new ImageIcon[2];
         Send[0] = new ImageIcon("icons/userDark.png");
         Send[1] = new ImageIcon("icons/userLight.png");
-        jbMatches[0] = new JButton("Pene",Send[0]);
-        jbMatches[1] = new JButton("Nepe",Send[1]);
-        for(int i=0;i<jbMatches.length;i++) {
-            jpMatches.add(jbMatches[i]);
+        jbMatches.add(new JButton("Pene",Send[0]));
+        jbMatches.add(new JButton("Nepe",Send[1]));
+        for(int i=0;i<jbMatches.size();i++) {
+            jpMatches.add(jbMatches.get(i));
         }
+        */
+        jlNoMatchs = new JLabel("You don't have any chats");
+        jspMatches.getViewport().add(jpMatches);
+    }
+
+    public void generateDynamicMatchButtons(LinkedList<String> userMatchs){
 
         //Opció DINÀMICA
-        /*
-        if((userMatchs == null)||(userMatchs.size() == 0)){
-            JLabel jlNoMatches = new JLabel("You don't have any chats");
-            jpMatches.add(jlNoMatches);
-        }else{
+
+        if((userMatchs != null)||(userMatchs.size() > 0)){
             //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
             int size = userMatchs.size();
-            jbMatches = new JButton[size];
             for(int i = 0; i < size; i++){
-                jbMatches[i] = new JButton(userMatchs.get(i));
+                JButton match = new JButton(userMatchs.get(i));
                 //Falta fer el setIcon
-                jpMatches.add(jbMatches[i]);
+                jbMatches.add(match);
+                jpMatches.add(match);
             }
-        }*/
+        }
 
-        jspMatches.getViewport().add(jpMatches);
     }
 
     /**
@@ -184,7 +182,7 @@ public class ChatPanel extends JPanel {
     }
 
     public int numberOfMatches() {
-        return jbMatches.length;
+        return jbMatches.size();
     }
 
     /**

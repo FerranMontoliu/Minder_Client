@@ -4,6 +4,7 @@ import controller.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 
 public class MainWindow extends JFrame{
     private JMenuItem menuConnect;
@@ -386,4 +387,7 @@ public class MainWindow extends JFrame{
         return this.getLocation();
     }
 
+    public void generateMatchList(LinkedList<String> matchedUsernames) {
+        jpChat.generateDynamicMatchButtons(matchedUsernames);
+    }
 }

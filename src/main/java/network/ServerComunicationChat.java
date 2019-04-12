@@ -1,6 +1,7 @@
 package network;
 
 import controller.ChatController;
+import controller.MenuController;
 import model.entity.Chat;
 import model.ClientConfig;
 import model.Json;
@@ -15,6 +16,7 @@ public class ServerComunicationChat extends Thread {
     private static final char USER_MATCH_LIST = 'h';
 
     private ChatController chatController;
+    private MenuController menuController;
     private boolean isOn;
     private Socket socketToServer;
     private DataInputStream dataIn;
@@ -23,9 +25,10 @@ public class ServerComunicationChat extends Thread {
     private ObjectOutputStream objectOut;
     private char command;
 
-    public ServerComunicationChat(ChatController chatController){
+    public ServerComunicationChat(MenuController menuController, ChatController chatController){
         try {
             this.isOn = false;
+            this.menuController = menuController;
             this.chatController = chatController;
 
             //Configuració inicial del client:
@@ -68,7 +71,7 @@ public class ServerComunicationChat extends Thread {
                     objectOut.writeObject(chatController.getAssociatedUser());
                     //TODO: Rebre la llista
                     MatchLoader matchLoader = (MatchLoader) objectIn.readObject();
-                    chatController.loadMatchesList(matchLoader.getMatchedUsernames());
+                    menuController.loadMatchesList(matchLoader.getMatchedUsernames());
                     break;
                 case LOAD_CHAT:
                     dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
