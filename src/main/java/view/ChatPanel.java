@@ -245,30 +245,13 @@ public class ChatPanel extends JPanel {
         JOptionPane.showMessageDialog(this, "You have not written anything!!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Metode que escriu el chat obtingut del client al TextPane
+     * @param generatedChat missatges a escriure.
+     */
+    public void writeChat(String generatedChat) {
+        jtpane.setText(generatedChat);
+    }
 }
 
 

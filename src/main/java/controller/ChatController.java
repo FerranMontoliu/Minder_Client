@@ -1,5 +1,7 @@
 package controller;
 
+import model.Chat;
+import model.Message;
 import model.User;
 import view.ChatPanel;
 
@@ -164,6 +166,15 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      */
     public String getDestinationUsername() {
         return destinationUsername;
+    }
+
+    public void loadChat(Chat receivedChat) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Message m: receivedChat.getMessages()) {
+            stringBuilder.append(m.toString()).append(System.lineSeparator());
+        }
+        chatPanel.writeChat(stringBuilder.toString());
     }
 }
 

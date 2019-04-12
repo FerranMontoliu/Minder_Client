@@ -72,6 +72,7 @@ public class ServerComunicationChat extends Thread {
                     dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
                     dataOut.writeUTF(chatController.getDestinationUsername());
                     Chat receivedChat = (Chat) objectIn.readObject();
+                    chatController.loadChat(receivedChat);
                     break;
                 case SEND_MESSAGE:
                     break;
