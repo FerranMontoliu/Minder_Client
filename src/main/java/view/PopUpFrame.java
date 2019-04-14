@@ -5,6 +5,10 @@ import java.awt.*;
 
 public class PopUpFrame extends JFrame {
     private GridBagConstraints constraints;
+
+    /**
+     * Constructor que inicialitza el Frame que contindra la notificacio de nous matches
+     */
     public PopUpFrame(){
         String header = "You have new matches!";
         setLayout(new GridBagLayout());
@@ -24,6 +28,10 @@ public class PopUpFrame extends JFrame {
 
     }
 
+    /**
+     * Metode que afegeix el boto d'anar als missatges
+     * @param jbChat
+     */
     public void addChat(JButton jbChat){
         //Boto de missatges
         constraints.gridx = 0;
@@ -35,6 +43,10 @@ public class PopUpFrame extends JFrame {
         add(jbChat, constraints);
     }
 
+    /**
+     * Metode que afegeix el boto de tancar el popup
+     * @param jbSkip
+     */
     public void addSkip (JButton jbSkip){
         //Boto de Skip
         constraints.gridx = 1;
