@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class EditPanel extends JPanel {
+public class EditPanel extends JPanelSlider {
     private final static String HOBBIES_DEFAULT_TEXT = "Separate them with commas...";
     private JLabel jlNewImage;
     private JTextArea jtaNewDescription;
@@ -26,7 +26,8 @@ public class EditPanel extends JPanel {
      * @param clMainWindow cardLayout al qual pertany.
      */
     public EditPanel(CardLayout clMainWindow){
-        super(clMainWindow);
+        //super(clMainWindow);
+
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         createBorder();
         createImagePanel();
