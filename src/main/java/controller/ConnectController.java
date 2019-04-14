@@ -1,8 +1,6 @@
 package controller;
 
 import view.ConnectPanel;
-import view.MainWindow;
-import view.MatchPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +12,7 @@ public class ConnectController implements ActionListener, MouseListener {
     private ConnectPanel connectPanel;
     //private MatchPanel matchPanel;
     private MenuController menuController;
-
+    private boolean like;
 
     public ConnectController(ConnectPanel connectPanel, MenuController menuController) {
         this.connectPanel = connectPanel;
@@ -55,15 +53,28 @@ public class ConnectController implements ActionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("pressed");
-        JComponent comp = (JComponent) e.getSource();
+        /*JComponent comp = (JComponent) e.getSource();
         TransferHandler th = comp.getTransferHandler();
         th.exportAsDrag(comp, e, TransferHandler.COPY);
+        if (like){
+            System.out.println("Like");
+        }else{
+            System.out.println("dislike");
+        }*/
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        JComponent comp = (JComponent) e.getSource();
+        TransferHandler th = comp.getTransferHandler();
+        if(e.getPoint().x < 115){
+            th.setDragImage(new ImageIcon("icons/cancel.png").getImage());
+            System.out.println("dislike");
+        }else{
+            th.setDragImage(new ImageIcon("icons/checked.png").getImage());
+            System.out.println("like");
+        }
+        th.exportAsDrag(comp, e, TransferHandler.COPY);
     }
 
     @Override
@@ -73,6 +84,10 @@ public class ConnectController implements ActionListener, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        /*if(e.getPoint().x < 115){
+            like = false;
+        }else{
+            like = true;
+        }*/
     }
 }
