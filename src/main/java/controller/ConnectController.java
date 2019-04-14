@@ -13,11 +13,13 @@ public class ConnectController implements ActionListener, MouseListener {
     //private MatchPanel matchPanel;
     private MenuController menuController;
     private boolean like;
+    public final static int IMAGE_LIMIT = 115;
 
     public ConnectController(ConnectPanel connectPanel, MenuController menuController) {
         this.connectPanel = connectPanel;
         this.menuController = menuController;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -67,12 +69,12 @@ public class ConnectController implements ActionListener, MouseListener {
     public void mouseReleased(MouseEvent e) {
         JComponent comp = (JComponent) e.getSource();
         TransferHandler th = comp.getTransferHandler();
-        if(e.getPoint().x < 115){
+
+        if(e.getPoint().x < IMAGE_LIMIT){
             th.setDragImage(new ImageIcon("icons/cancel.png").getImage());
-            System.out.println("dislike");
+
         }else{
             th.setDragImage(new ImageIcon("icons/checked.png").getImage());
-            System.out.println("like");
         }
         th.exportAsDrag(comp, e, TransferHandler.COPY);
     }

@@ -389,4 +389,8 @@ public class MainWindow extends JFrame{
     public void generateMatchList(LinkedList<String> matchedUsernames) {
         jpChat.generateDynamicMatchButtons(matchedUsernames);
     }
+
+    public String getActualPanel() {
+        return selected;
+    }
 }

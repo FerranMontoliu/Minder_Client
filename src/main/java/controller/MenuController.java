@@ -93,7 +93,7 @@ public class MenuController implements ActionListener, WindowListener {
             case "LOGOUT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("LOGOUT")) {
-                        mainWindow.selectLogout();
+                        //mainWindow.selectLogout();
                         logoutController.showLogout();
                         //mainWindow.changePanel("LOGOUT");
                     }
@@ -119,7 +119,8 @@ public class MenuController implements ActionListener, WindowListener {
                 break;
             case "NO LOGOUT":
                 logoutController.hideLogout();
-                //mainWindow.selectConnect();
+                mainWindow.deselectConnect();
+                //mainWindow.changePanel(mainWindow.getActualPanel());
                 //mainWindow.changePanel("CONNECT");
                 break;
 
@@ -187,6 +188,7 @@ public class MenuController implements ActionListener, WindowListener {
      */
     public void goToConnectPanel() {
         mainWindow.changePanel("CONNECT");
+        mainWindow.selectConnect();
     }
 
     /**
@@ -207,7 +209,7 @@ public class MenuController implements ActionListener, WindowListener {
         if(associatedUser.isCompleted()){
             if(!mainWindow.isSelected("LOGOUT")) {
                 logoutController.showLogout();
-                mainWindow.selectLogout();
+                //mainWindow.selectLogout();
                 //mainWindow.changePanel("LOGOUT");
             }
         }else{
