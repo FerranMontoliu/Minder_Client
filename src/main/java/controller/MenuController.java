@@ -93,9 +93,9 @@ public class MenuController implements ActionListener, WindowListener {
             case "LOGOUT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("LOGOUT")) {
-                        //mainWindow.selectLogout();
+                        mainWindow.selectLogout();
                         logoutController.showLogout();
-                        mainWindow.changePanel("LOGOUT");
+                        //mainWindow.changePanel("LOGOUT");
                     }
                 }
                 break;
@@ -207,7 +207,7 @@ public class MenuController implements ActionListener, WindowListener {
         if(associatedUser.isCompleted()){
             if(!mainWindow.isSelected("LOGOUT")) {
                 logoutController.showLogout();
-                //mainWindow.selectLogout();
+                mainWindow.selectLogout();
                 //mainWindow.changePanel("LOGOUT");
             }
         }else{

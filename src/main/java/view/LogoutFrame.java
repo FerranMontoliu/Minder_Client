@@ -86,7 +86,6 @@ public class LogoutFrame extends JFrame {
             setUndecorated(true);
             setLocation(location.x+25, location.y);
             setVisible(true);
-
     }
 
     public void hideFrame() {
