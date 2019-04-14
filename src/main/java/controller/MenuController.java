@@ -22,6 +22,7 @@ public class MenuController implements ActionListener, WindowListener {
     private ChatController chatController;
     private MatchController matchController;
     private ProfileController profileController;
+    private LogoutController logoutController;
     private OtherUserProfileController otherUserProfileController;
     private ServerComunicationChat serverComunicationChat;
     private LinkedList<String> matchedUsernames;
@@ -38,6 +39,7 @@ public class MenuController implements ActionListener, WindowListener {
         matchController = new MatchController(mainWindow.getMatch(), this, connectController, this.associatedUser);
         profileController = new ProfileController(mainWindow.getProfile());
         otherUserProfileController = new OtherUserProfileController(mainWindow.getOtherUserProfile(), this);
+        logoutController = new LogoutController(mainWindow.getLocations(), this);
 
         mainWindow.registraConnectController(connectController);
         mainWindow.registraChatController(chatController);
@@ -91,9 +93,9 @@ public class MenuController implements ActionListener, WindowListener {
             case "LOGOUT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("LOGOUT")) {
-                        mainWindow.selectLogout();
+                        //mainWindow.selectLogout();
+                        logoutController.showLogout();
                         mainWindow.changePanel("LOGOUT");
-
                     }
                 }
                 break;
@@ -112,11 +114,13 @@ public class MenuController implements ActionListener, WindowListener {
                 break;
             case "YES LOGOUT":
                 //TODO: TANCAR COMUNICACIO DE SERVIDOR I MERDES VARIES
+                logoutController.hideLogout();
                 mainWindow.dispose();
                 break;
             case "NO LOGOUT":
-                mainWindow.selectConnect();
-                mainWindow.changePanel("CONNECT");
+                logoutController.hideLogout();
+                //mainWindow.selectConnect();
+                //mainWindow.changePanel("CONNECT");
                 break;
 
         }
@@ -202,8 +206,9 @@ public class MenuController implements ActionListener, WindowListener {
     public void windowClosing(WindowEvent e) {
         if(associatedUser.isCompleted()){
             if(!mainWindow.isSelected("LOGOUT")) {
-                mainWindow.selectLogout();
-                mainWindow.changePanel("LOGOUT");
+                logoutController.showLogout();
+                //mainWindow.selectLogout();
+                //mainWindow.changePanel("LOGOUT");
             }
         }else{
             mainWindow.showWarning("No pots abandonar fins que el perfil no estigui complert.");

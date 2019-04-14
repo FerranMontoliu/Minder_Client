@@ -19,7 +19,7 @@ public class MainWindow extends JFrame{
     private EditPanel jpEdit;
     private ChatPanel jpChat;
     private MatchPanel jpMatch;
-    private LogoutPanel jpLogOut;
+    private LogoutFrame logoutFrame;
     private ProfilePanel jpOtherProfile;
 
     //private EditPanel jpEditProfile;
@@ -50,17 +50,17 @@ public class MainWindow extends JFrame{
         createEditPanel();
         createChatPanel();
         createMatchPanel();
-        createLogoutPanel();
+        //createLogoutPanel();
         createOtherUserProfilePanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
     }
 
-    private void createLogoutPanel() {
+    /*private void createLogoutPanel() {
         jpLogOut = new LogoutPanel(clMainWindow);
         jpSelected.add("LOGOUT", jpLogOut);
-    }
+    }*/
 
     /**
      * Metode que crida al constructor que crea el panell de "It's a Match!". Mostrara els dos usuaris associats i dues
@@ -193,7 +193,6 @@ public class MainWindow extends JFrame{
         menuLogout.addActionListener(controller);
         menuLogout.setActionCommand("LOGOUT");
 
-        jpLogOut.registerController(controller);
         jpProfile.registraAssociatedProfileController(controller);
         //jpOtherProfile.registraOtherProfileController(controller);
 
