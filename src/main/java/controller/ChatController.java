@@ -13,9 +13,9 @@ import static java.lang.Thread.sleep;
 
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
     private ChatPanel chatPanel;
-    private String message;
     private User associatedUser;
     private String destinationUsername;
+    private Message sendingMessage;
 
 
     public ChatController(ChatPanel chatPanel, User associatedUser) {
@@ -41,8 +41,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         if(e.getActionCommand().equals("SEND")) { //Ens han apretat el BOTÓ d'enviar
             System.out.println("SEND MESSAGE");
             if(chatPanel.isChosen()) {
-                message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
+                String message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
                 if(message.length() > 0 & !message.equals("Write a Message... ")) {
+                    sendingMessage = new Message(getSourceUsername(), message,getDestinationUsername());
                     chatPanel.setSentIcon();
                     try {
                         sleep(100);
@@ -63,9 +64,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         if(e.getActionCommand().equals("TEXT")) { //Ens han apretat l'ENTER per enviar
             System.out.println("SEND MESSAGE");
             if(chatPanel.isChosen()) {
-                message = chatPanel.retrieveTextToSend();
+                String message = chatPanel.retrieveTextToSend();
                 chatPanel.resetJTextField();
                 if(message.length() > 0) {
+                    sendingMessage = new Message(getSourceUsername(), message,getDestinationUsername());
                     chatPanel.setSentIcon();
                     try {
                         sleep(100);
@@ -176,6 +178,14 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
             stringBuilder.append(m.toString()).append(System.lineSeparator());
         }
         chatPanel.writeChat(stringBuilder.toString());
+    }
+
+    public String getSourceUsername() {
+        return associatedUser.getUsername();
+    }
+
+    public Message getSendingMessage() {
+        return sendingMessage;
     }
 }
 

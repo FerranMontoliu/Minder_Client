@@ -6,6 +6,7 @@ import model.entity.Chat;
 import model.ClientConfig;
 import model.Json;
 import model.entity.MatchLoader;
+import model.entity.Message;
 
 import java.io.*;
 import java.net.Socket;
@@ -68,18 +69,19 @@ public class ServerComunicationChat extends Thread {
             dataOut.writeChar(command);
             switch (command){
                 case USER_MATCH_LIST: //Obte i carrega la llista de matches del user associat
-                    objectOut.writeObject(chatController.getAssociatedUser());
-                    //TODO: Rebre la llista
+                    dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
                     MatchLoader matchLoader = (MatchLoader) objectIn.readObject();
                     menuController.loadMatchesList(matchLoader.getMatchedUsernames());
                     break;
                 case LOAD_CHAT:
-                    dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
+                    dataOut.writeUTF(chatController.getSourceUsername());
                     dataOut.writeUTF(chatController.getDestinationUsername());
                     Chat receivedChat = (Chat) objectIn.readObject();
                     chatController.loadChat(receivedChat);
                     break;
                 case SEND_MESSAGE:
+                    Message m = chatController.getSendingMessage();
+                    objectOut.writeObject(m);
                     break;
             }
         } catch (IOException e) {
