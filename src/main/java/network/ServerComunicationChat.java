@@ -11,10 +11,12 @@ import model.entity.Message;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Classe encarregada de les comunicacions per a carregar els elements necessaris del ChatPanel. No gestiona la missatgeria.
+ */
 public class ServerComunicationChat extends Thread {
     private static final char USER_UNMATCHED = 'e';
     private static final char LOAD_CHAT = 'f';
-    private static final char SEND_MESSAGE = 'g';
     private static final char USER_MATCH_LIST = 'h';
 
     private ChatController chatController;
@@ -79,10 +81,6 @@ public class ServerComunicationChat extends Thread {
                     dataOut.writeUTF(chatController.getDestinationUsername());
                     Chat receivedChat = (Chat) objectIn.readObject();
                     chatController.loadChat(receivedChat);
-                    break;
-                case SEND_MESSAGE:
-                    Message m = chatController.getSendingMessage();
-                    objectOut.writeObject(m);
                     break;
                 case USER_UNMATCHED:
                     dataOut.writeUTF(chatController.getSourceUsername());
