@@ -40,6 +40,8 @@ public class MenuController implements ActionListener, WindowListener {
         profileController = new ProfileController(mainWindow.getProfile());
         otherUserProfileController = new OtherUserProfileController(mainWindow.getOtherUserProfile(), this);
         logoutController = new LogoutController(mainWindow.getLocations(), this);
+        serverComunicationChat = new ServerComunicationChat(this, chatController);
+        chatController.setServerComunicationChat(serverComunicationChat);
 
         mainWindow.registraConnectController(connectController);
         mainWindow.registraChatController(chatController);
@@ -58,7 +60,6 @@ public class MenuController implements ActionListener, WindowListener {
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CHAT")) {
                         //TODO: Descomentar la Comunicacio quan tot funcioni
-                        //serverComunicationChat = new ServerComunicationChat(this, chatController);
                         //serverComunicationChat.startServerComunication(USER_MATCH_LIST);
                         //serverComunicationChat.join();
 

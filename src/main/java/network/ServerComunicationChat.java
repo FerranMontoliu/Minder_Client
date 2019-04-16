@@ -12,6 +12,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class ServerComunicationChat extends Thread {
+    private static final char USER_UNMATCHED = 'e';
     private static final char LOAD_CHAT = 'f';
     private static final char SEND_MESSAGE = 'g';
     private static final char USER_MATCH_LIST = 'h';
@@ -83,10 +84,12 @@ public class ServerComunicationChat extends Thread {
                     Message m = chatController.getSendingMessage();
                     objectOut.writeObject(m);
                     break;
+                case USER_UNMATCHED:
+                    dataOut.writeUTF(chatController.getSourceUsername());
+                    dataOut.writeUTF(chatController.getUnmatchingUsername());
+                    break;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 

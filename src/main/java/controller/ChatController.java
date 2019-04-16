@@ -3,6 +3,7 @@ package controller;
 import model.entity.Chat;
 import model.entity.Message;
 import model.entity.User;
+import network.ServerComunicationChat;
 import view.ChatPanel;
 
 import javax.swing.*;
@@ -12,9 +13,13 @@ import java.util.LinkedList;
 import static java.lang.Thread.sleep;
 
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
+    private static final char USER_UNMATCHED = 'e';
+    private ServerComunicationChat serverComunicationChat;
+
     private ChatPanel chatPanel;
     private User associatedUser;
     private String destinationUsername;
+    private String unmatchingUser;
     private Message sendingMessage;
 
 
@@ -95,11 +100,19 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
         if(SwingUtilities.isRightMouseButton(e) ) {
             System.out.println("UNMATCH");
+            //TODO: Aconseguir el nom del user que has fet click
+            getRightClickUnmatch(e);
+            serverComunicationChat.startServerComunication(USER_UNMATCHED);
             boolean remove = chatPanel.throwUnmatchMessage();
             if(remove) {
                 System.out.println("Match has been removed");
             }
         }
+    }
+
+    private void getRightClickUnmatch(MouseEvent e) {  //TODO: Aixo trenca infinits paradigmes? Es que MouseListener no deixa posar id
+        JButton jbUnmatch = (JButton) e.getSource();
+        unmatchingUser = jbUnmatch.getText();
     }
 
     /**
@@ -186,6 +199,14 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     public Message getSendingMessage() {
         return sendingMessage;
+    }
+
+    public void setServerComunicationChat(ServerComunicationChat serverComunicationChat) {
+        this.serverComunicationChat = serverComunicationChat;
+    }
+
+    public String getUnmatchingUsername() {
+        return unmatchingUser;
     }
 }
 
