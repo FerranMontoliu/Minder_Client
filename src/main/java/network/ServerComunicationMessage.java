@@ -47,7 +47,7 @@ public class ServerComunicationMessage extends Thread {
     }
 
     /**
-     * Metode encarregat de tancar la comunicació client-servidor.
+     * Metode encarregat de tancar la comunicacio client-servidor.
      */
     public void stopServerComunication() {
         this.isOn = false;

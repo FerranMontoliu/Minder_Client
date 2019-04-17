@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import model.entity.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -392,5 +393,9 @@ public class MainWindow extends JFrame{
 
     public String getActualPanel() {
         return selected;
+    }
+
+    public void loadConnectUserInfo(User connectUser) {
+        jpOtherProfile.updateInfo(connectUser);
     }
 }

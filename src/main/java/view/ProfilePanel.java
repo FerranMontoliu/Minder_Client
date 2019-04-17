@@ -155,6 +155,24 @@ public class ProfilePanel extends JPanel {
         jlFavProgramming.setText ("Java");
         jlFavHobbies.setText("Destrossar el github, Fer cafès");
         jlDescription.setText("M'agrada passar hores al lab de compus");
+
+        //TODO: Opció DINÀMICA
+        /*
+        jlPhoto.setIcon();
+        jlName.setText(user.getUsername());
+        jlAge.setText(String.valueOf(user.getAge()));
+        if(user.getLikesJava() && user.getLikesC()){
+            jlFavProgramming.setText("Java and C++");
+        }else{
+            if(user.getLikesJava()){
+                jlFavProgramming.setText("Java");
+            }else{
+                jlFavProgramming.setText("C++");
+            }
+        }
+        //jlFavHobbies.setText(user.getHobbies());
+        jlDescription.setText(user.getDescription());
+        */
     }
 
 }

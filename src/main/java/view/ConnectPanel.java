@@ -2,6 +2,7 @@ package view;
 
 
 import controller.ConnectController;
+import model.entity.User;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -130,6 +131,23 @@ public class ConnectPanel extends JPanel {
         jpMatch.setBackground(Color.LIGHT_GRAY);
         jfMatch.add(jpMatch);
         jfMatch.setVisible(true);
+    }
+
+    /**
+     * Metode utilitzat per a notficar errors. Genera un JDialog informatiu.
+     * @param errorMessage missatge que indica l'error.
+     */
+    public void showWarning(String errorMessage) {
+        JOptionPane.showMessageDialog(null, errorMessage,"Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
+     * Metode que carrega les dades principals de l'usuari solicitat al servidor que es visualitza en el connectPanel .
+     * @param connectUser usuari solicitat.
+     */
+    public void loadNewUser(User connectUser) {
+        lblProfilename.setText(connectUser.getUsername());
+        //lblProfilePic.setIcon();  //TODO: Concretar el tema del tipus de l'atribut imatge
     }
 
 }

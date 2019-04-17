@@ -33,7 +33,7 @@ public class MenuController implements ActionListener, WindowListener {
         this.associatedUser = associatedUser;
         this.matchedUsernames = new LinkedList<>();
 
-        connectController = new ConnectController(mainWindow.getConnect(), this);  //Aixo trenca paradigmes??
+        connectController = new ConnectController(mainWindow.getConnect(), this, this.associatedUser);  //Aixo trenca paradigmes??
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
         chatController = new ChatController(mainWindow.getChat(), associatedUser);
         matchController = new MatchController(mainWindow.getMatch(), this, connectController, this.associatedUser);
@@ -246,5 +246,13 @@ public class MenuController implements ActionListener, WindowListener {
     public void loadMatchesList(LinkedList<String> matchedUsernames) {
         this.matchedUsernames = new LinkedList<>();
         this.matchedUsernames = matchedUsernames;
+    }
+
+    /**
+     * Metode que carrega la info de perfil del connectUser
+     * @param connectUser usuari que s'esta visualitzant
+     */
+    public void loadConnectUserInfo(User connectUser) {
+        mainWindow.loadConnectUserInfo(connectUser);
     }
 }

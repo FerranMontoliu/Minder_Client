@@ -1,12 +1,16 @@
 package controller;
 
 import model.entity.User;
+import network.ServerComunicationConnect;
 import view.MatchPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MatchController implements ActionListener {
+    private static final char CONNECT_USER = 'k';
+
+    private ServerComunicationConnect serverComunicationConnect;
     private MatchPanel matchPanel;
     private ConnectController connectController;
     private MenuController menuController;
@@ -27,6 +31,7 @@ public class MatchController implements ActionListener {
         usersMatched = new User[2];
         usersMatched[0] = associatedUser;
         usersMatched[1] = null;
+        serverComunicationConnect = new ServerComunicationConnect(connectController);
     }
 
     @Override
@@ -37,8 +42,10 @@ public class MatchController implements ActionListener {
             case "CHAT":
                 menuController.goToChatWith(usersMatched);
                 break;
-            case "PLAY":
+            case "PLAY": //TODO: Descomentar el serverComunication
+               // serverComunicationConnect.startServerComunication(CONNECT_USER);
                 menuController.closeMatch();
+
                 break;
             default:
                 break;
