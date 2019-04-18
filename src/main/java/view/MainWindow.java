@@ -165,6 +165,9 @@ public class MainWindow extends JFrame{
             case "EDIT":
                 selectProfile();
                 break;
+            case "PROFILE":
+                selectProfile();
+                break;
         }
 
 

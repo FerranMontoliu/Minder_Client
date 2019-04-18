@@ -75,8 +75,11 @@ public class MenuController implements ActionListener, WindowListener {
             case "CONNECT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CONNECT")) {
+                        //connectController.obtainConnectUser();
                         mainWindow.selectConnect();
                         mainWindow.changePanel("CONNECT");
+
+
                     }
                 }
                 break;
@@ -142,14 +145,24 @@ public class MenuController implements ActionListener, WindowListener {
     }
 
     /**
-     * Metode que permet obrir directament un chat en concret entre dues persones (el primer user de l'array es el que te
-     * iniciada la sessio i se li hauria d'obrir un chat amb el user de la segona posicio de l'array)
-     * @param usersMatched
+     * Metode que permet obrir directament un chat en concret entre dues persones
+     * @param userMatched user amb qui s'ha fet match
      */
-    public void goToChatWith(User[] usersMatched) {
+    public void goToChatWith(User userMatched) {
+        //TODO: Descomentar la Comunicacio quan tot funcioni
+        //Obtenim la info per carregar el ChatPanel
+        //serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+        //serverComunicationChat.join();
+        mainWindow.generateMatchList(matchedUsernames);
+
+        //Obrim directament el chat concret
+        chatController.loadMatchingChat(userMatched.getUsername());
+        //serverComunicationChat.join();
+
+
+        //Canvia el panell
         mainWindow.changePanel("CHAT");
         mainWindow.selectChat();
-        //TODO: s'ha d'anar al xat de les dues persones passades per parametre
     }
 
     /**

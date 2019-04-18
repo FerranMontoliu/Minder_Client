@@ -49,7 +49,7 @@ public class ServerComunicationConnect extends Thread {
     public void startServerComunication(char command) {
         this.command = command;
         isOn = true;
-        this.start();
+        start();
     }
 
     /**
@@ -62,34 +62,40 @@ public class ServerComunicationConnect extends Thread {
 
     @Override
     public void run() {
-        switch (command){
-            case CONNECT_USER: //TODO: Solicita un USER a visualitzar pel connect panel
-                try{
-                    User connectUser = (User) objectIn.readObject();
-                    connectController.loadNewUser(connectUser);
-                } catch (ClassNotFoundException | IOException e) {
-                    connectController.showWarning("Error loading User from Server.");
-                }
+        try {
+            dataOut.writeChar(command);
+            switch (command){
+                case CONNECT_USER: //TODO: Solicita un USER a visualitzar pel connect panel
+                    try{
+                        User connectUser = (User) objectIn.readObject();
+                        connectController.loadNewUser(connectUser);
+                    } catch (ClassNotFoundException | IOException e) {
+                        connectController.showWarning("Error loading User from Server.");
+                    }
 
-                break;
-            case CONNECT_LIKE: //TODO: Fas LIKE en el connect panel.
-                try{
-                    dataOut.writeUTF(connectController.getSourceUsername());
-                    dataOut.writeUTF(connectController.getConnectUsername());
-                    boolean isMatch = dataIn.readBoolean();
-                    connectController.setMatch(isMatch);
-                }catch (IOException e){
-                    connectController.showWarning("Error communicating with Server.");
-                }
-                break;
-            case CONNECT_DISLIKE: //TODO: Fas DISLIKE en el connect panel.
-                try{
-                    dataOut.writeUTF(connectController.getSourceUsername());
-                    dataOut.writeUTF(connectController.getConnectUsername());
-                }catch (IOException e){
-                    connectController.showWarning("Error communicating with Server.");
-                }
-                break;
+                    break;
+                case CONNECT_LIKE: //TODO: Fas LIKE en el connect panel.
+                    try{
+                        dataOut.writeUTF(connectController.getSourceUsername());
+                        dataOut.writeUTF(connectController.getConnectUsername());
+                        boolean isMatch = dataIn.readBoolean();
+                        connectController.setMatch(isMatch);
+                    }catch (IOException e){
+                        connectController.showWarning("Error communicating with Server.");
+                    }
+                    break;
+                case CONNECT_DISLIKE: //TODO: Fas DISLIKE en el connect panel.
+                    try{
+                        dataOut.writeUTF(connectController.getSourceUsername());
+                        dataOut.writeUTF(connectController.getConnectUsername());
+                    }catch (IOException e){
+                        connectController.showWarning("Error communicating with Server.");
+                    }
+                    break;
+            }
+        } catch (IOException e) {
+            connectController.showWarning("Error communicating with server.");
         }
+
     }
 }

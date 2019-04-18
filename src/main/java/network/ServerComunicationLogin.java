@@ -25,23 +25,21 @@ public class ServerComunicationLogin extends Thread {
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
      * @param controller controlador que inicia la comunicacio
      */
-    public ServerComunicationLogin(LoginController controller) {
-        try {
-            this.isOn = false;
-            this.loginController = controller;
+    public ServerComunicationLogin(LoginController controller) throws IOException {
+
+        this.isOn = false;
+        this.loginController = controller;
 
             //Configuració inicial del client:
-            ClientConfig cc = Json.parseJson();
+        ClientConfig cc = Json.parseJson();
 
-            this.socketToServer = new Socket(cc.getServerIP(), cc.getServerPort());
+        this.socketToServer = new Socket(cc.getServerIP(), cc.getServerPort());
 
-            this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
-            this.dataIn = new DataInputStream(socketToServer.getInputStream());
-            this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
-            this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+        this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
+        this.dataIn = new DataInputStream(socketToServer.getInputStream());
+        this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
+        this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
+
     }
 
     /**

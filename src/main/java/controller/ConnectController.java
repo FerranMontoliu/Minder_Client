@@ -60,7 +60,7 @@ public class ConnectController implements ActionListener, MouseListener {
 
             case "INFO":
                 System.out.println("I like trains");
-                //loadUserInfo();  //TODO: Descomentar quan es treballi amb Server
+                loadUserInfo();  //TODO: Descomentar quan es treballi amb Server
                 menuController.showUserToConnectProfile();
                 break;
 
@@ -148,5 +148,12 @@ public class ConnectController implements ActionListener, MouseListener {
 
     public void setMatch(boolean match) {
         isMatch = match;
+    }
+
+    public void obtainConnectUser() throws InterruptedException {
+        serverComunicationConnect = new ServerComunicationConnect(this);
+        serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
+        serverComunicationConnect.join();
+        serverComunicationConnect.stopServerComunication();
     }
 }

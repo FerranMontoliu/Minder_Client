@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 public class LoginController implements ActionListener, WindowListener {
 
@@ -32,7 +33,11 @@ public class LoginController implements ActionListener, WindowListener {
     public LoginController(LoginWindow w) {
         this.w = w;
         this.u = null;
-        this.sc =  new ServerComunicationLogin(this);
+        try {
+            this.sc =  new ServerComunicationLogin(this);
+        } catch (IOException e) {
+            w.showWarning("The server communication is not working.");
+        }
     }
 
     @Override
@@ -67,6 +72,7 @@ public class LoginController implements ActionListener, WindowListener {
                     String hashedPassword = encoder.encode(w.getSignInPassword());
                     u = new User(UserManager.fixSQLInjections(w.getSignInUsername()), hashedPassword);  //Constructor que ja comprova si es mail o Username
 
+                    sc = new ServerComunicationLogin(this);
                     sc.startServerComunication(LOGIN_USER);
                     sc.join();
 
@@ -75,7 +81,7 @@ public class LoginController implements ActionListener, WindowListener {
                     if(true/*correctLogin*/){
                         w.dispose();
                         if(user.isCompleted()) { //TODO: Canviar user pel atribut u. La variable user és de Test.
-                            MainWindow mw = new MainWindow("CONNECT");
+                            MainWindow mw = new MainWindow("PROFILE");
                             MenuController mc = new MenuController(mw, user);
                             mw.registraController(mc);
                             mw.setVisible(true);
@@ -91,7 +97,7 @@ public class LoginController implements ActionListener, WindowListener {
 
                 } catch (EmptyTextFieldException e1) {
                     w.showWarning(e1.getMessage());
-                } catch (InterruptedException e1) {
+                } catch (InterruptedException | IOException e1) {
                     w.showWarning("Hi ha hagut un problema amb la connexió al servidor.");
                 }
                 break;

@@ -14,6 +14,7 @@ import static java.lang.Thread.sleep;
 
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
     private static final char USER_UNMATCHED = 'e';
+    private static final char LOAD_CHAT = 'f';
     private ServerComunicationChat serverComunicationChat;
 
     private ChatPanel chatPanel;
@@ -110,7 +111,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         }
     }
 
-    private void getRightClickUnmatch(MouseEvent e) {  //TODO: Aixo trenca infinits paradigmes? Es que MouseListener no deixa posar id
+    private void getRightClickUnmatch(MouseEvent e) {
         JButton jbUnmatch = (JButton) e.getSource();
         unmatchingUser = jbUnmatch.getText();
     }
@@ -209,6 +210,15 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         return unmatchingUser;
     }
 
+    /**
+     * Demana i carrega el chat directament quan s'ha fet un match
+     * @param destinationUsername usuari amb el que s'acaba de fer match
+     */
+    public void loadMatchingChat(String destinationUsername) {
+        this.destinationUsername = destinationUsername;
+        //serverComunicationChat.startServerComunication(LOAD_CHAT);
+        //serverComunicationChat.join();
+    }
 }
 
 

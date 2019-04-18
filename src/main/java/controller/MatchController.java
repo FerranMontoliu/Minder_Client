@@ -14,7 +14,8 @@ public class MatchController implements ActionListener {
     private MatchPanel matchPanel;
     private ConnectController connectController;
     private MenuController menuController;
-    private User[] usersMatched;
+    private User associatedUser;
+    private User matchedUser;
 
     /**
      * Constructor per parametres que guarda la vista, el controlador superior que provocara l'execucio d'aquest i guardar
@@ -28,9 +29,8 @@ public class MatchController implements ActionListener {
         this.matchPanel = matchPanel;
         this.connectController = connectController;
         this.menuController = menuController;
-        usersMatched = new User[2];
-        usersMatched[0] = associatedUser;
-        usersMatched[1] = null;
+        this.associatedUser = associatedUser;
+        this.matchedUser = null;
         serverComunicationConnect = new ServerComunicationConnect(connectController);
     }
 
@@ -40,10 +40,11 @@ public class MatchController implements ActionListener {
 
         switch (actionCommand) {
             case "CHAT":
-                menuController.goToChatWith(usersMatched);
+                menuController.goToChatWith(matchedUser);
                 break;
             case "PLAY": //TODO: Descomentar el serverComunication
                // serverComunicationConnect.startServerComunication(CONNECT_USER);
+                //serverComunicationConnect.join();
                 menuController.closeMatch();
 
                 break;
@@ -67,6 +68,6 @@ public class MatchController implements ActionListener {
      * @param matched primer usuari que ha donat like a l'altre
      */
     public void setMatchedUser (User matched){
-        usersMatched[1] = matched;
+        matchedUser = matched;
     }
 }
