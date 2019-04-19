@@ -283,4 +283,9 @@ public class LoginWindow extends JFrame {
     public void cleanSignUpPanel() {
         jpSignUp.clean();
     }
+
+    public void quitWindow() {
+        JOptionPane.showMessageDialog(null, "Quiting","Warning", JOptionPane.WARNING_MESSAGE);
+
+    }
 }

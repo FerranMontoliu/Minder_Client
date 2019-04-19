@@ -144,6 +144,7 @@ public class LoginController implements ActionListener, WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
+        //w.quitWindow(); //TODO: fer un optionPane que mostri un missatge de sortida
         sc.stopServerComunication();
     }
 

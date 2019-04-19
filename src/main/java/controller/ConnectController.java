@@ -26,6 +26,8 @@ public class ConnectController implements ActionListener, MouseListener {
     private boolean like;
     public final static int IMAGE_LIMIT = 115;
 
+    private ActionEvent mouseEvent;
+
     public ConnectController(ConnectPanel connectPanel, MenuController menuController, User associatedUser) {
         this.connectPanel = connectPanel;
         this.menuController = menuController;
@@ -41,32 +43,52 @@ public class ConnectController implements ActionListener, MouseListener {
 
         switch (actionCommand) {
             case "DISLIKE": //TODO: Descomentar les comandes de server-client quan tot funcioni
-                System.out.println("I don't like you..");
-               // serverComunicationConnect.startServerComunication(CONNECT_DISLIKE);
-                //serverComunicationConnect.join();
-                //serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
+                dislikeActions();
                 break;
 
             case "LIKE":
-                System.out.println("I like you!");
-
-                //si hi ha match
-                if(true /*isMatch*/){
-                    menuController.showMatch();
-                }else{
-                    serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User a visualitzar
-                }
+                likeActions();
                 break;
 
             case "INFO":
-                System.out.println("I like trains");
-                loadUserInfo();  //TODO: Descomentar quan es treballi amb Server
-                menuController.showUserToConnectProfile();
+                infoActions();
                 break;
 
             default:
                 break;
         }
+    }
+
+    /**
+     * Metode que gestiona la opcio de mostrar mes informacio (nomes accessible des del boto blau d'informacio)
+     */
+    private void infoActions() {
+        System.out.println("I like trains");
+        loadUserInfo();  //TODO: Descomentar quan es treballi amb Server
+        menuController.showUserToConnectProfile();
+    }
+
+    /**
+     * Metode que gestiona la opcio d'acceptar/donar like (accessible tant fent drag and drop com des del boto verd)
+     */
+    private void likeActions() {
+        System.out.println("I like you!");
+        //si hi ha match
+        if(true /*isMatch*/){
+            menuController.showMatch();
+        }else{
+            serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User a visualitzar
+        }
+    }
+
+    /**
+     * Metode que gestiona la opcio d'ignorar/donar dislike (accessible tant fent drag and drop com des del boto vermell)
+     */
+    private void dislikeActions() {
+        System.out.println("I don't like you..");
+        // serverComunicationConnect.startServerComunication(CONNECT_DISLIKE);
+        //serverComunicationConnect.join();
+        //serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
     }
 
     @Override
@@ -86,6 +108,11 @@ public class ConnectController implements ActionListener, MouseListener {
         }*/
     }
 
+    /**
+     * Metode que permet fer el drag and drop de la imatge de l'usuari cap a qualsevol direccio: en cas de despplaçar
+     * cap a la part dreta, l'icone que es mostrara sera el corresponent al "like", i si es fa cap a l'esquerra, "dislike"
+     * @param e event generat al pressionar sobre la imatge i desplaçar el ratoli
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         JComponent comp = (JComponent) e.getSource();
@@ -93,9 +120,10 @@ public class ConnectController implements ActionListener, MouseListener {
 
         if(e.getPoint().x < IMAGE_LIMIT){
             th.setDragImage(new ImageIcon("icons/cancel.png").getImage());
-
+            dislikeActions();
         }else{
             th.setDragImage(new ImageIcon("icons/checked.png").getImage());
+            likeActions();
         }
         th.exportAsDrag(comp, e, TransferHandler.COPY);
     }
