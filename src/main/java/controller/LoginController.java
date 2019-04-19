@@ -80,14 +80,21 @@ public class LoginController implements ActionListener, WindowListener {
                     User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
                     if(true/*correctLogin*/){
                         w.dispose();
-                        if(user.isCompleted()) { //TODO: Canviar user pel atribut u. La variable user és de Test.
+                        if(user.isCompleted()) { //TODO ALBA: Canviar user pel atribut u. La variable user és de Test.
                             MainWindow mw = new MainWindow("PROFILE");
-                            MenuController mc = new MenuController(mw, user);
+                            //TODO ALBA: a la BBDD teoricament esta complet (true) pero no ho llegeix be!! FALLA HASH: quan arreglat, treure u.setCompleted(true)
+                            //System.out.println(u.getUsername());
+                            //System.out.println(u.isCompleted());
+                            u.setCompleted(true);
+                            //System.out.println(u.isCompleted());
+                            //System.out.println(u.getAge());
+                            //TODO: u es l'usuari de la bbdd, user es el de test
+                            MenuController mc = new MenuController(mw, u);
                             mw.registraController(mc);
                             mw.setVisible(true);
                         } else {
                             MainWindow mw = new MainWindow("EDIT");
-                            MenuController mc = new MenuController(mw, user);
+                            MenuController mc = new MenuController(mw, u);
                             mw.registraController(mc);
                             mw.setVisible(true);
                         }
@@ -173,10 +180,15 @@ public class LoginController implements ActionListener, WindowListener {
         //Not used.
     }
 
+
     public User getRegisteredUser() {
         return u;
     }
 
+    /**
+     * Metode que crea l'usuari amb les dades provinents de la BBDD sabent que existeix
+     * @param u
+     */
     public void setSignInUser(User u) {
         this.u = u;
     }

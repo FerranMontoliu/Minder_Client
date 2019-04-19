@@ -96,6 +96,8 @@ public class User implements Serializable {
      * @return Retorna un enter que conté l'edat de l'usuari.
      */
     public int getAge() {
+        //System.out.println(age);
+        //System.out.println(Integer.parseInt(age));
         return Integer.parseInt(age);
     }
 

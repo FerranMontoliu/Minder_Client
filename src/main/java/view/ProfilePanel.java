@@ -150,15 +150,17 @@ public class ProfilePanel extends JPanel {
      */
     public void updateInfo(User user){
         //TODO: cridar la funcio des del controller amb l'usuari per paramtre
-        jlName.setText("Pol Rayos");
+        /*jlName.setText("Pol Rayos");
         jlAge.setText("19");
         jlFavProgramming.setText ("Java");
         jlFavHobbies.setText("Destrossar el github, Fer cafès");
         jlDescription.setText("M'agrada passar hores al lab de compus");
-
+*/
         //TODO: Opció DINÀMICA
-        /*
-        jlPhoto.setIcon();
+        //TODO ALBA: descomentar les dues instruccions inferiors per a convertir la imatge en base 64 de l'usuari
+        //user.base64ToImage(user.getPhoto());
+        //jlPhoto.setIcon(new ImageIcon("data/imageConverted.jpg"));
+        System.out.println("estic a updateInfo (profilePanel)");
         jlName.setText(user.getUsername());
         jlAge.setText(String.valueOf(user.getAge()));
         if(user.getLikesJava() && user.getLikesC()){
@@ -172,7 +174,7 @@ public class ProfilePanel extends JPanel {
         }
         //jlFavHobbies.setText(user.getHobbies());
         jlDescription.setText(user.getDescription());
-        */
+
     }
 
 }
