@@ -268,4 +268,14 @@ public class MenuController implements ActionListener, WindowListener {
     public void loadConnectUserInfo(User connectUser) {
         mainWindow.loadConnectUserInfo(connectUser);
     }
+
+    /**
+     * Metode que es crida un cop l'edicio de perfil ha sigut satisfactoria.
+     * @param associatedUser usuari actualitzat
+     */
+    public void editionCompleted(User associatedUser) {
+        this.associatedUser = associatedUser;
+        profileController.showUser(associatedUser); //Aquesta funcio actualitza el profile panel amb els nous atributs
+        mainWindow.changePanel("PROFILE");
+    }
 }

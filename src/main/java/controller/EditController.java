@@ -49,18 +49,21 @@ public class EditController implements ActionListener, MouseListener, FocusListe
                     UserManager.checkEditProfileNewData(img, description, Java, C); //Camps obligatoris
                     String song = UserManager.fixSQLInjections(editPanel.getFavouriteSong());
                     String hobbies = UserManager.fixSQLInjections(editPanel.getUserHobbies());
-                    //associatedUser.edited()
+                    //associatedUser.guarda els nous valors
                     //associatedUser.setCompleted(true);
-                    //sc.startServerComunication(EDIT_PROFILE);
-                    //sc.join();
+                    sc.startServerComunication(EDIT_PROFILE);
+                    sc.join();
                     if(editResult){
+                        menuController.editionCompleted(associatedUser);
                         //L'edicio s'ha guardat satisfactoriament i podem canviar de finestra
                     }else{ //L'edicio no s'ha guardat be en el servidor i no podem fer el canvi de finestra
-                        editPanel.showWarning("Hi ha hagut problemes amb la connexió al servidor.");
+                        editPanel.showWarning("There has been a problem with the server communication.");
                     }
 
                 } catch (InvalidFormatException e1) {
                     editPanel.showWarning(e1.getMessage());
+                } catch (InterruptedException e1) {
+                    editPanel.showWarning("There has been a problem with the server communication.");
                 }
                 break;
             case "CANCEL":
