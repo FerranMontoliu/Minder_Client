@@ -60,7 +60,7 @@ public class ServerComunicationLogin extends Thread {
     }
 
     /**
-     * Metode que s'executa quan es crea el fil d'execució.
+     * Metode que s'executa quan es crea el fil d'execucio.
      */
     public void run() {
         switch(command) {
@@ -81,7 +81,7 @@ public class ServerComunicationLogin extends Thread {
                         }
                     }
                 } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    loginController.setCorrectLogin(false);
                 }
                 stopServerComunication();
                 break;
@@ -90,10 +90,10 @@ public class ServerComunicationLogin extends Thread {
                     dataOut.writeChar(REGISTER_USER);
                     User newUser = loginController.getRegisteredUser();
                     objectOut.writeObject(newUser);
-                    boolean existsR = dataIn.readBoolean();
-                    loginController.setCorrectRegister(existsR);
+                    boolean registerOK = dataIn.readBoolean();
+                    loginController.setCorrectRegister(registerOK);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    loginController.setCorrectRegister(false);
                 }
                 stopServerComunication();
                 break;

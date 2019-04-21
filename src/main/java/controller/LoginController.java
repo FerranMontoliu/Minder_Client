@@ -21,7 +21,7 @@ public class LoginController implements ActionListener, WindowListener {
     private static final char REGISTER_USER = 'b';
 
     private LoginWindow w;
-    private User u;
+    private User associatedUser;
     private ServerComunicationLogin sc;
     private boolean correctLogin;
     private boolean correctRegister;
@@ -32,7 +32,7 @@ public class LoginController implements ActionListener, WindowListener {
      */
     public LoginController(LoginWindow w) {
         this.w = w;
-        this.u = null;
+        this.associatedUser = null;
         try {
             this.sc =  new ServerComunicationLogin(this);
         } catch (IOException e) {
@@ -67,10 +67,10 @@ public class LoginController implements ActionListener, WindowListener {
 
             case "SIGN IN":
                 try {
-                    UserManager.isEmpty(w.getSignInUsername(), "nom");
+                    UserManager.isEmpty(w.getSignInUsername(), "username");
                     UserManager.isEmpty(w.getSignInPassword(), "password");
-                    String hashedPassword = encoder.encode(w.getSignInPassword());
-                    u = new User(UserManager.fixSQLInjections(w.getSignInUsername()), hashedPassword);  //Constructor que ja comprova si es mail o Username
+
+                    associatedUser = new User(UserManager.fixSQLInjections(w.getSignInUsername()), w.getSignInPassword());  //Constructor que ja comprova si es mail o Username
 
                     sc = new ServerComunicationLogin(this);
                     sc.startServerComunication(LOGIN_USER);
@@ -78,40 +78,40 @@ public class LoginController implements ActionListener, WindowListener {
 
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
                     User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
-                    if(true/*correctLogin*/){
+                    if(correctLogin){
                         w.dispose();
-                        if(user.isCompleted()) { //TODO ALBA: Canviar user pel atribut u. La variable user és de Test.
+                        if(user.isCompleted()) { //TODO ALBA: Canviar user pel atribut associatedUser. La variable user és de Test.
                             MainWindow mw = new MainWindow("PROFILE");
-                            //TODO ALBA: a la BBDD teoricament esta complet (true) pero no ho llegeix be!! FALLA HASH: quan arreglat, treure u.setCompleted(true)
-                            //System.out.println(u.getUsername());
-                            //System.out.println(u.isCompleted());
-                            u.setCompleted(true);
+                            //TODO ALBA: a la BBDD teoricament esta complet (true) pero no ho llegeix be!!
+                            //System.out.println(associatedUser.getUsername());
+                            //System.out.println(associatedUser.isCompleted());
+                            associatedUser.setCompleted(true);
                             //System.out.println(u.isCompleted());
                             //System.out.println(u.getAge());
-                            //TODO: u es l'usuari de la bbdd, user es el de test
-                            MenuController mc = new MenuController(mw, u);
+                            //TODO: associatedUser es l'usuari de la bbdd, user es el de test
+                            MenuController mc = new MenuController(mw, associatedUser);
                             mw.registraController(mc);
                             mw.setVisible(true);
                         } else {
                             MainWindow mw = new MainWindow("EDIT");
-                            MenuController mc = new MenuController(mw, u);
+                            MenuController mc = new MenuController(mw, associatedUser);
                             mw.registraController(mc);
                             mw.setVisible(true);
                         }
                     }else{
-                        w.showWarning("L'usuari o contrasenya no són correctes!");
+                        w.showWarning("User or password not correct!");
                     }
 
                 } catch (EmptyTextFieldException e1) {
                     w.showWarning(e1.getMessage());
                 } catch (InterruptedException | IOException e1) {
-                    w.showWarning("Hi ha hagut un problema amb la connexió al servidor.");
+                    w.showWarning("There has been a problem with the server communication.");
                 }
                 break;
 
             case "SIGN UP":
                 try {
-                    UserManager.isEmpty(w.getSignUpUsername(), "nom");
+                    UserManager.isEmpty(w.getSignUpUsername(), "username");
                     String[] passwords = w.getSignUpPasswords();
                     UserManager.isEmpty(passwords[0], "password");
                     UserManager.isEmpty(passwords[1], "password confirm");
@@ -121,7 +121,7 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
                     String hashedPassword = encoder.encode(passwords[0]);
-                    u = new User(UserManager.fixSQLInjections(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword);
+                    associatedUser = new User(UserManager.fixSQLInjections(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword);
 
                     sc.startServerComunication(REGISTER_USER);
                     sc.join();
@@ -129,12 +129,12 @@ public class LoginController implements ActionListener, WindowListener {
                     if(true/*correctRegister*/){ //TODO: Descomentar-ho si volem deixar de fer proves.
                         w.dispose();
                         MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
-                        MenuController mc = new MenuController(mw, u);
+                        MenuController mc = new MenuController(mw, associatedUser);
                         mw.firstEdition();
                         mw.registraController(mc);
                         mw.setVisible(true);
                     }else{
-                        w.showWarning("El registre no ha sigut satisfactori.");
+                        w.showWarning("The sign up process was not successful");
                     }
 
                 } catch (Exception e1) {
@@ -152,7 +152,6 @@ public class LoginController implements ActionListener, WindowListener {
     @Override
     public void windowClosing(WindowEvent e) {
         //w.quitWindow(); //TODO: fer un optionPane que mostri un missatge de sortida
-        sc.stopServerComunication();
     }
 
     @Override
@@ -182,7 +181,7 @@ public class LoginController implements ActionListener, WindowListener {
 
 
     public User getRegisteredUser() {
-        return u;
+        return associatedUser;
     }
 
     /**
@@ -190,11 +189,11 @@ public class LoginController implements ActionListener, WindowListener {
      * @param u
      */
     public void setSignInUser(User u) {
-        this.u = u;
+        this.associatedUser = u;
     }
 
     public User getLoginUser() {
-        return u;
+        return associatedUser;
     }
 
     public void setCorrectLogin(boolean b) {
