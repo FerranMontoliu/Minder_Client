@@ -13,11 +13,13 @@ import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ProfilePanel extends JPanel {
-    private static final String DESCRIPTION_TAG = "Description: ";
-    private static final String HOBBIES_TAG = "Favorite Hobbies: ";
-    private static final String PROGRAMMING_TAG = "Favorite programming language: ";
-    private static final String SONG_TAG = "Favorite song: ";
+    private static final String DESCRIPTION_TAG = " Description: ";
+    private static final String HOBBIES_TAG = " Favorite Hobbies: ";
+    private static final String PROGRAMMING_TAG = " Favorite programming language: ";
+    private static final String SONG_TAG = " Favorite song: ";
     private static final Color MINDER_PINK = new Color(202, 123, 148);
+    private static final Font INFO_FONT = new Font(Font.DIALOG,  Font.TYPE1_FONT, 12);
+    private static final Font TAG_FONT = new Font(Font.DIALOG_INPUT, Font.PLAIN, 11);
 
     private JLabel jlName;
     private JLabel jlPhoto;
@@ -90,30 +92,124 @@ public class ProfilePanel extends JPanel {
         jpUserInfo.setLayout(new BoxLayout(jpUserInfo, BoxLayout.PAGE_AXIS));
         jpUserInfo.setBorder(border);
 
+        jpUserInfo.add(createDescription());
+        /*JPanel jpDescription = new JPanel();
         jlDescription = new JLabel("Description:"); //omplire amb la informacio de l'usuari
-        jlDescription.setIcon(new ImageIcon("icons/DescriptionIcon.png"));
+        jlDescription.setIcon(new ImageIcon("icons/hastag.png"));
         jlDescription.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        jpUserInfo.add (jlDescription);
+        jpUserInfo.add (jlDescription);*/
 
-        jlFavHobbies = new JLabel("Favorite Hobbies:"); //omplire amb la informacio de l'usuari
-        jlFavHobbies.setIcon(new ImageIcon("icons/HobbiesIcon.png"));
+        jpUserInfo.add(createFavHobbies());
+        /*jlFavHobbies = new JLabel("Favorite Hobbies:"); //omplire amb la informacio de l'usuari
+        jlFavHobbies.setIcon(new ImageIcon("icons/ticket.png"));
         jlFavHobbies.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        jpUserInfo.add (jlFavHobbies);
+        jpUserInfo.add (jlFavHobbies);*/
 
-        jlFavProgramming = new JLabel("Favorite programming language:"); //omplire amb la informacio de l'usuari
+        jpUserInfo.add(createFavProg());
+        /*jlFavProgramming = new JLabel("Favorite programming language:"); //omplire amb la informacio de l'usuari
         jlFavProgramming.setIcon(new ImageIcon("icons/programming-code.png"));
         jlFavProgramming.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        jpUserInfo.add (jlFavProgramming);
+        jpUserInfo.add (jlFavProgramming);*/
 
-
-        jlFavSong = new JLabel("Favorite song: ");
+        jpUserInfo.add(createFavSong());
+        /*jlFavSong = new JLabel("Favorite song: ");
         jlFavSong.setIcon(new ImageIcon("icons/music-player.png"));
         jlFavSong.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        jpUserInfo.add(jlFavSong);
+        jpUserInfo.add(jlFavSong);*/
 
         add(jpUserInfo, BorderLayout.CENTER);
 
 
+    }
+
+    private JPanel createFavSong() {
+        //jlFavSong = new JLabel("Favorite song: ");
+        //jlFavSong.setIcon(new ImageIcon("icons/music-player.png"));
+        //jlFavSong.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        JPanel jpSong = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        //jpSong.setLayout(new BoxLayout(jpSong, BoxLayout.X_AXIS));
+        JLabel jlTag = new JLabel(SONG_TAG); //omplire amb la informacio de l'usuari
+        jlTag.setIcon(new ImageIcon("icons/music-player.png"));
+        jlTag.setFont(TAG_FONT);
+        jlTag.setForeground(Color.GRAY);
+        jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpSong.add(jlTag);
+
+        jlFavSong = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlFavSong.setFont(INFO_FONT);
+        jlFavSong.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpSong.add(jlFavSong);
+        jpSong.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
+
+        return jpSong;
+    }
+
+    private JPanel createFavProg() {
+        //jlFavProgramming = new JLabel("Favorite programming language:"); //omplire amb la informacio de l'usuari
+        //jlFavProgramming.setIcon(new ImageIcon("icons/programming-code.png"));
+        //jlFavProgramming.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        JPanel jpProg = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        //jpProg.setLayout(new BoxLayout(jpProg, BoxLayout.X_AXIS));
+        JLabel jlTag = new JLabel(PROGRAMMING_TAG); //omplire amb la informacio de l'usuari
+        jlTag.setIcon(new ImageIcon("icons/programming-code.png"));
+        jlTag.setFont(TAG_FONT);
+        jlTag.setForeground(Color.GRAY);
+        //jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpProg.add(jlTag);
+
+        jlFavProgramming = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlFavProgramming.setFont(INFO_FONT);
+        //jlFavProgramming.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpProg.add(jlFavProgramming);
+
+        jpProg.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
+
+        return jpProg;
+    }
+
+    private JPanel createFavHobbies() {
+        //jlFavHobbies = new JLabel("Favorite Hobbies:"); //omplire amb la informacio de l'usuari
+        //jlFavHobbies.setIcon(new ImageIcon("icons/ticket.png"));
+        //jlFavHobbies.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        JPanel jpHobbies = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        //jpHobbies.setLayout(new BoxLayout(jpHobbies, BoxLayout.X_AXIS));
+        JLabel jlTag = new JLabel(HOBBIES_TAG); //omplire amb la informacio de l'usuari
+        jlTag.setIcon(new ImageIcon("icons/ticket.png"));
+        jlTag.setFont(TAG_FONT);
+        jlTag.setForeground(Color.GRAY);
+        jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpHobbies.add(jlTag);
+
+        jlFavHobbies = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlFavHobbies.setFont(INFO_FONT);
+        jlFavHobbies.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpHobbies.add(jlFavHobbies);
+
+        jpHobbies.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
+
+        return jpHobbies;
+    }
+
+    private JPanel createDescription() {
+        JPanel jpDescription = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        //jpDescription.setLayout(new BoxLayout(jpDescription, BoxLayout.X_AXIS));
+        JLabel jlTag = new JLabel(DESCRIPTION_TAG); //omplire amb la informacio de l'usuari
+        jlTag.setIcon(new ImageIcon("icons/hastag.png"));
+        jlTag.setFont(TAG_FONT);
+        jlTag.setForeground(Color.GRAY);
+        jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpDescription.add(jlTag);
+
+        jlDescription = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlDescription.setFont(INFO_FONT);
+        jlDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jpDescription.add(jlDescription);
+
+        jpDescription.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
+
+        return jpDescription;
     }
 
     /**
@@ -223,11 +319,11 @@ public class ProfilePanel extends JPanel {
                 fav = "C++";
             }
         }
-        jlFavProgramming.setText(PROGRAMMING_TAG + fav);
+        jlFavProgramming.setText(fav);
     }
 
     private void updateDescription(String description) {
-        jlDescription.setText(DESCRIPTION_TAG+description);
+        jlDescription.setText(description);
 
     }
 
@@ -244,11 +340,11 @@ public class ProfilePanel extends JPanel {
                 text = text + ", ";
             }
         }
-        jlFavHobbies.setText(HOBBIES_TAG+text);
+        jlFavHobbies.setText(text);
     }
 
     private void updateSong(String song){
-        jlFavSong.setText(SONG_TAG+song);
+        jlFavSong.setText(song);
     }
 
 }
