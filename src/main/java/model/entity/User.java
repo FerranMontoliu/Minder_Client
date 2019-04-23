@@ -240,7 +240,12 @@ public class User implements Serializable {
      */
     public void base64ToImage(String encodedString) {
         try {
-            FileUtils.writeByteArrayToFile(new File("data/imageConverted.jpg"), Base64.getDecoder().decode(encodedString));
+            //Alba
+            //encoded String conte al prinipi de la codificacio la següent info: "data:image/png;base64," que no volem decodificar
+            String base64Image = encodedString.split(",")[1];
+            System.out.println(encodedString);
+            System.out.println(base64Image);
+            FileUtils.writeByteArrayToFile(new File("data/imageConverted.jpg"), Base64.getDecoder().decode(base64Image));
         } catch (IOException e) {
             e.printStackTrace();
         }

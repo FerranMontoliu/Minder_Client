@@ -7,14 +7,25 @@ import model.entity.User;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+
+import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ProfilePanel extends JPanel {
+    private static final String DESCRIPTION_TAG = "Description: ";
+    private static final String HOBBIES_TAG = "Favorite Hobbies: ";
+    private static final String PROGRAMMING_TAG = "Favorite programming language: ";
+    private static final String SONG_TAG = "Favorite song: ";
+    private static final Color MINDER_PINK = new Color(202, 123, 148);
+
     private JLabel jlName;
     private JLabel jlPhoto;
     private JLabel jlAge;
     private JLabel jlDescription;
     private JLabel jlFavHobbies;
     private JLabel jlFavProgramming;
+    private JLabel jlFavSong;
     private JButton jbEditProfile;
     private JButton jbBack;
 
@@ -71,6 +82,7 @@ public class ProfilePanel extends JPanel {
         //TODO: omplir els camps amb la informacio de l'usuari en questio
 
         TitledBorder border = new TitledBorder("Basic Information");
+        border.setTitleColor(MINDER_PINK);
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
 
@@ -93,6 +105,11 @@ public class ProfilePanel extends JPanel {
         jlFavProgramming.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         jpUserInfo.add (jlFavProgramming);
 
+
+        jlFavSong = new JLabel("Favorite song: ");
+        jlFavSong.setIcon(new ImageIcon("icons/music-player.png"));
+        jlFavSong.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        jpUserInfo.add(jlFavSong);
 
         add(jpUserInfo, BorderLayout.CENTER);
 
@@ -125,7 +142,7 @@ public class ProfilePanel extends JPanel {
 
         jpUserPhoto.add(jlName);
         jpUserPhoto.add(jlAge);
-        jpUserPhoto.setBackground(new Color(202, 123, 148));
+        jpUserPhoto.setBackground(MINDER_PINK);
         add(jpUserPhoto, BorderLayout.NORTH);
 
     }
@@ -158,48 +175,59 @@ public class ProfilePanel extends JPanel {
 */
         //TODO: Opció DINÀMICA
         //TODO ALBA: descomentar les dues instruccions inferiors per a convertir la imatge en base 64 de l'usuari
-        //user.base64ToImage(user.getPhoto());
-        //jlPhoto.setIcon(new ImageIcon("data/imageConverted.jpg"));
-        //TODO: funcio
-        jlName.setText(user.getUsername());
-        jlAge.setText(String.valueOf(user.getAge()));
 
-        System.out.println("user.getLikesJava(): "+ user.getLikesJava());
-        System.out.println("user.getLikesC(): "+ user.getLikesC());
 
         updateNameAge(user.getUsername(), user.getAge());
         updateDescription(user.getDescription());
         updateFavProgramming(user.getLikesJava(), user.getLikesC());
-        //TODO: funcio
-        if(user.getLikesJava() && user.getLikesC()){
-            jlFavProgramming.setText("Java and C++");
-        }else{
-            if(user.getLikesJava()){
-                jlFavProgramming.setText("Java");
-            }else{
-                jlFavProgramming.setText("C++");
-            }
-        }
-
         updateHobbies(user.getHobbies());
-        //TODO: funcio
-        jlDescription.setText(user.getDescription());
+        updateSong(user.getFavSong());
+        updatePhoto(user);
+    }
 
+    private void updatePhoto(User user) {
+        ImageIcon picture = new ImageIcon("data/imageConverted.jpg");
+        user.base64ToImage(user.getPhoto());
+        Image scaleImage = picture.getImage().getScaledInstance(64, 64,Image.SCALE_DEFAULT);
+        ImageIcon icon = new ImageIcon(scaleImage);
+        jlPhoto.setIcon(toCircle(icon));
+
+    }
+
+    private Icon toCircle(ImageIcon icon) {
+        BufferedImage image = new BufferedImage(64, 64, TYPE_INT_RGB); // Assuming logo 150x150
+        Graphics2D g = image.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.fillOval(1, 1, 148, 148); // Leaving some room for antialiasing if needed
+        g.setComposite(AlphaComposite.SrcIn);
+        g.drawImage(icon.getImage(), 0, 0, null);
+        g.dispose();
+
+        int width = image.getWidth();
+        BufferedImage circleBuffer = new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = circleBuffer.createGraphics();
+        g2.setClip(new Ellipse2D.Float(0, 0, width, width));
+        g2.drawImage(image, 0, 0, width, width, null);
+
+        return new ImageIcon(circleBuffer);
     }
 
     private void updateFavProgramming(boolean likesJava, boolean likesC) {
+        String fav;
         if(likesJava && likesC){
-            jlFavProgramming.setText("Java and C++");
+            fav = "Java and C++";
         }else{
             if(likesJava){
-                jlFavProgramming.setText("Java");
+                fav = "Java";
             }else{
-                jlFavProgramming.setText("C++");
+                fav = "C++";
             }
         }
+        jlFavProgramming.setText(PROGRAMMING_TAG + fav);
     }
 
     private void updateDescription(String description) {
+        jlDescription.setText(DESCRIPTION_TAG+description);
 
     }
 
@@ -216,7 +244,11 @@ public class ProfilePanel extends JPanel {
                 text = text + ", ";
             }
         }
-        jlFavHobbies.setText(text);
+        jlFavHobbies.setText(HOBBIES_TAG+text);
+    }
+
+    private void updateSong(String song){
+        jlFavSong.setText(SONG_TAG+song);
     }
 
 }
