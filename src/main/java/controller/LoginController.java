@@ -82,12 +82,8 @@ public class LoginController implements ActionListener, WindowListener {
                         w.dispose();
                         if(user.isCompleted()) { //TODO ALBA: Canviar user pel atribut associatedUser. La variable user és de Test.
                             MainWindow mw = new MainWindow("PROFILE");
-                            //TODO ALBA: a la BBDD teoricament esta complet (true) pero no ho llegeix be!!
-                            //System.out.println(associatedUser.getUsername());
-                            //System.out.println(associatedUser.isCompleted());
                             associatedUser.setCompleted(true);
-                            //System.out.println(u.isCompleted());
-                            //System.out.println(u.getAge());
+
                             //TODO: associatedUser es l'usuari de la bbdd, user es el de test
                             MenuController mc = new MenuController(mw, associatedUser);
                             mw.registraController(mc);

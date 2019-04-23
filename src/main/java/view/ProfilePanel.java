@@ -160,9 +160,17 @@ public class ProfilePanel extends JPanel {
         //TODO ALBA: descomentar les dues instruccions inferiors per a convertir la imatge en base 64 de l'usuari
         //user.base64ToImage(user.getPhoto());
         //jlPhoto.setIcon(new ImageIcon("data/imageConverted.jpg"));
-        System.out.println("estic a updateInfo (profilePanel)");
+        //TODO: funcio
         jlName.setText(user.getUsername());
         jlAge.setText(String.valueOf(user.getAge()));
+
+        System.out.println("user.getLikesJava(): "+ user.getLikesJava());
+        System.out.println("user.getLikesC(): "+ user.getLikesC());
+
+        updateNameAge(user.getUsername(), user.getAge());
+        updateDescription(user.getDescription());
+        updateFavProgramming(user.getLikesJava(), user.getLikesC());
+        //TODO: funcio
         if(user.getLikesJava() && user.getLikesC()){
             jlFavProgramming.setText("Java and C++");
         }else{
@@ -172,9 +180,43 @@ public class ProfilePanel extends JPanel {
                 jlFavProgramming.setText("C++");
             }
         }
-        //jlFavHobbies.setText(user.getHobbies());
+
+        updateHobbies(user.getHobbies());
+        //TODO: funcio
         jlDescription.setText(user.getDescription());
 
+    }
+
+    private void updateFavProgramming(boolean likesJava, boolean likesC) {
+        if(likesJava && likesC){
+            jlFavProgramming.setText("Java and C++");
+        }else{
+            if(likesJava){
+                jlFavProgramming.setText("Java");
+            }else{
+                jlFavProgramming.setText("C++");
+            }
+        }
+    }
+
+    private void updateDescription(String description) {
+
+    }
+
+    private void updateNameAge(String username, int age) {
+        jlName.setText(username);
+        jlAge.setText(String.valueOf(age));
+    }
+
+    private void updateHobbies(String[] hobbies) {
+        String text = "";
+        for(int i=0; i < hobbies.length;i++){
+            text = text + hobbies[i];
+            if (i+1 < hobbies.length){
+                text = text + ", ";
+            }
+        }
+        jlFavHobbies.setText(text);
     }
 
 }
