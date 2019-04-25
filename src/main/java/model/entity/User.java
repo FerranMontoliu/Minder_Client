@@ -221,11 +221,11 @@ public class User implements Serializable {
 
     /**
      * Funcio encarregada de transformar una imatge a text.
-     * @param image imatge a transformar a base64
+     * @param fullPath imatge a transformar a base64
      */
-    public void imageToBase64(ProfileImage image) {
+    public void imageToBase64(String fullPath) {
         try {
-            photo =  Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(new File(image.getFullPath())));
+            photo =  Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(new File(fullPath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
