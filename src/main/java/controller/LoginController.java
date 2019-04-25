@@ -74,7 +74,7 @@ public class LoginController implements ActionListener, WindowListener {
 
                     sc = new ServerComunicationLogin(this);
                     sc.startServerComunication(LOGIN_USER);
-                    sc.join();
+
 
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
                     User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
@@ -86,6 +86,7 @@ public class LoginController implements ActionListener, WindowListener {
 
                             //TODO: associatedUser es l'usuari de la bbdd, user es el de test
                             MenuController mc = new MenuController(mw, associatedUser);
+                            mc.loadProfile();
                             mw.registraController(mc);
                             mw.setVisible(true);
                         } else {
@@ -100,8 +101,8 @@ public class LoginController implements ActionListener, WindowListener {
 
                 } catch (EmptyTextFieldException e1) {
                     w.showWarning(e1.getMessage());
-                } catch (InterruptedException | IOException e1) {
-                    w.showWarning("There has been a problem with the server communication.");
+                } catch (IOException e1) {
+                    w.showWarning("Error with server communication.");
                 }
                 break;
 
@@ -120,7 +121,6 @@ public class LoginController implements ActionListener, WindowListener {
                     associatedUser = new User(UserManager.fixSQLInjections(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword);
 
                     sc.startServerComunication(REGISTER_USER);
-                    sc.join();
 
                     if(true/*correctRegister*/){ //TODO: Descomentar-ho si volem deixar de fer proves.
                         w.dispose();

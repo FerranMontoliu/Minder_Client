@@ -107,13 +107,13 @@ public class MenuController implements ActionListener, WindowListener {
             case "EDIT":
                 mainWindow.changePanel("EDIT");
                 //TODO: Aquestes variables realment les hauria d'agafar del atribut associatedUser, però de moment són proves
-                Image profilePicture = null;
-                String userDescription = "hola";
-                boolean java = true;
-                boolean c = false;
-                String song = "Frozen";
-                String hobbies = null;
-                mainWindow.initiateEdit(profilePicture, userDescription, java, c, song, hobbies);
+                associatedUser.base64ToImage(associatedUser.getUsername());  //Aixo et descarrega la img a la carpeta data amb el nom del User com a titol
+                String userDescription = associatedUser.getDescription();
+                boolean java = associatedUser.getLikesJava();
+                boolean c = associatedUser.getLikesC();
+                String song = associatedUser.getFavSong();
+                String[] hobbies = associatedUser.getHobbies();
+                mainWindow.initiateEdit(associatedUser.getUsername(), userDescription, java, c, song, hobbies);
                 //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
             case "YES LOGOUT":
@@ -277,5 +277,9 @@ public class MenuController implements ActionListener, WindowListener {
         this.associatedUser = associatedUser;
         profileController.showUser(associatedUser); //Aquesta funcio actualitza el profile panel amb els nous atributs
         mainWindow.changePanel("PROFILE");
+    }
+
+    public void loadProfile() {
+        profileController.showUser(associatedUser);
     }
 }

@@ -234,17 +234,19 @@ public class EditPanel extends JPanelSlider {
 
     /**
      * Metode que omple el EditPanel amb els continguts del User.
-     * @param profilePicture imatge seleccionada
+     * @param username titol de la imatge seleccionada
      * @param userDescription descripcio del User
      * @param java boolean que es true si li agrada Java
      * @param c boolean que es true si li agrada C
      */
-    public void initiateEdit(Image profilePicture, String userDescription, boolean java, boolean c, String song, String hobbies) {
-        if(profilePicture == null){
+    public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String[] hobbies) {
+        try{
+            ImageIcon profilePicture = new ImageIcon("data/"+username+".jpg");
+            jlProfilePic.setText("");
+            jlProfilePic.setIcon(new ImageIcon(profilePicture.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+        }catch(Exception e1){
             provisionalImage = null;
             jlProfilePic.setText("No image selected.");
-        }else{
-            jlProfilePic.setIcon(new ImageIcon(profilePicture.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         }
         if((userDescription == null)||(userDescription.length() == 0)){
             jtaNewDescription.setText("");
@@ -265,7 +267,7 @@ public class EditPanel extends JPanelSlider {
         if(hobbies == null){
             jtaHobbies.setText(HOBBIES_DEFAULT_TEXT);
         }else{
-            jtaHobbies.setText(hobbies);
+            jtaHobbies.setText("prova"); //TODO: Transformar els hobbies en string
         }
     }
 

@@ -7,27 +7,23 @@ import model.entity.User;
 import java.io.*;
 import java.net.Socket;
 
-public class ServerComunicationLogin extends Thread {
+public class ServerComunicationLogin {
 
     private static final char LOGIN_USER = 'a';
     private static final char REGISTER_USER = 'b';
 
     private LoginController loginController;
-    private boolean isOn;
     private Socket socketToServer;
     private DataInputStream dataIn;
     private DataOutputStream dataOut;
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
-    private char command;
 
     /**
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
      * @param controller controlador que inicia la comunicacio
      */
     public ServerComunicationLogin(LoginController controller) throws IOException {
-
-        this.isOn = false;
         this.loginController = controller;
 
             //Configuració inicial del client:
@@ -46,23 +42,6 @@ public class ServerComunicationLogin extends Thread {
      * Metode encarregat d'establir la comunicacio client-servidor.
      */
     public void startServerComunication(char command) {
-        this.command = command;
-        isOn = true;
-        this.start();
-    }
-
-    /**
-     * Metode encarregat de tancar la comunicació client-servidor.
-     */
-    public void stopServerComunication() {
-        this.isOn = false;
-        this.interrupt();
-    }
-
-    /**
-     * Metode que s'executa quan es crea el fil d'execucio.
-     */
-    public void run() {
         switch(command) {
             case LOGIN_USER:
                 try {
@@ -83,7 +62,6 @@ public class ServerComunicationLogin extends Thread {
                 } catch (IOException | ClassNotFoundException e) {
                     loginController.setCorrectLogin(false);
                 }
-                stopServerComunication();
                 break;
             case REGISTER_USER:
                 try {
@@ -95,7 +73,6 @@ public class ServerComunicationLogin extends Thread {
                 } catch (IOException e) {
                     loginController.setCorrectRegister(false);
                 }
-                stopServerComunication();
                 break;
         }
     }

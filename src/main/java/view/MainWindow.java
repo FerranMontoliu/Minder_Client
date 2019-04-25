@@ -374,8 +374,8 @@ public class MainWindow extends JFrame{
     }
 
 
-    public void initiateEdit(Image profilePicture, String userDescription, boolean java, boolean c, String song, String hobbies) {
-        jpEdit.initiateEdit(profilePicture, userDescription, java, c, song, hobbies);
+    public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String[] hobbies) {
+        jpEdit.initiateEdit(username, userDescription, java, c, song, hobbies);
     }
 
     public void showWarning(String message) {

@@ -8,7 +8,7 @@ import model.entity.User;
 import java.io.*;
 import java.net.Socket;
 
-public class ServerComunicationEdit extends Thread {
+public class ServerComunicationEdit {
     private static final char EDIT_PROFILE = 'c';
 
     private EditController editController;
@@ -17,7 +17,6 @@ public class ServerComunicationEdit extends Thread {
     private DataOutputStream dataOut;
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
-    private char command;
 
     public ServerComunicationEdit(EditController editController){
         try {
@@ -40,31 +39,13 @@ public class ServerComunicationEdit extends Thread {
     /**
      * Metode encarregat d'establir la comunicacio client-servidor.
      */
-    public void startServerComunication(char command) {
-        this.command = command;
-        this.start();
-    }
-
-    /**
-     * Metode encarregat de tancar la comunicació client-servidor.
-     */
-    public void stopServerComunication() {
-        this.interrupt();
-    }
-
-    @Override
-    public void run() {
+    public void startServerComunication(char command) throws IOException {
         if(command == EDIT_PROFILE){
-            try {
-                dataOut.writeChar(EDIT_PROFILE);
-                User editedUser = editController.getUser();
-                objectOut.writeObject(editedUser);
-                boolean editOK = dataIn.readBoolean();
-                editController.setEditResult(editOK);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            stopServerComunication();
+            dataOut.writeChar(EDIT_PROFILE);
+            User editedUser = editController.getUser();
+            objectOut.writeObject(editedUser);
+            boolean editOK = dataIn.readBoolean();
+            editController.setEditResult(editOK);
         }
     }
 }
