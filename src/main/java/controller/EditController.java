@@ -2,6 +2,7 @@ package controller;
 
 import model.FileChooser;
 import model.InvalidFormatException;
+import model.ProfileImage;
 import model.entity.User;
 import model.UserManager;
 import network.ServerComunicationEdit;
@@ -16,6 +17,7 @@ public class EditController implements ActionListener, MouseListener, FocusListe
     private static final char EDIT_PROFILE = 'c';
 
     private User associatedUser;
+    private ProfileImage newImage;
     private EditPanel editPanel;
     private MenuController menuController;
     private ServerComunicationEdit sc;
@@ -81,9 +83,9 @@ public class EditController implements ActionListener, MouseListener, FocusListe
         FileChooser fileChooser = new FileChooser();
 
         try {
-            Image newImage = fileChooser.findImage();
+            newImage = fileChooser.findImage();
             if(newImage != null){
-                editPanel.setNewProfilePic(newImage);
+                editPanel.setNewProfilePic(newImage.getProfilePic());
             }
         } catch (IOException e1) {
             e1.printStackTrace();

@@ -12,22 +12,21 @@ import java.io.IOException;
  */
 public class FileChooser {
     private JFileChooser fileChooser;
-    private String fullPath;
     /**
      * Metode que obra l'explorador d'arxius i permet seleccionar una imatge
      * @return Imatge seleccionada
      * @throws IOException
      */
-    public Image findImage() throws IOException {
+    public ProfileImage findImage() throws IOException {
         fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         setFilter();
         int result = fileChooser.showSaveDialog(null);
         if(result == JFileChooser.APPROVE_OPTION){
             File file = fileChooser.getCurrentDirectory();
-            fullPath = file.getCanonicalPath() + "\\" + fileChooser.getDescription(fileChooser.getSelectedFile());
-            System.out.println("PATH: " + fullPath);
-            return ImageIO.read(fileChooser.getSelectedFile());
+            String fullPath = file.getCanonicalPath() + "\\" + fileChooser.getDescription(fileChooser.getSelectedFile());
+            ProfileImage img = new ProfileImage(ImageIO.read(fileChooser.getSelectedFile()),fullPath);
+            return img;
         }else if(result == JFileChooser.CANCEL_OPTION){
             System.out.println("No file selected.");
         }

@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.ProfileImage;
 import model.UserManager;
 import org.apache.commons.io.FileUtils;
 
@@ -219,39 +220,37 @@ public class User implements Serializable {
     }
 
     /**
-     * Funció encarregada de transformar una imatge a text.
-     *
-     * @return Retorna el text en Base64 que representa la imatge.
+     * Funcio encarregada de transformar una imatge a text.
+     * @param image imatge a transformar a base64
      */
-    public String imageToBase64() {
-        String s = null;
+    public void imageToBase64(ProfileImage image) {
         try {
-            s =  Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(new File("data/image.jpg")));
+            photo =  Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(new File(image.getFullPath())));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return s;
     }
 
     /**
-     * Mètode encarregat de reconstruir una imatge a partir d'un String.
+     * Metode encarregat de reconstruir una imatge a partir d'un String.
      *
-     * @param encodedString String que conté la imatge codificada en Base64.
+     * @param encodedString String que conte la imatge codificada en Base64.
+     * @param username String que definira el nom de la imatge a descarregar.
      */
-    public void base64ToImage(String encodedString) {
+    public void base64ToImage(String encodedString, String username) {
         try {
             //Alba
             //encoded String conte al prinipi de la codificacio la següent info: "data:image/png;base64," que no volem decodificar
             String base64Image = encodedString.split(",")[1];
 
-            FileUtils.writeByteArrayToFile(new File("data/imageConverted.jpg"), Base64.getDecoder().decode(base64Image));
+            FileUtils.writeByteArrayToFile(new File("data/" + username + ".jpg"), Base64.getDecoder().decode(base64Image));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Funció encarregada de comprovar si un usuari està completat o no.
+     * Funcio encarregada de comprovar si un usuari està completat o no.
      *
      * @return Retorna true si està completat, no altrament.
      */
