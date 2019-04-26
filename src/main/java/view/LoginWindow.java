@@ -204,6 +204,22 @@ public class LoginWindow extends JFrame {
     }
 
     /**
+     * Metode que agafa l'edat minima dels usuaris amb els que vol connectar..
+     * @return Retorna en format String l'edat escollida (entre 18 i 100).
+     */
+    public String getMinAge(){
+        return jpSignUp.getMinAge();
+    }
+
+    /**
+     * Metode que agafa l'edat maxima dels usuaris amb els que vol connectar..
+     * @return Retorna en format String l'edat escollida (entre 18 i 100).
+     */
+    public String getMaxAge(){
+        return jpSignUp.getMaxAge();
+    }
+
+    /**
      * Funció encarregada de mostrar un warning amb un missatge personalitzat.
      *
      * @param m Missatge que s'ha de mostrar al warning.
@@ -267,6 +283,7 @@ public class LoginWindow extends JFrame {
     public void focusAgeUp() {
         jpSignUp.getJtfAge().requestFocus();
     }
+
 
     /**
      * Mètode encarregat de netejar tots els camps de la pantalla de Sign-In.

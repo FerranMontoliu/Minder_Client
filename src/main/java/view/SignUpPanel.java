@@ -4,6 +4,7 @@ import controller.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class SignUpPanel extends JPanel {
     private static final Color BG_COLOR = new Color(255, 101, 91);
@@ -16,6 +17,8 @@ public class SignUpPanel extends JPanel {
     private JTextField jtfEmail;
     private JTextField jtfAge;
     private JButton jbSignUp;
+    private JComboBox jcbMaxAgeFilter;
+    private JComboBox jcbMinAgeFilter;
 
     /**
      * Constructor del panell de Sign-Up.
@@ -31,8 +34,96 @@ public class SignUpPanel extends JPanel {
         createEmailField();
         createAgeField();
         createPremiumOption();
+        createAgeFilters();
         createSignUp();
+
     }
+
+    private void createAgeFilters() {
+        JPanel jpMaxAge = new JPanel();
+        jpMaxAge.setLayout(new FlowLayout());
+
+        JLabel jlFilter = new JLabel("Choose the age range to connect with");
+        jlFilter.setHorizontalAlignment(SwingConstants.CENTER);
+        jlFilter.setForeground(Color.white);
+        jpMaxAge.add(jlFilter);
+
+        JPanel jpBothFilters = new JPanel();
+        jpBothFilters.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        //Minimum Age
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 1.0f;
+        constraints.weighty = 1.0f;
+        constraints.insets = new Insets(5, 5, 5, 5);
+        constraints.fill = GridBagConstraints.WEST;
+
+        JLabel jlMin = new JLabel("Minimum age:");
+        jlMin.setHorizontalAlignment(SwingConstants.CENTER);
+        jlMin.setForeground(Color.white);
+        jpBothFilters.add(jlMin, constraints);
+
+        //Min age comboBox
+        jcbMinAgeFilter = new JComboBox<>();
+        jcbMinAgeFilter.setEditable(false);
+        jcbMinAgeFilter.setPreferredSize(new Dimension(100,30));
+        jcbMinAgeFilter.setMaximumSize(jcbMinAgeFilter.getPreferredSize());
+
+        for (int i = 18; i <= 100; ++i) {
+            jcbMinAgeFilter.addItem(i);
+        }
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.weightx = 1.0f;
+        constraints.weighty = 1.0f;
+        constraints.insets = new Insets(5, 2, 5, 5);
+        constraints.fill = GridBagConstraints.CENTER;
+
+        jpBothFilters.add(jcbMinAgeFilter, constraints);
+
+        //Maximum Age
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.weightx = 1.0f;
+        constraints.weighty = 1.0f;
+        constraints.insets = new Insets(5, 5, 5, 5);
+        constraints.fill = GridBagConstraints.WEST;
+
+        JLabel jlMax = new JLabel("Maximum age:");
+        jlMax.setHorizontalAlignment(SwingConstants.CENTER);
+        jlMax.setForeground(Color.white);
+        jpBothFilters.add(jlMax, constraints);
+
+        //Max age comboBox
+
+        jcbMaxAgeFilter = new JComboBox<>();
+        jcbMaxAgeFilter.setEditable(false);
+        jcbMaxAgeFilter.setPreferredSize(new Dimension(100,30));
+        jcbMaxAgeFilter.setMaximumSize(jcbMaxAgeFilter.getPreferredSize());
+
+        for (int i = 18; i <= 100; ++i) {
+            jcbMaxAgeFilter.addItem(i);
+        }
+
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.weightx = 1.0f;
+        constraints.weighty = 1.0f;
+        constraints.insets = new Insets(5, 5, 5, 2);
+        constraints.fill = GridBagConstraints.CENTER;
+
+        jpBothFilters.add(jcbMaxAgeFilter, constraints);
+
+        jpBothFilters.setBackground(BG_COLOR);
+        jpMaxAge.add(jpBothFilters);
+        jpMaxAge.setBackground(BG_COLOR);
+        add(jpMaxAge);
+        add(Box.createVerticalStrut(10));
+    }
+
 
     /**
      * Mètode que afegeix la capçalera de la pantalla.
@@ -340,6 +431,21 @@ public class SignUpPanel extends JPanel {
     }
 
     /**
+     * Getter del JComboBox on l'usuari selecciona l'edat minima dels usuaris amb els que vol connectar.
+     *
+     * @return Retorna en format String l'edat escollida (entre 18 i 100)
+     */
+    public String getMinAge() { return jcbMinAgeFilter.getSelectedItem().toString(); }
+
+    /**
+     * Getter del JComboBox on l'usuari selecciona l'edat maxima dels usuaris amb els que vol connectar.
+     *
+     * @return Retorna en format String l'edat escollida (entre 18 i 100)
+     */
+    public String getMaxAge() { return jcbMaxAgeFilter.getSelectedItem().toString(); }
+
+
+    /**
      * Mètode encarregat de netejar tots els camps del panell de Sign-Up.
      *
      */
@@ -352,5 +458,7 @@ public class SignUpPanel extends JPanel {
         jcbShowPassword.setSelected(false);
         showPassword();
         jrbNoPremium.setSelected(true);
+        jcbMinAgeFilter.setSelectedItem(jcbMinAgeFilter.getItemAt(0));
+        jcbMaxAgeFilter.setSelectedItem(jcbMaxAgeFilter.getItemAt(2));
     }
 }

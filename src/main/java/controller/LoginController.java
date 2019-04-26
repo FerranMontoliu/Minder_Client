@@ -77,7 +77,7 @@ public class LoginController implements ActionListener, WindowListener {
 
 
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                    User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
+                    User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", "67", "79", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
                     if(correctLogin){
                         w.dispose();
                         if(user.isCompleted()) { //TODO ALBA: Canviar user pel atribut associatedUser. La variable user és de Test.
@@ -117,8 +117,9 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.signUpPasswordIsCorrect(passwords[0], passwords[1]);
                     UserManager.mailCorrectFormat(w.getSignUpEmail());
                     UserManager.isAdult(w.getSignUpAgeField());
+                    UserManager.isAgeFilterCorrect(w.getMinAge(), w.getMaxAge());
                     String hashedPassword = encoder.encode(passwords[0]);
-                    associatedUser = new User(UserManager.fixSQLInjections(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword);
+                    associatedUser = new User(UserManager.fixSQLInjections(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword, w.getMinAge(), w.getMaxAge());
 
                     sc.startServerComunication(REGISTER_USER);
 
@@ -188,14 +189,26 @@ public class LoginController implements ActionListener, WindowListener {
         this.associatedUser = u;
     }
 
+    /**
+     * Getter de l'usuari que ha iniciat sessio amb el compte actual
+     * @return Usuari associat a la compta
+     */
     public User getLoginUser() {
         return associatedUser;
     }
 
+    /**
+     * Setter que indica si el la peticio d'inici de sessio es correcta o no
+     * @param b boolea que indica si el login es correcte o no
+     */
     public void setCorrectLogin(boolean b) {
         correctLogin = b;
     }
 
+    /**
+     * Setter que indica si el registre s'ha pogut completar amb exit o no
+     * @param existsR boolea que indica si es correcte
+     */
     public void setCorrectRegister(boolean existsR) {
         correctRegister = existsR;
     }
