@@ -75,6 +75,10 @@ public class ProfilePanel extends JPanel {
         jpEdit.add(jbEditProfile);
     }
 
+    /**
+     * Metode que crea i col·loca el boto d'edicio de preferencies del compte (on es podra editar el nom d'usuari,
+     * contrassenya, filtre d'edat
+     */
     private void createAccountPreferencesButton() {
         jbAccountPreferences = new JButton("Edit Account Preferences", new ImageIcon("icons/preferences.png"));
         jbAccountPreferences.setBackground(Color.WHITE);
@@ -249,6 +253,9 @@ public class ProfilePanel extends JPanel {
     public void registraAssociatedProfileController(MenuController mc){
         jbEditProfile.addActionListener(mc);
         jbEditProfile.setActionCommand("EDIT");
+
+        jbAccountPreferences.addActionListener(mc);
+        jbAccountPreferences.setActionCommand("ACCOUNT PREFERENCES");
     }
 
     /**

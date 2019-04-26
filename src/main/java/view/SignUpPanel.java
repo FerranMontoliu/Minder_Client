@@ -458,7 +458,7 @@ public class SignUpPanel extends JPanel {
         jcbShowPassword.setSelected(false);
         showPassword();
         jrbNoPremium.setSelected(true);
-        jcbMinAgeFilter.setSelectedItem(jcbMinAgeFilter.getItemAt(0));
-        jcbMaxAgeFilter.setSelectedItem(jcbMaxAgeFilter.getItemAt(2));
+        jcbMinAgeFilter.setSelectedItem(jcbMinAgeFilter.getItemAt(0));//18 anys
+        jcbMaxAgeFilter.setSelectedItem(jcbMaxAgeFilter.getItemAt(82));//100 anys
     }
 }

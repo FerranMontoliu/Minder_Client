@@ -116,6 +116,16 @@ public class MenuController implements ActionListener, WindowListener {
                 mainWindow.initiateEdit(associatedUser.getUsername(), userDescription, java, c, song, hobbies);
                 //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
+            case "ACCOUNT PREFERENCES":
+                //TODO: descomentar associatedUser.getMinAge() i getMaxAge()
+                mainWindow.changePanel("ACCOUNT PREFERENCES");
+                int minAge = 24;
+                int maxAge = 35;
+                //int minAge = associatedUser.getMinAge();
+                //int maxAge = associatedUser.getMaxAge();
+                String email = associatedUser.getMail();
+                mainWindow.initiatePreferences(associatedUser.getUsername(), email, associatedUser.getAge(), associatedUser.isPremium(), minAge, maxAge);
+                break;
             case "YES LOGOUT":
                 //TODO: TANCAR COMUNICACIO DE SERVIDOR I MERDES VARIES
                 logoutController.hideLogout();

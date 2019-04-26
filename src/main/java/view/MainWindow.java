@@ -18,6 +18,7 @@ public class MainWindow extends JFrame{
     private ConnectPanel jpConnect;
     private ProfilePanel jpProfile;
     private EditPanel jpEdit;
+    private PreferencesPanel jpPreferences;
     private ChatPanel jpChat;
     private MatchPanel jpMatch;
     private LogoutFrame logoutFrame;
@@ -49,6 +50,7 @@ public class MainWindow extends JFrame{
         createConnectPanel();
         createProfilePanel();
         createEditPanel();
+        createPreferencesPanel();
         createChatPanel();
         createMatchPanel();
         //createLogoutPanel();
@@ -57,6 +59,7 @@ public class MainWindow extends JFrame{
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
     }
+
 
     /*private void createLogoutPanel() {
         jpLogOut = new LogoutPanel(clMainWindow);
@@ -78,6 +81,11 @@ public class MainWindow extends JFrame{
     private void createEditPanel() {
         jpEdit = new EditPanel(clMainWindow);
         jpSelected.add("EDIT", jpEdit);
+    }
+
+    private void createPreferencesPanel() {
+        jpPreferences = new PreferencesPanel();
+        jpSelected.add("ACCOUNT PREFERENCES", jpPreferences);
     }
 
     /**
@@ -400,5 +408,9 @@ public class MainWindow extends JFrame{
 
     public void loadConnectUserInfo(User connectUser) {
         jpOtherProfile.updateInfo(connectUser);
+    }
+
+    public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge) {
+        jpPreferences.initiatePreferences(username, email, age, isPremium, minAge, maxAge);
     }
 }
