@@ -27,9 +27,23 @@ public class UserManager {
     }
 
     /**
-     * Funcio que s'encarrega de comprovar si el format del mail es correcte o no.
+     * Funció que s'encarrega de comprovar si les edats minimes i maximes seleccionades al desplegable son coherents.
      *
-     * @return Retorna true si el format es correcte, false sino.
+     * @return Retorna true si es coherent, false sino.
+     */
+    public static void isAgeFilterCorrect(String minAge, String maxAge) throws InvalidFormatException {
+        int am = getAge(minAge);
+        int aM = getAge(maxAge);
+
+        if(am > aM){
+            throw new InvalidFormatException("Maximum age should be higher or equal to minimum age");
+        }
+
+    }
+
+    /**
+     * Funcio que s'encarrega de comprovar si el format del mail es correcte o no.
+     * @param mail correu electronic introduit per l'usuari
      */
     public static void mailCorrectFormat(String mail) throws InvalidFormatException {
         EmailValidator v = EmailValidator.getInstance();
@@ -38,6 +52,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * Funcio que gestiona si el format del correu es correcte o no
+     * @param usernameField email de l'usuari introduit
+     * @return Retorna true si el format es correcte, false sino.
+     */
     public static boolean mailInSignIn(String usernameField){
         try{
             mailCorrectFormat(usernameField);
