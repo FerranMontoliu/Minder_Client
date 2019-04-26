@@ -155,6 +155,7 @@ public class ConnectController implements ActionListener, MouseListener {
      * @param connectUser usuari solicitat.
      */
     public void loadNewUser(User connectUser) {
+
         this.connectUser = connectUser;
         connectPanel.loadNewUser(connectUser);
     }

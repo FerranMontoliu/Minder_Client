@@ -64,10 +64,12 @@ public class ServerComunicationConnect extends Thread {
     public void run() {
         try {
             dataOut.writeChar(command);
+            System.out.println(command);
             switch (command){
                 case CONNECT_USER: //TODO: Solicita un USER a visualitzar pel connect panel
                     try{
                         User connectUser = (User) objectIn.readObject();
+                        System.out.println(connectUser.getUsername());
                         connectController.loadNewUser(connectUser);
                     } catch (ClassNotFoundException | IOException e) {
                         connectController.showWarning("Error loading User from Server.");

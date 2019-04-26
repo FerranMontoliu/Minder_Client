@@ -269,8 +269,6 @@ public class ProfilePanel extends JPanel {
 */
         //TODO: Opció DINÀMICA
         //TODO ALBA: descomentar les dues instruccions inferiors per a convertir la imatge en base 64 de l'usuari
-
-
         updateNameAge(user.getUsername(), user.getAge());
         updateDescription(user.getDescription());
         updateFavProgramming(user.getLikesJava(), user.getLikesC());
