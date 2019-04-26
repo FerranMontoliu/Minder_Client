@@ -146,7 +146,7 @@ public class ConnectPanel extends JPanel {
      * @param connectUser usuari solicitat.
      */
     public void loadNewUser(User connectUser) {
-        lblProfilename.setText(connectUser.getUsername());
+        lblProfilename.setText(connectUser.getUsername() + ", "+connectUser.getAge());
         //lblProfilePic.setIcon();  //TODO: Concretar el tema del tipus de l'atribut imatge
     }
 

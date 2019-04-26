@@ -75,15 +75,10 @@ public class MenuController implements ActionListener, WindowListener {
             case "CONNECT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CONNECT")) {
-                        try {
-                            //System.out.println("obtain connect user. Estic a gotoCOnnect panel del menu controller");
-                            connectController.obtainConnectUser();
-                        } catch (InterruptedException eConnect) {
-                            eConnect.printStackTrace();
-                        }
+                        //System.out.println("obtain connect user. Estic a gotoCOnnect panel del menu controller");
+                        connectController.obtainConnectUser();
                         mainWindow.selectConnect();
                         mainWindow.changePanel("CONNECT");
-
 
                     }
                 }

@@ -43,10 +43,9 @@ public class MatchController implements ActionListener {
                 menuController.goToChatWith(matchedUser);
                 break;
             case "PLAY": //TODO: Descomentar el serverComunication
-               // serverComunicationConnect.startServerComunication(CONNECT_USER);
-                //serverComunicationConnect.join();
+                //demano un nou usuari a mosrar al connect
+                serverComunicationConnect.startServerComunication(CONNECT_USER);
                 menuController.closeMatch();
-
                 break;
             default:
                 break;

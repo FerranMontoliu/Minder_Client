@@ -74,7 +74,7 @@ public class ConnectController implements ActionListener, MouseListener {
     private void likeActions() {
         System.out.println("I like you!");
         //si hi ha match
-        if(true /*isMatch*/){
+        if(isMatch){
             menuController.showMatch();
         }else{
             serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User a visualitzar
@@ -179,10 +179,13 @@ public class ConnectController implements ActionListener, MouseListener {
         isMatch = match;
     }
 
-    public void obtainConnectUser() throws InterruptedException {
+    public void obtainConnectUser() {
         serverComunicationConnect = new ServerComunicationConnect(this);
         serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
-        serverComunicationConnect.join();
-        serverComunicationConnect.stopServerComunication();
     }
+
+    public boolean getMatch(){
+        return isMatch;
+    }
+
 }

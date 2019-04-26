@@ -10,7 +10,7 @@ import model.entity.User;
 import java.io.*;
 import java.net.Socket;
 
-public class ServerComunicationConnect extends Thread {
+public class ServerComunicationConnect  {
     private static final char CONNECT_LIKE = 'i';
     private static final char CONNECT_DISLIKE = 'j';
     private static final char CONNECT_USER = 'k';
@@ -26,7 +26,6 @@ public class ServerComunicationConnect extends Thread {
 
     public ServerComunicationConnect(ConnectController connectController){
         try {
-            this.isOn = false;
             this.connectController = connectController;
 
             //Configuració inicial del client:
@@ -48,28 +47,14 @@ public class ServerComunicationConnect extends Thread {
      */
     public void startServerComunication(char command) {
         this.command = command;
-        isOn = true;
-        start();
-    }
-
-    /**
-     * Metode encarregat de tancar la comunicacio client-servidor.
-     */
-    public void stopServerComunication() {
-        this.isOn = false;
-        this.interrupt();
-    }
-
-    @Override
-    public void run() {
         try {
             dataOut.writeChar(command);
-            System.out.println(command);
+
             switch (command){
                 case CONNECT_USER: //TODO: Solicita un USER a visualitzar pel connect panel
                     try{
                         User connectUser = (User) objectIn.readObject();
-                        System.out.println(connectUser.getUsername());
+                        //System.out.println(connectUser.getUsername());
                         connectController.loadNewUser(connectUser);
                     } catch (ClassNotFoundException | IOException e) {
                         connectController.showWarning("Error loading User from Server.");
@@ -78,6 +63,8 @@ public class ServerComunicationConnect extends Thread {
                     break;
                 case CONNECT_LIKE: //TODO: Fas LIKE en el connect panel.
                     try{
+                        //TODO: marcar viewed; marcar liked
+                        //primer envio el que ha fet login, despres l'usuari que li agrada
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
                         boolean isMatch = dataIn.readBoolean();
@@ -88,6 +75,7 @@ public class ServerComunicationConnect extends Thread {
                     break;
                 case CONNECT_DISLIKE: //TODO: Fas DISLIKE en el connect panel.
                     try{
+                        //TODO: marcar viewed, marcar disliked
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
                     }catch (IOException e){
@@ -100,4 +88,5 @@ public class ServerComunicationConnect extends Thread {
         }
 
     }
+
 }
