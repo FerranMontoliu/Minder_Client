@@ -30,7 +30,8 @@ public class ProfilePanel extends JPanel {
     private JLabel jlFavSong;
     private JButton jbEditProfile;
     private JButton jbBack;
-
+    private JPanel jpEdit;
+    private JButton jbAccountPreferences;
     /**
      * Constructor del panell principal de connexions entre usuaris. aquest panell es genera en dos casos: per a mostrar
      * la informacio de l'usuari associat a la compta, o be per a mostrar els usuaris dels que demana informació addicional.
@@ -45,6 +46,7 @@ public class ProfilePanel extends JPanel {
         createUserInfo();
         if (user.equals("ASSOCIATED")){
             createEditButton();
+            createAccountPreferencesButton();
         }else{ //user.equals("OTHER")
             createReturnButton();
         }
@@ -67,14 +69,18 @@ public class ProfilePanel extends JPanel {
      * Metode que crea i col·loca el JButton d'edicio de perfil.
      */
     private void createEditButton() {
-        JPanel jpButton = new JPanel(new FlowLayout());
+        jpEdit = new JPanel(new FlowLayout());
         jbEditProfile = new JButton("Edit Profile", new ImageIcon("icons/edit_profile_icon.png"));
         jbEditProfile.setBackground(Color.WHITE);
-        jpButton.add(jbEditProfile);
-
-        add(jpButton, BorderLayout.SOUTH);
+        jpEdit.add(jbEditProfile);
     }
 
+    private void createAccountPreferencesButton() {
+        jbAccountPreferences = new JButton("Edit Account Preferences", new ImageIcon("icons/preferences.png"));
+        jbAccountPreferences.setBackground(Color.WHITE);
+        jpEdit.add(jbAccountPreferences);
+        add(jpEdit, BorderLayout.SOUTH);
+    }
     /**
      * Metode que es crida des del constructor per a crear els jlabels fixats ("Name: ", "Age: ", "Hobbies: ")
      * i crear (Sense fixar cap valor) per la informacio de l'usuari que acompanyara els jLabels anteriors. Aquesta info
