@@ -18,9 +18,6 @@ public class EditPanel extends JPanelSlider {
     private ImageIcon selectedImage; //Tambe es podria guardar com a Image.
     private JTextField jtfSong;
     private JTextArea jtaHobbies;
-    private JComboBox jcbMinAgeFilter;
-    private JComboBox jcbMaxAgeFilter;
-
 
 
     /**
@@ -35,7 +32,6 @@ public class EditPanel extends JPanelSlider {
         createImagePanel();
         createDescriptionPanel();
         createProgrammingOptions();
-        createAgeFilterBoxes();
         createOptionalFields();
         createButtons();
     }
@@ -126,90 +122,7 @@ public class EditPanel extends JPanelSlider {
         add(jpCheckBoxes);
     }
 
-    private void createAgeFilterBoxes() {
-        JPanel jpMaxAge = new JPanel();
-        jpMaxAge.setLayout(new FlowLayout());
 
-        JLabel jlFilter = new JLabel("Choose the age range to connect with");
-        jlFilter.setHorizontalAlignment(SwingConstants.CENTER);
-        //jlFilter.setForeground(Color.white);
-        jpMaxAge.add(jlFilter);
-
-        JPanel jpBothFilters = new JPanel();
-        jpBothFilters.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-
-        //Minimum Age
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.weightx = 1.0f;
-        constraints.weighty = 1.0f;
-        constraints.insets = new Insets(5, 5, 5, 5);
-        constraints.fill = GridBagConstraints.WEST;
-
-        JLabel jlMin = new JLabel("Minimum age:");
-        jlMin.setHorizontalAlignment(SwingConstants.CENTER);
-        //jlMin.setForeground(Color.white);
-        jpBothFilters.add(jlMin, constraints);
-
-        //Min age comboBox
-        jcbMinAgeFilter = new JComboBox<>();
-        jcbMinAgeFilter.setEditable(false);
-        jcbMinAgeFilter.setPreferredSize(new Dimension(100,30));
-        jcbMinAgeFilter.setMaximumSize(jcbMinAgeFilter.getPreferredSize());
-
-        for (int i = 18; i <= 100; ++i) {
-            jcbMinAgeFilter.addItem(i);
-        }
-
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.weightx = 1.0f;
-        constraints.weighty = 1.0f;
-        constraints.insets = new Insets(5, 2, 5, 5);
-        constraints.fill = GridBagConstraints.CENTER;
-
-        jpBothFilters.add(jcbMinAgeFilter, constraints);
-
-        //Maximum Age
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        constraints.weightx = 1.0f;
-        constraints.weighty = 1.0f;
-        constraints.insets = new Insets(5, 5, 5, 5);
-        constraints.fill = GridBagConstraints.WEST;
-
-        JLabel jlMax = new JLabel("Maximum age:");
-        jlMax.setHorizontalAlignment(SwingConstants.CENTER);
-        //jlMax.setForeground(Color.white);
-        jpBothFilters.add(jlMax, constraints);
-
-        //Max age comboBox
-
-        jcbMaxAgeFilter = new JComboBox<>();
-        jcbMaxAgeFilter.setEditable(false);
-        jcbMaxAgeFilter.setPreferredSize(new Dimension(100,30));
-        jcbMaxAgeFilter.setMaximumSize(jcbMaxAgeFilter.getPreferredSize());
-
-        for (int i = 18; i <= 100; ++i) {
-            jcbMaxAgeFilter.addItem(i);
-        }
-
-        constraints.gridx = 1;
-        constraints.gridy = 2;
-        constraints.weightx = 1.0f;
-        constraints.weighty = 1.0f;
-        constraints.insets = new Insets(5, 5, 5, 2);
-        constraints.fill = GridBagConstraints.CENTER;
-
-        jpBothFilters.add(jcbMaxAgeFilter, constraints);
-
-        //jpBothFilters.setBackground(BG_COLOR);
-        jpMaxAge.add(jpBothFilters);
-        //jpMaxAge.setBackground(BG_COLOR);
-        add(jpMaxAge);
-        add(Box.createVerticalStrut(10));
-    }
     /**
      * Metode que crea la seccio dels JButtons Cancel i Save
      */
