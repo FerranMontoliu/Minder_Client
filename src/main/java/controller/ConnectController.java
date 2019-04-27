@@ -74,10 +74,12 @@ public class ConnectController implements ActionListener, MouseListener {
     private void likeActions() {
         System.out.println("I like you!");
         //si hi ha match
-        if(isMatch){
+        if(false/*isMatch*/){
             menuController.showMatch();
         }else{
-            serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User a visualitzar
+            serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
+            //TODO: aqui s'ha de rebre el nou usuari a mostrar
+            serverComunicationConnect.startServerComunication(CONNECT_USER);
         }
     }
 
@@ -86,9 +88,9 @@ public class ConnectController implements ActionListener, MouseListener {
      */
     private void dislikeActions() {
         System.out.println("I don't like you..");
-        // serverComunicationConnect.startServerComunication(CONNECT_DISLIKE);
+        serverComunicationConnect.startServerComunication(CONNECT_DISLIKE);
         //serverComunicationConnect.join();
-        //serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
+        serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
     }
 
     @Override
