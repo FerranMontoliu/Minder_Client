@@ -239,6 +239,9 @@ public class PreferencesPanel extends JPanel {
         jrbNoPremium.setSelected(!isPremium);
         jcbMinAgeFilter.setSelectedIndex(minimumAge);
         jcbMaxAgeFilter.setSelectedIndex(maximumAge);
+        jtfCurrentPassword.setText("");
+        jtfNewPassword.setText("");
+        jtfNewPasswordConfirm.setText("");
     }
 
     public void showWarning(String message) {
@@ -252,5 +255,21 @@ public class PreferencesPanel extends JPanel {
         jbCancel.addActionListener(ec);
         jbCancel.setActionCommand("CANCEL");
 
+    }
+
+    public String getCurrentPassword(){
+        return String.valueOf(jtfCurrentPassword.getPassword());
+    }
+
+    public String getNewPassword(){
+        return String.valueOf(jtfNewPassword.getPassword());
+    }
+
+    public String getNewPasswordConfirm(){
+        return String.valueOf(jtfCurrentPassword.getPassword());
+    }
+
+    public String getUsername() {
+        return jtfUsername.getText();
     }
 }

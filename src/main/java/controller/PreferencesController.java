@@ -1,5 +1,8 @@
 package controller;
 
+import model.EmptyTextFieldException;
+import model.InvalidFormatException;
+import model.UserManager;
 import model.entity.User;
 import network.ServerComunicationEdit;
 import view.EditPanel;
@@ -34,6 +37,19 @@ public class PreferencesController implements ActionListener {
 
         switch (actionCommand){
             case "SAVE":
+                try {
+                    UserManager.isEmpty(preferencesPanel.getUsername(), "username");
+                    UserManager.isEmpty(preferencesPanel.getCurrentPassword(), "password");
+
+                    String newPassword = preferencesPanel.getNewPassword();
+                    String newConfirmPassword = preferencesPanel.getNewPasswordConfirm();
+                    UserManager.signUpPasswordIsCorrect(newPassword, newConfirmPassword);
+                    //TODO: enviar al servidor
+                } catch (EmptyTextFieldException e1) {
+                    preferencesPanel.showWarning(e1.getMessage());
+                } catch (InvalidFormatException e1) {
+                    preferencesPanel.showWarning("New Password and New Password Confirm do not match");
+                }
 
                 break;
             case "CANCEL":
