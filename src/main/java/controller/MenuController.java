@@ -24,6 +24,7 @@ public class MenuController implements ActionListener, WindowListener {
     private ProfileController profileController;
     private LogoutController logoutController;
     private OtherUserProfileController otherUserProfileController;
+    private PreferencesController preferencesController;
     private ServerComunicationChat serverComunicationChat;
     private LinkedList<String> matchedUsernames;
 
@@ -42,12 +43,15 @@ public class MenuController implements ActionListener, WindowListener {
         logoutController = new LogoutController(mainWindow.getLocations(), this);
         serverComunicationChat = new ServerComunicationChat(this, chatController);
         chatController.setServerComunicationChat(serverComunicationChat);
+        preferencesController = new PreferencesController(mainWindow.getPreferences(), this, this.associatedUser);
 
         mainWindow.registraConnectController(connectController);
         mainWindow.registraChatController(chatController);
         mainWindow.registraEditController(editController);
         mainWindow.registraMatchController(matchController);
         mainWindow.registraOtherProfileController(otherUserProfileController);
+        mainWindow.registraPreferencesController(preferencesController);
+
         updateNotifications();
     }
 
@@ -148,6 +152,12 @@ public class MenuController implements ActionListener, WindowListener {
         mainWindow.changePanel("PROFILE");
     }
 
+    /**
+     * Metode que cancela la edicio de preferencies del compte i retorna al panell Profile
+     */
+    public void cancelPreferences() {
+        mainWindow.changePanel("PROFILE");
+    }
     /**
      * Metode que tanca la pestanya informativa de "It's a match" i torna al connect panel
      */
@@ -293,4 +303,6 @@ public class MenuController implements ActionListener, WindowListener {
     public void loadProfile() {
         profileController.showUser(associatedUser);
     }
+
+
 }

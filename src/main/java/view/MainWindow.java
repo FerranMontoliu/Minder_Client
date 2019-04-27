@@ -328,6 +328,10 @@ public class MainWindow extends JFrame{
         return jpMatch;
     }
 
+    /**
+     * Getter del panell que els chats entre usuaris que han fet match
+     * @return
+     */
     public ChatPanel getChat() {
         return jpChat;
     }
@@ -340,6 +344,14 @@ public class MainWindow extends JFrame{
         return jpOtherProfile;
     }
 
+    /**
+     * Getter del panell que permet canviar els ajustaments principals del seu compte (usuari, contrassenya, edat, mail i filtre
+     * d'edat
+     * @return
+     */
+    public PreferencesPanel getPreferences() {
+        return jpPreferences;
+    }
     public void setChat(ChatPanel jpChat) {
         this.jpChat = jpChat;
     }
@@ -352,6 +364,9 @@ public class MainWindow extends JFrame{
     }
     public void registraEditController(EditController editController) {
         jpEdit.registerController(editController);
+    }
+    public void registraPreferencesController(PreferencesController preferencesController){
+        jpPreferences.registerController(preferencesController);
     }
 
     /**
@@ -406,11 +421,27 @@ public class MainWindow extends JFrame{
         return selected;
     }
 
+    /**
+     * Metode que actualitza la informacio de l'usuari a mostrar al connectPanel
+     * @param connectUser usuari del que es vol saber mes informacio per a fer-li un like o dislike
+     */
     public void loadConnectUserInfo(User connectUser) {
         jpOtherProfile.updateInfo(connectUser);
     }
 
+    /**
+     * Metode que permet omplir els camps del edit preferences option, per a mostrar les dades de l'usuari introduides per
+     * aquest quan va iniciar sessio
+     * @param username nom d'usuari
+     * @param email correu electronic
+     * @param age edat
+     * @param isPremium tipus de compte (Els premium veuen primer els usuaris que ja li han donat like)
+     * @param minAge minima edat que han de tenir els usuaris amb els que vol connectar
+     * @param maxAge maxima edat que han de tenir els usuaris amb els que vol connectar
+     */
     public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge) {
         jpPreferences.initiatePreferences(username, email, age, isPremium, minAge, maxAge);
     }
+
+
 }

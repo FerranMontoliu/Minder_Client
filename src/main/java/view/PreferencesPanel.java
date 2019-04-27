@@ -1,6 +1,7 @@
 package view;
 
 import controller.EditController;
+import controller.PreferencesController;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -160,12 +161,12 @@ public class PreferencesPanel extends JPanel {
 
         jpPremiumOption.add(jrbPremium);
 
-        //Agrupo els dos botons perquè només es pugui seleccionar un d'ells
+
         ButtonGroup bgOption = new ButtonGroup();
         bgOption.add(jrbNoPremium);
         bgOption.add(jrbPremium);
 
-        //Afegim tot allo que hem creat
+        
         add(jpPremiumOption);
     }
 
@@ -245,11 +246,11 @@ public class PreferencesPanel extends JPanel {
     }
 
     //TODO: fer controller i panell funcional (tasca: Alba)
-    /*public void registerController(PreferencesController ec){
+    public void registerController(PreferencesController ec){
         jbSave.addActionListener(ec);
         jbSave.setActionCommand("SAVE");
         jbCancel.addActionListener(ec);
         jbCancel.setActionCommand("CANCEL");
 
-    }*/
+    }
 }
