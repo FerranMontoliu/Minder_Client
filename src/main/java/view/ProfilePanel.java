@@ -297,7 +297,7 @@ public class ProfilePanel extends JPanel {
      */
     private void updatePhoto(String photoName) {
         ImageIcon picture = new ImageIcon("MinderDownloads/"+photoName+".jpg");
-        Image scaleImage = picture.getImage().getScaledInstance(64, 64,Image.SCALE_DEFAULT);
+        Image scaleImage = picture.getImage().getScaledInstance(64, 64,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaleImage);
         jlPhoto.setIcon(toCircle(icon));
 

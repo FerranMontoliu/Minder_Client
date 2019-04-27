@@ -140,7 +140,8 @@ public class MenuController implements ActionListener, WindowListener {
             case "NO LOGOUT":
                 logoutController.hideLogout();
                 mainWindow.deselectConnect();
-
+                mainWindow.selectProfile();
+                mainWindow.changePanel("PROFILE");
                 break;
 
         }
