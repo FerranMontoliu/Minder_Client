@@ -125,7 +125,8 @@ public class LoginController implements ActionListener, WindowListener {
 
                     sc.startServerComunication(REGISTER_USER);
 
-                    if(true/*correctRegister*/){ //TODO: Descomentar-ho si volem deixar de fer proves.
+                    if(correctRegister){ //TODO: Descomentar-ho si volem deixar de fer proves.
+                        DownloadsManager.createDirectory();
                         w.dispose();
                         MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
                         MenuController mc = new MenuController(mw, associatedUser);
