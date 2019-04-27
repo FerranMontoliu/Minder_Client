@@ -86,6 +86,7 @@ public class LoginController implements ActionListener, WindowListener {
 
                             //TODO: associatedUser es l'usuari de la bbdd, user es el de test
                             MenuController mc = new MenuController(mw, associatedUser);
+                            associatedUser.base64ToImage(associatedUser.getUsername());
                             mc.loadProfile();
                             mw.registraController(mc);
                             mw.setVisible(true);

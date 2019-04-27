@@ -17,6 +17,7 @@ public class EditController implements ActionListener, MouseListener, FocusListe
     private static final char EDIT_PROFILE = 'c';
 
     private User associatedUser;
+    private User provisionalUser;
     private ProfileImage newImage;
     private EditPanel editPanel;
     private MenuController menuController;
@@ -52,7 +53,7 @@ public class EditController implements ActionListener, MouseListener, FocusListe
                     UserManager.checkEditProfileNewData(img, description, Java, C); //Camps obligatoris
                     String song = UserManager.fixSQLInjections(editPanel.getFavouriteSong());
                     String hobbies = UserManager.fixSQLInjections(editPanel.getUserHobbies());
-                    User provisionalUser = new User(associatedUser.getUsername(), "");
+                    provisionalUser = new User(associatedUser.getUsername(), "");
                     if(photoChanged){
                         provisionalUser.imageToBase64(newImage.getFullPath());
                     }else{
@@ -67,6 +68,7 @@ public class EditController implements ActionListener, MouseListener, FocusListe
                     } //else, no han canviat la foto, per tant, seguim amb la string que tenia abans.
                     associatedUser.setCompleted(true);
                     if(editResult){
+                        associatedUser.base64ToImage(associatedUser.getUsername());
                         menuController.editionCompleted(associatedUser);
                         //L'edicio s'ha guardat satisfactoriament i podem canviar de finestra
                     }else{ //L'edicio no s'ha guardat be en el servidor i no podem fer el canvi de finestra
@@ -136,7 +138,7 @@ public class EditController implements ActionListener, MouseListener, FocusListe
     }
 
     public User getUser() {
-        return associatedUser;
+        return provisionalUser;
     }
 
     public void setEditResult(boolean editOK) {

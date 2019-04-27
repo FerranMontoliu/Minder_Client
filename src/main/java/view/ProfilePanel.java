@@ -272,7 +272,7 @@ public class ProfilePanel extends JPanel {
      * manera que omple els camps del perfil amb aquesta informacio
      * @param user: usuari que ha iniciat sessio i que vol accedir a la seva informacio
      */
-    public void updateInfo(User user){
+    public void updateInfo(User user){   //TODO: Deixar de trencar paradigmes i passar els atribut per parametre
         //TODO: cridar la funcio des del controller amb l'usuari per paramtre
         /*jlName.setText("Pol Rayos");
         jlAge.setText("19");
@@ -287,16 +287,16 @@ public class ProfilePanel extends JPanel {
         updateFavProgramming(user.getLikesJava(), user.getLikesC());
         updateHobbies(user.getHobbies());
         updateSong(user.getFavSong());
-        updatePhoto(user);
+        updatePhoto(user.getUsername());
     }
 
     /**
      * Metode que actualitza la informacio rebuda de la bbdd. Es converteix l'string en format base64 a imatge (que es
-     * guarda al fitxer imageConverted.jpg), i s'escala i arrodoneix al disseny desitjat
-     * @param user Usuari que ha fet login
+     * guarda al fitxer username.jpg), i s'escala i arrodoneix al disseny desitjat
+     * @param photoName Usuari que ha fet login
      */
-    private void updatePhoto(User user) {
-        ImageIcon picture = new ImageIcon("data/imageConverted.jpg");
+    private void updatePhoto(String photoName) {
+        ImageIcon picture = new ImageIcon("data/"+photoName+".jpg");
        // user.base64ToImage(user.getPhoto());
         Image scaleImage = picture.getImage().getScaledInstance(64, 64,Image.SCALE_DEFAULT);
         ImageIcon icon = new ImageIcon(scaleImage);
