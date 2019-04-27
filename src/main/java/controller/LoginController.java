@@ -1,5 +1,6 @@
 package controller;
 
+import model.DownloadsManager;
 import model.EmptyTextFieldException;
 import model.entity.User;
 import model.UserManager;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class LoginController implements ActionListener, WindowListener {
 
@@ -77,14 +79,13 @@ public class LoginController implements ActionListener, WindowListener {
 
 
                     //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                    User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", "67", "79", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
+                    //User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", "67", "79", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
                     if(correctLogin){
                         w.dispose();
-                        if(user.isCompleted()) { //TODO ALBA: Canviar user pel atribut associatedUser. La variable user és de Test.
+                        DownloadsManager.createDirectory();
+                        if(associatedUser.isCompleted()) {
                             MainWindow mw = new MainWindow("PROFILE");
                             associatedUser.setCompleted(true);
-
-                            //TODO: associatedUser es l'usuari de la bbdd, user es el de test
                             MenuController mc = new MenuController(mw, associatedUser);
                             associatedUser.base64ToImage(associatedUser.getUsername());
                             mc.loadProfile();

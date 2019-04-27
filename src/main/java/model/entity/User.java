@@ -277,13 +277,11 @@ public class User implements Serializable {
      */
     public void base64ToImage(String username) {
         try {
-            //Alba
-            //encoded String conte al prinipi de la codificacio la següent info: "data:image/png;base64," que no volem decodificar
             try{
                 String base64Image = photo.split(",")[1];
-                FileUtils.writeByteArrayToFile(new File("data/" + username + ".jpg"), Base64.getDecoder().decode(base64Image));
+                FileUtils.writeByteArrayToFile(new File("MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(base64Image));
             }catch(Exception e1){
-                FileUtils.writeByteArrayToFile(new File("data/" + username + ".jpg"), Base64.getDecoder().decode(photo));
+                FileUtils.writeByteArrayToFile(new File("MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(photo));
             }
         } catch (IOException e) {
             e.printStackTrace();

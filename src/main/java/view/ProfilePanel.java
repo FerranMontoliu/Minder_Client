@@ -296,8 +296,7 @@ public class ProfilePanel extends JPanel {
      * @param photoName Usuari que ha fet login
      */
     private void updatePhoto(String photoName) {
-        ImageIcon picture = new ImageIcon("data/"+photoName+".jpg");
-       // user.base64ToImage(user.getPhoto());
+        ImageIcon picture = new ImageIcon("MinderDownloads/"+photoName+".jpg");
         Image scaleImage = picture.getImage().getScaledInstance(64, 64,Image.SCALE_DEFAULT);
         ImageIcon icon = new ImageIcon(scaleImage);
         jlPhoto.setIcon(toCircle(icon));

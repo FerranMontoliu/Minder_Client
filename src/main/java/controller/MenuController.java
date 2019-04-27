@@ -1,5 +1,6 @@
 package controller;
 
+import model.DownloadsManager;
 import model.entity.User;
 import network.ServerComunicationChat;
 import view.MainWindow;
@@ -132,14 +133,14 @@ public class MenuController implements ActionListener, WindowListener {
                 break;
             case "YES LOGOUT":
                 //TODO: TANCAR COMUNICACIO DE SERVIDOR I MERDES VARIES
+                DownloadsManager.deleteDirectory();
                 logoutController.hideLogout();
                 mainWindow.dispose();
                 break;
             case "NO LOGOUT":
                 logoutController.hideLogout();
                 mainWindow.deselectConnect();
-                //mainWindow.changePanel(mainWindow.getActualPanel());
-                //mainWindow.changePanel("CONNECT");
+
                 break;
 
         }

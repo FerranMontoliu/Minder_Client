@@ -61,17 +61,18 @@ public class EditController implements ActionListener, MouseListener, FocusListe
                     }
                     provisionalUser.saveEdition(description, Java, C, song, hobbies);
                     sc.startServerComunication(EDIT_PROFILE);
-                    //Si tot ha anat be, guardem els canvis al atribut.
+
                     associatedUser.saveEdition(description, Java, C, song, hobbies);
                     if(photoChanged){
                         associatedUser.imageToBase64(newImage.getFullPath());
-                    } //else, no han canviat la foto, per tant, seguim amb la string que tenia abans.
+                    }
+
                     associatedUser.setCompleted(true);
                     if(editResult){
                         associatedUser.base64ToImage(associatedUser.getUsername());
                         menuController.editionCompleted(associatedUser);
-                        //L'edicio s'ha guardat satisfactoriament i podem canviar de finestra
-                    }else{ //L'edicio no s'ha guardat be en el servidor i no podem fer el canvi de finestra
+
+                    }else{
                         editPanel.showWarning("There has been a problem with the server communication.");
                     }
                     photoChanged = false;
