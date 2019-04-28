@@ -190,4 +190,7 @@ public class ConnectController implements ActionListener, MouseListener {
         return isMatch;
     }
 
+    public User getAssociatedUser() {
+        return associatedUser;
+    }
 }
