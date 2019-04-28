@@ -72,6 +72,8 @@ public class UserManager {
      * @return Retorna true si concorda, false sino.
      */
     public static void passwordConfirm(String password, String passwordConfirmation) throws InvalidFormatException {
+        System.out.println(password);
+        System.out.println(passwordConfirmation);
         if(!password.equals(passwordConfirmation)){
             throw new InvalidFormatException("Password field and password do not match");
         }

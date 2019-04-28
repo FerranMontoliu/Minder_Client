@@ -31,9 +31,9 @@ public class PreferencesPanel extends JPanel {
         createAgeField();
         createPremiumOptions();
         createAgeFilter();
+        updateUneditableFields();
         createSaveCancelButtons();
     }
-
 
     /**
      * Metode que genera el Border principal del EditPanel
@@ -210,6 +210,14 @@ public class PreferencesPanel extends JPanel {
         add(jpBothFilters);
     }
 
+    private void updateUneditableFields() {
+        jtfUsername.setEditable(false);
+        jtfUsername.setEnabled(false);
+        jtfMail.setEditable(false);
+        jtfMail.setEnabled(false);
+    }
+
+
     private void createSaveCancelButtons() {
         JPanel jpButtons = new JPanel(new FlowLayout());
 
@@ -266,7 +274,7 @@ public class PreferencesPanel extends JPanel {
     }
 
     public String getNewPasswordConfirm(){
-        return String.valueOf(jtfCurrentPassword.getPassword());
+        return String.valueOf(jtfNewPasswordConfirm.getPassword());
     }
 
     public String getUsername() {

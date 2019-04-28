@@ -53,6 +53,8 @@ public class ServerComunicationConnect  {
             switch (command){
                 case CONNECT_USER: //TODO: Solicita un USER a visualitzar pel connect panel
                     try{
+                        //System.out.println(connectController.getAssociatedUser().getUsername());
+                        objectOut.writeObject(connectController.getAssociatedUser());
                         User connectUser = (User) objectIn.readObject();
                         //System.out.println(connectUser.getUsername());
                         connectController.loadNewUser(connectUser);
