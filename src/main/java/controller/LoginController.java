@@ -2,8 +2,8 @@ package controller;
 
 import model.DownloadsManager;
 import model.EmptyTextFieldException;
-import model.entity.User;
 import model.UserManager;
+import model.entity.User;
 import network.ServerComunicationLogin;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.nio.file.Files;
 
 public class LoginController implements ActionListener, WindowListener {
 
