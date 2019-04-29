@@ -14,7 +14,7 @@ public class DownloadsManager {
         Path path = Paths.get(fileName);
 
         try {
-            //Files.deleteIfExists(path);
+            deleteDirectory();
             Files.createDirectory(path);
         } catch (IOException e) {
             e.printStackTrace();
