@@ -17,6 +17,7 @@ public class LogoutFrame extends JFrame {
         addHeader();
         addLogOutButton();
         addCancelButton();
+        setBackground(new Color(94, 94, 94));
     }
 
     private void addHeader() {

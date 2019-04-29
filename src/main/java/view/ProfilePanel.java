@@ -272,7 +272,8 @@ public class ProfilePanel extends JPanel {
      * manera que omple els camps del perfil amb aquesta informacio
      * @param user: usuari que ha iniciat sessio i que vol accedir a la seva informacio
      */
-    public void updateInfo(User user){   //TODO: Deixar de trencar paradigmes i passar els atribut per parametre
+    public void updateInfo(String username, int age, String description, boolean likesJava, boolean likesC,
+                           String[] hobbies, String song){
         //TODO: cridar la funcio des del controller amb l'usuari per paramtre
         /*jlName.setText("Pol Rayos");
         jlAge.setText("19");
@@ -282,12 +283,12 @@ public class ProfilePanel extends JPanel {
 */
         //TODO: Opció DINÀMICA
         //TODO ALBA: descomentar les dues instruccions inferiors per a convertir la imatge en base 64 de l'usuari
-        updateNameAge(user.getUsername(), user.getAge());
-        updateDescription(user.getDescription());
-        updateFavProgramming(user.getLikesJava(), user.getLikesC());
-        updateHobbies(user.getHobbies());
-        updateSong(user.getFavSong());
-        updatePhoto(user.getUsername());
+        updateNameAge(username, age);
+        updateDescription(description);
+        updateFavProgramming(likesJava,likesC);
+        updateHobbies(hobbies);
+        updateSong(song);
+        updatePhoto(username);
     }
 
     /**

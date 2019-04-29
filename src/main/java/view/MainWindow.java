@@ -426,7 +426,8 @@ public class MainWindow extends JFrame{
      * @param connectUser usuari del que es vol saber mes informacio per a fer-li un like o dislike
      */
     public void loadConnectUserInfo(User connectUser) {
-        jpOtherProfile.updateInfo(connectUser);
+        jpOtherProfile.updateInfo(connectUser.getUsername(), connectUser.getAge(), connectUser.getDescription(),
+                connectUser.getLikesJava(), connectUser.getLikesC(), connectUser.getHobbies(), connectUser.getFavSong());
     }
 
     /**
@@ -440,7 +441,11 @@ public class MainWindow extends JFrame{
      * @param maxAge maxima edat que han de tenir els usuaris amb els que vol connectar
      */
     public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge) {
+        if (maxAge == 0){
+            jpPreferences.disableFilter();
+        }
         jpPreferences.initiatePreferences(username, email, age, isPremium, minAge, maxAge);
+
     }
 
 

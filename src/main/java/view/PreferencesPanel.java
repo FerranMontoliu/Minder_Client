@@ -21,6 +21,7 @@ public class PreferencesPanel extends JPanel {
     private JComboBox jcbMaxAgeFilter;
     private JButton jbSave;
     private JButton jbCancel;
+    private JCheckBox jcNoFilter;
 
     public PreferencesPanel(){
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -28,7 +29,7 @@ public class PreferencesPanel extends JPanel {
         createUsernameField();
         createPasswordPanel();
         createMailField();
-        createAgeField();
+        //createAgeField();
         createPremiumOptions();
         createAgeFilter();
         updateUneditableFields();
@@ -45,6 +46,9 @@ public class PreferencesPanel extends JPanel {
         this.setBorder(border);
     }
 
+    /**
+     * Metode que genera el camp de nom d'usuari
+     */
     private void createUsernameField() {
         TitledBorder border = new TitledBorder("Username");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -63,7 +67,10 @@ public class PreferencesPanel extends JPanel {
         add(jpUsername);
     }
 
-    private void createPasswordPanel() {
+    /**
+     * Metode que genera els tres camps corresponents a la contrassenya
+     */
+    private void createPasswordPanel() { //TODO: nomes quan els tres camps siguin isEmpty, no demanar al server el login i actualitzar els altres camps
         TitledBorder border = new TitledBorder("Password");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
@@ -95,6 +102,9 @@ public class PreferencesPanel extends JPanel {
         add(jpPassword);
     }
 
+    /**
+     * Metode que genera el camp de mail de l'usuari
+     */
     private void createMailField() {
         TitledBorder border = new TitledBorder("Email");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -139,6 +149,9 @@ public class PreferencesPanel extends JPanel {
         add(jpAge);
     }
 
+    /**
+     * Metode que genera les dues opcions de "premium" i "no premium"
+     */
     private void createPremiumOptions() {
         TitledBorder border = new TitledBorder("Premium Access");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -170,7 +183,9 @@ public class PreferencesPanel extends JPanel {
         add(jpPremiumOption);
     }
 
-
+    /**
+     * Metode que genera els dos despplegables per al filtre d'edat i el checkbox per a no aplicar aquest
+     */
     private void createAgeFilter(){
 
         TitledBorder border = new TitledBorder("Age Filter");
@@ -208,8 +223,15 @@ public class PreferencesPanel extends JPanel {
         jpBothFilters.add(jcbMaxAgeFilter);
 
         add(jpBothFilters);
+
+        jcNoFilter = new JCheckBox("I don't want any age filter");
+        jcNoFilter.setAlignmentX(CENTER_ALIGNMENT);
+        add(jcNoFilter);
     }
 
+    /**
+     * Metode que bloqueja aquells camps que no es poden editar: username i mail
+     */
     private void updateUneditableFields() {
         jtfUsername.setEditable(false);
         jtfUsername.setEnabled(false);
@@ -217,7 +239,9 @@ public class PreferencesPanel extends JPanel {
         jtfMail.setEnabled(false);
     }
 
-
+    /**
+     * Metode que crea els dos botons de guardar i cancelar canvis
+     */
     private void createSaveCancelButtons() {
         JPanel jpButtons = new JPanel(new FlowLayout());
 
@@ -234,7 +258,15 @@ public class PreferencesPanel extends JPanel {
         add(jpButtons);
     }
 
-
+    /**
+     * Metode encarregat de mostrar per defecte les dades de l'usuari per a poder-les modificar
+     * @param username
+     * @param email
+     * @param age
+     * @param isPremium
+     * @param minAge
+     * @param maxAge
+     */
     public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge) {
         //es pot fer mes optim pero ara me la sua
         int minimumAge = minAge - 18;
@@ -242,7 +274,7 @@ public class PreferencesPanel extends JPanel {
         int actualAge = age - 18;
         jtfUsername.setText(username);
         jtfMail.setText(email);
-        jcbAge.setSelectedItem(actualAge);
+        //jcbAge.setSelectedItem(actualAge);
         jrbPremium.setSelected(isPremium);
         jrbNoPremium.setSelected(!isPremium);
         jcbMinAgeFilter.setSelectedIndex(minimumAge);
@@ -252,16 +284,25 @@ public class PreferencesPanel extends JPanel {
         jtfNewPasswordConfirm.setText("");
     }
 
+    /**
+     * Metode que genera un optionPane amb l'error generat
+     * @param message
+     */
     public void showWarning(String message) {
         JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
     }
 
-    //TODO: fer controller i panell funcional (tasca: Alba)
+    /**
+     * Metode que vinvula les accions dels botons i checkbox amb el controlador
+     * @param ec
+     */
     public void registerController(PreferencesController ec){
         jbSave.addActionListener(ec);
         jbSave.setActionCommand("SAVE");
         jbCancel.addActionListener(ec);
         jbCancel.setActionCommand("CANCEL");
+        jcNoFilter.addActionListener(ec);
+        jcNoFilter.setActionCommand("NO FILTER");
 
     }
 
@@ -280,4 +321,19 @@ public class PreferencesPanel extends JPanel {
     public String getUsername() {
         return jtfUsername.getText();
     }
+
+    public void disableFilter() {
+        jcbMinAgeFilter.setEnabled(false);
+        jcbMaxAgeFilter.setEnabled(false);
+    }
+
+    public void enableFilter(){
+        jcbMinAgeFilter.setEnabled(true);
+        jcbMaxAgeFilter.setEnabled(true);
+    }
+
+    public boolean noFilterChecked() {
+        return jcNoFilter.isSelected();
+    }
+
 }

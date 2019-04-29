@@ -15,6 +15,7 @@ public class ProfileController {
     }
 
     public void showUser(User associatedUser) {
-        profilePanel.updateInfo(associatedUser);
+        profilePanel.updateInfo(associatedUser.getUsername(), associatedUser.getAge(), associatedUser.getDescription(),
+                associatedUser.getLikesJava(), associatedUser.getLikesC(), associatedUser.getHobbies(), associatedUser.getFavSong());
     }
 }

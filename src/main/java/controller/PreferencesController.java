@@ -43,6 +43,16 @@ public class PreferencesController implements ActionListener {
         String actionCommand = e.getActionCommand();
 
         switch (actionCommand){
+            case "NO FILTER":
+                    if (preferencesPanel.noFilterChecked()){
+                        preferencesPanel.disableFilter();
+                        updateAgeFilter();
+                        System.out.println(associatedUser.getMaxAge());
+                    }else{
+                        preferencesPanel.enableFilter();
+                    }
+
+                break;
             case "SAVE":
 
                 try {
@@ -91,6 +101,10 @@ public class PreferencesController implements ActionListener {
                 menuController.cancelPreferences();
                 break;
         }
+    }
+
+    private void updateAgeFilter() {
+        associatedUser.setMaxAge("0");
     }
 
     public User getAssociatedUser(){
