@@ -22,6 +22,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private String destinationUsername;
     private String unmatchingUser;
     private Message sendingMessage;
+    private Chat receivedChat;
 
 
     public ChatController(ChatPanel chatPanel, User associatedUser) {
@@ -40,7 +41,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         if(e.getActionCommand().charAt(0) == 'Z') { //Detecto que l'usuari ha premut un match
             chatPanel.setTextFieldMessage();
             chatPanel.setChosen(true);
-            chatPanel.showMatchConversation((e.getActionCommand().charAt(1) - '0'));
+            JButton jbPressed = (JButton) e.getSource();
+            String chatUsername = jbPressed.getText();
+            System.out.println("Username: "+chatUsername);
+            loadMatchingChat(chatUsername);
 
         }
 
@@ -185,13 +189,18 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         return destinationUsername;
     }
 
-    public void loadChat(Chat receivedChat) {
-        StringBuilder stringBuilder = new StringBuilder();
+    public void loadChat() {
+        if(receivedChat != null){
+            StringBuilder stringBuilder = new StringBuilder();
 
-        for (Message m: receivedChat.getMessages()) {
-            stringBuilder.append(m.toString()).append(System.lineSeparator());
+            for(Message m: receivedChat.getMessages()) {
+                stringBuilder.append(m.toString()).append(System.lineSeparator());
+            }
+            chatPanel.writeChat(stringBuilder.toString());
+        } else {
+            chatPanel.writeChat("Start chatting now!");
         }
-        chatPanel.writeChat(stringBuilder.toString());
+
     }
 
     public String getSourceUsername() {
@@ -216,8 +225,12 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      */
     public void loadMatchingChat(String destinationUsername) {
         this.destinationUsername = destinationUsername;
-        //serverComunicationChat.startServerComunication(LOAD_CHAT);
-        //serverComunicationChat.join();
+        serverComunicationChat.startServerComunication(LOAD_CHAT);
+        loadChat();
+    }
+
+    public void setReceivedChat(Chat receivedChat) {
+        this.receivedChat = receivedChat;
     }
 }
 

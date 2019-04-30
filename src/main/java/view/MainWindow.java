@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import model.entity.Chat;
 import model.entity.User;
 
 import javax.swing.*;
@@ -413,8 +414,8 @@ public class MainWindow extends JFrame{
         return this.getLocation();
     }
 
-    public void generateMatchList(LinkedList<String> matchedUsernames) {
-        jpChat.generateDynamicMatchButtons(matchedUsernames);
+    public void generateMatchList(LinkedList<String> matchedUsernames, ChatController chatController) {
+        jpChat.generateDynamicMatchButtons(matchedUsernames, chatController);
     }
 
     public String getActualPanel() {

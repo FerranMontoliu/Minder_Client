@@ -64,11 +64,9 @@ public class MenuController implements ActionListener, WindowListener {
             case "CHAT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CHAT")) {
-                        //TODO: Descomentar la Comunicacio quan tot funcioni
-                        //serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-                        //serverComunicationChat.join();
+                        serverComunicationChat.startServerComunication(USER_MATCH_LIST);
 
-                        mainWindow.generateMatchList(matchedUsernames);
+                        mainWindow.generateMatchList(matchedUsernames, chatController);
                         mainWindow.selectChat();
                         mainWindow.changePanel("CHAT");
                         chatController.runDefaultAppearance();
@@ -173,13 +171,12 @@ public class MenuController implements ActionListener, WindowListener {
     public void goToChatWith(User userMatched) {
         //TODO: Descomentar la Comunicacio quan tot funcioni
         //Obtenim la info per carregar el ChatPanel
-        //serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-        //serverComunicationChat.join();
-        mainWindow.generateMatchList(matchedUsernames);
+        serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+        mainWindow.generateMatchList(matchedUsernames, chatController);
 
         //Obrim directament el chat concret
         chatController.loadMatchingChat(userMatched.getUsername());
-        //serverComunicationChat.join();
+
 
 
         //Canvia el panell

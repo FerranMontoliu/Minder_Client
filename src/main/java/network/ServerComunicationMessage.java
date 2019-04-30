@@ -59,7 +59,7 @@ public class ServerComunicationMessage extends Thread {
         try {
             while (isOn) {
                 Chat receivedChat = (Chat) objectIn.readObject();
-                chatController.loadChat(receivedChat);
+                chatController.loadChat();
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

@@ -14,14 +14,13 @@ import java.net.Socket;
 /**
  * Classe encarregada de les comunicacions per a carregar els elements necessaris del ChatPanel. No gestiona la missatgeria.
  */
-public class ServerComunicationChat extends Thread {
+public class ServerComunicationChat {
     private static final char USER_UNMATCHED = 'e';
     private static final char LOAD_CHAT = 'f';
     private static final char USER_MATCH_LIST = 'h';
 
     private ChatController chatController;
     private MenuController menuController;
-    private boolean isOn;
     private Socket socketToServer;
     private DataInputStream dataIn;
     private DataOutputStream dataOut;
@@ -31,7 +30,6 @@ public class ServerComunicationChat extends Thread {
 
     public ServerComunicationChat(MenuController menuController, ChatController chatController){
         try {
-            this.isOn = false;
             this.menuController = menuController;
             this.chatController = chatController;
 
@@ -54,20 +52,6 @@ public class ServerComunicationChat extends Thread {
      */
     public void startServerComunication(char command) {
         this.command = command;
-        isOn = true;
-        this.start();
-    }
-
-    /**
-     * Metode encarregat de tancar la comunicacio client-servidor.
-     */
-    public void stopServerComunication() {
-        this.isOn = false;
-        this.interrupt();
-    }
-
-    @Override
-    public void run() {
         try {
             dataOut.writeChar(command);
             switch (command){
@@ -79,8 +63,14 @@ public class ServerComunicationChat extends Thread {
                 case LOAD_CHAT:
                     dataOut.writeUTF(chatController.getSourceUsername());
                     dataOut.writeUTF(chatController.getDestinationUsername());
-                    Chat receivedChat = (Chat) objectIn.readObject();
-                    chatController.loadChat(receivedChat);
+                    boolean chatExists = dataIn.readBoolean();
+                    if(chatExists){
+                        Chat receivedChat = (Chat) objectIn.readObject();
+                        chatController.setReceivedChat(receivedChat);
+                    }else{
+                        chatController.setReceivedChat(null);
+                    }
+
                     break;
                 case USER_UNMATCHED:
                     dataOut.writeUTF(chatController.getSourceUsername());

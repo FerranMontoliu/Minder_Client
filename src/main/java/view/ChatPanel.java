@@ -100,14 +100,15 @@ public class ChatPanel extends JPanel {
         jtfMissatge.setActionCommand("TEXT");
         jbSend.setActionCommand("SEND");
 
+    }
+
+    public void registraButtons(ChatController controller){
         for(int i=0;i<jbMatches.size();i++) {
             jbMatches.get(i).addActionListener(controller);
             jbMatches.get(i).addMouseListener(controller);
             jbMatches.get(i).setActionCommand("Z"+String.valueOf(i));
         }
-
     }
-
 
     public void showUserPhotos() {
         jpMatches = new JPanel();
@@ -129,18 +130,20 @@ public class ChatPanel extends JPanel {
         jspMatches.getViewport().add(jpMatches);
     }
 
-    public void generateDynamicMatchButtons(LinkedList<String> userMatchs){
+    public void generateDynamicMatchButtons(LinkedList<String> userMatchs, ChatController controller){
 
         //Opció DINÀMICA
 
         if(userMatchs.size() > 0){
+            jlNoMatchs.setText("");
             //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
             int size = userMatchs.size();
             for(int i = 0; i < size; i++){
                 JButton match = new JButton(userMatchs.get(i));
-                //Falta fer el setIcon
+
                 jbMatches.add(match);
                 jpMatches.add(match);
+                registraButtons(controller);
             }
         }
 

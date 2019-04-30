@@ -32,4 +32,8 @@ public class MatchLoader implements Serializable {
         matchedUsernames.add(username);
     }
 
+    public boolean hasMatchs(){
+        return (matchedUsernames.size() > 0);
+    }
+
 }
