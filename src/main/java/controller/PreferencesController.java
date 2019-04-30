@@ -6,6 +6,8 @@ import model.UserManager;
 import model.entity.User;
 import network.ServerCommunicationPreferences;
 import network.ServerComunicationEdit;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import view.EditPanel;
 import view.PreferencesPanel;
 
@@ -41,12 +43,13 @@ public class PreferencesController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        boolean editingPassword;
         switch (actionCommand){
             case "NO FILTER":
                     if (preferencesPanel.noFilterChecked()){
                         preferencesPanel.disableFilter();
-                        updateAgeFilter();
+                        updateMaxAgeNoFilter();
                         System.out.println(associatedUser.getMaxAge());
                     }else{
                         preferencesPanel.enableFilter();
@@ -56,22 +59,42 @@ public class PreferencesController implements ActionListener {
             case "SAVE":
 
                 try {
+                    //Potser l'usuari no vol canviar la contrassenya i vol editar algun altre camp. En aquest cas, miro
+                    //si la current password esta buida i una de les altres esta plena, ja que voldra dir que vol canviar
+                    //la contrassenya pero la current no estara be (esta buida). En canvi, si les tres estan buides vol dir
+                    //que no la vol canviar
+                    if (preferencesPanel.getCurrentPassword().isEmpty() && (!preferencesPanel.getNewPassword().isEmpty()
+                            || !preferencesPanel.getNewPasswordConfirm().isEmpty())){
+                        UserManager.isEmpty(preferencesPanel.getCurrentPassword(), "password");
 
-                    UserManager.isEmpty(preferencesPanel.getCurrentPassword(), "password");
-                    //TODO: verificar que la current es realment la current
-                    //ara cutre i trencant paradigmes:
-                    sc.startServerComunication(CHECK_USER); //aixo em diu si correct login o no (mira la contrassenya
-                    //System.out.println(preferencesPanel.getCurrentPassword());
-                    //System.out.println(associatedUser.getPassword());
-                    //System.out.println(correctLogin);
-                    if (correctLogin){
+                        sc.startServerComunication(CHECK_USER); //aixo em diu si correct login o no (mira la contrassenya
+                        //System.out.println(preferencesPanel.getCurrentPassword());
+                        //System.out.println(associatedUser.getPassword());
+                        //System.out.println(correctLogin);
+                        editingPassword = true;
+                    }else{
+                        //System.out.println("no editing password");
+                        editingPassword = false;
+                    }
+
+                    if (correctLogin && editingPassword) {
                         String newPassword = preferencesPanel.getNewPassword();
                         String newConfirmPassword = preferencesPanel.getNewPasswordConfirm();
                         UserManager.isEmpty(newPassword, "password");
                         UserManager.signUpPasswordIsCorrect(newPassword, newConfirmPassword);
 
+                        String hashedPassword = encoder.encode(newPassword);
                         //TODO: fer update de new password, age filter and premium access
-                        //associatedUser.savePreferencesUpdate();
+                        associatedUser.savePreferencesUpdate(hashedPassword, preferencesPanel.getIsPremium(), preferencesPanel.getMinAge(), preferencesPanel.getMaxAge(), preferencesPanel.noFilterChecked());
+                    }
+                    if(!correctLogin && editingPassword){
+                        preferencesPanel.showWarning("Current Password incorrect. Please, try again");
+                        return;
+                    }
+                    if(!editingPassword){
+                        associatedUser.savePreferencesUpdate(associatedUser.getPassword(), preferencesPanel.getIsPremium(), preferencesPanel.getMinAge(), preferencesPanel.getMaxAge(), preferencesPanel.noFilterChecked());
+                        System.out.println(associatedUser.getMaxAge());
+                    }
 
                         sc.startServerComunication(EDIT_PREFERENCES);
                         associatedUser.setCompleted(true);
@@ -84,9 +107,7 @@ public class PreferencesController implements ActionListener {
                         }else{
                             preferencesPanel.showWarning("There has been a problem with the server communication.");
                         }
-                    }else{
-                        preferencesPanel.showWarning("Current Password incorrect. Please, try again");
-                    }
+
                     //TODO: enviar al servidor
                 } catch (EmptyTextFieldException e1) {
                     preferencesPanel.showWarning(e1.getMessage());
@@ -103,7 +124,10 @@ public class PreferencesController implements ActionListener {
         }
     }
 
-    private void updateAgeFilter() {
+    /**
+     * Metode que actuaitza el camp
+     */
+    private void updateMaxAgeNoFilter() {
         associatedUser.setMaxAge("0");
     }
 

@@ -44,6 +44,7 @@ public class ServerCommunicationPreferences {
                 User associateddUser = preferencesController.getAssociatedUser();
                 objectOut.writeObject(associateddUser);
                 boolean editOK = dataIn.readBoolean();
+
                 preferencesController.setEditResult(editOK);
                 break;
             case CHECK_USER: //IGUAL A LOGIN_USER: vull saber si existeix aquest usuari i contrassenya

@@ -322,6 +322,20 @@ public class PreferencesPanel extends JPanel {
         return jtfUsername.getText();
     }
 
+    public boolean getIsPremium(){
+        return jrbPremium.isSelected();
+    }
+
+    public String getMinAge() {
+        int age = jcbMinAgeFilter.getSelectedIndex() + 18;
+        return String.valueOf(age);
+    }
+
+    public String getMaxAge() {
+        int age = jcbMaxAgeFilter.getSelectedIndex() + 18;
+        return String.valueOf(age);
+    }
+
     public void disableFilter() {
         jcbMinAgeFilter.setEnabled(false);
         jcbMaxAgeFilter.setEnabled(false);
@@ -335,5 +349,6 @@ public class PreferencesPanel extends JPanel {
     public boolean noFilterChecked() {
         return jcNoFilter.isSelected();
     }
+
 
 }

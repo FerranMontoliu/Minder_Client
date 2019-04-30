@@ -444,6 +444,7 @@ public class MainWindow extends JFrame{
     public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge) {
         if (maxAge == 0){
             jpPreferences.disableFilter();
+            maxAge = 99;
         }
         jpPreferences.initiatePreferences(username, email, age, isPremium, minAge, maxAge);
 
