@@ -63,8 +63,10 @@ public class PreferencesController implements ActionListener {
                     //si la current password esta buida i una de les altres esta plena, ja que voldra dir que vol canviar
                     //la contrassenya pero la current no estara be (esta buida). En canvi, si les tres estan buides vol dir
                     //que no la vol canviar
-                    if (preferencesPanel.getCurrentPassword().isEmpty() && (!preferencesPanel.getNewPassword().isEmpty()
-                            || !preferencesPanel.getNewPasswordConfirm().isEmpty())){
+                    if(preferencesPanel.getCurrentPassword().isEmpty() && preferencesPanel.getNewPassword().isEmpty()
+                            && preferencesPanel.getNewPasswordConfirm().isEmpty()){
+                        editingPassword = false;
+                    }else{
                         UserManager.isEmpty(preferencesPanel.getCurrentPassword(), "password");
 
                         sc.startServerComunication(CHECK_USER); //aixo em diu si correct login o no (mira la contrassenya
@@ -72,10 +74,8 @@ public class PreferencesController implements ActionListener {
                         //System.out.println(associatedUser.getPassword());
                         //System.out.println(correctLogin);
                         editingPassword = true;
-                    }else{
-                        //System.out.println("no editing password");
-                        editingPassword = false;
                     }
+
 
                     if (correctLogin && editingPassword) {
                         String newPassword = preferencesPanel.getNewPassword();

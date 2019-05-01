@@ -41,8 +41,9 @@ public class ServerCommunicationPreferences {
         switch (command){
             case EDIT_PREFERENCES:
                 dataOut.writeChar(EDIT_PREFERENCES);
-                User associateddUser = preferencesController.getAssociatedUser();
-                objectOut.writeObject(associateddUser);
+                User associatedUser = preferencesController.getAssociatedUser();
+                //System.out.println("objectOut "+associatedUser.getMaxAge());
+                objectOut.writeObject(associatedUser);
                 boolean editOK = dataIn.readBoolean();
 
                 preferencesController.setEditResult(editOK);
