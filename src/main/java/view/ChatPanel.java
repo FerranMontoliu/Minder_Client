@@ -138,6 +138,7 @@ public class ChatPanel extends JPanel {
             jlNoMatchs.setText("");
             //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
             int size = userMatchs.size();
+            jbMatches = new LinkedList<>();
             for(int i = 0; i < size; i++){
                 JButton match = new JButton(userMatchs.get(i));
 
@@ -264,6 +265,9 @@ public class ChatPanel extends JPanel {
 
     }
 
+    /**
+     * Metode que mostra un JDialog d'error informant que l'usuari no ha escrit res al JTextFiled Missatge
+     */
     public void noTextMessageError() {
         JOptionPane.showMessageDialog(this, "You have not written anything!!", "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -276,12 +280,28 @@ public class ChatPanel extends JPanel {
         jtpane.setText(generatedChat);
     }
 
+    /**
+     * Metode que inhabilita el JButton i JTextField d'enviar missatge d'enviar missatge
+     */
     public void disableSend(){
         jbSend.setEnabled(false);
+        jtfMissatge.setEnabled(false);
     }
 
+    /**
+     * Metode que habilita el JButton i JTextField d'enviar missatge
+     */
     public void enableSend(){
+        jtfMissatge.setEnabled(true);
         jbSend.setEnabled(true);
+    }
+
+    public void removeButton(String source) {
+        for(JButton jb: jbMatches){
+            if(jb.getText().equals(source)){
+                jbMatches.remove(jb);
+            }
+        }
     }
 }
 

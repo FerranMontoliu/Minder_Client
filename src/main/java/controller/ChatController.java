@@ -15,6 +15,7 @@ import static java.lang.Thread.sleep;
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
     private static final char USER_UNMATCHED = 'e';
     private static final char LOAD_CHAT = 'f';
+    private static final char USER_MATCH_LIST = 'h';
     private ServerComunicationChat serverComunicationChat;
 
     private ChatPanel chatPanel;
@@ -23,6 +24,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private String unmatchingUser;
     private Message sendingMessage;
     private Chat receivedChat;
+    private LinkedList<String> matchedUsernames;
 
 
     public ChatController(ChatPanel chatPanel, User associatedUser) {
@@ -43,9 +45,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
             chatPanel.setChosen(true);
             JButton jbPressed = (JButton) e.getSource();
             String chatUsername = jbPressed.getText();
-            System.out.println("Username: "+chatUsername);
             loadMatchingChat(chatUsername);
-
+            chatPanel.enableSend();
+            chatPanel.changeBorderName(chatUsername);
         }
 
         if(e.getActionCommand().equals("SEND")) { //Ens han apretat el BOTÓ d'enviar
@@ -102,17 +104,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-
-        if(SwingUtilities.isRightMouseButton(e) ) {
-            System.out.println("UNMATCH");
-            //TODO: Aconseguir el nom del user que has fet click
-            getRightClickUnmatch(e);
-            serverComunicationChat.startServerComunication(USER_UNMATCHED);
-            boolean remove = chatPanel.throwUnmatchMessage();
-            if(remove) {
-                System.out.println("Match has been removed");
-            }
-        }
     }
 
     private void getRightClickUnmatch(MouseEvent e) {
@@ -135,7 +126,20 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        chatPanel.setSendIcon();
+        if(SwingUtilities.isRightMouseButton(e) ) {
+            System.out.println("UNMATCH");
+            //TODO: Aconseguir el nom del user que has fet click
+            getRightClickUnmatch(e);
+            serverComunicationChat.startServerComunication(USER_UNMATCHED);
+            boolean remove = chatPanel.throwUnmatchMessage();
+            if(remove) {
+                serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+                chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
+                System.out.println("Match has been removed");
+            }
+        }else{
+            chatPanel.setSendIcon();
+        }
     }
 
     /**
@@ -231,6 +235,11 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     public void setReceivedChat(Chat receivedChat) {
         this.receivedChat = receivedChat;
+    }
+
+    public void loadMatchesList(LinkedList<String> matchedUsernames) {
+        this.matchedUsernames = new LinkedList<>();
+        this.matchedUsernames = matchedUsernames;
     }
 }
 

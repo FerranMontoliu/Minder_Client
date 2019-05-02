@@ -59,6 +59,7 @@ public class ServerComunicationChat {
                     dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
                     MatchLoader matchLoader = (MatchLoader) objectIn.readObject();
                     menuController.loadMatchesList(matchLoader.getMatchedUsernames());
+                    chatController.loadMatchesList(matchLoader.getMatchedUsernames());
                     break;
                 case LOAD_CHAT:
                     dataOut.writeUTF(chatController.getSourceUsername());
