@@ -127,12 +127,11 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     @Override
     public void mouseReleased(MouseEvent e) {
         if(SwingUtilities.isRightMouseButton(e) ) {
-            System.out.println("UNMATCH");
-            //TODO: Aconseguir el nom del user que has fet click
             getRightClickUnmatch(e);
             serverComunicationChat.startServerComunication(USER_UNMATCHED);
             boolean remove = chatPanel.throwUnmatchMessage();
             if(remove) {
+                //chatPanel.removeUser(unmatchingUser);
                 serverComunicationChat.startServerComunication(USER_MATCH_LIST);
                 chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
                 System.out.println("Match has been removed");
@@ -238,7 +237,14 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     }
 
     public void loadMatchesList(LinkedList<String> matchedUsernames) {
-        this.matchedUsernames = new LinkedList<>();
+        if(this.matchedUsernames == null){
+            this.matchedUsernames = new LinkedList<>();
+        }else{
+            if(this.matchedUsernames.size() > 0){
+                this.matchedUsernames.clear();
+            }
+        }
+
         this.matchedUsernames = matchedUsernames;
     }
 }

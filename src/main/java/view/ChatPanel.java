@@ -113,18 +113,7 @@ public class ChatPanel extends JPanel {
     public void showUserPhotos() {
         jpMatches = new JPanel();
         jbMatches = new LinkedList<>();
-        //Opcio ESTÀTICA
-        /*
-        jbMatches = new LinkedList<>(); //Array de matches, per les seves fotos
-        ImageIcon[] Send = new ImageIcon[2];
-        Send[0] = new ImageIcon("icons/userDark.png");
-        Send[1] = new ImageIcon("icons/userLight.png");
-        jbMatches.add(new JButton("Pene",Send[0]));
-        jbMatches.add(new JButton("Nepe",Send[1]));
-        for(int i=0;i<jbMatches.size();i++) {
-            jpMatches.add(jbMatches.get(i));
-        }
-        */
+
         jlNoMatchs = new JLabel("You don't have any chats");
         jpMatches.add(jlNoMatchs);
         jspMatches.getViewport().add(jpMatches);
@@ -133,19 +122,24 @@ public class ChatPanel extends JPanel {
     public void generateDynamicMatchButtons(LinkedList<String> userMatchs, ChatController controller){
 
         //Opció DINÀMICA
-
         if(userMatchs.size() > 0){
             jlNoMatchs.setText("");
             //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
+            for(JButton jb: jbMatches){
+                jpMatches.remove(jb);
+            }
+            jbMatches.clear();
             int size = userMatchs.size();
             jbMatches = new LinkedList<>();
             for(int i = 0; i < size; i++){
                 JButton match = new JButton(userMatchs.get(i));
-
+                System.out.println("Names: "+match.getText());
                 jbMatches.add(match);
                 jpMatches.add(match);
                 registraButtons(controller);
             }
+        }else{
+            jlNoMatchs.setText("You don't have any chats");
         }
 
     }
@@ -209,23 +203,6 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Posa la conversa entre els matches al JTextPane, en funcio del numero de match que se li passa
-     * @param index
-     */
-    //TODO: CANVIAR
-    public void showMatchConversation(int index) { //String de missatges
-        if(index == 0) {
-            jtpane.setText("\n\n\n\n\t \n\nPol: Em vull morir");
-            changeBorderName("La vida");
-        }
-        if(index == 1) {
-            jtpane.setText("\nFerran: Sóc de Balaguer i m'agraden els tractors");
-            changeBorderName("Ferran");
-
-        }
-    }
-
-    /**
      * Escriu el nom de la persona amb qui s'esta xatejant al Border
      * @param name
      */
@@ -256,7 +233,7 @@ public class ChatPanel extends JPanel {
     public boolean throwUnmatchMessage() {
         int dialogButton  = 0;
         dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","Warning", dialogButton);
-        if(dialogButton == JOptionPane.NO_OPTION) {
+        if(dialogButton == JOptionPane.YES_OPTION) {
             remove(dialogButton);
             return true;
         }
@@ -296,10 +273,13 @@ public class ChatPanel extends JPanel {
         jbSend.setEnabled(true);
     }
 
-    public void removeButton(String source) {
+    public void removeUser(String unmatchingUser) {
+        System.out.println(jbMatches.size());
         for(JButton jb: jbMatches){
-            if(jb.getText().equals(source)){
-                jbMatches.remove(jb);
+            if(jb.getText().equals(unmatchingUser)){
+                jb.setVisible(false);
+                //jpMatches.remove(jb);
+                //jbMatches.remove(jb);
             }
         }
     }

@@ -273,7 +273,14 @@ public class MenuController implements ActionListener, WindowListener {
     }
 
     public void loadMatchesList(LinkedList<String> matchedUsernames) {
-        this.matchedUsernames = new LinkedList<>();
+        if(this.matchedUsernames == null){
+            this.matchedUsernames = new LinkedList<>();
+        }else{
+            if(this.matchedUsernames.size() > 0){
+                this.matchedUsernames.clear();
+            }
+        }
+
         this.matchedUsernames = matchedUsernames;
     }
 
