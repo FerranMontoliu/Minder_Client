@@ -14,7 +14,7 @@ public class ProfileController {
     }
 
     public void showUser(User associatedUser) {
-        if (associatedUser.getHobbies().length == 0){
+        if ((associatedUser.getHobbies() == null) || (associatedUser.getHobbies() == "")){
             String[] hobbies = new String[0];
             hobbies[0] = "-";
             associatedUser.setHobbies(hobbies);

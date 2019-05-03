@@ -326,14 +326,14 @@ public class PreferencesPanel extends JPanel {
         return jrbPremium.isSelected();
     }
 
-    public String getMinAge() {
+    public int getMinAge() {
         int age = jcbMinAgeFilter.getSelectedIndex() + 18;
-        return String.valueOf(age);
+        return age;
     }
 
-    public String getMaxAge() {
+    public int getMaxAge() {
         int age = jcbMaxAgeFilter.getSelectedIndex() + 18;
-        return String.valueOf(age);
+        return age;
     }
 
     public void disableFilter() {

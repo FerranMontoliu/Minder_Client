@@ -239,14 +239,14 @@ public class EditPanel extends JPanelSlider {
      * @param java boolean que es true si li agrada Java
      * @param c boolean que es true si li agrada C
      */
-    public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String[] hobbies) {
+    public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String hobbies) {
+        jlProfilePic.setText("No image selected.");
         try{
-            ImageIcon profilePicture = new ImageIcon("data/"+username+".jpg");
+            ImageIcon profilePicture = new ImageIcon("MinderDownloads/"+username+".jpg");
             jlProfilePic.setText("");
             jlProfilePic.setIcon(new ImageIcon(profilePicture.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         }catch(Exception e1){
             provisionalImage = null;
-            jlProfilePic.setText("No image selected.");
         }
         if((userDescription == null)||(userDescription.length() == 0)){
             jtaNewDescription.setText("");
@@ -264,10 +264,10 @@ public class EditPanel extends JPanelSlider {
         }else{
             jtfSong.setText(song);
         }
-        if(hobbies == null){
+        if((hobbies == null) || (hobbies == "")){
             jtaHobbies.setText(HOBBIES_DEFAULT_TEXT);
         }else{
-            jtaHobbies.setText("prova"); //TODO: Transformar els hobbies en string
+            jtaHobbies.setText(hobbies);
         }
     }
 

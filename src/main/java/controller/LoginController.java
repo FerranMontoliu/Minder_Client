@@ -120,7 +120,7 @@ public class LoginController implements ActionListener, WindowListener {
                     UserManager.isAdult(w.getSignUpAgeField());
                     UserManager.isAgeFilterCorrect(w.getMinAge(), w.getMaxAge());
                     String hashedPassword = encoder.encode(passwords[0]);
-                    associatedUser = new User(UserManager.fixSQLInjections(w.getSignUpUsername()), w.getSignUpAgeField(), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword, w.getMinAge(), w.getMaxAge());
+                    associatedUser = new User(UserManager.fixSQLInjections(w.getSignUpUsername()), Integer.parseInt(w.getSignUpAgeField()), w.isPremiumSignUp(), w.getSignUpEmail(), hashedPassword, Integer.parseInt(w.getMinAge()), Integer.parseInt(w.getMaxAge()));
 
                     sc.startServerComunication(REGISTER_USER);
 

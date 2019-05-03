@@ -21,12 +21,10 @@ public class ConnectController implements ActionListener, MouseListener {
     private ServerComunicationConnect serverComunicationConnect;
     private boolean isMatch;
 
-    //private MatchPanel matchPanel;
     private MenuController menuController;
     private boolean like;
     public final static int IMAGE_LIMIT = 115;
 
-    private ActionEvent mouseEvent;
 
     public ConnectController(ConnectPanel connectPanel, MenuController menuController, User associatedUser) {
         this.connectPanel = connectPanel;
@@ -63,8 +61,7 @@ public class ConnectController implements ActionListener, MouseListener {
      * Metode que gestiona la opcio de mostrar mes informacio (nomes accessible des del boto blau d'informacio)
      */
     private void infoActions() {
-        System.out.println("I like trains");
-        loadUserInfo();  //TODO: Descomentar quan es treballi amb Server
+        loadUserInfo();
         menuController.showUserToConnectProfile();
     }
 

@@ -270,19 +270,8 @@ public class ProfilePanel extends JPanel {
     /**
      * Metode que actualitza la informacio de l'usuari segons la informacio que se li passa com a parametre, de tal
      * manera que omple els camps del perfil amb aquesta informacio
-     * @param user: usuari que ha iniciat sessio i que vol accedir a la seva informacio
      */
-    public void updateInfo(String username, int age, String description, boolean likesJava, boolean likesC,
-                           String[] hobbies, String song){
-        //TODO: cridar la funcio des del controller amb l'usuari per paramtre
-        /*jlName.setText("Pol Rayos");
-        jlAge.setText("19");
-        jlFavProgramming.setText ("Java");
-        jlFavHobbies.setText("Destrossar el github, Fer cafès");
-        jlDescription.setText("M'agrada passar hores al lab de compus");
-*/
-        //TODO: Opció DINÀMICA
-        //TODO ALBA: descomentar les dues instruccions inferiors per a convertir la imatge en base 64 de l'usuari
+    public void updateInfo(String username, int age, String description, boolean likesJava, boolean likesC, String hobbies, String song){
         updateNameAge(username, age);
         updateDescription(description);
         updateFavProgramming(likesJava,likesC);
@@ -374,15 +363,8 @@ public class ProfilePanel extends JPanel {
      * ha fet login
      * @param hobbies Array de Strings on cadascun representa una accio
      */
-    private void updateHobbies(String[] hobbies) {
-        String text = "";
-        for(int i=0; i < hobbies.length;i++){
-            text = text + hobbies[i];
-            if (i+1 < hobbies.length){
-                text = text + ", ";
-            }
-        }
-        jlFavHobbies.setText(text);
+    private void updateHobbies(String hobbies) {
+        jlFavHobbies.setText(hobbies);
     }
 
     /**

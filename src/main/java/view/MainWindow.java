@@ -398,7 +398,7 @@ public class MainWindow extends JFrame{
     }
 
 
-    public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String[] hobbies) {
+    public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String hobbies) {
         jpEdit.initiateEdit(username, userDescription, java, c, song, hobbies);
     }
 
@@ -422,13 +422,9 @@ public class MainWindow extends JFrame{
         return selected;
     }
 
-    /**
-     * Metode que actualitza la informacio de l'usuari a mostrar al connectPanel
-     * @param connectUser usuari del que es vol saber mes informacio per a fer-li un like o dislike
-     */
-    public void loadConnectUserInfo(User connectUser) {
-        jpOtherProfile.updateInfo(connectUser.getUsername(), connectUser.getAge(), connectUser.getDescription(),
-                connectUser.getLikesJava(), connectUser.getLikesC(), connectUser.getHobbies(), connectUser.getFavSong());
+
+    public void loadConnectUserInfo(String username, String userDescription, int age, boolean java, boolean c, String song, String hobbies) {
+        jpOtherProfile.updateInfo(username, age,userDescription, java, c, hobbies, song);
     }
 
     /**

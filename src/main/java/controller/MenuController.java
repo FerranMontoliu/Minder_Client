@@ -109,15 +109,13 @@ public class MenuController implements ActionListener, WindowListener {
 
             case "EDIT":
                 mainWindow.changePanel("EDIT");
-                //TODO: Aquestes variables realment les hauria d'agafar del atribut associatedUser, però de moment són proves
-                associatedUser.base64ToImage(associatedUser.getUsername());  //Aixo et descarrega la img a la carpeta data amb el nom del User com a titol
+                associatedUser.base64ToImage(associatedUser.getUsername());
                 String userDescription = associatedUser.getDescription();
                 boolean java = associatedUser.getLikesJava();
                 boolean c = associatedUser.getLikesC();
                 String song = associatedUser.getFavSong();
-                String[] hobbies = associatedUser.getHobbies();
+                String hobbies = associatedUser.getHobbies();
                 mainWindow.initiateEdit(associatedUser.getUsername(), userDescription, java, c, song, hobbies);
-                //mainWindow.setSelectedImage(associatedUser.getImage(), associatedUser.getDescription()...);
                 break;
             case "ACCOUNT PREFERENCES":
                 //TODO: descomentar associatedUser.getMinAge() i getMaxAge()
@@ -243,8 +241,6 @@ public class MenuController implements ActionListener, WindowListener {
         if(associatedUser.isCompleted()){
             if(!mainWindow.isSelected("LOGOUT")) {
                 logoutController.showLogout();
-                //mainWindow.selectLogout();
-                //mainWindow.changePanel("LOGOUT");
             }
         }else{
             mainWindow.showWarning("No pots abandonar fins que el perfil no estigui complert.");
@@ -286,7 +282,15 @@ public class MenuController implements ActionListener, WindowListener {
      * @param connectUser usuari que s'esta visualitzant
      */
     public void loadConnectUserInfo(User connectUser) {
-        mainWindow.loadConnectUserInfo(connectUser);
+        String username = connectUser.getUsername();
+        connectUser.base64ToImage(username);
+        String userDescription = connectUser.getDescription();
+        boolean java = connectUser.getLikesJava();
+        boolean c = connectUser.getLikesC();
+        String song = connectUser.getFavSong();
+        String hobbies = connectUser.getHobbies();
+        int age = connectUser.getAge();
+        mainWindow.loadConnectUserInfo(username, userDescription, age,java, c, song, hobbies);
     }
 
     /**

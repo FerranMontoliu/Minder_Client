@@ -128,7 +128,7 @@ public class PreferencesController implements ActionListener {
      * Metode que actuaitza el camp
      */
     private void updateMaxAgeNoFilter() {
-        associatedUser.setMaxAge("0");
+        associatedUser.setMaxAge(0);
     }
 
     public User getAssociatedUser(){
