@@ -59,8 +59,8 @@ public class MenuController implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-
-        switch (actionCommand) {  //TODO:Aqui cal fer la comprovacio del boolean del User isCompleted perque l'opcio de canviar de menu ha d'estar inhabilitada.
+        chatController.runDefaultAppearance();  //Necessari
+        switch (actionCommand) {
             case "CHAT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CHAT")) {
@@ -69,7 +69,6 @@ public class MenuController implements ActionListener, WindowListener {
                         mainWindow.generateMatchList(matchedUsernames, chatController);
                         mainWindow.selectChat();
                         mainWindow.changePanel("CHAT");
-                        chatController.runDefaultAppearance();
 
                     }
                 }
@@ -78,7 +77,6 @@ public class MenuController implements ActionListener, WindowListener {
             case "CONNECT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CONNECT")) {
-                        //System.out.println("obtain connect user. Estic a gotoCOnnect panel del menu controller");
                         connectController.obtainConnectUser();
                         mainWindow.selectConnect();
                         mainWindow.changePanel("CONNECT");
@@ -100,9 +98,7 @@ public class MenuController implements ActionListener, WindowListener {
             case "LOGOUT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("LOGOUT")) {
-                        //mainWindow.selectLogout();
                         logoutController.showLogout();
-                        //mainWindow.changePanel("LOGOUT");
                     }
                 }
                 break;
@@ -118,12 +114,9 @@ public class MenuController implements ActionListener, WindowListener {
                 mainWindow.initiateEdit(associatedUser.getUsername(), userDescription, java, c, song, hobbies);
                 break;
             case "ACCOUNT PREFERENCES":
-                //TODO: descomentar associatedUser.getMinAge() i getMaxAge()
                 mainWindow.changePanel("ACCOUNT PREFERENCES");
-                int minAge = 24;
-                int maxAge = 35;
-                //int minAge = associatedUser.getMinAge();
-                //int maxAge = associatedUser.getMaxAge();
+                int minAge = associatedUser.getMinAge();
+                int maxAge = associatedUser.getMaxAge();
                 String email = associatedUser.getMail();
                 mainWindow.initiatePreferences(associatedUser.getUsername(), email, associatedUser.getAge(), associatedUser.isPremium(), minAge, maxAge);
                 break;

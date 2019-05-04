@@ -14,9 +14,9 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ProfilePanel extends JPanel {
     private static final String DESCRIPTION_TAG = " Description: ";
-    private static final String HOBBIES_TAG = " Favorite Hobbies: ";
-    private static final String PROGRAMMING_TAG = " Favorite programming language: ";
-    private static final String SONG_TAG = " Favorite song: ";
+    private static final String HOBBIES_TAG = " Favourite Hobbies: ";
+    private static final String PROGRAMMING_TAG = " Favourite programming language: ";
+    private static final String SONG_TAG = " Favourite song: ";
     private static final Color MINDER_PINK = new Color(202, 123, 148);
     private static final Font INFO_FONT = new Font(Font.DIALOG,  Font.TYPE1_FONT, 12);
     private static final Font TAG_FONT = new Font(Font.DIALOG_INPUT, Font.PLAIN, 11);

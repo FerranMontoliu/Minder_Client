@@ -40,16 +40,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getActionCommand().charAt(0) == 'Z') { //Detecto que l'usuari ha premut un match
-            chatPanel.setTextFieldMessage();
-            chatPanel.setChosen(true);
-            JButton jbPressed = (JButton) e.getSource();
-            String chatUsername = jbPressed.getText();
-            loadMatchingChat(chatUsername);
-            chatPanel.enableSend();
-            chatPanel.changeBorderName(chatUsername);
-        }
-
         if(e.getActionCommand().equals("SEND")) { //Ens han apretat el BOTÓ d'enviar
             System.out.println("SEND MESSAGE");
             if(chatPanel.isChosen()) {
@@ -72,30 +62,38 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 chatPanel.throwErrorMessage();
             }
             chatPanel.resetJTextField();
-        }
-        if(e.getActionCommand().equals("TEXT")) { //Ens han apretat l'ENTER per enviar
-            System.out.println("SEND MESSAGE");
-            if(chatPanel.isChosen()) {
-                String message = chatPanel.retrieveTextToSend();
-                chatPanel.resetJTextField();
-                if(message.length() > 0) {
-                    sendingMessage = new Message(getSourceUsername(), message,getDestinationUsername());
-                    chatPanel.setSentIcon();
-                    try {
-                        sleep(100);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
+        }else{
+            if(e.getActionCommand().equals("TEXT")) { //Ens han apretat l'ENTER per enviar
+                System.out.println("SEND MESSAGE");
+                if (chatPanel.isChosen()) {
+                    String message = chatPanel.retrieveTextToSend();
+                    chatPanel.resetJTextField();
+                    if (message.length() > 0) {
+                        sendingMessage = new Message(getSourceUsername(), message, getDestinationUsername());
+                        chatPanel.setSentIcon();
+                        try {
+                            sleep(100);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                        chatPanel.setSendIcon();
+                    } else {
+                        chatPanel.noTextMessageError(); //Error si s'intenta enviar res de text
                     }
-                    chatPanel.setSendIcon();
+                } else {
+                    chatPanel.throwErrorMessage();
                 }
-                else {
-                    chatPanel.noTextMessageError(); //Error si s'intenta enviar res de text
-                }
-            }
-            else {
-                chatPanel.throwErrorMessage();
+            }else{  //Ens han apretat el botó d'un match
+                chatPanel.setTextFieldMessage();
+                chatPanel.setChosen(true);
+                String chatUsername = e.getActionCommand();
+                loadMatchingChat(chatUsername);
+                chatPanel.enableSend();
+                chatPanel.changeBorderName(chatUsername);
             }
         }
+
+
     }
 
     /**
@@ -131,9 +129,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
             serverComunicationChat.startServerComunication(USER_UNMATCHED);
             boolean remove = chatPanel.throwUnmatchMessage();
             if(remove) {
-                //chatPanel.removeUser(unmatchingUser);
-                serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-                chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
+                chatPanel.removeUser(unmatchingUser, this);
+                //serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+                //chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
                 System.out.println("Match has been removed");
             }
         }else{

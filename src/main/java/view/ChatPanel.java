@@ -106,7 +106,7 @@ public class ChatPanel extends JPanel {
         for(int i=0;i<jbMatches.size();i++) {
             jbMatches.get(i).addActionListener(controller);
             jbMatches.get(i).addMouseListener(controller);
-            jbMatches.get(i).setActionCommand("Z"+String.valueOf(i));
+            jbMatches.get(i).setActionCommand(jbMatches.get(i).getText());
         }
     }
 
@@ -122,6 +122,9 @@ public class ChatPanel extends JPanel {
     public void generateDynamicMatchButtons(LinkedList<String> userMatchs, ChatController controller){
 
         //Opció DINÀMICA
+        jpMatches.removeAll();
+        this.revalidate();
+        this.repaint();
         if(userMatchs.size() > 0){
             jlNoMatchs.setText("");
             //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
@@ -141,7 +144,9 @@ public class ChatPanel extends JPanel {
         }else{
             jlNoMatchs.setText("You don't have any chats");
         }
-
+        jpMatches.add(jlNoMatchs);
+        this.revalidate();
+        this.repaint();
     }
 
     /**
@@ -220,7 +225,8 @@ public class ChatPanel extends JPanel {
         TitledBorder tb2 = new TitledBorder("Chat");
         tb2.setBorder(BorderFactory.createLineBorder(Color.black)); //Color del border total
         jtpane.setBorder(tb2);
-
+        jtfMissatge.setEnabled(false);
+        jbSend.setEnabled(false);
     }
 
     /**
@@ -273,11 +279,16 @@ public class ChatPanel extends JPanel {
         jbSend.setEnabled(true);
     }
 
-    public void removeUser(String unmatchingUser) {
+    public void removeUser(String unmatchingUser, ChatController chatController) {
         System.out.println(jbMatches.size());
         for(JButton jb: jbMatches){
             if(jb.getText().equals(unmatchingUser)){
+                jb.removeActionListener(chatController);
                 jb.setVisible(false);
+                jb.invalidate();
+                this.revalidate();
+                this.repaint();
+                break;
                 //jpMatches.remove(jb);
                 //jbMatches.remove(jb);
             }
