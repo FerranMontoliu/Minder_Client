@@ -84,6 +84,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                     chatPanel.throwErrorMessage();
                 }
             }else{  //Ens han apretat el botó d'un match
+                System.out.println("CLICK ESQUERRE");
                 chatPanel.setTextFieldMessage();
                 chatPanel.setChosen(true);
                 String chatUsername = e.getActionCommand();
@@ -125,13 +126,14 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     @Override
     public void mouseReleased(MouseEvent e) {
         if(SwingUtilities.isRightMouseButton(e) ) {
+            System.out.println("HOLA");
             getRightClickUnmatch(e);
-            serverComunicationChat.startServerComunication(USER_UNMATCHED);
             boolean remove = chatPanel.throwUnmatchMessage();
             if(remove) {
-                chatPanel.removeUser(unmatchingUser, this);
-                //serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-                //chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
+                serverComunicationChat.startServerComunication(USER_UNMATCHED);
+                //chatPanel.removeUser(unmatchingUser, this);
+                serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+                chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
                 System.out.println("Match has been removed");
             }
         }else{

@@ -122,31 +122,29 @@ public class ChatPanel extends JPanel {
     public void generateDynamicMatchButtons(LinkedList<String> userMatchs, ChatController controller){
 
         //Opció DINÀMICA
-        jpMatches.removeAll();
-        this.revalidate();
-        this.repaint();
+        //jpMatches.removeAll();
+
+        for(JButton jb: jbMatches){
+            jb.removeActionListener(controller);
+            jb.setVisible(false);
+        }
+
         if(userMatchs.size() > 0){
             jlNoMatchs.setText("");
             //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
-            for(JButton jb: jbMatches){
-                jpMatches.remove(jb);
-            }
             jbMatches.clear();
             int size = userMatchs.size();
             jbMatches = new LinkedList<>();
             for(int i = 0; i < size; i++){
                 JButton match = new JButton(userMatchs.get(i));
-                System.out.println("Names: "+match.getText());
                 jbMatches.add(match);
                 jpMatches.add(match);
-                registraButtons(controller);
             }
+            registraButtons(controller);
         }else{
             jlNoMatchs.setText("You don't have any chats");
         }
         jpMatches.add(jlNoMatchs);
-        this.revalidate();
-        this.repaint();
     }
 
     /**
@@ -286,8 +284,6 @@ public class ChatPanel extends JPanel {
                 jb.removeActionListener(chatController);
                 jb.setVisible(false);
                 jb.invalidate();
-                this.revalidate();
-                this.repaint();
                 break;
                 //jpMatches.remove(jb);
                 //jbMatches.remove(jb);
