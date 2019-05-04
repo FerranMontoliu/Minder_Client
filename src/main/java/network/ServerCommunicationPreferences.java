@@ -42,10 +42,12 @@ public class ServerCommunicationPreferences {
             case EDIT_PREFERENCES:
                 dataOut.writeChar(EDIT_PREFERENCES);
                 User associatedUser = preferencesController.getAssociatedUser();
-                //System.out.println("objectOut "+associatedUser.getMaxAge());
+
                 objectOut.writeObject(associatedUser);
                 boolean editOK = dataIn.readBoolean();
-
+                if (editOK == true){
+                    preferencesController.showEditOk();
+                }
                 preferencesController.setEditResult(editOK);
                 break;
             case CHECK_USER: //IGUAL A LOGIN_USER: vull saber si existeix aquest usuari i contrassenya

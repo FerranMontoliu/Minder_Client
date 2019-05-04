@@ -351,4 +351,8 @@ public class PreferencesPanel extends JPanel {
     }
 
 
+    public void showSuccess(String message) {
+        JOptionPane.showMessageDialog(null, message,"Success", JOptionPane.INFORMATION_MESSAGE);
+
+    }
 }

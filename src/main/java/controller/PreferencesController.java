@@ -50,7 +50,7 @@ public class PreferencesController implements ActionListener {
                     if (preferencesPanel.noFilterChecked()){
                         preferencesPanel.disableFilter();
                         updateMaxAgeNoFilter();
-                        System.out.println(associatedUser.getMaxAge());
+                        //System.out.println(associatedUser.getMaxAge());
                     }else{
                         preferencesPanel.enableFilter();
                     }
@@ -82,9 +82,10 @@ public class PreferencesController implements ActionListener {
                         String newConfirmPassword = preferencesPanel.getNewPasswordConfirm();
                         UserManager.isEmpty(newPassword, "password");
                         UserManager.signUpPasswordIsCorrect(newPassword, newConfirmPassword);
-
+                        System.out.println("hola");
                         String hashedPassword = encoder.encode(newPassword);
                         //TODO: fer update de new password, age filter and premium access
+                        System.out.println("update pref: "+associatedUser.getUsername() + associatedUser.getMaxAge());
                         associatedUser.savePreferencesUpdate(hashedPassword, preferencesPanel.getIsPremium(), preferencesPanel.getMinAge(), preferencesPanel.getMaxAge(), preferencesPanel.noFilterChecked());
                     }
                     if(!correctLogin && editingPassword){
@@ -93,7 +94,8 @@ public class PreferencesController implements ActionListener {
                     }
                     if(!editingPassword){
                         associatedUser.savePreferencesUpdate(associatedUser.getPassword(), preferencesPanel.getIsPremium(), preferencesPanel.getMinAge(), preferencesPanel.getMaxAge(), preferencesPanel.noFilterChecked());
-                        System.out.println(associatedUser.getMaxAge());
+                        System.out.println("update pref: "+associatedUser.getUsername() + associatedUser.getMaxAge());
+
                     }
 
                         sc.startServerComunication(EDIT_PREFERENCES);
@@ -149,5 +151,9 @@ public class PreferencesController implements ActionListener {
 
     public User getChekingUser() {
         return new User(associatedUser.getUsername(), preferencesPanel.getCurrentPassword());
+    }
+
+    public void showEditOk() {
+        preferencesPanel.showSuccess("Account preferences updated");
     }
 }
