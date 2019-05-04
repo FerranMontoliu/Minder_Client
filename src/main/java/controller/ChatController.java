@@ -5,6 +5,8 @@ import model.entity.Message;
 import model.entity.User;
 import network.ServerComunicationChat;
 import view.ChatPanel;
+import view.LogoutFrame;
+import view.UnmatchFrame;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -25,6 +27,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private Message sendingMessage;
     private Chat receivedChat;
     private LinkedList<String> matchedUsernames;
+    private UnmatchFrame unmatchFrame;
 
 
     public ChatController(ChatPanel chatPanel, User associatedUser) {
@@ -39,31 +42,31 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        if(e.getActionCommand().equals("SEND")) { //Ens han apretat el BOTÓ d'enviar
-            System.out.println("SEND MESSAGE");
-            if(chatPanel.isChosen()) {
-                String message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
-                if(message.length() > 0 & !message.equals("Write a Message... ")) {
-                    sendingMessage = new Message(getSourceUsername(), message,getDestinationUsername());
-                    chatPanel.setSentIcon();
-                    try {
-                        sleep(100);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
+        switch (e.getActionCommand()){
+            case "SEND":
+                System.out.println("SEND MESSAGE");
+                if(chatPanel.isChosen()) {
+                    String message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
+                    if(message.length() > 0 & !message.equals("Write a Message... ")) {
+                        sendingMessage = new Message(getSourceUsername(), message,getDestinationUsername());
+                        chatPanel.setSentIcon();
+                        try {
+                            sleep(100);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                        chatPanel.setSendIcon();
                     }
-                    chatPanel.setSendIcon();
+                    else {
+                        chatPanel.noTextMessageError();
+                    }
                 }
                 else {
-                    chatPanel.noTextMessageError();
+                    chatPanel.throwErrorMessage();
                 }
-            }
-            else {
-                chatPanel.throwErrorMessage();
-            }
-            chatPanel.resetJTextField();
-        }else{
-            if(e.getActionCommand().equals("TEXT")) { //Ens han apretat l'ENTER per enviar
+                chatPanel.resetJTextField();
+                break;
+            case "TEXT":
                 System.out.println("SEND MESSAGE");
                 if (chatPanel.isChosen()) {
                     String message = chatPanel.retrieveTextToSend();
@@ -83,7 +86,22 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 } else {
                     chatPanel.throwErrorMessage();
                 }
-            }else{  //Ens han apretat el botó d'un match
+                break;
+            case "YES UNMATCH":
+                unmatchFrame.hideFrame();
+                if(destinationUsername.equals(unmatchingUser)){
+                    chatPanel.setDefaultText();
+                    chatPanel.disableSend();
+                    //TODO: Parar ela communicacio del chat
+                }
+                serverComunicationChat.startServerComunication(USER_UNMATCHED);
+                serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+                chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
+                break;
+            case "NO UNMATCH":
+                unmatchFrame.hideFrame();
+                break;
+            default: //Ens han apretat el botó d'un match
                 System.out.println("CLICK ESQUERRE");
                 chatPanel.setTextFieldMessage();
                 chatPanel.setChosen(true);
@@ -91,9 +109,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 loadMatchingChat(chatUsername);
                 chatPanel.enableSend();
                 chatPanel.changeBorderName(chatUsername);
-            }
-        }
+                break;
 
+        }
 
     }
 
@@ -128,14 +146,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         if(SwingUtilities.isRightMouseButton(e) ) {
             System.out.println("HOLA");
             getRightClickUnmatch(e);
-            boolean remove = chatPanel.throwUnmatchMessage();
-            if(remove) {
-                serverComunicationChat.startServerComunication(USER_UNMATCHED);
-                //chatPanel.removeUser(unmatchingUser, this);
-                serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-                chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
-                System.out.println("Match has been removed");
-            }
+            unmatchFrame = new UnmatchFrame();
+            unmatchFrame.registerController(this);
+            unmatchFrame.showFrame(chatPanel.getLocations());
         }else{
             chatPanel.setSendIcon();
         }

@@ -234,18 +234,6 @@ public class ChatPanel extends JPanel {
         JOptionPane.showMessageDialog(this, "You have not chosen a chat!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public boolean throwUnmatchMessage() {
-        int dialogButton  = 0;
-        dialogButton = JOptionPane.showConfirmDialog (null, "Are you sure you want to unmatch this user?","Warning", dialogButton);
-        if(dialogButton == JOptionPane.YES_OPTION) {
-            remove(dialogButton);
-            return true;
-        }
-        return false;
-
-
-    }
-
     /**
      * Metode que mostra un JDialog d'error informant que l'usuari no ha escrit res al JTextFiled Missatge
      */
@@ -277,18 +265,12 @@ public class ChatPanel extends JPanel {
         jbSend.setEnabled(true);
     }
 
-    public void removeUser(String unmatchingUser, ChatController chatController) {
-        System.out.println(jbMatches.size());
-        for(JButton jb: jbMatches){
-            if(jb.getText().equals(unmatchingUser)){
-                jb.removeActionListener(chatController);
-                jb.setVisible(false);
-                jb.invalidate();
-                break;
-                //jpMatches.remove(jb);
-                //jbMatches.remove(jb);
-            }
-        }
+    /**
+     * metode que es crida per a incloure la notificacio al lloc on estigui el frame principal
+     * @return localitzacio del frame principal
+     */
+    public Point getLocations() {
+        return this.getLocation();
     }
 }
 
