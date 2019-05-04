@@ -126,15 +126,13 @@ public class SignUpPanel extends JPanel {
 
 
     /**
-     * Mètode que afegeix la capçalera de la pantalla.
+     * Metode que afegeix la capçalera de la pantalla.
      *
      */
     private void createTitle(){
         JPanel jpTitle = new JPanel();
         jpTitle.setLayout(new BoxLayout(jpTitle, BoxLayout.Y_AXIS));
-        JLabel jlTitle = new JLabel("MINDER");
-        jlTitle.setForeground(Color.WHITE);
-        jlTitle.setFont(new Font("Hobo Std", Font.PLAIN, 28));
+        JLabel jlTitle = new JLabel(new ImageIcon(new ImageIcon("icons/Minder_Logo.png").getImage().getScaledInstance(180, 35, Image.SCALE_DEFAULT)));
         jlTitle.setAlignmentX(CENTER_ALIGNMENT);
         jpTitle.setBackground(BG_COLOR);
         jpTitle.add(Box.createVerticalStrut(10));
@@ -146,7 +144,7 @@ public class SignUpPanel extends JPanel {
     }
 
     /**
-     * Mètode encarregat de crear i afegir el camp del nom d'usuari.
+     * Metode encarregat de crear i afegir el camp del nom d'usuari.
      *
      */
     private void createUsernameField(){
@@ -171,7 +169,7 @@ public class SignUpPanel extends JPanel {
     }
 
     /**
-     * Mètode encarregat de crear i afegir els camps de les passwords.
+     * Metode encarregat de crear i afegir els camps de les passwords.
      *
      */
     private void createPasswordFields(){
@@ -193,7 +191,7 @@ public class SignUpPanel extends JPanel {
 
         JPanel jpConfirm = new JPanel(new FlowLayout());
         jpConfirm.setBackground(BG_COLOR);
-        JLabel jlConfirmPassword = new JLabel("Confirm:   ");
+        JLabel jlConfirmPassword = new JLabel("Confirm:    ");
         jlConfirmPassword.setHorizontalAlignment(SwingConstants.CENTER);
         jlConfirmPassword.setForeground(Color.white);
 
@@ -224,7 +222,7 @@ public class SignUpPanel extends JPanel {
     }
 
     /**
-     * Mètode encarregat de crear i afegir el camp de si l'usuari és Premium o Normal.
+     * Metode encarregat de crear i afegir el camp de si l'usuari es Premium o Normal.
      *
      */
     private void createPremiumOption(){
@@ -268,7 +266,7 @@ public class SignUpPanel extends JPanel {
         jpEmail.setLayout(new FlowLayout());
         jpEmail.setBackground(BG_COLOR);
 
-        JLabel jlEmail = new JLabel("Email:        ");
+        JLabel jlEmail = new JLabel("Email:         ");
         jlEmail.setHorizontalAlignment(SwingConstants.CENTER);
         jlEmail.setForeground(Color.white);
         jpEmail.add(jlEmail);
@@ -290,7 +288,7 @@ public class SignUpPanel extends JPanel {
         jpAgeField.setLayout(new FlowLayout());
         jpAgeField.setBackground(BG_COLOR);
 
-        JLabel jlAge = new JLabel("Age:          ");
+        JLabel jlAge = new JLabel("Age:           ");
         jlAge.setAlignmentX(CENTER_ALIGNMENT);
         jlAge.setForeground(Color.white);
 

@@ -123,6 +123,7 @@ public class MenuController implements ActionListener, WindowListener {
             case "YES LOGOUT":
                 //TODO: TANCAR COMUNICACIO DE SERVIDOR I MERDES VARIES
                 DownloadsManager.deleteDirectory();
+                chatController.finishComunications();
                 logoutController.hideLogout();
                 mainWindow.dispose();
                 break;

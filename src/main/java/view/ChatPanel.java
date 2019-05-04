@@ -1,7 +1,6 @@
 package view;
 
 import controller.ChatController;
-import model.entity.User;
 
 
 import javax.swing.*;
@@ -23,7 +22,7 @@ public class ChatPanel extends JPanel {
     private JPanel jpMatches;
     private JPanel jpMessage; //Panell dels missatges a enviar
     private LinkedList<JButton> jbMatches;
-    private JTextPane jtpane; //Lloc dels missatges
+    private JTextArea jtaChat; //Lloc dels missatges
     private boolean chosen; //Es posara a true quan s'entri a la conversa d'algun match
     private JLabel jlNoMatchs;
 
@@ -57,13 +56,15 @@ public class ChatPanel extends JPanel {
 
 
         //ScrollPane de la conversa
-        jspCentre = new JScrollPane();
-        jspCentre = new JScrollPane();
 
+
+        jtaChat = new JTextArea();
+        jtaChat.setEditable(false);
+        jtaChat.setToolTipText("You can chat with your matches here");
+        jtaChat.setLineWrap(true);
+        jtaChat.setWrapStyleWord(true);
+        jspCentre = new JScrollPane(jtaChat);
         jspCentre.createVerticalScrollBar();
-        jtpane = new JTextPane();
-        jtpane.setEditable(false);
-        jtpane.setToolTipText("You can chat with your matches here");
 
         //Afegeixo JPanels de matches
 
@@ -87,7 +88,7 @@ public class ChatPanel extends JPanel {
         //3: JTextField per escriure-hi i botó d'enviar
 
         this.add(jspMatches,BorderLayout.NORTH);
-        this.add(jtpane,BorderLayout.CENTER);
+        this.add(jspCentre,BorderLayout.CENTER);
         this.add(jpMessage,BorderLayout.SOUTH);
         this.setTextFieldMessage();
     }
@@ -212,17 +213,17 @@ public class ChatPanel extends JPanel {
     public void changeBorderName(String name) {
         TitledBorder tb2 = new TitledBorder("In chat with:  "+name);
         tb2.setBorder(BorderFactory.createLineBorder(Color.black)); //Color del border total
-        jtpane.setBorder(tb2);
+        jtaChat.setBorder(tb2);
     }
 
     /**
      * Escriu un missatge predeterminat abans de clicar sobre una conversa
      */
     public void setDefaultText() {
-        jtpane.setText("\n\n\n\n\n\n\n\t      Here you can chat with your matches");
+        jtaChat.setText("\n\n\n\n\n\n\n\t      Here you can chat with your matches");
         TitledBorder tb2 = new TitledBorder("Chat");
         tb2.setBorder(BorderFactory.createLineBorder(Color.black)); //Color del border total
-        jtpane.setBorder(tb2);
+        jtaChat.setBorder(tb2);
         jtfMissatge.setEnabled(false);
         jbSend.setEnabled(false);
     }
@@ -246,7 +247,7 @@ public class ChatPanel extends JPanel {
      * @param generatedChat missatges a escriure.
      */
     public void writeChat(String generatedChat) {
-        jtpane.setText(generatedChat);
+        jtaChat.setText(generatedChat);
     }
 
     /**

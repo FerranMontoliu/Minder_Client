@@ -32,9 +32,7 @@ public class SignInPanel extends JPanel {
     private void createTitle(){
         JPanel jpTitle = new JPanel();
         jpTitle.setLayout(new BoxLayout(jpTitle, BoxLayout.Y_AXIS));
-        JLabel jlTitle = new JLabel("MINDER");
-        jlTitle.setForeground(Color.WHITE);
-        jlTitle.setFont(new Font("Hobo Std", Font.PLAIN, 28));
+        JLabel jlTitle = new JLabel(new ImageIcon(new ImageIcon("icons/Minder_Logo.png").getImage().getScaledInstance(180, 35, Image.SCALE_DEFAULT)));
         jlTitle.setAlignmentX(CENTER_ALIGNMENT);
         jpTitle.setBackground(BG_COLOR);
         jpTitle.add(Box.createVerticalStrut(10));

@@ -25,7 +25,7 @@ public class LoginWindow extends JFrame {
 
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(200, 150));
-        //setResizable(false);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Welcome to Minder");
 
@@ -39,7 +39,7 @@ public class LoginWindow extends JFrame {
     }
 
     /**
-     * Mètode encarregat de crear i afegir el header de la pantalla.
+     * Metode encarregat de crear i afegir el header de la pantalla.
      *
      */
     private void createHeader(){
@@ -72,7 +72,7 @@ public class LoginWindow extends JFrame {
     }
 
     /**
-     * Getter del JPanel que conté els camps per fer Sign-In.
+     * Getter del JPanel que conte els camps per fer Sign-In.
      *
      * @return Retorna el JPanel que conté els camps per fer Sign-In.
      */
@@ -81,7 +81,7 @@ public class LoginWindow extends JFrame {
     }
 
     /**
-     * Getter del JPanel que conté els camps per fer Sign-Up.
+     * Getter del JPanel que conte els camps per fer Sign-Up.
      *
      * @return Retorna el JPanel que conté els camps per fer Sign-Up.
      */
@@ -90,7 +90,7 @@ public class LoginWindow extends JFrame {
     }
 
     /**
-     * Mètode encarregat de crear i afegir el panell de Sign-In.
+     * Metode encarregat de crear i afegir el panell de Sign-In.
      *
      */
     private void createSignInPanel(){
@@ -100,7 +100,7 @@ public class LoginWindow extends JFrame {
     }
 
     /**
-     * Mètode encarregat de crear i afegir el panell de Sign-Up.
+     * Metode encarregat de crear i afegir el panell de Sign-Up.
      *
      */
     private void createSignUpPanel() {
@@ -126,7 +126,7 @@ public class LoginWindow extends JFrame {
         if(cardLayoutName.equals("SIGN IN")){
             setSize(300, 300);
         }else{
-            setSize(300, 500);
+            setSize(300, 600);
         }
     }
 

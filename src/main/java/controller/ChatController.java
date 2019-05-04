@@ -274,6 +274,14 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
         this.matchedUsernames = matchedUsernames;
     }
+
+    public void finishComunications() {
+        try{
+            serverComunicationMessage.stopServerComunication();
+        }catch(Exception e){
+
+        }
+    }
 }
 
 
