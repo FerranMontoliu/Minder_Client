@@ -4,12 +4,14 @@ import model.entity.Chat;
 import model.entity.Message;
 import model.entity.User;
 import network.ServerComunicationChat;
+import network.ServerComunicationMessage;
 import view.ChatPanel;
 import view.LogoutFrame;
 import view.UnmatchFrame;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import static java.lang.Thread.sleep;
@@ -19,6 +21,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private static final char LOAD_CHAT = 'f';
     private static final char USER_MATCH_LIST = 'h';
     private ServerComunicationChat serverComunicationChat;
+    private ServerComunicationMessage serverComunicationMessage;
 
     private ChatPanel chatPanel;
     private User associatedUser;
@@ -49,6 +52,11 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                     String message = chatPanel.retrieveTextToSend(); //Retrieve Text a enviar
                     if(message.length() > 0 & !message.equals("Write a Message... ")) {
                         sendingMessage = new Message(getSourceUsername(), message,getDestinationUsername());
+                        try {
+                            serverComunicationMessage.sendMessage(sendingMessage);
+                        } catch (IOException e1) {
+                            chatPanel.throwErrorMessage("Failed to send the message!");
+                        }
                         chatPanel.setSentIcon();
                         try {
                             sleep(100);
@@ -62,17 +70,21 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                     }
                 }
                 else {
-                    chatPanel.throwErrorMessage();
+                    chatPanel.throwErrorMessage("You have not chosen a chat!");
                 }
                 chatPanel.resetJTextField();
                 break;
             case "TEXT":
-                System.out.println("SEND MESSAGE");
                 if (chatPanel.isChosen()) {
                     String message = chatPanel.retrieveTextToSend();
                     chatPanel.resetJTextField();
                     if (message.length() > 0) {
                         sendingMessage = new Message(getSourceUsername(), message, getDestinationUsername());
+                        try {
+                            serverComunicationMessage.sendMessage(sendingMessage);
+                        } catch (IOException e1) {
+                            chatPanel.throwErrorMessage("Failed to send the message!");
+                        }
                         chatPanel.setSentIcon();
                         try {
                             sleep(100);
@@ -84,7 +96,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                         chatPanel.noTextMessageError(); //Error si s'intenta enviar res de text
                     }
                 } else {
-                    chatPanel.throwErrorMessage();
+                    chatPanel.throwErrorMessage("You have not chosen a chat!");
                 }
                 break;
             case "YES UNMATCH":
@@ -109,6 +121,8 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 loadMatchingChat(chatUsername);
                 chatPanel.enableSend();
                 chatPanel.changeBorderName(chatUsername);
+                serverComunicationMessage = new ServerComunicationMessage(this, associatedUser.getUsername());
+                serverComunicationMessage.startServerComunication();
                 break;
 
         }

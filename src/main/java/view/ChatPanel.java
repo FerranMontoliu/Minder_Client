@@ -230,8 +230,8 @@ public class ChatPanel extends JPanel {
     /**
      * Llança missatge d'error si algun element no es correcte
      */
-    public void throwErrorMessage() {
-        JOptionPane.showMessageDialog(this, "You have not chosen a chat!", "Error", JOptionPane.ERROR_MESSAGE);
+    public void throwErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**

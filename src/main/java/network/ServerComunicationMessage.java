@@ -14,24 +14,29 @@ public class ServerComunicationMessage extends Thread {
     private static final char SEND_MESSAGE = 'g';
 
     private ChatController chatController;
+    private String sender;
     private boolean isOn;
     private Socket socketToServer;
+    private DataOutputStream dataOut;
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
 
 
-    public ServerComunicationMessage(ChatController chatController){
+    public ServerComunicationMessage(ChatController chatController, String sender){
         try {
             this.isOn = false;
             this.chatController = chatController;
+            this.sender = sender;
 
             //Configuració inicial del client:
             ClientConfig cc = Json.parseJson();
 
             this.socketToServer = new Socket(cc.getServerIP(), cc.getServerPort());
 
+            this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
             this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
             this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
+
 
         } catch(IOException e) {
             e.printStackTrace();
@@ -57,12 +62,15 @@ public class ServerComunicationMessage extends Thread {
     @Override
     public void run () {
         try {
+            dataOut.writeChar(SEND_MESSAGE);
+            dataOut.writeUTF(sender);
             while (isOn) {
                 Chat receivedChat = (Chat) objectIn.readObject();
+                chatController.setReceivedChat(receivedChat);
                 chatController.loadChat();
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Received chat failed");
         }
     }
 
