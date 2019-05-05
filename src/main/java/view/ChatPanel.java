@@ -247,7 +247,7 @@ public class ChatPanel extends JPanel {
      * @param generatedChat missatges a escriure.
      */
     public void writeChat(String generatedChat) {
-        jtaChat.setText(generatedChat);
+        jtaChat.append("\n"+generatedChat);
     }
 
     /**
@@ -272,6 +272,10 @@ public class ChatPanel extends JPanel {
      */
     public Point getLocations() {
         return this.getLocation();
+    }
+
+    public void writeFullChat(StringBuilder sb) {
+        jtaChat.setText(sb.toString());
     }
 }
 

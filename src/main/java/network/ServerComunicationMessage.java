@@ -55,6 +55,7 @@ public class ServerComunicationMessage extends Thread {
      * Metode encarregat de tancar la comunicacio client-servidor.
      */
     public void stopServerComunication() {
+        System.out.println("Ask for stop");
         this.isOn = false;
         this.interrupt();
     }
@@ -65,9 +66,12 @@ public class ServerComunicationMessage extends Thread {
             dataOut.writeChar(SEND_MESSAGE);
             dataOut.writeUTF(sender);
             while (isOn) {
+                System.out.println("pre chat");
                 Chat receivedChat = (Chat) objectIn.readObject();
+                System.out.println("post chat");
                 chatController.setReceivedChat(receivedChat);
                 chatController.loadChat();
+                System.out.println("On:"+isOn);
             }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Received chat failed");

@@ -60,6 +60,7 @@ public class MenuController implements ActionListener, WindowListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         chatController.runDefaultAppearance();  //Necessari
+        chatController.finishComunications();
         switch (actionCommand) {
             case "CHAT":
                 if(associatedUser.isCompleted()){

@@ -114,6 +114,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 unmatchFrame.hideFrame();
                 break;
             default: //Ens han apretat el botó d'un match
+                System.out.println("Click a un xat");
                 System.out.println("CLICK ESQUERRE");
                 chatPanel.setTextFieldMessage();
                 chatPanel.setChosen(true);
@@ -221,16 +222,21 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     public void loadChat() {
         if(receivedChat != null){
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for(Message m: receivedChat.getMessages()) {
-                stringBuilder.append(m.toString()).append(System.lineSeparator());
-            }
-            chatPanel.writeChat(stringBuilder.toString());
+            chatPanel.writeChat(receivedChat.getNewMessage());
         } else {
             chatPanel.writeChat("Start chatting now!");
         }
 
+    }
+
+    public void loadFullChat(){
+        if(receivedChat != null){
+            StringBuilder sb = new StringBuilder();
+            for(Message m: receivedChat.getMessages()){
+                sb.append("\n"+m.toString());
+            }
+            chatPanel.writeFullChat(sb);
+        }
     }
 
     public String getSourceUsername() {
@@ -256,7 +262,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     public void loadMatchingChat(String destinationUsername) {
         this.destinationUsername = destinationUsername;
         serverComunicationChat.startServerComunication(LOAD_CHAT);
-        loadChat();
+        loadFullChat();
     }
 
     public void setReceivedChat(Chat receivedChat) {
