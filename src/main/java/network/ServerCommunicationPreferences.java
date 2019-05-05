@@ -42,8 +42,8 @@ public class ServerCommunicationPreferences {
             case EDIT_PREFERENCES:
                 dataOut.writeChar(EDIT_PREFERENCES);
                 User associatedUser = preferencesController.getAssociatedUser();
-
                 objectOut.writeObject(associatedUser);
+
                 boolean editOK = dataIn.readBoolean();
                 if (editOK == true){
                     preferencesController.showEditOk();

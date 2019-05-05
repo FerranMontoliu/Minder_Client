@@ -267,7 +267,7 @@ public class PreferencesPanel extends JPanel {
      * @param minAge
      * @param maxAge
      */
-    public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge) {
+    public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge, boolean noFilter) {
         //es pot fer mes optim pero ara me la sua
         int minimumAge = minAge - 18;
         int maximumAge = maxAge - 18;
@@ -282,6 +282,7 @@ public class PreferencesPanel extends JPanel {
         jtfCurrentPassword.setText("");
         jtfNewPassword.setText("");
         jtfNewPasswordConfirm.setText("");
+        jcNoFilter.setSelected(noFilter);
     }
 
     /**

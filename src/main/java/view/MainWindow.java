@@ -438,11 +438,14 @@ public class MainWindow extends JFrame{
      * @param maxAge maxima edat que han de tenir els usuaris amb els que vol connectar
      */
     public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge) {
+        boolean noFilter = false;
         if (maxAge == 0){
             jpPreferences.disableFilter();
+            minAge = 18;
             maxAge = 99;
+            noFilter = true;
         }
-        jpPreferences.initiatePreferences(username, email, age, isPremium, minAge, maxAge);
+        jpPreferences.initiatePreferences(username, email, age, isPremium, minAge, maxAge, noFilter);
 
     }
 
