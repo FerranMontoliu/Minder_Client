@@ -18,6 +18,7 @@ public class ServerComunicationMessage extends Thread {
     private boolean isOn;
     private Socket socketToServer;
     private DataOutputStream dataOut;
+    private DataInputStream dataIn;
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
 
@@ -34,6 +35,7 @@ public class ServerComunicationMessage extends Thread {
             this.socketToServer = new Socket(cc.getServerIP(), cc.getServerPort());
 
             this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
+            this.dataIn = new DataInputStream(socketToServer.getInputStream());
             this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
             this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
 
@@ -55,9 +57,22 @@ public class ServerComunicationMessage extends Thread {
      * Metode encarregat de tancar la comunicacio client-servidor.
      */
     public void stopServerComunication() {
-        System.out.println("Ask for stop");
         this.isOn = false;
         this.interrupt();
+        try {
+            objectOut.close();
+        } catch (IOException e) {}
+        try {
+            dataIn.close();
+        } catch (IOException e) {}
+        try {
+            objectIn.close();
+        } catch (IOException e) {}
+        try {
+            socketToServer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -66,12 +81,15 @@ public class ServerComunicationMessage extends Thread {
             dataOut.writeChar(SEND_MESSAGE);
             dataOut.writeUTF(sender);
             while (isOn) {
-                System.out.println("pre chat");
-                Chat receivedChat = (Chat) objectIn.readObject();
-                System.out.println("post chat");
-                chatController.setReceivedChat(receivedChat);
-                chatController.loadChat();
-                System.out.println("On:"+isOn);
+                boolean stillMatch = dataIn.readBoolean();
+                if(stillMatch){
+                    Chat receivedChat = (Chat) objectIn.readObject();
+                    chatController.setReceivedChat(receivedChat);
+                    chatController.loadChat();
+                }else{
+                    chatController.informUnmatch();
+                }
+
             }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Received chat failed");

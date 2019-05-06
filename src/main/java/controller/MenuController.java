@@ -204,7 +204,6 @@ public class MenuController implements ActionListener, WindowListener {
      * Metode que obre el panell del perfil (sense seleccionar-no, ja que estem al connect panel) mostrar l'usuari del que
      * es vol veure tota la informacio (Es passa com a parametre)
      */
-    //public void showUserToConnectProfile(User user)
     public void showUserToConnectProfile() {
         mainWindow.changePanel("OTHER-USER PROFILE");
     }
@@ -215,7 +214,6 @@ public class MenuController implements ActionListener, WindowListener {
     public void goToConnectPanel() {
         mainWindow.changePanel("CONNECT");
         mainWindow.selectConnect();
-
     }
 
     /**
@@ -224,6 +222,10 @@ public class MenuController implements ActionListener, WindowListener {
     public void goToChatPanel() {
         mainWindow.changePanel("CHAT");
         mainWindow.selectChat();
+        serverComunicationChat = new ServerComunicationChat(this, chatController);
+        serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+        mainWindow.generateMatchList(matchedUsernames, chatController);
+
     }
 
     @Override

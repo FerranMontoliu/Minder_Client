@@ -248,7 +248,7 @@ public class MainWindow extends JFrame{
     public void selectChat(){
         selected = "CHAT";
         menuChat.setIcon(new ImageIcon("icons/chatDark.png"));
-
+        jpChat.setDefaultText();
         deselectLogout();
         deselectProfile();
         deselectConnect();

@@ -104,7 +104,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 if(destinationUsername.equals(unmatchingUser)){
                     chatPanel.setDefaultText();
                     chatPanel.disableSend();
-                    //TODO: Parar ela communicacio del chat
+                    if(serverComunicationMessage != null){
+                        serverComunicationMessage.stopServerComunication();
+                    }
                 }
                 serverComunicationChat.startServerComunication(USER_UNMATCHED);
                 serverComunicationChat.startServerComunication(USER_MATCH_LIST);
@@ -114,7 +116,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 unmatchFrame.hideFrame();
                 break;
             default: //Ens han apretat el botó d'un match
-                System.out.println("Click a un xat");
                 System.out.println("CLICK ESQUERRE");
                 chatPanel.setTextFieldMessage();
                 chatPanel.setChosen(true);
@@ -159,7 +160,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     @Override
     public void mouseReleased(MouseEvent e) {
         if(SwingUtilities.isRightMouseButton(e) ) {
-            System.out.println("HOLA");
             getRightClickUnmatch(e);
             unmatchFrame = new UnmatchFrame();
             unmatchFrame.registerController(this);
@@ -243,10 +243,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         return associatedUser.getUsername();
     }
 
-    public Message getSendingMessage() {
-        return sendingMessage;
-    }
-
     public void setServerComunicationChat(ServerComunicationChat serverComunicationChat) {
         this.serverComunicationChat = serverComunicationChat;
     }
@@ -287,6 +283,13 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         }catch(Exception e){
 
         }
+    }
+
+    public void informUnmatch() {
+        chatPanel.throwErrorMessage("This user has unmatched you!");
+        chatPanel.setDefaultText();
+        serverComunicationChat.startServerComunication(USER_MATCH_LIST);
+        chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
     }
 }
 
