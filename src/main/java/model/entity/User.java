@@ -32,7 +32,7 @@ public class User implements Serializable {
     private ArrayList<User> accepted;
     private ArrayList<User> match;
     private ArrayList<User> acceptedMe;
-
+    private int matches;
 
     /**
      *Constructor que ompla TOTS els camps de l'usuari.
@@ -370,4 +370,23 @@ public class User implements Serializable {
     public void setFavSong(String song) {
         this.favSong = song;
     }
+    /**
+     * Constructor quan es crida des del top5 dao
+     * @param name
+     * @param matches
+     */
+    public User(String name, int matches) {
+        this.username = name;
+        this.matches = matches;
+    }
+
+
+    /**
+     * Getter del numero de matches
+     * @return
+     */
+    public int getMatches() {
+        return matches;
+    }
+
 }
