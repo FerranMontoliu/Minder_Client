@@ -20,7 +20,7 @@ public class ConnectController implements ActionListener, MouseListener {
     private User connectUser;
     private ServerComunicationConnect serverComunicationConnect;
     private boolean isMatch;
-
+    private boolean moreUsers;
     private MenuController menuController;
     private boolean like;
     public final static int IMAGE_LIMIT = 115;
@@ -71,7 +71,7 @@ public class ConnectController implements ActionListener, MouseListener {
     private void likeActions() {
         System.out.println("I like you!");
         //si hi ha match
-        if(false/*isMatch*/){
+        if(isMatch){
             menuController.showMatch();
         }else{
             serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
@@ -114,17 +114,19 @@ public class ConnectController implements ActionListener, MouseListener {
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        JComponent comp = (JComponent) e.getSource();
-        TransferHandler th = comp.getTransferHandler();
+        if (moreUsers){
+            JComponent comp = (JComponent) e.getSource();
+            TransferHandler th = comp.getTransferHandler();
 
-        if(e.getPoint().x < IMAGE_LIMIT){
-            th.setDragImage(new ImageIcon("icons/cancel.png").getImage());
-            dislikeActions();
-        }else{
-            th.setDragImage(new ImageIcon("icons/checked.png").getImage());
-            likeActions();
+            if(e.getPoint().x < IMAGE_LIMIT){
+                th.setDragImage(new ImageIcon("icons/cancel.png").getImage());
+                dislikeActions();
+            }else{
+                th.setDragImage(new ImageIcon("icons/checked.png").getImage());
+                likeActions();
+            }
+            th.exportAsDrag(comp, e, TransferHandler.COPY);
         }
-        th.exportAsDrag(comp, e, TransferHandler.COPY);
     }
 
     @Override
@@ -154,9 +156,20 @@ public class ConnectController implements ActionListener, MouseListener {
      * @param connectUser usuari solicitat.
      */
     public void loadNewUser(User connectUser) {
+        if (connectUser.getUsername() == null){
+            System.out.println("no hi ha mes usuaris a mostrar");
+            moreUsers = false;
+            connectPanel.showEndOfUsers();
+            connectPanel.enableButtons(moreUsers);
 
-        this.connectUser = connectUser;
-        connectPanel.loadNewUser(connectUser);
+        }else{
+            this.connectUser = connectUser;
+            moreUsers = true;
+            connectPanel.loadNewUser(connectUser);
+            connectPanel.enableButtons(moreUsers);
+
+        }
+
     }
 
     /**

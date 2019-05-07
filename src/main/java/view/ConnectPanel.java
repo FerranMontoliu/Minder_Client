@@ -150,4 +150,20 @@ public class ConnectPanel extends JPanel {
         //lblProfilePic.setIcon();  //TODO: Concretar el tema del tipus de l'atribut imatge
     }
 
+    /**
+     * Metode que mostra un missatge amb el format d'usuari indicant el fi d'usuaris disponibles per a conectar
+     */
+    public void showEndOfUsers() {
+        lblProfilename.setText("You don't have any user to connect with.");
+        lblProfilePic.setIcon(new ImageIcon("icons/finish.png"));
+    }
+
+    /**
+     * Metode que activa o desactiva els botons d'accio en funcio del parametre
+     */
+    public void enableButtons(boolean enable){
+        jbMoreInfo.setEnabled(enable);
+        jbLike.setEnabled(enable);
+        jbDislike.setEnabled(enable);
+    }
 }

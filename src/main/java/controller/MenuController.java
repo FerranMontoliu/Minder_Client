@@ -170,8 +170,6 @@ public class MenuController implements ActionListener, WindowListener {
         //Obrim directament el chat concret
         chatController.loadMatchingChat(userMatched.getUsername());
 
-
-
         //Canvia el panell
         mainWindow.changePanel("CHAT");
         mainWindow.selectChat();
@@ -182,6 +180,7 @@ public class MenuController implements ActionListener, WindowListener {
      */
     public void showMatch() {
         //a la funcio showUsers es passarien els usuaris en questio
+        System.out.println("es mostra match");
         matchController.showUsers();
         mainWindow.changePanel("MATCH");
 
