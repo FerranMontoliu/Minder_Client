@@ -20,11 +20,14 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private static final char USER_UNMATCHED = 'e';
     private static final char LOAD_CHAT = 'f';
     private static final char USER_MATCH_LIST = 'h';
+    private static final char USER_INFO = 'm';
     private ServerComunicationChat serverComunicationChat;
     private ServerComunicationMessage serverComunicationMessage;
 
+    private MenuController menuController;
     private ChatPanel chatPanel;
     private User associatedUser;
+    private User infoUser;
     private String destinationUsername;
     private String unmatchingUser;
     private Message sendingMessage;
@@ -33,9 +36,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private UnmatchFrame unmatchFrame;
 
 
-    public ChatController(ChatPanel chatPanel, User associatedUser) {
+    public ChatController(ChatPanel chatPanel, User associatedUser, MenuController menuController) {
         this.chatPanel = chatPanel;
         this.associatedUser = associatedUser;
+        this.menuController = menuController;
     }
 
     /**
@@ -114,6 +118,13 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 break;
             case "NO UNMATCH":
                 unmatchFrame.hideFrame();
+                break;
+            case "INFO":
+                serverComunicationChat.startServerComunication(USER_INFO);
+                menuController.setPanelReturn(0);
+                menuController.loadConnectUserInfo(infoUser);
+                menuController.showUserToConnectProfile();
+                serverComunicationMessage.stopServerComunication();
                 break;
             default: //Ens han apretat el botó d'un match
                 System.out.println("CLICK ESQUERRE");
@@ -290,6 +301,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         chatPanel.setDefaultText();
         serverComunicationChat.startServerComunication(USER_MATCH_LIST);
         chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
+    }
+
+    public void setUserInfo(User userInfo){
+        this.infoUser = userInfo;
     }
 }
 

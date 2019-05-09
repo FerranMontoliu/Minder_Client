@@ -176,6 +176,7 @@ public class ConnectController implements ActionListener, MouseListener {
      * Metode que carrega la info de perfil de l'usuari que s'esta visualitzant a l'opcio Connect
      */
     public void loadUserInfo(){
+        menuController.setPanelReturn(1);
         menuController.loadConnectUserInfo(connectUser);
     }
 

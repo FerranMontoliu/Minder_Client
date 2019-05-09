@@ -9,14 +9,10 @@ import java.awt.*;
 import java.util.LinkedList;
 
 
-//TODO: Boto per remove usuari de la llista de matches
-//TODO: Quan tinguem usuaris, provar xat
-
 public class ChatPanel extends JPanel {
 
     private JTextField jtfMissatge;
     private JButton jbSend;
-    private JPanel jpImages[];
     private JScrollPane jspMatches;
     private JScrollPane jspCentre;
     private JPanel jpMatches;
@@ -25,6 +21,7 @@ public class ChatPanel extends JPanel {
     private JTextArea jtaChat; //Lloc dels missatges
     private boolean chosen; //Es posara a true quan s'entri a la conversa d'algun match
     private JLabel jlNoMatchs;
+    private JButton jbInfo;
 
 
     /**
@@ -37,11 +34,6 @@ public class ChatPanel extends JPanel {
     }
 
 
-    /**
-     * TEMPORAL: Cal rebre tots els usuari amb qui s'ha fet match, extreure'n la foto i el nom
-     * Quan es clica sobre un d'ells, s'obre el xat
-     * amb aquella persona
-     */
     public void createChatPanel() {
 
         //Assigno un borderlayout pel chat
@@ -56,7 +48,6 @@ public class ChatPanel extends JPanel {
 
 
         //ScrollPane de la conversa
-
 
         jtaChat = new JTextArea();
         jtaChat.setEditable(false);
@@ -76,6 +67,9 @@ public class ChatPanel extends JPanel {
         jtfMissatge = new JTextField(50);
         jtfMissatge.setEnabled(false);      //TODO: Quan es cliqui a un chat, habilitar el jtf i el jbutton send
 
+        jbInfo = new JButton(new ImageIcon("icons/info.png"));
+        jbInfo.setEnabled(false);
+        jpMessage.add(jbInfo, BorderLayout.WEST);
         jpMessage.add(jtfMissatge,BorderLayout.CENTER);
         ImageIcon iSend = new ImageIcon("icons/send.png");
         jbSend = new JButton(iSend); //Inicialitzacio boto d'enviar
@@ -100,6 +94,8 @@ public class ChatPanel extends JPanel {
         jtfMissatge.addActionListener(controller);
         jtfMissatge.setActionCommand("TEXT");
         jbSend.setActionCommand("SEND");
+        jbInfo.addActionListener(controller);
+        jbInfo.setActionCommand("INFO");
 
     }
 
@@ -226,6 +222,7 @@ public class ChatPanel extends JPanel {
         jtaChat.setBorder(tb2);
         jtfMissatge.setEnabled(false);
         jbSend.setEnabled(false);
+        jbInfo.setEnabled(false);
     }
 
     /**
@@ -256,6 +253,7 @@ public class ChatPanel extends JPanel {
     public void disableSend(){
         jbSend.setEnabled(false);
         jtfMissatge.setEnabled(false);
+        jbInfo.setEnabled(false);
     }
 
     /**
@@ -264,16 +262,21 @@ public class ChatPanel extends JPanel {
     public void enableSend(){
         jtfMissatge.setEnabled(true);
         jbSend.setEnabled(true);
+        jbInfo.setEnabled(true);
     }
 
     /**
-     * metode que es crida per a incloure la notificacio al lloc on estigui el frame principal
+     * Metode que es crida per a incloure la notificacio al lloc on estigui el frame principal
      * @return localitzacio del frame principal
      */
     public Point getLocations() {
         return this.getLocation();
     }
 
+    /**
+     * Metode que carrega tot el chat quan es fa click a un User.
+     * @param sb StringBuilder amb tot el chat carregat.
+     */
     public void writeFullChat(StringBuilder sb) {
         jtaChat.setText(sb.toString());
     }

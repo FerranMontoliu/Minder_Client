@@ -7,6 +7,7 @@ import model.ClientConfig;
 import model.Json;
 import model.entity.MatchLoader;
 import model.entity.Message;
+import model.entity.User;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,6 +19,7 @@ public class ServerComunicationChat {
     private static final char USER_UNMATCHED = 'e';
     private static final char LOAD_CHAT = 'f';
     private static final char USER_MATCH_LIST = 'h';
+    private static final char USER_INFO = 'm';
 
     private ChatController chatController;
     private MenuController menuController;
@@ -76,6 +78,11 @@ public class ServerComunicationChat {
                 case USER_UNMATCHED:
                     dataOut.writeUTF(chatController.getSourceUsername());
                     dataOut.writeUTF(chatController.getUnmatchingUsername());
+                    break;
+                case USER_INFO:
+                    dataOut.writeUTF(chatController.getDestinationUsername());
+                    User userInfo = (User) objectIn.readObject();
+                    chatController.setUserInfo(userInfo);
                     break;
             }
         } catch (IOException | ClassNotFoundException e) {

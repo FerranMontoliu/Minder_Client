@@ -28,6 +28,7 @@ public class MenuController implements ActionListener, WindowListener {
     private PreferencesController preferencesController;
     private ServerComunicationChat serverComunicationChat;
     private LinkedList<String> matchedUsernames;
+    private int panelReturn;
 
 
     public MenuController(MainWindow mainWindow, User associatedUser) {
@@ -37,7 +38,7 @@ public class MenuController implements ActionListener, WindowListener {
 
         connectController = new ConnectController(mainWindow.getConnect(), this, this.associatedUser);  //Aixo trenca paradigmes??
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
-        chatController = new ChatController(mainWindow.getChat(), associatedUser);
+        chatController = new ChatController(mainWindow.getChat(), associatedUser, this);
         matchController = new MatchController(mainWindow.getMatch(), this, connectController, this.associatedUser);
         profileController = new ProfileController(mainWindow.getProfile());
         otherUserProfileController = new OtherUserProfileController(mainWindow.getOtherUserProfile(), this);
@@ -208,11 +209,21 @@ public class MenuController implements ActionListener, WindowListener {
     }
 
     /**
-     * Metode que retorna a l'usuari al panell connect
+     * Metode que retorna a l'usuari al panell connect o chat
      */
     public void goToConnectPanel() {
-        mainWindow.changePanel("CONNECT");
-        mainWindow.selectConnect();
+        if(panelReturn == 1){
+            mainWindow.changePanel("CONNECT");
+            mainWindow.selectConnect();
+        }else{
+            mainWindow.changePanel("CHAT");
+            mainWindow.selectChat();
+        }
+
+    }
+
+    public void setPanelReturn(int panelReturn){
+        this.panelReturn = panelReturn;
     }
 
     /**
