@@ -184,7 +184,6 @@ public class MenuController implements ActionListener, WindowListener {
         System.out.println("es mostra match");
         matchController.showUsers();
         mainWindow.changePanel("MATCH");
-
     }
 
     /**
