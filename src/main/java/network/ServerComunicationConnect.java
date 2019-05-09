@@ -69,7 +69,6 @@ public class ServerComunicationConnect  {
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
                         boolean isMatch = dataIn.readBoolean();
-                        System.out.println("isMatch: "+isMatch);
                         connectController.setMatch(isMatch);
                     }catch (IOException e){
                         connectController.showWarning("Error communicating with Server.");

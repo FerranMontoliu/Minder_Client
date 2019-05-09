@@ -4,6 +4,10 @@ import controller.MatchController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+
+import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class MatchPanel extends JPanel {
     private JButton jbChat;
@@ -97,11 +101,39 @@ public class MatchPanel extends JPanel {
      * Metode TEMPORAL: s'haura de substituir la capçalera per la de parametres per tal de posar les imatges i noms dels
      * usuaris en funcio d'aquests
      */
-    //public void setUsersMatched(User userAssociated, User userMatched){
-    public void setUsersMatched(){
+    public void setUsersMatched(String associatedUsername, String connectedUsername){
         //TODO: Canviar les imatges dels dos usuaris corresponents al match
-        jlphotoAssociated.setIcon(new ImageIcon("Pictures/user-64px.png"));
-        jlphotoMatched.setIcon(new ImageIcon("Pictures/user-64px.png"));
+        ImageIcon associatedPicture = new ImageIcon("MinderDownloads/"+associatedUsername+".jpg");
+        ImageIcon connectedPicture = new ImageIcon("MinderDownloads/"+connectedUsername+".jpg");
+        Image associatedScaleImage = associatedPicture.getImage().getScaledInstance(128, 128,Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(associatedScaleImage);
+        jlphotoAssociated.setIcon(toCircle(icon));
+        Image connectedScaleImage = connectedPicture.getImage().getScaledInstance(128, 128,Image.SCALE_SMOOTH);
+        ImageIcon icon2 = new ImageIcon(connectedScaleImage);
+        jlphotoMatched.setIcon(toCircle(icon2));
+    }
+
+    /**
+     * Metode que permet canviar el format d'una imatge quadrada per una circular.
+     * @param icon: imatge quadrada a transformar
+     * @return Imatge en format Icon circular.
+     */
+    private Icon toCircle(ImageIcon icon) {
+        BufferedImage image = new BufferedImage(64, 64, TYPE_INT_RGB); // Assuming logo 150x150
+        Graphics2D g = image.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.fillOval(1, 1, 148, 148); // Leaving some room for antialiasing if needed
+        g.setComposite(AlphaComposite.SrcIn);
+        g.drawImage(icon.getImage(), 0, 0, null);
+        g.dispose();
+
+        int width = image.getWidth();
+        BufferedImage circleBuffer = new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = circleBuffer.createGraphics();
+        g2.setClip(new Ellipse2D.Float(0, 0, width, width));
+        g2.drawImage(image, 0, 0, width, width, null);
+
+        return new ImageIcon(circleBuffer);
     }
 
     /**

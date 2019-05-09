@@ -179,10 +179,9 @@ public class MenuController implements ActionListener, WindowListener {
     /**
      * Metode que canvia el panell Connect a Match en cas de que hi hagi match entre dos usuaris
      */
-    public void showMatch() {
+    public void showMatch(String associatedUsername, String connectedUsername) {
         //a la funcio showUsers es passarien els usuaris en questio
-        System.out.println("es mostra match");
-        matchController.showUsers();
+        matchController.showUsers(associatedUsername, connectedUsername);
         mainWindow.changePanel("MATCH");
     }
 

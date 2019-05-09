@@ -40,7 +40,7 @@ public class MatchController implements ActionListener {
 
         switch (actionCommand) {
             case "CHAT":
-                menuController.goToChatWith(matchedUser);
+                menuController.goToChatPanel();
                 break;
             case "PLAY": //TODO: Descomentar el serverComunication
                 //demano un nou usuari a mosrar al connect
@@ -58,8 +58,8 @@ public class MatchController implements ActionListener {
      * TEMPORAL: aquest metode mostrara al "It's a Match" les dades (nom i fotografia de perfil) dels dos usuaris
      * ara no estic passant cap usuari com a parametre
      */
-    public void showUsers(){
-        matchPanel.setUsersMatched();
+    public void showUsers(String associatedUsername, String connectedUsername){
+        matchPanel.setUsersMatched(associatedUsername, connectedUsername);
     }
 
     /**

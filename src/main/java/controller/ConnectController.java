@@ -72,8 +72,8 @@ public class ConnectController implements ActionListener, MouseListener {
         System.out.println("I like you!");
         //si hi ha match
         if(isMatch){
+            menuController.showMatch(associatedUser.getUsername(), connectUser.getUsername());
             serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
-            menuController.showMatch();
         }else{
             serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
             //TODO: aqui s'ha de rebre el nou usuari a mostrar
