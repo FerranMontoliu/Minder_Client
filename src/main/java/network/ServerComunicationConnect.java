@@ -56,7 +56,6 @@ public class ServerComunicationConnect  {
                         //System.out.println(connectController.getAssociatedUser().getUsername());
                         objectOut.writeObject(connectController.getAssociatedUser());
                         User connectUser = (User) objectIn.readObject();
-                        //System.out.println(connectUser.getUsername());
                         connectController.loadNewUser(connectUser);
                     } catch (ClassNotFoundException | IOException e) {
                         connectController.showWarning("Error loading User from Server.");
