@@ -89,12 +89,12 @@ public class ConnectPanel extends JPanel {
         //TODO: lblProfileName i ProfilePic per parametre
         JPanel jpUserImage = new JPanel();
         jpUserImage.setLayout(new BoxLayout(jpUserImage, BoxLayout.PAGE_AXIS));
-        lblProfilename.setText("Pol Espurnes"+ " ," + "19");
+
         lblProfilename.setFont(new Font(Font.DIALOG,  Font.ROMAN_BASELINE, 15));
         lblProfilename.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblProfilename.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         jpUserImage.add(lblProfilename);
-        lblProfilePic.setIcon(new ImageIcon("Pictures/images.png"));
+
         lblProfilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblProfilePic.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 3));
         jpUserImage.add(lblProfilePic);
@@ -143,11 +143,14 @@ public class ConnectPanel extends JPanel {
 
     /**
      * Metode que carrega les dades principals de l'usuari solicitat al servidor que es visualitza en el connectPanel .
-     * @param connectUser usuari solicitat.
+     *
      */
-    public void loadNewUser(User connectUser) {
-        lblProfilename.setText(connectUser.getUsername() + ", "+connectUser.getAge());
-        //lblProfilePic.setIcon();  //TODO: Concretar el tema del tipus de l'atribut imatge
+    public void loadNewUser(String username, int age) {
+        lblProfilename.setText(username + ", "+age);
+        ImageIcon picture = new ImageIcon("MinderDownloads/"+username+".jpg");
+        Image scaledImage = picture.getImage().getScaledInstance(256, 256,Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(scaledImage);
+        lblProfilePic.setIcon(icon);  //TODO: Concretar el tema del tipus de l'atribut imatge
     }
 
     /**
