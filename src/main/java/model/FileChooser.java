@@ -6,6 +6,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystem;
 
 /**
  * Classe encarregada d'obrir un explorador d'arxius per a escollir una Imatge.
@@ -24,7 +25,7 @@ public class FileChooser {
         int result = fileChooser.showSaveDialog(null);
         if(result == JFileChooser.APPROVE_OPTION){
             File file = fileChooser.getCurrentDirectory();
-            String fullPath = file.getCanonicalPath() + "\\" + fileChooser.getDescription(fileChooser.getSelectedFile());
+            String fullPath = file.getCanonicalPath() + File.separator + fileChooser.getDescription(fileChooser.getSelectedFile());
             ProfileImage img = new ProfileImage(ImageIO.read(fileChooser.getSelectedFile()),fullPath);
             return img;
         }else if(result == JFileChooser.CANCEL_OPTION){
