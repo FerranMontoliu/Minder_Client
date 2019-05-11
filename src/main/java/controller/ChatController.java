@@ -16,11 +16,17 @@ import java.util.LinkedList;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * Controlador de la vista de Chat
+ */
 public class ChatController implements ActionListener,  MouseListener, FocusListener {
+
+    //Communication commands
     private static final char USER_UNMATCHED = 'e';
     private static final char LOAD_CHAT = 'f';
     private static final char USER_MATCH_LIST = 'h';
     private static final char USER_INFO = 'm';
+
     private ServerComunicationChat serverComunicationChat;
     private ServerComunicationMessage serverComunicationMessage;
 
@@ -36,6 +42,12 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     private UnmatchFrame unmatchFrame;
 
 
+    /**
+     * Constructor per parametres del ChatController
+     * @param chatPanel vista associada
+     * @param associatedUser usuari del qual s'esta controlant la vista.
+     * @param menuController controlador de menu
+     */
     public ChatController(ChatPanel chatPanel, User associatedUser, MenuController menuController) {
         this.chatPanel = chatPanel;
         this.associatedUser = associatedUser;
@@ -43,9 +55,8 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     }
 
     /**
-     * Accio quan l'usuari prem sobre la foto d'un MATCH
-     * Accio quan s'envia un missatge tant (ENTER com prenent el BOTO d'enviar)
-     * @param e
+     * Metode que implementa el ActionPerformed dels ActionListeners associats al ChatPanel
+     * @param e esdeveniment
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -126,7 +137,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 menuController.showUserToConnectProfile();
                 serverComunicationMessage.stopServerComunication();
                 break;
-            default: //Ens han apretat el botó d'un match
+            default: //Ens han apretat el botó associat a un match
                 System.out.println("CLICK ESQUERRE");
                 chatPanel.setTextFieldMessage();
                 chatPanel.setChosen(true);
@@ -143,13 +154,17 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     }
 
     /**
-     * Accio de fer UNMATCH : quan l'usuari fa clic amb el boto dret sobre un match
-     * @param e
+     * Unimplemented.
+     * @param e --
      */
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * Metode que obte el nom d'usuari a partir del JButton al que se li ha fet click dret.
+     * @param e esdeveniment.
+     */
     private void getRightClickUnmatch(MouseEvent e) {
         JButton jbUnmatch = (JButton) e.getSource();
         unmatchingUser = jbUnmatch.getText();
@@ -157,7 +172,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     /**
      * Unimplemented.
-     * @param e
+     * @param e --
      */
     @Override
     public void mousePressed(MouseEvent e) {
@@ -165,8 +180,8 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     }
 
     /**
-     * Accio quan es deixa d'apretar el boto d'enviar
-     * @param e
+     * Metode que implementa dues funcions: Habilitar el boto d'enviar o fer unmatch a un User
+     * @param e esdeveniment.
      */
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -182,7 +197,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     /**
      * Unimplemented.
-     * @param e
+     * @param e --
      */
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -190,7 +205,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
 
     /**
      * Unimplemented.
-     * @param e
+     * @param e --
      */
     @Override
     public void mouseExited(MouseEvent e) {
@@ -198,19 +213,26 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
     }
 
     /**
-     * Quan es prem el JTextField, amago el text predeterminat
-     * @param e
+     * Quan es prem el JTextField, s'amaga el text predeterminat
+     * @param e Esdeveniment
      */
     @Override
     public void focusGained(FocusEvent e) {
         chatPanel.resetJTextField();
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void focusLost(FocusEvent e) {
 
     }
 
+    /**
+     * Metode que crida a la vista a mostrar la seva aparensa per defecte.
+     */
     public void runDefaultAppearance() {
         chatPanel.setDefaultText();
     }
@@ -231,6 +253,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         return destinationUsername;
     }
 
+    /**
+     * Metode que carrega el nou missatge d'un User en concret. Carrega un text per defecte si el chat esta buit.
+     */
     public void loadChat() {
         if(receivedChat != null){
             chatPanel.writeChat(receivedChat.getNewMessage());
@@ -238,28 +263,6 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
             chatPanel.writeChat("Start chatting now!");
         }
 
-    }
-
-    public void loadFullChat(){
-        if(receivedChat != null){
-            StringBuilder sb = new StringBuilder();
-            for(Message m: receivedChat.getMessages()){
-                sb.append("\n"+m.toString());
-            }
-            chatPanel.writeFullChat(sb);
-        }
-    }
-
-    public String getSourceUsername() {
-        return associatedUser.getUsername();
-    }
-
-    public void setServerComunicationChat(ServerComunicationChat serverComunicationChat) {
-        this.serverComunicationChat = serverComunicationChat;
-    }
-
-    public String getUnmatchingUsername() {
-        return unmatchingUser;
     }
 
     /**
@@ -272,10 +275,56 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         loadFullChat();
     }
 
+
+    /**
+     * Metode que carrega TOT el chat entre dos users.
+     */
+    public void loadFullChat(){
+        if(receivedChat != null){
+            StringBuilder sb = new StringBuilder();
+            for(Message m: receivedChat.getMessages()){
+                sb.append("\n"+m.toString());
+            }
+            chatPanel.writeFullChat(sb);
+        }
+    }
+
+    /**
+     * Getter del nom d'usuari del associatedUser.
+     * @return nom d'usuari del associatedUser.
+     */
+    public String getSourceUsername() {
+        return associatedUser.getUsername();
+    }
+
+    /**
+     * Setter del atribut serverCommunicationChat.
+     * @param serverComunicationChat nova instancia.
+     */
+    public void setServerComunicationChat(ServerComunicationChat serverComunicationChat) {
+        this.serverComunicationChat = serverComunicationChat;
+    }
+
+    /**
+     * Getter de l'atribut unmatchingUser.
+     * @return nom del usuari a qui es vol fer unmatch.
+     */
+    public String getUnmatchingUsername() {
+        return unmatchingUser;
+    }
+
+    /**
+     * Setter del atribut receivedChat
+     * @param receivedChat nova instancia del chat rebut.
+     */
     public void setReceivedChat(Chat receivedChat) {
         this.receivedChat = receivedChat;
     }
 
+    /**
+     * Metode que carrega la llista de matchs del associatedUser a la vista.
+     * @param matchedUsernames Llista de usernames dels matchs del associatedUser.
+     */
     public void loadMatchesList(LinkedList<String> matchedUsernames) {
         if(this.matchedUsernames == null){
             this.matchedUsernames = new LinkedList<>();
@@ -288,6 +337,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         this.matchedUsernames = matchedUsernames;
     }
 
+    /**
+     * Metode que finalitza la comunicacio de missatgeria en temps real.
+     */
     public void finishComunications() {
         try{
             serverComunicationMessage.stopServerComunication();
@@ -296,6 +348,9 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         }
     }
 
+    /**
+     * Metode que informa a l'usuari en cas de que li hagin fet unmatch.
+     */
     public void informUnmatch() {
         chatPanel.throwErrorMessage("This user has unmatched you!");
         chatPanel.setDefaultText();
@@ -303,6 +358,10 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         chatPanel.generateDynamicMatchButtons(matchedUsernames, this);
     }
 
+    /**
+     * Setter del atribut userInfo.
+     * @param userInfo nova instancia del atribut userInfo.
+     */
     public void setUserInfo(User userInfo){
         this.infoUser = userInfo;
     }

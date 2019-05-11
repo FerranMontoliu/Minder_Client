@@ -16,8 +16,11 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
+/**
+ * Controlador de la vista de Login i Sign Up
+ */
 public class LoginController implements ActionListener, WindowListener {
-
+    //Communication commands
     private static final char LOGIN_USER = 'a';
     private static final char REGISTER_USER = 'b';
 
@@ -29,7 +32,7 @@ public class LoginController implements ActionListener, WindowListener {
 
     /**
      * Constructor del controlador associat a la pantalla de Log-In.
-     *
+     * @param w vista de login
      */
     public LoginController(LoginWindow w) {
         this.w = w;
@@ -41,6 +44,10 @@ public class LoginController implements ActionListener, WindowListener {
         }
     }
 
+    /**
+     * Metode que implementa el ActionPerformed dels ActionListeners associats al LoginWindow
+     * @param e esdeveniment
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -76,10 +83,7 @@ public class LoginController implements ActionListener, WindowListener {
                     sc = new ServerComunicationLogin(this);
                     sc.startServerComunication(LOGIN_USER);
 
-
-                    //El servidor retorna un usuari amb totes les dades completes tal que el codi a partir d'aquí seria així:
-                    //User user = new User(true, "Polete", "19", true, "polete@polete.polete", "password", "67", "79", null,"M'agraden els croissants", false, true, "Frozen", null, null, null, null, null);
-                    if(correctLogin){
+                     if(correctLogin){
                         w.dispose();
                         DownloadsManager.createDirectory();
                         if(associatedUser.isCompleted()) {
@@ -124,10 +128,10 @@ public class LoginController implements ActionListener, WindowListener {
 
                     sc.startServerComunication(REGISTER_USER);
 
-                    if(correctRegister){ //TODO: Descomentar-ho si volem deixar de fer proves.
+                    if(correctRegister){
                         DownloadsManager.createDirectory();
                         w.dispose();
-                        MainWindow mw = new MainWindow("EDIT"); //Si, es mostra el perfil, pero pq s'ha de completar.
+                        MainWindow mw = new MainWindow("EDIT");
                         MenuController mc = new MenuController(mw, associatedUser);
                         mw.firstEdition();
                         mw.registraController(mc);
@@ -143,49 +147,81 @@ public class LoginController implements ActionListener, WindowListener {
         }
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void windowOpened(WindowEvent e) {
         //Not used.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void windowClosing(WindowEvent e) {
-        //w.quitWindow(); //TODO: fer un optionPane que mostri un missatge de sortida
+        //Not used.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void windowClosed(WindowEvent e) {
         //Not used.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void windowIconified(WindowEvent e) {
         //Not used.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void windowDeiconified(WindowEvent e) {
         //Not used.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void windowActivated(WindowEvent e) {
         //Not used.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void windowDeactivated(WindowEvent e) {
         //Not used.
     }
 
 
+    /**
+     * Getter del atribut associatedUser
+     * @return usuari associat
+     */
     public User getRegisteredUser() {
         return associatedUser;
     }
 
     /**
      * Metode que crea l'usuari amb les dades provinents de la BBDD sabent que existeix
-     * @param u
+     * @param u usuari rebut
      */
     public void setSignInUser(User u) {
         this.associatedUser = u;

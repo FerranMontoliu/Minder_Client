@@ -9,11 +9,14 @@ import network.ServerComunicationEdit;
 import view.EditPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+/**
+ * Controlador de la vista de Edit Profile
+ */
 public class EditController implements ActionListener, MouseListener, FocusListener {
+    //Communication command
     private static final char EDIT_PROFILE = 'c';
 
     private User associatedUser;
@@ -29,8 +32,8 @@ public class EditController implements ActionListener, MouseListener, FocusListe
     /**
      * Constructor per parametres.
      * @param editPanel Panell d'edicio de perfil associat.
-     * @param menuController controlador de Menu associat.
-     * @param associatedUser usuari associat al editPanel
+     * @param menuController controlador general del menu.
+     * @param associatedUser usuari associat al editPanel.
      */
     public EditController(EditPanel editPanel, MenuController menuController, User associatedUser){
         this.editPanel = editPanel;
@@ -39,6 +42,10 @@ public class EditController implements ActionListener, MouseListener, FocusListe
         sc = new ServerComunicationEdit(this);
     }
 
+    /**
+     * Metode que implementa el ActionPerformed dels ActionListeners associats al EditPanel
+     * @param e esdeveniment
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -108,40 +115,72 @@ public class EditController implements ActionListener, MouseListener, FocusListe
 
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         //Not implemented.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         //Not implemented.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         //Not implemented.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mouseExited(MouseEvent e) {
         //Not implemented.
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void focusGained(FocusEvent e) {
         editPanel.resetHobbies();
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void focusLost(FocusEvent e) {
 
     }
 
+    /**
+     * Getter del atribut provisionalUser
+     * @return provisionalUser
+     */
     public User getUser() {
         return provisionalUser;
     }
 
+    /**
+     * Setter del atribut editOK
+     * @param editOK valor de editOK
+     */
     public void setEditResult(boolean editOK) {
         editResult = editOK;
     }

@@ -10,7 +10,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Controlador de la vista de Connect
+ */
 public class ConnectController implements ActionListener, MouseListener {
+    //Communication commands
     private static final char CONNECT_LIKE = 'i';
     private static final char CONNECT_DISLIKE = 'j';
     private static final char CONNECT_USER = 'k';
@@ -22,10 +26,15 @@ public class ConnectController implements ActionListener, MouseListener {
     private boolean isMatch;
     private boolean moreUsers;
     private MenuController menuController;
-    private boolean like;
     public final static int IMAGE_LIMIT = 115;
 
 
+    /**
+     * Construcor per parametres.
+     * @param connectPanel vista associada.
+     * @param menuController controlador general.
+     * @param associatedUser usuari associat a la vista.
+     */
     public ConnectController(ConnectPanel connectPanel, MenuController menuController, User associatedUser) {
         this.connectPanel = connectPanel;
         this.menuController = menuController;
@@ -34,13 +43,16 @@ public class ConnectController implements ActionListener, MouseListener {
     }
 
 
+    /**
+     * Metode que implementa el ActionPerformed dels ActionListeners associats al ConnectPanel
+     * @param e esdeveniment
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-        //TODO: marcar com a usuari vist nomes despres de donar like o dislike, info no, ja que ha de tornar a apareixer l'usuari
 
         switch (actionCommand) {
-            case "DISLIKE": //TODO: Descomentar les comandes de server-client quan tot funcioni
+            case "DISLIKE":
                 dislikeActions();
                 break;
 
@@ -70,13 +82,12 @@ public class ConnectController implements ActionListener, MouseListener {
      */
     private void likeActions() {
         System.out.println("I like you!");
-        //si hi ha match
+
         if(isMatch){
             menuController.showMatch(associatedUser.getUsername(), connectUser.getUsername());
             serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
         }else{
             serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
-            //TODO: aqui s'ha de rebre el nou usuari a mostrar
             serverComunicationConnect.startServerComunication(CONNECT_USER);
         }
     }
@@ -87,25 +98,24 @@ public class ConnectController implements ActionListener, MouseListener {
     private void dislikeActions() {
         System.out.println("I don't like you..");
         serverComunicationConnect.startServerComunication(CONNECT_DISLIKE);
-        //serverComunicationConnect.join();
-        serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
+        serverComunicationConnect.startServerComunication(CONNECT_USER);
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mousePressed(MouseEvent e) {
-        /*JComponent comp = (JComponent) e.getSource();
-        TransferHandler th = comp.getTransferHandler();
-        th.exportAsDrag(comp, e, TransferHandler.COPY);
-        if (like){
-            System.out.println("Like");
-        }else{
-            System.out.println("dislike");
-        }*/
     }
 
     /**
@@ -130,18 +140,20 @@ public class ConnectController implements ActionListener, MouseListener {
         }
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
+    /**
+     * Unimplemented.
+     * @param e --
+     */
     @Override
     public void mouseExited(MouseEvent e) {
-        /*if(e.getPoint().x < 115){
-            like = false;
-        }else{
-            like = true;
-        }*/
     }
 
     /**
@@ -182,27 +194,50 @@ public class ConnectController implements ActionListener, MouseListener {
         menuController.loadConnectUserInfo(connectUser);
     }
 
+    /**
+     * Getter del username del usuari associat.
+     * @return Valor del username del usuari associat.
+     */
     public String getSourceUsername() {
         return associatedUser.getUsername();
     }
 
+    /**
+     * Getter del username del usuari a connectar
+     * @return Valor del username del usuari a connectar
+     */
     public String getConnectUsername() {
         return connectUser.getUsername();
     }
 
+    /**
+     * Setter del atribut isMatch
+     * @param match nou valor de isMatch
+     */
     public void setMatch(boolean match) {
         isMatch = match;
     }
 
+    /**
+     * Metode que es comunica amb el server per a obtenir un nou user.
+     */
     public void obtainConnectUser() {
         serverComunicationConnect = new ServerComunicationConnect(this);
         serverComunicationConnect.startServerComunication(CONNECT_USER); //Demanem nou User
     }
 
+    /**
+     * Getter del atribut isMatch
+     * @return valor del atribut is Match
+     */
     public boolean getMatch(){
         return isMatch;
     }
 
+    /**
+     * Getter de l'atribut associatedUser
+     * @return associatedUser
+     */
     public User getAssociatedUser() {
         return associatedUser;
     }
