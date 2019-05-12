@@ -70,7 +70,10 @@ public class ServerComunicationConnect  {
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
                         boolean isMatch = dataIn.readBoolean();
-                        connectController.setMatch(isMatch);
+                        System.out.println(isMatch);
+                        connectController.matchActions(isMatch);
+
+                        //connectController.setMatch(isMatch);
                     }catch (IOException e){
                         connectController.showWarning("Error communicating with Server.");
                     }

@@ -83,15 +83,8 @@ public class ConnectController implements ActionListener, MouseListener {
      */
     private void likeActions() {
         System.out.println("I like you!");
-
-        if(isMatch){
-            menuController.showMatch(associatedUser.getUsername(), connectUser.getUsername());
-            serverComunicationConnect.startServerComunication(USER_MATCHED); //actualizem la llista d'usuaris amb matches de bbdd
-            serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
-        }else{
-            serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
-            serverComunicationConnect.startServerComunication(CONNECT_USER);
-        }
+        serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
+        serverComunicationConnect.startServerComunication(CONNECT_USER);
     }
 
     /**
@@ -250,5 +243,16 @@ public class ConnectController implements ActionListener, MouseListener {
      */
     public Object getConnectUser() {
         return connectUser;
+    }
+
+    /**
+     * Metode que actualitza la base de dades per a afegir un nou match i mostra el "It's a Match" per la pantalla del client
+     * @param isMatch boolean que indica si s'ha produit un match o no (que ens ho diu el servidor)
+     */
+    public void matchActions(boolean isMatch){
+        if (isMatch){
+            menuController.showMatch(associatedUser.getUsername(), connectUser.getUsername());
+            serverComunicationConnect.startServerComunication(USER_MATCHED);
+        }
     }
 }
