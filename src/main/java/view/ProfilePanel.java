@@ -271,13 +271,13 @@ public class ProfilePanel extends JPanel {
      * Metode que actualitza la informacio de l'usuari segons la informacio que se li passa com a parametre, de tal
      * manera que omple els camps del perfil amb aquesta informacio
      */
-    public void updateInfo(String username, int age, String description, boolean likesJava, boolean likesC, String hobbies, String song){
+    public void updateInfo(String associated, String username, int age, String description, boolean likesJava, boolean likesC, String hobbies, String song){
         updateNameAge(username, age);
         updateDescription(description);
         updateFavProgramming(likesJava,likesC);
         updateHobbies(hobbies);
         updateSong(song);
-        updatePhoto(username);
+        updatePhoto(associated, username);
     }
 
     /**
@@ -285,8 +285,8 @@ public class ProfilePanel extends JPanel {
      * guarda al fitxer username.jpg), i s'escala i arrodoneix al disseny desitjat
      * @param photoName Usuari que ha fet login
      */
-    private void updatePhoto(String photoName) {
-        ImageIcon picture = new ImageIcon("MinderDownloads/"+photoName+".jpg");
+    private void updatePhoto(String associated, String photoName) {
+        ImageIcon picture = new ImageIcon(associated+"MinderDownloads/"+photoName+".jpg");
         Image scaleImage = picture.getImage().getScaledInstance(64, 64,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaleImage);
         jlPhoto.setIcon(toCircle(icon));

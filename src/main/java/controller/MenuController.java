@@ -108,7 +108,7 @@ public class MenuController implements ActionListener, WindowListener {
 
             case "EDIT":
                 mainWindow.changePanel("EDIT");
-                associatedUser.base64ToImage(associatedUser.getUsername());
+                associatedUser.base64ToImage(associatedUser.getUsername(), associatedUser.getUsername());
                 String userDescription = associatedUser.getDescription();
                 boolean java = associatedUser.getLikesJava();
                 boolean c = associatedUser.getLikesC();
@@ -125,7 +125,7 @@ public class MenuController implements ActionListener, WindowListener {
                 break;
             case "YES LOGOUT":
                 //TODO: TANCAR COMUNICACIO DE SERVIDOR I MERDES VARIES
-                DownloadsManager.deleteDirectory();
+                DownloadsManager.deleteDirectory(associatedUser.getUsername());
                 chatController.finishComunications();
                 logoutController.hideLogout();
                 mainWindow.dispose();
@@ -296,14 +296,14 @@ public class MenuController implements ActionListener, WindowListener {
      */
     public void loadConnectUserInfo(User connectUser) {
         String username = connectUser.getUsername();
-        connectUser.base64ToImage(username);
+        connectUser.base64ToImage(associatedUser.getUsername(), username);
         String userDescription = connectUser.getDescription();
         boolean java = connectUser.getLikesJava();
         boolean c = connectUser.getLikesC();
         String song = connectUser.getFavSong();
         String hobbies = connectUser.getHobbies();
         int age = connectUser.getAge();
-        mainWindow.loadConnectUserInfo(username, userDescription, age,java, c, song, hobbies);
+        mainWindow.loadConnectUserInfo(associatedUser.getUsername(), username, userDescription, age,java, c, song, hobbies);
     }
 
     /**

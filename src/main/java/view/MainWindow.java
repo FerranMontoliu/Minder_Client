@@ -423,8 +423,8 @@ public class MainWindow extends JFrame{
     }
 
 
-    public void loadConnectUserInfo(String username, String userDescription, int age, boolean java, boolean c, String song, String hobbies) {
-        jpOtherProfile.updateInfo(username, age,userDescription, java, c, hobbies, song);
+    public void loadConnectUserInfo(String client, String username, String userDescription, int age, boolean java, boolean c, String song, String hobbies) {
+        jpOtherProfile.updateInfo(client, username, age,userDescription, java, c, hobbies, song);
     }
 
     /**

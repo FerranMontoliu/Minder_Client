@@ -85,12 +85,12 @@ public class LoginController implements ActionListener, WindowListener {
 
                      if(correctLogin){
                         w.dispose();
-                        DownloadsManager.createDirectory();
+                        DownloadsManager.createDirectory(associatedUser.getUsername());
                         if(associatedUser.isCompleted()) {
                             MainWindow mw = new MainWindow("PROFILE");
                             associatedUser.setCompleted(true);
                             MenuController mc = new MenuController(mw, associatedUser);
-                            associatedUser.base64ToImage(associatedUser.getUsername());
+                            associatedUser.base64ToImage(associatedUser.getUsername(), associatedUser.getUsername());
                             mc.loadProfile();
                             mw.registraController(mc);
                             mw.setVisible(true);
@@ -129,7 +129,7 @@ public class LoginController implements ActionListener, WindowListener {
                     sc.startServerComunication(REGISTER_USER);
 
                     if(correctRegister){
-                        DownloadsManager.createDirectory();
+                        DownloadsManager.createDirectory(associatedUser.getUsername());
                         w.dispose();
                         MainWindow mw = new MainWindow("EDIT");
                         MenuController mc = new MenuController(mw, associatedUser);

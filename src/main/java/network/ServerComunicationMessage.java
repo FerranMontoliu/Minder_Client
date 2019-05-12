@@ -60,6 +60,9 @@ public class ServerComunicationMessage extends Thread {
         this.isOn = false;
         this.interrupt();
         try {
+            dataOut.close();
+        } catch (IOException e) {}
+        try {
             objectOut.close();
         } catch (IOException e) {}
         try {

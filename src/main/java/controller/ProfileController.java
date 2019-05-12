@@ -21,7 +21,7 @@ public class ProfileController {
         }if (associatedUser.getFavSong().isEmpty()){
             associatedUser.setFavSong("-");
         }
-        profilePanel.updateInfo(associatedUser.getUsername(), associatedUser.getAge(), associatedUser.getDescription(),
+        profilePanel.updateInfo(associatedUser.getUsername(), associatedUser.getUsername(), associatedUser.getAge(), associatedUser.getDescription(),
                 associatedUser.getLikesJava(), associatedUser.getLikesC(), associatedUser.getHobbies(), associatedUser.getFavSong());
     }
 }

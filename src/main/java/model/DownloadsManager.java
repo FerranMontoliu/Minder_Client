@@ -8,21 +8,21 @@ import java.nio.file.Paths;
 
 public class DownloadsManager {
 
-    public static void createDirectory(){
-        String fileName = "MinderDownloads";
+    public static void createDirectory(String destination){
+        String fileName = destination+"MinderDownloads";
 
         Path path = Paths.get(fileName);
 
         try {
-            deleteDirectory();
+            deleteDirectory(destination);
             Files.createDirectory(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static  void deleteDirectory(){
-        File directory = new File("MinderDownloads");
+    public static  void deleteDirectory(String destination){
+        File directory = new File(destination+"MinderDownloads");
         if(directory.exists()){
             String[] entries = directory.list();
             if((entries == null) || (entries.length > 0)){

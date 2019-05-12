@@ -99,8 +99,8 @@ public class MatchPanel extends JPanel {
      * usuaris en funcio d'aquests
      */
     public void setUsersMatched(String associatedUsername, String connectedUsername){
-        ImageIcon associatedPicture = new ImageIcon("MinderDownloads/"+associatedUsername+".jpg");
-        ImageIcon connectedPicture = new ImageIcon("MinderDownloads/"+connectedUsername+".jpg");
+        ImageIcon associatedPicture = new ImageIcon(associatedUsername+"MinderDownloads/"+associatedUsername+".jpg");
+        ImageIcon connectedPicture = new ImageIcon(associatedUsername+"MinderDownloads/"+connectedUsername+".jpg");
         Image associatedScaleImage = associatedPicture.getImage().getScaledInstance(64, 64,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(associatedScaleImage);
         jlphotoAssociated.setIcon(toCircle(icon));

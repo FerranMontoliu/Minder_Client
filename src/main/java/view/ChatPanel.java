@@ -278,6 +278,10 @@ public class ChatPanel extends JPanel {
     public void writeFullChat(StringBuilder sb) {
         jtaChat.setText(sb.toString());
     }
+
+    public void resetJTextArea() {
+        jtaChat.setText("");
+    }
 }
 
 

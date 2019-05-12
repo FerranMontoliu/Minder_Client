@@ -76,7 +76,7 @@ public class EditController implements ActionListener, MouseListener, FocusListe
 
                     associatedUser.setCompleted(true);
                     if(editResult){
-                        associatedUser.base64ToImage(associatedUser.getUsername());
+                        associatedUser.base64ToImage(associatedUser.getUsername(), associatedUser.getUsername());
                         menuController.editionCompleted(associatedUser);
 
                     }else{

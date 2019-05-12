@@ -259,7 +259,7 @@ public class EditPanel extends JPanel {
     public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String hobbies) {
         jlProfilePic.setText("No image selected.");
         try{
-            ImageIcon profilePicture = new ImageIcon("MinderDownloads/"+username+".jpg");
+            ImageIcon profilePicture = new ImageIcon(username+"MinderDownloads/"+username+".jpg");
             jlProfilePic.setText("");
             jlProfilePic.setIcon(new ImageIcon(profilePicture.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         }catch(Exception e1){

@@ -180,8 +180,8 @@ public class ConnectController implements ActionListener, MouseListener {
         }else{
             this.connectUser = connectUser;
             moreUsers = true;
-            connectUser.base64ToImage(connectUser.getUsername());
-            connectPanel.loadNewUser(connectUser.getUsername(), connectUser.getAge());
+            connectUser.base64ToImage(associatedUser.getUsername(), connectUser.getUsername());
+            connectPanel.loadNewUser(associatedUser.getUsername(), connectUser.getUsername(), connectUser.getAge());
             connectPanel.enableButtons(moreUsers);
 
         }

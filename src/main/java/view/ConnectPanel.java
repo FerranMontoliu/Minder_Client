@@ -149,9 +149,9 @@ public class ConnectPanel extends JPanel {
     /**
      * Metode que carrega les dades principals de l'usuari solicitat al servidor que es visualitza en el connectPanel .
      */
-    public void loadNewUser(String username, int age) {
+    public void loadNewUser(String associated, String username, int age) {
         lblProfilename.setText(username + ", "+age);
-        ImageIcon picture = new ImageIcon("MinderDownloads/"+username+".jpg");
+        ImageIcon picture = new ImageIcon(associated+"MinderDownloads/"+username+".jpg");
         Image scaledImage = picture.getImage().getScaledInstance(256, 256,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaledImage);
         lblProfilePic.setIcon(icon);
