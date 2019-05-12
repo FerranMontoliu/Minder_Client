@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
  */
 public class ConnectController implements ActionListener, MouseListener {
     //Communication commands
+    private static final char USER_MATCHED = 'd';
     private static final char CONNECT_LIKE = 'i';
     private static final char CONNECT_DISLIKE = 'j';
     private static final char CONNECT_USER = 'k';
@@ -85,6 +86,7 @@ public class ConnectController implements ActionListener, MouseListener {
 
         if(isMatch){
             menuController.showMatch(associatedUser.getUsername(), connectUser.getUsername());
+            serverComunicationConnect.startServerComunication(USER_MATCHED); //actualizem la llista d'usuaris amb matches de bbdd
             serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
         }else{
             serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
@@ -240,5 +242,13 @@ public class ConnectController implements ActionListener, MouseListener {
      */
     public User getAssociatedUser() {
         return associatedUser;
+    }
+
+    /**
+     * getter de l'atribut connectUser
+     * @return usuari que s'esta visualitzant pel panell connect
+     */
+    public Object getConnectUser() {
+        return connectUser;
     }
 }

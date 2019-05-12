@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class ServerComunicationConnect  {
+    private static final char USER_MATCHED = 'd';
     private static final char CONNECT_LIKE = 'i';
     private static final char CONNECT_DISLIKE = 'j';
     private static final char CONNECT_USER = 'k';
@@ -82,6 +83,10 @@ public class ServerComunicationConnect  {
                     }catch (IOException e){
                         connectController.showWarning("Error communicating with Server.");
                     }
+                    break;
+                case USER_MATCHED:
+                    objectOut.writeObject(connectController.getAssociatedUser());
+                    objectOut.writeObject(connectController.getConnectUser());
                     break;
             }
         } catch (IOException e) {

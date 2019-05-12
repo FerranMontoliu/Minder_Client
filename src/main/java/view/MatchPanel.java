@@ -34,8 +34,7 @@ public class MatchPanel extends JPanel {
      */
     private void createOptions() {
         jldescription = new JLabel();
-        //TODO: substituir aquesta funcio i cridar-la des del controlador passant usuari matched
-        showNamesMessage();
+
         jldescription.setAlignmentX(Component.CENTER_ALIGNMENT);
         jldescription.setBorder(BorderFactory.createEmptyBorder(3, 0, 10, 0));
         add(jldescription);
@@ -63,9 +62,7 @@ public class MatchPanel extends JPanel {
      * Metode que mostra el missatge de connexio entre l'usuari que ha donat el segon like amb el que ja li havia donat
      * anteriorment
      */
-    public void showNamesMessage(){
-        String name = "Pol";
-        //TODO: Enviar per parametre el MatchedUser
+    public void showNamesMessage(String name){
         jldescription.setText("You and "+ name + " have liked each other!");
     }
 
@@ -102,15 +99,16 @@ public class MatchPanel extends JPanel {
      * usuaris en funcio d'aquests
      */
     public void setUsersMatched(String associatedUsername, String connectedUsername){
-        //TODO: Canviar les imatges dels dos usuaris corresponents al match
         ImageIcon associatedPicture = new ImageIcon("MinderDownloads/"+associatedUsername+".jpg");
         ImageIcon connectedPicture = new ImageIcon("MinderDownloads/"+connectedUsername+".jpg");
-        Image associatedScaleImage = associatedPicture.getImage().getScaledInstance(128, 128,Image.SCALE_SMOOTH);
+        Image associatedScaleImage = associatedPicture.getImage().getScaledInstance(64, 64,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(associatedScaleImage);
         jlphotoAssociated.setIcon(toCircle(icon));
-        Image connectedScaleImage = connectedPicture.getImage().getScaledInstance(128, 128,Image.SCALE_SMOOTH);
+        Image connectedScaleImage = connectedPicture.getImage().getScaledInstance(64, 64,Image.SCALE_SMOOTH);
         ImageIcon icon2 = new ImageIcon(connectedScaleImage);
         jlphotoMatched.setIcon(toCircle(icon2));
+        //A part d'actualitzar les dues imatges, tambe actualitzem el nom
+        showNamesMessage(connectedUsername);
     }
 
     /**
