@@ -54,7 +54,8 @@ public class MenuController implements ActionListener, WindowListener {
         mainWindow.registraOtherProfileController(otherUserProfileController);
         mainWindow.registraPreferencesController(preferencesController);
 
-        updateNotifications();
+        //todo: fem l'opcional?
+        //updateNotifications();
     }
 
     @Override
