@@ -5,8 +5,12 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class EditPanel extends JPanelSlider {
+/**
+ * Panell que mostrara la vista d'edicio de perfil juntament amb els diferents valors actuals dels camps disponibles a editar.
+ */
+public class EditPanel extends JPanel {
     private final static String HOBBIES_DEFAULT_TEXT = "Separate them with commas...";
+
     private JLabel jlNewImage;
     private JTextArea jtaNewDescription;
     private JCheckBox jcbJava;
@@ -21,11 +25,9 @@ public class EditPanel extends JPanelSlider {
 
 
     /**
-     * Constructor i generador del EditPanel
-     * @param clMainWindow cardLayout al qual pertany.
+     * Constructor i generador del EditPanel.
      */
-    public EditPanel(CardLayout clMainWindow){
-        //super(clMainWindow);
+    public EditPanel(){
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         createBorder();
@@ -63,7 +65,6 @@ public class EditPanel extends JPanelSlider {
         jlProfilePic = new JLabel();
         if(selectedImage == null){
             jlProfilePic.setText("No image selected.");
-            //jlProfilePic.setIcon(new ImageIcon(new ImageIcon("Pictures/images.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
         }else{
             jlProfilePic.setIcon(selectedImage);
         }
@@ -97,7 +98,6 @@ public class EditPanel extends JPanelSlider {
         jtaNewDescription.setWrapStyleWord(true);
         JScrollPane jspDescription = new JScrollPane(jtaNewDescription);
 
-        //jtaNewDescription.setText(user.getDesciption()); Caldria passar el usuari per parametre i ensenyarli la descripcio actual.
         jpDescription.add(jspDescription);
 
         add(jpDescription);
@@ -115,7 +115,7 @@ public class EditPanel extends JPanelSlider {
         jcbJava = new JCheckBox();
         jcbC = new JCheckBox();
         jpCheckBoxes.add(jcbC);
-        jpCheckBoxes.add(new JLabel(new ImageIcon("icons/c-24px.png")));  //Posar icones corresponents...
+        jpCheckBoxes.add(new JLabel(new ImageIcon("icons/c-24px.png")));
         jpCheckBoxes.add(jcbJava);
         jpCheckBoxes.add(new JLabel(new ImageIcon("icons/java-24px.png")));
 
@@ -139,6 +139,9 @@ public class EditPanel extends JPanelSlider {
         add(jpButtons);
     }
 
+    /**
+     * Metode que crea els camps d'edicio opcionals: Canso preferida i hobbies.
+     */
     public void createOptionalFields(){
         TitledBorder border = new TitledBorder("Favourite Song");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -165,6 +168,10 @@ public class EditPanel extends JPanelSlider {
         add(jpHobbies);
     }
 
+    /**
+     * Metode que registra un controlador als diferents components del panell.
+     * @param ec controlador.
+     */
     public void registerController(EditController ec){
         jlNewImage.addMouseListener(ec);
         jtaHobbies.addFocusListener(ec);
@@ -205,39 +212,49 @@ public class EditPanel extends JPanelSlider {
     }
 
     /**
-     * Metode que informa si l'usuari ha seleccionat que li agrada Java
-     * @return indica si ha seleccionat el CheckBox
+     * Metode que informa si l'usuari ha seleccionat que li agrada Java.
+     * @return indica si ha seleccionat el CheckBox de Java.
      */
     public boolean likesJava() {
         return jcbJava.isSelected();
     }
 
     /**
-     * Metode que informa si l'usuari ha seleccionat que li agrada C
-     * @return indica si ha seleccionat el CheckBox
+     * Metode que informa si l'usuari ha seleccionat que li agrada C.
+     * @return indica si ha seleccionat el CheckBox de C.
      */
     public boolean likesC() {
         return jcbC.isSelected();
     }
 
+    /**
+     * Metode que mostra un JDialog informant sobre un error.
+     * @param message Missatge d'error que mostrara el JDialog.
+     */
     public void showWarning(String message) {
         JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
     }
 
+    /**
+     * Metode que inhabilita l'opcio de cancelar edicio de perfil.
+     */
     public void disableCancel() {
         jbCancel.setEnabled(false);
     }
 
+    /**
+     * Metode que habilita l'opcio de cancelar edicio de perfil.
+     */
     public void enableCancel() {
         jbCancel.setEnabled(true);
     }
 
     /**
      * Metode que omple el EditPanel amb els continguts del User.
-     * @param username titol de la imatge seleccionada
-     * @param userDescription descripcio del User
-     * @param java boolean que es true si li agrada Java
-     * @param c boolean que es true si li agrada C
+     * @param username titol de la imatge seleccionada.
+     * @param userDescription descripcio del User.
+     * @param java boolean que es true si li agrada Java.
+     * @param c boolean que es true si li agrada C.
      */
     public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String hobbies) {
         jlProfilePic.setText("No image selected.");
@@ -273,7 +290,7 @@ public class EditPanel extends JPanelSlider {
 
 
     /**
-     * Metode que esborra el text per defecte del TextArea Hobbies
+     * Metode que esborra el text per defecte del TextArea Hobbies.
      */
     public void resetHobbies() {
         if(jtaHobbies.getText().equals(HOBBIES_DEFAULT_TEXT)){
@@ -282,16 +299,16 @@ public class EditPanel extends JPanelSlider {
     }
 
     /**
-     * Getter del text del TextField Song
-     * @return Text que conte el TextField
+     * Getter del text del TextField Song.
+     * @return Text que conte el TextField.
      */
     public String getFavouriteSong() {
         return jtfSong.getText();
     }
 
     /**
-     * Getter del text del TextArea Hobbies
-     * @return Text que conte el TextArea
+     * Getter del text del TextArea Hobbies.
+     * @return Text que conte el TextArea.
      */
     public String getUserHobbies() {
         if(jtaHobbies.getText().equals(HOBBIES_DEFAULT_TEXT)){

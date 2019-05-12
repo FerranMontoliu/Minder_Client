@@ -8,7 +8,9 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.LinkedList;
 
-
+/**
+ * Classe encarregada de generar i gestionar el panell de Chat.
+ */
 public class ChatPanel extends JPanel {
 
     private JTextField jtfMissatge;
@@ -25,8 +27,8 @@ public class ChatPanel extends JPanel {
 
 
     /**
-     * Constructor
-     * @param clMainWindow
+     * Constructor.
+     * @param clMainWindow cardLayout al qual pertany el panell.
      */
     public ChatPanel(CardLayout clMainWindow) {
         super(clMainWindow);
@@ -34,6 +36,9 @@ public class ChatPanel extends JPanel {
     }
 
 
+    /**
+     * Metode que crea el panell.
+     */
     public void createChatPanel() {
 
         //Assigno un borderlayout pel chat
@@ -59,7 +64,7 @@ public class ChatPanel extends JPanel {
 
         //Afegeixo JPanels de matches
 
-        showUserPhotos();
+        showUsers();
 
         //Inicialitzacio de la finestra inferior
 
@@ -87,6 +92,10 @@ public class ChatPanel extends JPanel {
         this.setTextFieldMessage();
     }
 
+    /**
+     * Metode que registra ActionListeners als diferents components del panell.
+     * @param controller parametre que controlara els components.
+     */
     public void registraControlador(ChatController controller) {
 
         jbSend.addActionListener(controller);
@@ -99,6 +108,10 @@ public class ChatPanel extends JPanel {
 
     }
 
+    /**
+     * Metode que registra ActionListener i MouseListener als diferents JButtons que representen els chats.
+     * @param controller controlador que implementa MouseListener i ActionListener
+     */
     public void registraButtons(ChatController controller){
         for(int i=0;i<jbMatches.size();i++) {
             jbMatches.get(i).addActionListener(controller);
@@ -107,7 +120,10 @@ public class ChatPanel extends JPanel {
         }
     }
 
-    public void showUserPhotos() {
+    /**
+     * Metode que inicialitza la seccio on es mostraran els chats disponibles.
+     */
+    public void showUsers() {
         jpMatches = new JPanel();
         jbMatches = new LinkedList<>();
 
@@ -116,10 +132,12 @@ public class ChatPanel extends JPanel {
         jspMatches.getViewport().add(jpMatches);
     }
 
+    /**
+     * Metode que genera els JButtons a partir d'una llista de noms d'usuari.
+     * @param userMatchs llista que conte els noms d'usuari amb qui hi ha chats oberts.
+     * @param controller controlador al qual es registraran els nous JButtons.
+     */
     public void generateDynamicMatchButtons(LinkedList<String> userMatchs, ChatController controller){
-
-        //Opció DINÀMICA
-        //jpMatches.removeAll();
 
         for(JButton jb: jbMatches){
             jb.removeActionListener(controller);
@@ -128,7 +146,6 @@ public class ChatPanel extends JPanel {
 
         if(userMatchs.size() > 0){
             jlNoMatchs.setText("");
-            //TODO: Parlar amb el Ferran per a saber com rebre les imatges de perfil
             jbMatches.clear();
             int size = userMatchs.size();
             jbMatches = new LinkedList<>();
@@ -145,15 +162,15 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Retorna el missatge a enviar
-     * @return
+     * Retorna el missatge a enviar.
+     * @return contingut del jtfMissatge.
      */
     public String retrieveTextToSend() {
         return jtfMissatge.getText();
     }
 
     /**
-     * Insereix icona d'enviar negra-negra
+     * Insereix icona d'enviar negre-negre.
      */
     public void setSentIcon() {
         ImageIcon iSent = new ImageIcon("icons/sent.png");
@@ -161,7 +178,7 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Insereix icona d'enviar blanca-negra
+     * Insereix icona d'enviar blanca-negre.
      */
     public void setSendIcon() {
         ImageIcon iSend = new ImageIcon("icons/send.png");
@@ -169,42 +186,38 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Escriu un missatge inicial al JTextField
+     * Escriu un missatge inicial al JTextField d'inserir missatge.
      */
     public void setTextFieldMessage() {
-        jtfMissatge.setText("Write a Message... ");
+        jtfMissatge.setText(" Write a Message... ");
     }
 
     /**
-     * Neteja el JTextField
+     * Neteja el JTextField d'inserir missatge.
      */
     public void resetJTextField() {
         jtfMissatge.setText("");
     }
 
-    public int numberOfMatches() {
-        return jbMatches.size();
-    }
-
     /**
-     * Retorna si l'usuari ha entrat en algun xat o no
-     * @return
+     * Retorna si l'usuari ha entrat en algun xat o no.
+     * @return valor de l'atribut chosen.
      */
     public boolean isChosen() {
         return chosen;
     }
 
     /**
-     * Setter de l'atribut chosen
-     * @param chosen
+     * Setter de l'atribut chosen.
+     * @param chosen nou valor de l'atribut chosen.
      */
     public void setChosen(boolean chosen) {
         this.chosen = chosen;
     }
 
     /**
-     * Escriu el nom de la persona amb qui s'esta xatejant al Border
-     * @param name
+     * Escriu el nom de la persona amb qui s'esta xatejant al Border.
+     * @param name nom de l'usuari amb qui es xateja.
      */
     public void changeBorderName(String name) {
         TitledBorder tb2 = new TitledBorder("In chat with:  "+name);
@@ -213,7 +226,7 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Escriu un missatge predeterminat abans de clicar sobre una conversa
+     * Metode que escriu un missatge predeterminat abans de clicar sobre una conversa.
      */
     public void setDefaultText() {
         jtaChat.setText("\n\n\n\n\n\n\n\t      Here you can chat with your matches");
@@ -226,29 +239,22 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Llança missatge d'error si algun element no es correcte
+     * Metode que mostra un missatge d'error si algun element o accio no es correcte.
      */
     public void throwErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
-     * Metode que mostra un JDialog d'error informant que l'usuari no ha escrit res al JTextFiled Missatge
+     * Metode que escriu el nou missatge enviat/rebut al TextPane.
+     * @param generatedMessage missatge nou.
      */
-    public void noTextMessageError() {
-        JOptionPane.showMessageDialog(this, "You have not written anything!!", "Error", JOptionPane.ERROR_MESSAGE);
+    public void writeChat(String generatedMessage) {
+        jtaChat.append("\n"+generatedMessage);
     }
 
     /**
-     * Metode que escriu el chat obtingut del client al TextPane
-     * @param generatedChat missatges a escriure.
-     */
-    public void writeChat(String generatedChat) {
-        jtaChat.append("\n"+generatedChat);
-    }
-
-    /**
-     * Metode que inhabilita el JButton i JTextField d'enviar missatge d'enviar missatge
+     * Metode que inhabilita el JButton i JTextField d'enviar missatge i el JButton de mostrar mes info.
      */
     public void disableSend(){
         jbSend.setEnabled(false);
@@ -257,20 +263,12 @@ public class ChatPanel extends JPanel {
     }
 
     /**
-     * Metode que habilita el JButton i JTextField d'enviar missatge
+     * Metode que habilita el JButton i JTextField d'enviar missatge i mostrar mes info.
      */
     public void enableSend(){
         jtfMissatge.setEnabled(true);
         jbSend.setEnabled(true);
         jbInfo.setEnabled(true);
-    }
-
-    /**
-     * Metode que es crida per a incloure la notificacio al lloc on estigui el frame principal
-     * @return localitzacio del frame principal
-     */
-    public Point getLocations() {
-        return this.getLocation();
     }
 
     /**

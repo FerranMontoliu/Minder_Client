@@ -80,7 +80,7 @@ public class MainWindow extends JFrame{
      * Metode que crida al constructor que crea el panell d'edicio de perfil.
      */
     private void createEditPanel() {
-        jpEdit = new EditPanel(clMainWindow);
+        jpEdit = new EditPanel();
         jpSelected.add("EDIT", jpEdit);
     }
 

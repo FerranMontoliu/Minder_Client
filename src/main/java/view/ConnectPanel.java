@@ -1,18 +1,19 @@
 package view;
 
-
 import controller.ConnectController;
-import model.entity.User;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 /**
- * Panell que es mostrarà en cas que el mode Connect estigui seleccionat, on l'usuari podra acceptar o refusar usuaris
+ * Panell que es mostrara en cas que el mode Connect estigui seleccionat, on l'usuari podra acceptar o refusar usuaris
  * en funcio de la seva imatge de perfil i informacio addicional a la que podra accedir prement el boto de mes informacio
  */
 public class ConnectPanel extends JPanel {
+    public static final Color BG_COLOR = new Color (173, 105, 127);
+    public static final Color USER_COLOR = new Color(231, 165, 187);
+    public static final Color BUTTONS_COLOR = new Color(202, 123, 148);
+    public static final Color BORDER_BG = new Color(156, 120, 130);
 
     private JLabel lblProfilename;
     private JLabel lblProfilePic;
@@ -30,7 +31,7 @@ public class ConnectPanel extends JPanel {
         createUserSpace();
         createButtonsOptions();
 
-        this.setBackground(new Color (173, 105, 127));
+        this.setBackground(BG_COLOR);
     }
 
     /**
@@ -44,7 +45,7 @@ public class ConnectPanel extends JPanel {
         lblProfilePic = new JLabel();
         lblProfilePic.setSize(20, 20);
         jpUserSpace.add(lblProfilePic);
-        jpUserSpace.setBackground(new Color(231, 165, 187));
+        jpUserSpace.setBackground(USER_COLOR);
 
         add(jpUserSpace, BorderLayout.PAGE_START);
         showUser();
@@ -74,7 +75,7 @@ public class ConnectPanel extends JPanel {
 
         add(jpButtons, BorderLayout.SOUTH);
 
-        jpButtons.setBackground(new Color(202, 123, 148));
+        jpButtons.setBackground(BUTTONS_COLOR);
 
     }
 
@@ -96,12 +97,16 @@ public class ConnectPanel extends JPanel {
         jpUserImage.add(lblProfilename);
 
         lblProfilePic.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblProfilePic.setBorder(BorderFactory.createLineBorder(new Color(156, 120, 130), 3));
+        lblProfilePic.setBorder(BorderFactory.createLineBorder(BORDER_BG, 3));
         jpUserImage.add(lblProfilePic);
-        jpUserImage.setBackground(new Color(231, 165, 187));
+        jpUserImage.setBackground(USER_COLOR);
         add(jpUserImage, BorderLayout.CENTER);
     }
 
+    /**
+     * Metode que registra ActionListeners a diferents components de la vista.
+     * @param controller parametre que implementa ActionListener
+     */
     public void registraController(ConnectController controller) {
         jbDislike.addActionListener(controller);
         jbDislike.setActionCommand("DISLIKE");
@@ -117,7 +122,7 @@ public class ConnectPanel extends JPanel {
     }
 
     /**
-     * metode que mostra un nou disseny avisamt a l'usuari que hi ha hagut un match amb un altre usuari. Aqui se li dona
+     * Metode que mostra un nou disseny avisamt a l'usuari que hi ha hagut un match amb un altre usuari. Aqui se li dona
      * la possibilitat de començar a xatejar amb aquesta persona o seguir "jugant". Es passaria la informacio dels dos
      * usuaris per tal de mostrar les seves fotografies de perfil i noms
      */
@@ -143,18 +148,17 @@ public class ConnectPanel extends JPanel {
 
     /**
      * Metode que carrega les dades principals de l'usuari solicitat al servidor que es visualitza en el connectPanel .
-     *
      */
     public void loadNewUser(String username, int age) {
         lblProfilename.setText(username + ", "+age);
         ImageIcon picture = new ImageIcon("MinderDownloads/"+username+".jpg");
         Image scaledImage = picture.getImage().getScaledInstance(256, 256,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaledImage);
-        lblProfilePic.setIcon(icon);  //TODO: Concretar el tema del tipus de l'atribut imatge
+        lblProfilePic.setIcon(icon);
     }
 
     /**
-     * Metode que mostra un missatge amb el format d'usuari indicant el fi d'usuaris disponibles per a conectar
+     * Metode que mostra un missatge amb el format d'usuari indicant el fi d'usuaris disponibles per a connectar
      */
     public void showEndOfUsers() {
         lblProfilename.setText("You don't have any user to connect with.");
@@ -163,6 +167,7 @@ public class ConnectPanel extends JPanel {
 
     /**
      * Metode que activa o desactiva els botons d'accio en funcio del parametre
+     * @param enable boolean que habilitara o inhabilitara els JButtons
      */
     public void enableButtons(boolean enable){
         jbMoreInfo.setEnabled(enable);

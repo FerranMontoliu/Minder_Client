@@ -39,7 +39,7 @@ public class MenuController implements ActionListener, WindowListener {
         connectController = new ConnectController(mainWindow.getConnect(), this, this.associatedUser);  //Aixo trenca paradigmes??
         editController = new EditController(mainWindow.getEdit(), this, this.associatedUser);
         chatController = new ChatController(mainWindow.getChat(), associatedUser, this);
-        matchController = new MatchController(mainWindow.getMatch(), this, connectController, this.associatedUser);
+        matchController = new MatchController(mainWindow.getMatch(), this, connectController);
         profileController = new ProfileController(mainWindow.getProfile());
         otherUserProfileController = new OtherUserProfileController(mainWindow.getOtherUserProfile(), this);
         logoutController = new LogoutController(mainWindow.getLocations(), this);

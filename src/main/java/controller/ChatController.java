@@ -81,7 +81,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                         chatPanel.setSendIcon();
                     }
                     else {
-                        chatPanel.noTextMessageError();
+                        chatPanel.throwErrorMessage("You have not written anything!");
                     }
                 }
                 else {
@@ -108,7 +108,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                         }
                         chatPanel.setSendIcon();
                     } else {
-                        chatPanel.noTextMessageError(); //Error si s'intenta enviar res de text
+                        chatPanel.throwErrorMessage("You have not written anything!"); //Error si s'intenta enviar res de text
                     }
                 } else {
                     chatPanel.throwErrorMessage("You have not chosen a chat!");
@@ -189,7 +189,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
             getRightClickUnmatch(e);
             unmatchFrame = new UnmatchFrame();
             unmatchFrame.registerController(this);
-            unmatchFrame.showFrame(chatPanel.getLocations());
+            unmatchFrame.showFrame();
         }else{
             chatPanel.setSendIcon();
         }

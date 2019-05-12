@@ -78,7 +78,7 @@ public class UnmatchFrame extends JFrame{
         jbCancel.setActionCommand("NO UNMATCH");
     }
 
-    public void showFrame(Point location){
+    public void showFrame(){
         setSize(370,170);
         setLocationRelativeTo(null);
         setUndecorated(true);
