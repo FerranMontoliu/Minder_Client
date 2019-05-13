@@ -138,13 +138,13 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
                 serverComunicationMessage.stopServerComunication();
                 break;
             default: //Ens han apretat el botó associat a un match
-                System.out.println("CLICK ESQUERRE");
+                finishComunications();
                 chatPanel.setTextFieldMessage();
                 chatPanel.setChosen(true);
                 String chatUsername = e.getActionCommand();
+                chatPanel.changeBorderName(chatUsername);
                 loadMatchingChat(chatUsername);
                 chatPanel.enableSend();
-                chatPanel.changeBorderName(chatUsername);
                 serverComunicationMessage = new ServerComunicationMessage(this, associatedUser.getUsername());
                 serverComunicationMessage.startServerComunication();
                 break;
@@ -341,10 +341,8 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
      * Metode que finalitza la comunicacio de missatgeria en temps real.
      */
     public void finishComunications() {
-        try{
+        if(serverComunicationMessage != null){
             serverComunicationMessage.stopServerComunication();
-        }catch(Exception e){
-
         }
     }
 

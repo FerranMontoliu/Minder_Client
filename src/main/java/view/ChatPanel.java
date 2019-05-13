@@ -223,6 +223,7 @@ public class ChatPanel extends JPanel {
         TitledBorder tb2 = new TitledBorder("In chat with:  "+name);
         tb2.setBorder(BorderFactory.createLineBorder(Color.black)); //Color del border total
         jtaChat.setBorder(tb2);
+        resetJTextArea();
     }
 
     /**
