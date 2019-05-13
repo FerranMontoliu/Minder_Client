@@ -97,7 +97,7 @@ public class LoginController implements ActionListener, WindowListener {
                         } else {
                             MainWindow mw = new MainWindow("EDIT");
                             MenuController mc = new MenuController(mw, associatedUser);
-                            mw.disableCancel();
+                            mw.firstEdition();
                             mw.registraController(mc);
                             mw.setVisible(true);
                         }

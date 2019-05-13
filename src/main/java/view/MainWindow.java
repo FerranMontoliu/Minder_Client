@@ -1,8 +1,6 @@
 package view;
 
 import controller.*;
-import model.entity.Chat;
-import model.entity.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +20,8 @@ public class MainWindow extends JFrame{
     private PreferencesPanel jpPreferences;
     private ChatPanel jpChat;
     private MatchPanel jpMatch;
-    private LogoutFrame logoutFrame;
     private ProfilePanel jpOtherProfile;
 
-    //private EditPanel jpEditProfile;
 
 
     /**
@@ -54,18 +50,11 @@ public class MainWindow extends JFrame{
         createPreferencesPanel();
         createChatPanel();
         createMatchPanel();
-        //createLogoutPanel();
         createOtherUserProfilePanel();
         //aqui crear tants panells com opcions del menu: profile, chat, connect...
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
     }
-
-
-    /*private void createLogoutPanel() {
-        jpLogOut = new LogoutPanel(clMainWindow);
-        jpSelected.add("LOGOUT", jpLogOut);
-    }*/
 
     /**
      * Metode que crida al constructor que crea el panell de "It's a Match!". Mostrara els dos usuaris associats i dues
@@ -84,6 +73,9 @@ public class MainWindow extends JFrame{
         jpSelected.add("EDIT", jpEdit);
     }
 
+    /**
+     * Metode que crida al constructor que crea el panell d'edicio de preferencies.
+     */
     private void createPreferencesPanel() {
         jpPreferences = new PreferencesPanel();
         jpSelected.add("ACCOUNT PREFERENCES", jpPreferences);
@@ -97,6 +89,10 @@ public class MainWindow extends JFrame{
         jpSelected.add("PROFILE", jpProfile);
 
     }
+
+    /**
+     * Metode que crida al constructor que crea el panell de chat.
+     */
     private void createChatPanel() {
         jpChat = new ChatPanel(clMainWindow);
         jpSelected.add("CHAT",jpChat);
@@ -130,8 +126,7 @@ public class MainWindow extends JFrame{
     }
 
     /**
-     * Mètode encarregat d'inicialitzar els valors per defecte de la finestra principal.
-     *
+     * Metode encarregat d'inicialitzar els valors per defecte de la finestra principal.
      */
     private void windowPreferences() {
         setLocationRelativeTo(null);
@@ -207,14 +202,12 @@ public class MainWindow extends JFrame{
         menuLogout.setActionCommand("LOGOUT");
 
         jpProfile.registraAssociatedProfileController(controller);
-        //jpOtherProfile.registraOtherProfileController(controller);
-
 
         this.addWindowListener(controller);
     }
 
     /**
-     * Es mostra la imatge de color mes clar per a indicar que el Chat no esta seleccionat
+     * Metode que mostra la imatge de color mes clar per a indicar que el Chat no esta seleccionat
      */
     public void deselectChat(){
         menuChat.setIcon(new ImageIcon("icons/chatLight.png"));
@@ -357,30 +350,41 @@ public class MainWindow extends JFrame{
         this.jpChat = jpChat;
     }
 
+    /**
+     * Metode que registra controlador al Connect Panel
+     * @param connectController controlador associat
+     */
     public void registraConnectController(ConnectController connectController) {
         jpConnect.registraController(connectController);
     }
+
+    /**
+     * Metode que registra controlador al Chat Panel
+     * @param chatController controlador associat
+     */
     public void registraChatController(ChatController chatController) {
         jpChat.registraControlador(chatController);
     }
+
+    /**
+     * Metode que registra controlador al Edit Panel
+     * @param editController controlador associat
+     */
     public void registraEditController(EditController editController) {
         jpEdit.registerController(editController);
     }
+
+    /**
+     * Metode que registra controlador al Preferences Panel
+     * @param preferencesController controlador associat
+     */
     public void registraPreferencesController(PreferencesController preferencesController){
         jpPreferences.registerController(preferencesController);
     }
 
     /**
-     * Metode que defineix l'atribut imatge de perfil seleccionada del EditPanel
-     * @param userImage imatge guardada de l'usuari.
-     */
-    public void setSelectedImage(Image userImage) {
-        jpEdit.setNewProfilePic(userImage);
-    }
-
-    /**
      * Metode que vincula les accions dels botons del MatchPanel amb el controlador d'aquest
-     * @param matchController
+     * @param matchController controlador associat
      */
     public void registraMatchController(MatchController matchController) {
         jpMatch.registraController(matchController);
@@ -393,15 +397,30 @@ public class MainWindow extends JFrame{
         jpOtherProfile.registraOtherProfileController(otherUserProfileController);
     }
 
+    /**
+     * Metode que inhabilita l'opcio de cancelar edicio de perfil en cas de perfil no completat.
+     */
     public void firstEdition() {
         jpEdit.disableCancel();
     }
 
-
+    /**
+     * Metode que inicialitza el panell de Edit Profile amb les dades del User.
+     * @param username Nom d'usuari.
+     * @param userDescription Descripcio.
+     * @param java Li agrada Java.
+     * @param c Li agrada C.
+     * @param song Canso preferida.
+     * @param hobbies Hobbies del user.
+     */
     public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String hobbies) {
         jpEdit.initiateEdit(username, userDescription, java, c, song, hobbies);
     }
 
+    /**
+     * Metode que mostra un JDialog informant d'un error.
+     * @param message missatge d'error.
+     */
     public void showWarning(String message) {
         JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
     }
@@ -414,15 +433,27 @@ public class MainWindow extends JFrame{
         return this.getLocation();
     }
 
+    /**
+     * Metode que genera la llista de matchs al chat panel.
+     * @param matchedUsernames Noms d'usuari dels matchs
+     * @param chatController controlador associat al chat panel
+     */
     public void generateMatchList(LinkedList<String> matchedUsernames, ChatController chatController) {
         jpChat.generateDynamicMatchButtons(matchedUsernames, chatController);
     }
 
-    public String getActualPanel() {
-        return selected;
-    }
 
-
+    /**
+     *
+     * @param client
+     * @param username
+     * @param userDescription
+     * @param age
+     * @param java
+     * @param c
+     * @param song
+     * @param hobbies
+     */
     public void loadConnectUserInfo(String client, String username, String userDescription, int age, boolean java, boolean c, String song, String hobbies) {
         jpOtherProfile.updateInfo(client, username, age,userDescription, java, c, hobbies, song);
     }
@@ -447,11 +478,6 @@ public class MainWindow extends JFrame{
         }
         jpPreferences.initiatePreferences(username, email, age, isPremium, minAge, maxAge, noFilter);
 
-    }
-
-
-    public void disableCancel() {
-        jpEdit.disableCancel();
     }
 
     public void enableCancel() {
