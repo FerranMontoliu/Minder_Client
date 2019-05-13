@@ -314,6 +314,7 @@ public class MenuController implements ActionListener, WindowListener {
         this.associatedUser = associatedUser;
         profileController.showUser(associatedUser); //Aquesta funcio actualitza el profile panel amb els nous atributs
         mainWindow.changePanel("PROFILE");
+        mainWindow.enableCancel();
     }
 
     public void loadProfile() {

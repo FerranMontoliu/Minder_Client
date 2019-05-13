@@ -450,4 +450,11 @@ public class MainWindow extends JFrame{
     }
 
 
+    public void disableCancel() {
+        jpEdit.disableCancel();
+    }
+
+    public void enableCancel() {
+        jpEdit.enableCancel();
+    }
 }
