@@ -52,6 +52,7 @@ public class ChatController implements ActionListener,  MouseListener, FocusList
         this.chatPanel = chatPanel;
         this.associatedUser = associatedUser;
         this.menuController = menuController;
+        destinationUsername = "";
     }
 
     /**

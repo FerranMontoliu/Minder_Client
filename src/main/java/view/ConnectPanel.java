@@ -162,7 +162,7 @@ public class ConnectPanel extends JPanel {
      */
     public void showEndOfUsers() {
         lblProfilename.setText("You don't have any user to connect with.");
-        lblProfilePic.setIcon(new ImageIcon("icons/finish.png"));
+        lblProfilePic.setIcon(new ImageIcon("icons/finish-2.png"));
     }
 
     /**
