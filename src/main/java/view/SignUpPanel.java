@@ -19,7 +19,7 @@ public class SignUpPanel extends JPanel {
     private JButton jbSignUp;
     private JComboBox jcbMaxAgeFilter;
     private JComboBox jcbMinAgeFilter;
-
+    private JCheckBox jcNoFilter;
     /**
      * Constructor del panell de Sign-Up.
      *
@@ -122,6 +122,12 @@ public class SignUpPanel extends JPanel {
         jpMaxAge.setBackground(BG_COLOR);
         add(jpMaxAge);
         add(Box.createVerticalStrut(10));
+
+
+        jcNoFilter = new JCheckBox("I don't want any age filter");
+        jcNoFilter.setAlignmentX(CENTER_ALIGNMENT);
+        jcNoFilter.setForeground(Color.white);
+        add(jcNoFilter);
     }
 
 
@@ -458,5 +464,14 @@ public class SignUpPanel extends JPanel {
         jrbNoPremium.setSelected(true);
         jcbMinAgeFilter.setSelectedItem(jcbMinAgeFilter.getItemAt(0));//18 anys
         jcbMaxAgeFilter.setSelectedItem(jcbMaxAgeFilter.getItemAt(82));//100 anys
+        jcNoFilter.setSelected(false);
+    }
+
+    /**
+     * Getter del CheckBox que indica si l'usuari vol utilitzar el filtre d'edat o no
+     * @return
+     */
+    public boolean noFilterChecked() {
+        return jcNoFilter.isSelected();
     }
 }

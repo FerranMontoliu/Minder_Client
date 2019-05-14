@@ -50,7 +50,6 @@ public class PreferencesController implements ActionListener {
                     if (preferencesPanel.noFilterChecked()){
                         preferencesPanel.disableFilter();
                         updateMaxAgeNoFilter();
-                        //System.out.println(associatedUser.getMaxAge());
                     }else{
                         preferencesPanel.enableFilter();
                     }
@@ -70,9 +69,7 @@ public class PreferencesController implements ActionListener {
                         UserManager.isEmpty(preferencesPanel.getCurrentPassword(), "password");
 
                         sc.startServerComunication(CHECK_USER); //aixo em diu si correct login o no (mira la contrassenya
-                        //System.out.println(preferencesPanel.getCurrentPassword());
-                        //System.out.println(associatedUser.getPassword());
-                        //System.out.println(correctLogin);
+
                         editingPassword = true;
                     }
 
@@ -82,10 +79,8 @@ public class PreferencesController implements ActionListener {
                         String newConfirmPassword = preferencesPanel.getNewPasswordConfirm();
                         UserManager.isEmpty(newPassword, "password");
                         UserManager.signUpPasswordIsCorrect(newPassword, newConfirmPassword);
-                        System.out.println("hola");
                         String hashedPassword = encoder.encode(newPassword);
-                        //TODO: fer update de new password, age filter and premium access
-                        System.out.println("update pref: "+associatedUser.getUsername() + associatedUser.getMaxAge());
+
                         associatedUser.savePreferencesUpdate(hashedPassword, preferencesPanel.getIsPremium(), preferencesPanel.getMinAge(), preferencesPanel.getMaxAge(), preferencesPanel.noFilterChecked());
                     }
                     if(!correctLogin && editingPassword){
@@ -133,26 +128,50 @@ public class PreferencesController implements ActionListener {
         associatedUser.setMaxAge(0);
     }
 
+    /**
+     * Getter de l'usuari associat a la compta iniciada a la finestra actual
+     * @return usuari
+     */
     public User getAssociatedUser(){
         return associatedUser;
     }
 
+    /**
+     * Setter del parametre editResult
+     * @param editResult que ens indica si l'usuari s'ha pogut editar correctament o no
+     */
     public void setEditResult(boolean editResult){
         this.editResult = editResult;
     }
 
+    /**
+     * Setter del parametre correctLogin
+     * @param b que indica si el login es correcte o no
+     */
     public void setCorrectLogin(boolean b) {
         this.correctLogin = b;
     }
 
+    /**
+     * Setter de l'usuari associat a aquest compte
+     * @param u
+     */
     public void setSignInUser(User u) {
         this.associatedUser = u;
     }
 
+    /**
+     * Metode que genera un nou usuari amb els camps minims completats que son el seu nom i la seva contrassenya, rebuts del
+     * panell de log in.
+     * @return Usuari amb usuari i contrassenya
+     */
     public User getChekingUser() {
         return new User(associatedUser.getUsername(), preferencesPanel.getCurrentPassword());
     }
 
+    /**
+     * Metode que fa mostrar un missatge per pantalla indicant el correcte edit
+     */
     public void showEditOk() {
         preferencesPanel.showSuccess("Account preferences updated");
     }

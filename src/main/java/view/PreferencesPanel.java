@@ -7,7 +7,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-
+/**
+ * Classe que s'encarrega de la vista del panell generat quan l'usuari vol editar les seves preferencies de compte
+ */
 public class PreferencesPanel extends JPanel {
     private JTextField jtfUsername;
     private JPasswordField jtfCurrentPassword;
@@ -23,6 +25,9 @@ public class PreferencesPanel extends JPanel {
     private JButton jbCancel;
     private JCheckBox jcNoFilter;
 
+    /**
+     * Constructor principal de la classe
+     */
     public PreferencesPanel(){
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         createBorder();
@@ -307,51 +312,92 @@ public class PreferencesPanel extends JPanel {
 
     }
 
+    /**
+     * Getter del text introduit al camp Current Password
+     * @return
+     */
     public String getCurrentPassword(){
         return String.valueOf(jtfCurrentPassword.getPassword());
     }
 
+    /**
+     * Getter del text introduit al camp New Password
+     * @return
+     */
     public String getNewPassword(){
         return String.valueOf(jtfNewPassword.getPassword());
     }
 
+    /**
+     * Getter del text introduit al camp New Password Confirmation
+     * @return
+     */
     public String getNewPasswordConfirm(){
         return String.valueOf(jtfNewPasswordConfirm.getPassword());
     }
 
+    /**
+     * Getter del text introduit al camp Username
+     * @return
+     */
     public String getUsername() {
         return jtfUsername.getText();
     }
 
+    /**
+     * Getter del radiobutton Premium
+     * @return 1 si es Premium i 0 si no ho es
+     */
     public boolean getIsPremium(){
         return jrbPremium.isSelected();
     }
 
+    /**
+     * Getter del item seleccionat al desplegable del camp Minimum age filter
+     * @return
+     */
     public int getMinAge() {
         int age = jcbMinAgeFilter.getSelectedIndex() + 18;
         return age;
     }
-
+    /**
+     * Getter del item seleccionat al desplegable del camp Maximum age filter
+     * @return
+     */
     public int getMaxAge() {
         int age = jcbMaxAgeFilter.getSelectedIndex() + 18;
         return age;
     }
 
+    /**
+     * Metode que bloqueja el filtre d'edat (els dos desplegables) per tal que l'usuari no el pugui modificar
+     */
     public void disableFilter() {
         jcbMinAgeFilter.setEnabled(false);
         jcbMaxAgeFilter.setEnabled(false);
+        jcNoFilter.setSelected(true);
     }
 
+    /**
+     * Metode que habilita el filtre d'edat (els dos desplegables) per tal que l'usuari pugui modificar-los
+     */
     public void enableFilter(){
         jcbMinAgeFilter.setEnabled(true);
         jcbMaxAgeFilter.setEnabled(true);
     }
 
+    /**
+     * Getter del CheckBox que indica si l'usuari vol utilitzar el filtre d'edat o no
+     * @return
+     */
     public boolean noFilterChecked() {
         return jcNoFilter.isSelected();
     }
 
-
+    /**
+     * Metode que genera un OptionPane mostrant un missatge d'exit després de completar correctament l'edicio
+     * @param message
+     */
     public void showSuccess(String message) {
         JOptionPane.showMessageDialog(null, message,"Success", JOptionPane.INFORMATION_MESSAGE);
 

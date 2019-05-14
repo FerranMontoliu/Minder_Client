@@ -31,11 +31,12 @@ public class UserManager {
      *
      * @return Retorna true si es coherent, false sino.
      */
-    public static void isAgeFilterCorrect(String minAge, String maxAge) throws InvalidFormatException {
+    public static void isAgeFilterCorrect(String minAge, String maxAge, boolean noFilter) throws InvalidFormatException {
         int am = getAge(minAge);
-        int aM = getAge(maxAge);
+        //Si l'usuari no vol cap filtre per edat, definim la maxima edat com un 0
+        int aM = noFilter? 0: getAge(maxAge);
 
-        if(am > aM){
+        if((am > aM) && !noFilter){
             throw new InvalidFormatException("Maximum age should be higher or equal to minimum age");
         }
 
