@@ -20,6 +20,7 @@ public class User implements Serializable {
     private String password;
     private int minAge;
     private int maxAge;
+    private int matches;
 
     private String photo;
     private String description;
@@ -32,11 +33,29 @@ public class User implements Serializable {
     private ArrayList<User> accepted;
     private ArrayList<User> match;
     private ArrayList<User> acceptedMe;
-    private int matches;
+
 
     /**
-     *Constructor que ompla TOTS els camps de l'usuari.
+     * Constructor que ompla TOTS els camps de l'usuari.
      *
+     * @param completed Indica si l'usuari ha completat el seu perfil o no.
+     * @param username Nom de l'usuari.
+     * @param age Edat de l'usuari.
+     * @param premium Indica si es usuari premium o normal.
+     * @param mail Mail de l'usuari.
+     * @param password Password de l'usuari.
+     * @param minAge Edat minima del filtre per edat.
+     * @param maxAge Edat maxima del filtre per edat.
+     * @param photo Foto de l'usuari passada a Base64.
+     * @param description Descripcio de l'usuari.
+     * @param likesJava Indica si a l'usuari li agrada Java o no.
+     * @param likesC Indica si a l'usuari li agrada C o no.
+     * @param favSong Canco preferida de l'usuari.
+     * @param hobbies Llista de hobbies de l'usuari.
+     * @param viewed Llista de persones que ha vist l'usuari.
+     * @param accepted Llista de persones que ha acceptat l'usuari.
+     * @param match Llista de matchs de l'usuari.
+     * @param acceptedMe Llista de persones que han acceptat a l'usuari.
      */
     public User(boolean completed, String username, int age, boolean premium, String mail, String password, int minAge, int maxAge, String photo, String description, boolean likesJava, boolean likesC, String favSong, String[] hobbies, ArrayList<User> viewed, ArrayList<User> accepted, ArrayList<User> match, ArrayList<User> acceptedMe) {
         this.completed = completed;
@@ -59,10 +78,18 @@ public class User implements Serializable {
         this.acceptedMe = acceptedMe;
     }
 
+
     /**
-     * Constructor que es crida quan es registra l'usuari.
+     *Constructor de l'usuari que es crida al fer el registre.
      *
-     **/
+     * @param username Nom de l'usuari.
+     * @param age Edat de l'usuari.
+     * @param premium Indica si es usuari premium o normal.
+     * @param mail Mail de l'usuari.
+     * @param password Password de l'usuari.
+     * @param minAge Edat minima del filtre per edat.
+     * @param maxAge Edat maxima del filtre per edat.
+     */
     public User(String username, int age, boolean premium, String mail, String password, int minAge, int maxAge) {
         this.username = username;
         this.age = age;
@@ -75,9 +102,11 @@ public class User implements Serializable {
     }
 
     /**
-     * Constructor que es crida quan l'usuari fa login amb el username.
+     * Constructor que es crida quan l'usuari fa login amb el username o el mail.
      *
-     **/
+     * @param identificator Username o mail de l'usuari.
+     * @param password Password de l'usuari.
+     */
     public User(String identificator, String password) {
         this.password = password;
         if(UserManager.mailInSignIn(identificator)){
@@ -85,6 +114,26 @@ public class User implements Serializable {
         }else{
             this.username = identificator;
         }
+    }
+
+    /**
+     * Constructor quan es crea un usuari per fer el TOP 5.
+     *
+     * @param name Nom de l'usuari.
+     * @param matches Nombre de matchs de l'usuari.
+     */
+    public User(String name, int matches) {
+        this.username = name;
+        this.matches = matches;
+    }
+
+    /**
+     * Getter del nombre de matches de l'usuari.
+     *
+     * @return Nombre de matches de l'usuari.
+     */
+    public int getMatches() {
+        return matches;
     }
 
     /**
@@ -203,9 +252,9 @@ public class User implements Serializable {
     }
 
     /**
-     * Getter de la cançó preferida de l'usuari.
+     * Getter de la canso preferida de l'usuari.
      *
-     * @return Retorna un String que conté la cançó preferida de l'usuari.
+     * @return Retorna un String que conte la canso preferida de l'usuari.
      */
     public String getFavSong() {
         return favSong;
@@ -214,7 +263,7 @@ public class User implements Serializable {
     /**
      * Getter de la llista de hobbies de l'usuari.
      *
-     * @return Retorna una llista de Strings que conté els hobbies de l'usuari.
+     * @return Retorna una String que conte els hobbies de l'usuari.
      */
     public String getHobbies() {
         StringBuilder convertedHobbies = new StringBuilder();
@@ -283,9 +332,9 @@ public class User implements Serializable {
         try {
             try{
                 String base64Image = photo.split(",")[1];
-                FileUtils.writeByteArrayToFile(new File(destination+"MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(base64Image));
+                FileUtils.writeByteArrayToFile(new File("MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(base64Image));
             }catch(Exception e1){
-                 FileUtils.writeByteArrayToFile(new File(destination+"MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(photo));
+                FileUtils.writeByteArrayToFile(new File("MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(photo));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -327,25 +376,32 @@ public class User implements Serializable {
     }
 
     /**
-     * Metode que converteix un String (amb comes) i el divideix per aquestes en un Array d'Strings
-     * @param hobbies
+     * Metode que converteix un String (amb comes) i el divideix per aquestes en un Array de Strings.
+     *
+     * @param hobbies String que conte paraules separades en comes.
      */
     private void convertToStringArray(String hobbies) {
         this.hobbies = hobbies.split(", ");
+
     }
 
+    /**
+     * Setter de la foto de l'usuari.
+     *
+     * @param photo String que conte la imatge passada a Base64.
+     */
     public void setPhoto(String photo) {
         this.photo = photo;
     }
 
     /**
-     * Metode que actualitza les dades de l'usuari segons els camps seleccionats a la opcio Etit account preferences del
-     * client
-     * @param hashedPassword
-     * @param isPremium
-     * @param minAge
-     * @param maxAge
-     * @param noFilter
+     * Metode que actualitza les dades de l'usuari segons els camps seleccionats a la opcio edit account preferences del client.
+     *
+     * @param hashedPassword Nova password ja hashejada.
+     * @param isPremium Indica si l'usuari es premium o no.
+     * @param minAge Indica la edat minima del filtre per edat.
+     * @param maxAge Indica la edat maxima del filtre per edat.
+     * @param noFilter En cas de ser true, fica el maxAge de l'usuari a 0, que significa que no utilitza filtre.
      */
     public void savePreferencesUpdate(String hashedPassword, boolean isPremium, int minAge, int maxAge, boolean noFilter) {
         this.password = hashedPassword;
@@ -356,8 +412,9 @@ public class User implements Serializable {
     }
 
     /**
-     * Setter de l'array d'strings de hobbies
-     * @param hobbies
+     * Setter de l'array de strings de hobbies
+     *
+     * @param hobbies Array de String que conte els hobbies.
      */
     public void setHobbies(String[] hobbies) {
         this.hobbies = hobbies;
@@ -365,28 +422,10 @@ public class User implements Serializable {
 
     /**
      * Setter de la canco preferida de l'usuari
-     * @param song
+     *
+     * @param song String que conte el nom de la canco.
      */
     public void setFavSong(String song) {
         this.favSong = song;
     }
-    /**
-     * Constructor quan es crida des del top5 dao
-     * @param name
-     * @param matches
-     */
-    public User(String name, int matches) {
-        this.username = name;
-        this.matches = matches;
-    }
-
-
-    /**
-     * Getter del numero de matches
-     * @return
-     */
-    public int getMatches() {
-        return matches;
-    }
-
 }

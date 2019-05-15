@@ -1,6 +1,4 @@
 import controller.LoginController;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import view.LoginWindow;
 
 import javax.swing.*;
