@@ -408,7 +408,6 @@ public class User implements Serializable {
         this.premium = isPremium;
         this.minAge = minAge;
         this.maxAge = noFilter?  0: maxAge;
-
     }
 
     /**
