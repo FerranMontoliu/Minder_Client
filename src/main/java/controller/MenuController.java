@@ -32,6 +32,7 @@ public class MenuController implements ActionListener, WindowListener {
     private ServerComunicationChat serverComunicationChat;
     private LinkedList<String> matchedUsernames;
     private int panelReturn;
+    private ServerComunicationLogout serverCommunicationLogout;
 
 
     public MenuController(MainWindow mainWindow, User associatedUser) {
@@ -127,15 +128,14 @@ public class MenuController implements ActionListener, WindowListener {
                 mainWindow.initiatePreferences(associatedUser.getUsername(), email, associatedUser.getAge(), associatedUser.isPremium(), minAge, maxAge);
                 break;
             case "YES LOGOUT":
-                //TODO: TANCAR COMUNICACIO DE SERVIDOR I MERDES VARIES
                 DownloadsManager.deleteDirectory(associatedUser.getUsername());
                 chatController.finishComunications();
                 logoutController.hideLogout();
 
-                ServerComunicationLogout serverCommunicationLogout = null;
                 try {
                     serverCommunicationLogout = new ServerComunicationLogout();
                     serverCommunicationLogout.startServerComunication(associatedUser.getUsername());
+                    System.out.println(associatedUser.getUsername());
                     mainWindow.dispose();
                 } catch (IOException e1) {
                     mainWindow.showWarning("Error when disconnecting!");

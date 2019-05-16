@@ -1,6 +1,5 @@
 package network;
 
-import controller.LoginController;
 import model.ClientConfig;
 import model.Json;
 
@@ -12,6 +11,7 @@ public class ServerComunicationLogout {
 
     private Socket socketToServer;
     private DataOutputStream dataOut;
+    private ObjectOutputStream objectOut;
 
     /**
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
@@ -25,6 +25,7 @@ public class ServerComunicationLogout {
         this.socketToServer = new Socket(cc.getServerIP(), cc.getServerPort());
 
         this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
+        this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
 
     }
 
@@ -33,21 +34,7 @@ public class ServerComunicationLogout {
      */
     public void startServerComunication(String username) throws IOException {
         dataOut.writeChar(USER_DISCONNECTS);
-        dataOut.writeUTF(username);
-        stopServerComunication();
+        objectOut.writeObject(username);
     }
 
-    /**
-     * Metode encarregat de tancar la comunicacio client-servidor.
-     */
-    public void stopServerComunication() {
-        try {
-            dataOut.close();
-        } catch (IOException e) {}
-        try {
-            socketToServer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
