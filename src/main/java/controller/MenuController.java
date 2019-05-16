@@ -3,6 +3,8 @@ package controller;
 import model.DownloadsManager;
 import model.entity.User;
 import network.ServerComunicationChat;
+import network.ServerComunicationLogin;
+import network.ServerComunicationLogout;
 import view.MainWindow;
 import view.NotificationPopUp;
 
@@ -11,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class MenuController implements ActionListener, WindowListener {
@@ -128,7 +131,15 @@ public class MenuController implements ActionListener, WindowListener {
                 DownloadsManager.deleteDirectory(associatedUser.getUsername());
                 chatController.finishComunications();
                 logoutController.hideLogout();
-                mainWindow.dispose();
+
+                ServerComunicationLogout serverCommunicationLogout = null;
+                try {
+                    serverCommunicationLogout = new ServerComunicationLogout();
+                    serverCommunicationLogout.startServerComunication(associatedUser.getUsername());
+                    mainWindow.dispose();
+                } catch (IOException e1) {
+                    mainWindow.showWarning("Error when disconnecting!");
+                }
                 break;
             case "NO LOGOUT":
                 logoutController.hideLogout();

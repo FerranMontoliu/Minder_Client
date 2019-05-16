@@ -75,6 +75,30 @@ public class ServerComunicationLogin {
                 }
                 break;
         }
+        stopServerComunication();
+    }
+
+    /**
+     * Metode encarregat de tancar la comunicacio client-servidor.
+     */
+    public void stopServerComunication() {
+        try {
+            dataOut.close();
+        } catch (IOException e) {}
+        try {
+            objectOut.close();
+        } catch (IOException e) {}
+        try {
+            dataIn.close();
+        } catch (IOException e) {}
+        try {
+            objectIn.close();
+        } catch (IOException e) {}
+        try {
+            socketToServer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

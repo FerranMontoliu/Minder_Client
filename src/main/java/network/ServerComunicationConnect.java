@@ -17,7 +17,6 @@ public class ServerComunicationConnect  {
     private static final char CONNECT_USER = 'k';
 
     private ConnectController connectController;
-    private boolean isOn;
     private Socket socketToServer;
     private DataInputStream dataIn;
     private DataOutputStream dataOut;
@@ -52,9 +51,8 @@ public class ServerComunicationConnect  {
             dataOut.writeChar(command);
 
             switch (command){
-                case CONNECT_USER: //TODO: Solicita un USER a visualitzar pel connect panel
+                case CONNECT_USER:
                     try{
-                        //System.out.println(connectController.getAssociatedUser().getUsername());
                         objectOut.writeObject(connectController.getAssociatedUser());
                         User connectUser = (User) objectIn.readObject();
                         connectController.loadNewUser(connectUser);
@@ -63,24 +61,20 @@ public class ServerComunicationConnect  {
                     }
 
                     break;
-                case CONNECT_LIKE: //TODO: Fas LIKE en el connect panel.
+                case CONNECT_LIKE:
                     try{
-                        //TODO: marcar viewed; marcar liked
-                        //primer envio el que ha fet login, despres l'usuari que li agrada
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
                         boolean isMatch = dataIn.readBoolean();
                         System.out.println(isMatch);
                         connectController.matchActions(isMatch);
 
-                        //connectController.setMatch(isMatch);
                     }catch (IOException e){
                         connectController.showWarning("Error communicating with Server.");
                     }
                     break;
-                case CONNECT_DISLIKE: //TODO: Fas DISLIKE en el connect panel.
+                case CONNECT_DISLIKE:
                     try{
-                        //TODO: marcar viewed, marcar disliked
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
                     }catch (IOException e){
@@ -95,7 +89,29 @@ public class ServerComunicationConnect  {
         } catch (IOException e) {
             connectController.showWarning("Error communicating with server.");
         }
-
+        stopServerComunication();
     }
 
+    /**
+     * Metode encarregat de tancar la comunicacio client-servidor.
+     */
+    public void stopServerComunication() {
+        try {
+            dataOut.close();
+        } catch (IOException e) {}
+        try {
+            objectOut.close();
+        } catch (IOException e) {}
+        try {
+            dataIn.close();
+        } catch (IOException e) {}
+        try {
+            objectIn.close();
+        } catch (IOException e) {}
+        try {
+            socketToServer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
