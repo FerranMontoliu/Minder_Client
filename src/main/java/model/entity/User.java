@@ -332,9 +332,9 @@ public class User implements Serializable {
         try {
             try{
                 String base64Image = photo.split(",")[1];
-                FileUtils.writeByteArrayToFile(new File("MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(base64Image));
+                FileUtils.writeByteArrayToFile(new File(destination + "MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(base64Image));
             }catch(Exception e1){
-                FileUtils.writeByteArrayToFile(new File("MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(photo));
+                FileUtils.writeByteArrayToFile(new File(destination + "MinderDownloads/" + username + ".jpg"), Base64.getDecoder().decode(photo));
             }
         } catch (IOException e) {
             e.printStackTrace();
