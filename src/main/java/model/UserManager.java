@@ -135,4 +135,9 @@ public class UserManager {
     public static String fixSQLInjections(String fixThis){
         return fixThis.replace("'","`");
     }
+
+    public static int checkMaxAge(String maxAge, boolean noFilter) {
+        int age = noFilter? 0: Integer.parseInt(maxAge);
+        return age;
+    }
 }
