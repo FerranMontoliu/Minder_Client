@@ -13,6 +13,12 @@ public class ProfileController {
         this.profilePanel = profilePanel;
     }
 
+    /**
+     * Metode que actualitza pel panell del perfil de l'usuari la seva informacio i reemplaca amb el caracter '-' en cas de que
+     * no tingui informacio (no obligatoria) especificada
+     *
+     * @param associatedUser Usuari vinculat al compte i del que vol veure la seva propia informacio
+     */
     public void showUser(User associatedUser) {
         if ((associatedUser.getHobbies() == null) || (associatedUser.getHobbies() == "")){
             String[] hobbies = new String[0];

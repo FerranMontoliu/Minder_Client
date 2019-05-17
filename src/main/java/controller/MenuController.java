@@ -16,6 +16,9 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.LinkedList;
 
+/**
+ * Classe que gestiona el model i vista principals de l'aplicaio Minder
+ */
 public class MenuController implements ActionListener, WindowListener {
     private static final char USER_MATCH_LIST = 'h';
 
@@ -34,7 +37,12 @@ public class MenuController implements ActionListener, WindowListener {
     private int panelReturn;
     private ServerComunicationLogout serverCommunicationLogout;
 
-
+    /**
+     * Contructor per parametres del controlador
+     *
+     * @param mainWindow Pantalla principal que conte el cardLayout amb tots els panells intermitjos
+     * @param associatedUser Usuari associat al compte
+     */
     public MenuController(MainWindow mainWindow, User associatedUser) {
         this.mainWindow = mainWindow;
         this.associatedUser = associatedUser;
@@ -58,10 +66,15 @@ public class MenuController implements ActionListener, WindowListener {
         mainWindow.registraOtherProfileController(otherUserProfileController);
         mainWindow.registraPreferencesController(preferencesController);
 
-        //todo: fem l'opcional?
+        //Opcional que mostra notificacions en cas de voler avisar a l'usuari de nous matches que no ha vist
         //updateNotifications();
     }
 
+    /**
+     * Metode que permet realitzar accions i modificacions en funcio dels botons del mainWindow
+     *
+     * @param e Accio que ve del botons de la vista
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -74,9 +87,9 @@ public class MenuController implements ActionListener, WindowListener {
                         serverComunicationChat.startServerComunication(USER_MATCH_LIST);
 
                         mainWindow.generateMatchList(matchedUsernames, chatController);
+                        //selecciono el logo mes fosc del chat per a simbolitzar que estic a aquella finestra del menu
                         mainWindow.selectChat();
                         mainWindow.changePanel("CHAT");
-
                     }
                 }
                 break;
@@ -97,6 +110,7 @@ public class MenuController implements ActionListener, WindowListener {
                     if(!mainWindow.isSelected("PROFILE")) {
                         mainWindow.selectProfile();
                         mainWindow.changePanel("PROFILE");
+                        //li envio la informacio de l'usuari rebut del servidor
                         profileController.showUser(associatedUser);
                     }
                 }
@@ -112,22 +126,27 @@ public class MenuController implements ActionListener, WindowListener {
 
             case "EDIT":
                 mainWindow.changePanel("EDIT");
+                //Agafo la informacio de l'usuari
                 associatedUser.base64ToImage(associatedUser.getUsername(), associatedUser.getUsername());
                 String userDescription = associatedUser.getDescription();
                 boolean java = associatedUser.getLikesJava();
                 boolean c = associatedUser.getLikesC();
                 String song = associatedUser.getFavSong();
                 String hobbies = associatedUser.getHobbies();
+                //Mostro els valors ja seleccionats per l'usuari
                 mainWindow.initiateEdit(associatedUser.getUsername(), userDescription, java, c, song, hobbies);
                 break;
+
             case "ACCOUNT PREFERENCES":
                 mainWindow.changePanel("ACCOUNT PREFERENCES");
                 int minAge = associatedUser.getMinAge();
                 int maxAge = associatedUser.getMaxAge();
                 String email = associatedUser.getMail();
+                //Incloc les dades inicials de l'usuari als camps a modificar per a que l'usuari sapiga com te les preferencies configurades
                 mainWindow.initiatePreferences(associatedUser.getUsername(), email, associatedUser.getAge(), associatedUser.isPremium(), minAge, maxAge);
                 break;
             case "YES LOGOUT":
+                //Elimino les imatges que m'havia descarregat i acabo les comunicacions amb servidor
                 DownloadsManager.deleteDirectory(associatedUser.getUsername());
                 chatController.finishComunications();
                 logoutController.hideLogout();
@@ -202,12 +221,11 @@ public class MenuController implements ActionListener, WindowListener {
      * quan a la meitat de la sessió algú li retorna el match.
      */
     public void updateNotifications(){
-        //TODO: bloquejar el frame principal mentres no es faci cap accio amb aquest??
+
         NotificationPopUp notificationView = new NotificationPopUp(mainWindow.getLocations());
         NotificationController notificationController = new NotificationController(notificationView,this);
         notificationView.registraController(notificationController);
         notificationView.start();
-        //TODO: cridar a aquesta funcio sempre que algu li retorni un match i aquest estigui log in
     }
 
     /**
@@ -254,6 +272,9 @@ public class MenuController implements ActionListener, WindowListener {
     }
 
     @Override
+    /**
+     * Metode que indica si s'esta prement la opcio de tancar la finestra
+     */
     public void windowClosing(WindowEvent e) {
         if(associatedUser.isCompleted()){
             if(!mainWindow.isSelected("LOGOUT")) {
@@ -289,6 +310,11 @@ public class MenuController implements ActionListener, WindowListener {
 
     }
 
+    /**
+     * Metode que carrega una llista dels usuaris amb els que he fet macth per a poder carregar chats i imategs
+     *
+     * @param matchedUsernames llista amb els noms dels usuaris que he fet match
+     */
     public void loadMatchesList(LinkedList<String> matchedUsernames) {
         if(this.matchedUsernames == null){
             this.matchedUsernames = new LinkedList<>();
@@ -303,6 +329,7 @@ public class MenuController implements ActionListener, WindowListener {
 
     /**
      * Metode que carrega la info de perfil del connectUser
+     *
      * @param connectUser usuari que s'esta visualitzant
      */
     public void loadConnectUserInfo(User connectUser) {
@@ -319,6 +346,7 @@ public class MenuController implements ActionListener, WindowListener {
 
     /**
      * Metode que es crida un cop l'edicio de perfil ha sigut satisfactoria.
+     *
      * @param associatedUser usuari actualitzat
      */
     public void editionCompleted(User associatedUser) {
@@ -328,6 +356,9 @@ public class MenuController implements ActionListener, WindowListener {
         mainWindow.enableCancel();
     }
 
+    /**
+     * Metode que carrega la informacio de l'usuari
+     */
     public void loadProfile() {
         profileController.showUser(associatedUser);
     }

@@ -29,6 +29,7 @@ public class PreferencesController implements ActionListener {
 
     /**
      * Constructor per parametres.
+     *
      * @param preferencesPanel Panell d'edicio de preferencies del compte
      * @param menuController controlador de Menu associat.
      * @param associatedUser usuari associat al compte iniciat
@@ -41,39 +42,45 @@ public class PreferencesController implements ActionListener {
         sc = new ServerCommunicationPreferences(this);
     }
     @Override
+    /**
+     * Metode que permet reaccionar als events provoctats per els botons del panell de preferencies
+     *
+     * @param e Accio que ve dels botons del panell
+     */
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean editingPassword;
+
         switch (actionCommand){
             case "NO FILTER":
-                    if (preferencesPanel.noFilterChecked()){
-                        preferencesPanel.disableFilter();
-                        updateMaxAgeNoFilter();
-                    }else{
-                        preferencesPanel.enableFilter();
-                    }
+                //En cas de que l'usuari no vulgui filtre, deshabilitare els desplegables i actualitzare l'edat maxima a 0
+                if (preferencesPanel.noFilterChecked()){
+                    preferencesPanel.disableFilter();
+                    updateMaxAgeNoFilter();
+                }else{
+                    preferencesPanel.enableFilter();
+                }
 
                 break;
             case "SAVE":
 
                 try {
-                    //Potser l'usuari no vol canviar la contrassenya i vol editar algun altre camp. En aquest cas, miro
+                    //Potser l'usuari no vol canviar la contrassenya i vol editar algun altre camp. En aquest cas, mirem
                     //si la current password esta buida i una de les altres esta plena, ja que voldra dir que vol canviar
                     //la contrassenya pero la current no estara be (esta buida). En canvi, si les tres estan buides vol dir
-                    //que no la vol canviar
+                    //que no la vol canviar i per tant no hem de comprovar si es la seva contrassenya actual
+
                     if(preferencesPanel.getCurrentPassword().isEmpty() && preferencesPanel.getNewPassword().isEmpty()
                             && preferencesPanel.getNewPasswordConfirm().isEmpty()){
                         editingPassword = false;
                     }else{
                         UserManager.isEmpty(preferencesPanel.getCurrentPassword(), "password");
-
                         sc.startServerComunication(CHECK_USER); //aixo em diu si correct login o no (mira la contrassenya
-
                         editingPassword = true;
                     }
-
-
+                    //Si estic editant modificant la contrassenya i la he escrit be, llavors actualitzare la nova contrassenya
+                    //a la database (en cas que coincideixi amb le confirm passwors)
                     if (correctLogin && editingPassword) {
                         String newPassword = preferencesPanel.getNewPassword();
                         String newConfirmPassword = preferencesPanel.getNewPasswordConfirm();
@@ -83,29 +90,30 @@ public class PreferencesController implements ActionListener {
 
                         associatedUser.savePreferencesUpdate(hashedPassword, preferencesPanel.getIsPremium(), preferencesPanel.getMinAge(), preferencesPanel.getMaxAge(), preferencesPanel.noFilterChecked());
                     }
+
+                    //Si no ha escrit be la contrassenya actual, mostrare un avis
                     if(!correctLogin && editingPassword){
                         preferencesPanel.showWarning("Current Password incorrect. Please, try again");
                         return;
                     }
+
+                    //Si no vull editar la contrassenya, actualitzare els altres camps, que no necessiten autentificacio previa
                     if(!editingPassword){
                         associatedUser.savePreferencesUpdate(associatedUser.getPassword(), preferencesPanel.getIsPremium(), preferencesPanel.getMinAge(), preferencesPanel.getMaxAge(), preferencesPanel.noFilterChecked());
-                        System.out.println("update pref: "+associatedUser.getUsername() + associatedUser.getMaxAge());
-
                     }
-
+                        //Aqui ja tinc a l'associatedUser amb els parametres a canviar
                         sc.startServerComunication(EDIT_PREFERENCES);
                         associatedUser.setCompleted(true);
 
                         if(editResult){
                             //nomes s'ha d'actualitzar el nou usuari associat
-                            //no tindrem problema amb el connect user ja que es prepara el seguent en el moment en que demane, un altre usuari
+                            //no tindrem problema amb el connect user ja que es prepara el seguent en el moment en que demana, un altre usuari
                             //per tant, ja s'agafara el correcte
                             menuController.editionCompleted(associatedUser);
                         }else{
                             preferencesPanel.showWarning("There has been a problem with the server communication.");
                         }
 
-                    //TODO: enviar al servidor
                 } catch (EmptyTextFieldException e1) {
                     preferencesPanel.showWarning(e1.getMessage());
                 } catch (InvalidFormatException e2) {
@@ -113,8 +121,8 @@ public class PreferencesController implements ActionListener {
                 } catch (IOException e3) {
                     e3.printStackTrace();
                 }
-
                 break;
+
             case "CANCEL":
                 menuController.cancelPreferences();
                 break;
