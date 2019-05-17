@@ -24,6 +24,10 @@ public class ServerComunicationConnect  {
     private ObjectOutputStream objectOut;
     private char command;
 
+    /**
+     *
+     * @param connectController
+     */
     public ServerComunicationConnect(ConnectController connectController){
         try {
             this.connectController = connectController;
@@ -53,7 +57,9 @@ public class ServerComunicationConnect  {
             switch (command){
                 case CONNECT_USER:
                     try{
+                        //Enviem l'usuari associat al compte
                         objectOut.writeObject(connectController.getAssociatedUser());
+                        //Llegim el seguent usuari a mostrar per el connectPanel
                         User connectUser = (User) objectIn.readObject();
                         connectController.loadNewUser(connectUser);
                     } catch (ClassNotFoundException | IOException e) {
@@ -63,10 +69,12 @@ public class ServerComunicationConnect  {
                     break;
                 case CONNECT_LIKE:
                     try{
+                        //Enviem el nom de l'usuari associat i del que volem connectar-nos
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
+                        //Llegim si aquests dos tenen una relacio i es un match
                         boolean isMatch = dataIn.readBoolean();
-                        System.out.println(isMatch);
+                        //Fem certes accions en funcio de si es match o no
                         connectController.matchActions(isMatch);
 
                     }catch (IOException e){
@@ -75,6 +83,7 @@ public class ServerComunicationConnect  {
                     break;
                 case CONNECT_DISLIKE:
                     try{
+                        //Enviem el nom de l'usuari associat i del que no ens agrada
                         dataOut.writeUTF(connectController.getSourceUsername());
                         dataOut.writeUTF(connectController.getConnectUsername());
                     }catch (IOException e){
@@ -82,6 +91,7 @@ public class ServerComunicationConnect  {
                     }
                     break;
                 case USER_MATCHED:
+                    //Enviem els dos usuaris amb Match: l'associat i el del connect panel
                     objectOut.writeObject(connectController.getAssociatedUser());
                     objectOut.writeObject(connectController.getConnectUser());
                     break;

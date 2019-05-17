@@ -95,36 +95,45 @@ public class MatchPanel extends JPanel {
     }
 
     /**
-     * Metode TEMPORAL: s'haura de substituir la capçalera per la de parametres per tal de posar les imatges i noms dels
-     * usuaris en funcio d'aquests
+     * Metode que actualitza la informacio principal del panell i la substitueix per els noms dels dos usuaris que es passen
+     * per parametre corresponent als dos usuaris que han fet match, aixi com obtenir les seves imatges
      */
     public void setUsersMatched(String associatedUsername, String connectedUsername){
+        //agafem les dues imatges dels usuaris de la carpeta MinderDownloads
         ImageIcon associatedPicture = new ImageIcon(associatedUsername+"MinderDownloads/"+associatedUsername+".jpg");
         ImageIcon connectedPicture = new ImageIcon(associatedUsername+"MinderDownloads/"+connectedUsername+".jpg");
+
+        //Escalem les imatges
         Image associatedScaleImage = associatedPicture.getImage().getScaledInstance(64, 64,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(associatedScaleImage);
         jlphotoAssociated.setIcon(toCircle(icon));
         Image connectedScaleImage = connectedPicture.getImage().getScaledInstance(64, 64,Image.SCALE_SMOOTH);
         ImageIcon icon2 = new ImageIcon(connectedScaleImage);
+
+        //les convertim en imatges rodones
         jlphotoMatched.setIcon(toCircle(icon2));
+
         //A part d'actualitzar les dues imatges, tambe actualitzem el nom
         showNamesMessage(connectedUsername);
     }
 
     /**
      * Metode que permet canviar el format d'una imatge quadrada per una circular.
-     * @param icon: imatge quadrada a transformar
+     *
+     * @param icon imatge quadrada a transformar
+     *
      * @return Imatge en format Icon circular.
      */
     private Icon toCircle(ImageIcon icon) {
-        BufferedImage image = new BufferedImage(64, 64, TYPE_INT_RGB); // Assuming logo 150x150
+        //Definim un BufferedImage de 64x64 per a escalar la imatge original a aquesta dimensio
+        BufferedImage image = new BufferedImage(64, 64, TYPE_INT_RGB);
         Graphics2D g = image.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.fillOval(1, 1, 148, 148); // Leaving some room for antialiasing if needed
+        g.fillOval(1, 1, 148, 148);
         g.setComposite(AlphaComposite.SrcIn);
         g.drawImage(icon.getImage(), 0, 0, null);
         g.dispose();
-
+        //agafem l'amplada de la imatge en questio i arrodonim les cantonades
         int width = image.getWidth();
         BufferedImage circleBuffer = new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = circleBuffer.createGraphics();
@@ -136,6 +145,7 @@ public class MatchPanel extends JPanel {
 
     /**
      * Metode que vincula les accions dels buttons que permeten anar al chat o continuar jugant
+     *
      * @param matchController controlador de la pestanya Match
      */
     public void registraController(MatchController matchController) {

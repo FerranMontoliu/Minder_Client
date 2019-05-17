@@ -19,6 +19,11 @@ public class ServerCommunicationPreferences {
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
 
+    /**
+     * Constructor del Thread encarregat d'establir la connexió client-servidor.
+     * @param preferencesController Controlador de la opcio d'edicio de preferencies del compte on l'usuari pot modificar
+     *                              la seva contrassenya, filtre d'edats o acces premium
+     */
     public ServerCommunicationPreferences(PreferencesController preferencesController){
         try {
             this.preferencesController = preferencesController;
@@ -40,19 +45,24 @@ public class ServerCommunicationPreferences {
     public void startServerComunication(char command) throws IOException {
         switch (command){
             case EDIT_PREFERENCES:
+                //Enviem l'etiqueta d'aquesta opcio
                 dataOut.writeChar(EDIT_PREFERENCES);
+                //Enviem l'usuari associat al compte que es vol canviar
                 User associatedUser = preferencesController.getAssociatedUser();
                 objectOut.writeObject(associatedUser);
-
+                //Llegim si s'ha pogut modificar correctament els canvis
                 boolean editOK = dataIn.readBoolean();
                 if (editOK == true){
+                    //mostrem un missatge d'exit
                     preferencesController.showEditOk();
                 }
                 preferencesController.setEditResult(editOK);
                 break;
-            case CHECK_USER: //IGUAL A LOGIN_USER: vull saber si existeix aquest usuari i contrassenya
+            case CHECK_USER: //IGUAL A LOGIN_USER: volem saber si existeix aquest usuari i contrassenya
                 try {
+                    //Etiqueta que correspon a la de LOGIN_USER
                     dataOut.writeChar(CHECK_USER);
+                    //Enviem el login i contrassenya de l'usuari del que volem saber si es pot autentificar amb aquestes credencials
                     User loginUser = preferencesController.getChekingUser();
                     objectOut.writeObject(loginUser);
 
@@ -62,6 +72,7 @@ public class ServerCommunicationPreferences {
                         boolean sameUser = dataIn.readBoolean();
 
                         if(sameUser){
+                            //Llegim tota la informacio de l'usuari autentificat
                             User dataBaseUser = (User) objectIn.readObject();
                             preferencesController.setCorrectLogin(true);
                             preferencesController.setSignInUser(dataBaseUser);

@@ -85,7 +85,6 @@ public class SignInPanel extends JPanel {
 
     /**
      * Mètode encarregat de crear i afegir el lloc on l'usuari fica la seva password.
-     *
      */
     private void createPasswordField(){
         //JPanel Password: Label i Password Text Field
@@ -117,7 +116,6 @@ public class SignInPanel extends JPanel {
 
     /**
      * Mètode encarregat de crear i afegir el botó de Sign In.
-     *
      */
     private void createButtons(){
         //JPanel Buttons: Buttons Show Password i Sign In

@@ -20,9 +20,11 @@ public class SignUpPanel extends JPanel {
     private JComboBox jcbMaxAgeFilter;
     private JComboBox jcbMinAgeFilter;
     private JCheckBox jcNoFilter;
+
     /**
      * Constructor del panell de Sign-Up.
-     *
+     * Aquest panell conte diferents camps o zones a omplir: usuari, contrassenyes, email, acces Premium, edat,
+     * filtre d'edat i registre
      */
     public SignUpPanel(CardLayout clSignInUp) {
         super(clSignInUp);
@@ -39,6 +41,10 @@ public class SignUpPanel extends JPanel {
 
     }
 
+    /**
+     * Metode que crea els camps relacionats amb el filtre d'edat mminima, maxima i la opcio per a no utilitzar filtre d'edat
+     * mitjancant un checkbox
+     */
     private void createAgeFilters() {
         JPanel jpMaxAge = new JPanel();
         jpMaxAge.setLayout(new FlowLayout());

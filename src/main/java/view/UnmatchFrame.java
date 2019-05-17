@@ -6,12 +6,18 @@ import controller.MenuController;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe que genera un JFrame per a mostrar en cas que l'usuari desitgi fer un unMatch amb un altre usuari des del chat
+ */
 public class UnmatchFrame extends JFrame{
     private JButton jbCancel;
     private final Color BG_COLOR = new Color(173, 105, 127);
     private GridBagConstraints constraints;
     private JButton jbUnmatch;
 
+    /**
+     * Constructor sense parametres que inicialitza els components, layout i panells intermitjos del jframe
+     */
     public UnmatchFrame(){
         setLayout(new GridBagLayout());
         constraints = new GridBagConstraints();
@@ -21,6 +27,9 @@ public class UnmatchFrame extends JFrame{
         setBackground(new Color(94, 94, 94));
     }
 
+    /**
+     * Metode que crea la capcalera del JFrame amb una icone i un text en forma de titol interrogatiu
+     */
     private void addHeader() {
         //Header: icono amb titol
         String header = "   Are you sure you want to unmatch this user?";
@@ -36,13 +45,11 @@ public class UnmatchFrame extends JFrame{
         add(headingLabel, constraints);
     }
 
+    /**
+     * Metode que afegeix el boto de confirmacio de l'UnMacth amb la seva icona
+     */
     private void addUnmatchButton() {
         jbUnmatch = new JButton("Unmatch", new ImageIcon("icons/check_icon.png"));
-
-        //constraints.gridx = 1;
-        //constraints.gridy = 1;
-        //constraints.weightx = 3.0f;
-        //constraints.weighty = 2.0f;
         constraints.insets = new Insets(1, 4, 1, 4);
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -50,13 +57,13 @@ public class UnmatchFrame extends JFrame{
         constraints.gridwidth = 2;
         constraints.ipady = 12;
         constraints.ipadx = 12;
-        //constraints.insets = new Insets(5, 1, 5, 1);
-        //constraints.fill = GridBagConstraints.EAST;
+
         add(jbUnmatch, constraints);
-
-
     }
 
+    /**
+     * Metode que afegeix el boto de cancel.lacio de l'UnMacth amb la seva icona corresponent
+     */
     private void addCancelButton() {
         jbCancel = new JButton("  Cancel  ", new ImageIcon("icons/cancel_16px.png"));
         jbCancel.setSize(jbUnmatch.getSize());
@@ -67,10 +74,16 @@ public class UnmatchFrame extends JFrame{
         constraints.gridwidth = 1;
         constraints.ipady = 12;
         constraints.ipadx = 12;
-        //constraints.fill = GridBagConstraints.WEST;
+
         add(jbCancel, constraints);
     }
 
+    /**
+     * Metode que permet vincular els elements que generen un ActionEvent amb el controlador d'aques Jframe per a dur a
+     * terme les corresponents accions en funcio d'aquests events i valors de components
+     *
+     * @param chatController Controlador del Panell de chat entre usuaris que han fet Match
+     */
     public void registerController(ChatController chatController){
         jbUnmatch.addActionListener(chatController);
         jbUnmatch.setActionCommand("YES UNMATCH");
@@ -78,6 +91,9 @@ public class UnmatchFrame extends JFrame{
         jbCancel.setActionCommand("NO UNMATCH");
     }
 
+    /**
+     * Metode que permet mostrar el Frame per sobre de les altres finestres
+     */
     public void showFrame(){
         setSize(370,170);
         setLocationRelativeTo(null);
@@ -86,6 +102,9 @@ public class UnmatchFrame extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Metode que tanca aquesta finestra
+     */
     public void hideFrame() {
         dispose();
     }

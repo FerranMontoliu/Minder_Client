@@ -80,14 +80,12 @@ public class ConnectPanel extends JPanel {
     }
 
     /**
-     * TEMPORAL: metode que mostra l'usuari desitjat des del controlador per tal de mostrar les seves dades: Nom, edat,
-     * i fotografia de perfil
+     * Metode que mostra l'usuari desitjat des del controlador per tal de mostrar les seves dades: Nom, edat, i fotografia de perfil
+     *
      */
-    //public void showUser(User user){
-        //lblProfilename.setText(user.getUsername()+ " ," + user.getAge());
-        //lblProfilePic.setIcon((Icon)user.getPhoto());
+
     public void showUser() {
-        //TODO: lblProfileName i ProfilePic per parametre
+
         JPanel jpUserImage = new JPanel();
         jpUserImage.setLayout(new BoxLayout(jpUserImage, BoxLayout.PAGE_AXIS));
 
@@ -105,6 +103,7 @@ public class ConnectPanel extends JPanel {
 
     /**
      * Metode que registra ActionListeners a diferents components de la vista.
+     *
      * @param controller parametre que implementa ActionListener
      */
     public void registraController(ConnectController controller) {

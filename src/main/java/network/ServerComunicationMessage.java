@@ -22,7 +22,12 @@ public class ServerComunicationMessage extends Thread {
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
 
-
+    /**
+     * Constructor del Thread encarregat d'establir la connexió client-servidor.
+     *
+     * @param chatController Controlador del panell de chats entre usuaris amb matches
+     * @param sender nom de l'usuari que esta xatejant
+     */
     public ServerComunicationMessage(ChatController chatController, String sender){
         try {
             this.isOn = false;

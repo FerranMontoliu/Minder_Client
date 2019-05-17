@@ -23,7 +23,6 @@ public class MainWindow extends JFrame{
     private ProfilePanel jpOtherProfile;
 
 
-
     /**
      * Constructor de la vista de la pantalla principal del programa. Es crea la barra de menú superior i s'inicialitzen
      * tots els panells que es mostraran a la part central de la pantalla, mostrant unicament al principi la pantalla de
@@ -44,6 +43,7 @@ public class MainWindow extends JFrame{
         clMainWindow = new CardLayout();
         jpSelected = new JPanel(clMainWindow);
 
+        //creem tots els panells que estaran continguts al CardLayout
         createConnectPanel();
         createProfilePanel();
         createEditPanel();
@@ -51,7 +51,8 @@ public class MainWindow extends JFrame{
         createChatPanel();
         createMatchPanel();
         createOtherUserProfilePanel();
-        //aqui crear tants panells com opcions del menu: profile, chat, connect...
+
+        //definim per defecte el panell Connect com el de la pagina principal
         changePanel("CONNECT");
         getContentPane().add(jpSelected);
     }
@@ -444,15 +445,15 @@ public class MainWindow extends JFrame{
 
 
     /**
-     *
-     * @param client
-     * @param username
-     * @param userDescription
-     * @param age
-     * @param java
-     * @param c
-     * @param song
-     * @param hobbies
+     * Metode que actualitza la informacio de l'usuari del qual volem obtenir informacio
+     * @param client usuari associat a la compta que esta connectant amb usuaris i que desitja veure el perfil d'un usuari
+     * @param username nom de l'usuari del que vol obtenir informacio.
+     * @param age edat de l'usuari del que el client vol obtenir informacio.
+     * @param userDescription Descripcio de l'usuari del que el client vol obtenir informacio.
+     * @param java Indica si a l'usuari li agrada Java o no del que el client vol obtenir informacio.
+     * @param c Indica si a l'usuari li agrada C o no del que el client vol obtenir informacio.
+     * @param song Canco preferida de l'usuari del que el client vol obtenir informacio.
+     * @param hobbies Llista de hobbies de l'usuari del que el client vol obtenir informacio.
      */
     public void loadConnectUserInfo(String client, String username, String userDescription, int age, boolean java, boolean c, String song, String hobbies) {
         jpOtherProfile.updateInfo(client, username, age,userDescription, java, c, hobbies, song);
@@ -480,6 +481,9 @@ public class MainWindow extends JFrame{
 
     }
 
+    /**
+     * Metode que permet habilitar el boto de cancelacio d'edicio de perfil
+     */
     public void enableCancel() {
         jpEdit.enableCancel();
     }

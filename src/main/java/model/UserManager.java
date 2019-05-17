@@ -44,6 +44,7 @@ public class UserManager {
 
     /**
      * Funcio que s'encarrega de comprovar si el format del mail es correcte o no.
+     *
      * @param mail correu electronic introduit per l'usuari
      */
     public static void mailCorrectFormat(String mail) throws InvalidFormatException {
@@ -55,7 +56,9 @@ public class UserManager {
 
     /**
      * Funcio que gestiona si el format del correu es correcte o no
+     *
      * @param usernameField email de l'usuari introduit
+     *
      * @return Retorna true si el format es correcte, false sino.
      */
     public static boolean mailInSignIn(String usernameField){
@@ -114,12 +117,29 @@ public class UserManager {
         return a;
     }
 
+    /**
+     * Metode que permet mirar si un camp esta buit
+     *
+     * @param fieldContent Contingut del camp a analitzar en format String
+     * @param fieldName Nom del camp a omplir
+     *
+     * @throws EmptyTextFieldException
+     */
     public static void isEmpty(String fieldContent, String fieldName) throws EmptyTextFieldException {
         if(fieldContent.isEmpty()){
             throw new EmptyTextFieldException("The field "+fieldName+" cannot be empty!");
         }
     }
 
+    /**
+     * Metode que permet comprovar si s'han seleccionat els camps obligatoris per a la creacio d'un nou perfil.
+     * @param img imatge seleccionada per l'usuari del FileChooser.
+     * @param description descripcio de l'usuari.
+     * @param java boolean que indica si a l'usuari li agrada aquest llenguatge de programacio
+     * @param c boolean que infica si a l'usuari li agrada aquest llenguatge de programacio
+     *
+     * @throws InvalidFormatException
+     */
     public static void checkEditProfileNewData(ImageIcon img, String description, boolean java, boolean c) throws InvalidFormatException {
         if(img == null){
             throw new InvalidFormatException("An image must be selected");
@@ -132,10 +152,25 @@ public class UserManager {
         }
     }
 
+    /**
+     * Metode que substitueix possibles caracters erronis en el recull i processament de dades
+     *
+     * @param fixThis string que conte el caracter amb possible error
+     *
+     * @return String amb el caracter reemplacat per un de correcte
+     */
     public static String fixSQLInjections(String fixThis){
         return fixThis.replace("'","`");
     }
 
+    /**
+     * Metode que comprova quina es la maxima edat a enviar a la database en funcio de si l'usuari vol filtre o no
+     *
+     * @param maxAge String que conte l'edat seleccionada del desplegable de max age
+     * @param noFilter boolea que indica si l'usuari vol filtre (false) o si no el vol (true)
+     *
+     * @return edat maxima a carregar a la base de dades
+     */
     public static int checkMaxAge(String maxAge, boolean noFilter) {
         int age = noFilter? 0: Integer.parseInt(maxAge);
         return age;

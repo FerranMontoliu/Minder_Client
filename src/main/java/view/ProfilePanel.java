@@ -36,6 +36,7 @@ public class ProfilePanel extends JPanel {
      * Constructor del panell principal de connexions entre usuaris. aquest panell es genera en dos casos: per a mostrar
      * la informacio de l'usuari associat a la compta, o be per a mostrar els usuaris dels que demana informació addicional.
      * Ho distingim a partir de l'String que passem per paràmetre
+     *
      * @param clMainWindow CardLayout que el contindra i mostrara en cas desitjat
      * @param user string que indica si es tracta del panell de l'usuari associat o dels altres usuaris
      */
@@ -59,7 +60,6 @@ public class ProfilePanel extends JPanel {
     private void createReturnButton() {
         JPanel jpButton = new JPanel(new FlowLayout());
         jbBack = new JButton("Return", new ImageIcon("icons/back-arrow.png"));
-        //jpButton.setBackground(new Color(202, 123, 148));
         jpButton.add(jbBack);
 
         add(jpButton, BorderLayout.SOUTH);
@@ -91,25 +91,21 @@ public class ProfilePanel extends JPanel {
      * s'incloura al metode includeUserInfo on se li passara la informacio de l'usuari en concret
      */
     private void createUserInfo() {
-        //TODO: omplir els camps amb la informacio de l'usuari en questio
-
+        //Titol de l'area que compren la "account information"
         TitledBorder border = new TitledBorder("Basic Information");
         border.setTitleColor(MINDER_PINK);
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
 
+        //Panell que conte els camps d'informacio de l'usuari
         JPanel jpUserInfo = new JPanel();
         jpUserInfo.setLayout(new BoxLayout(jpUserInfo, BoxLayout.PAGE_AXIS));
         jpUserInfo.setBorder(border);
 
         jpUserInfo.add(createDescription());
-
         jpUserInfo.add(createFavHobbies());
-
         jpUserInfo.add(createFavProg());
-
         jpUserInfo.add(createFavSong());
-
         add(jpUserInfo, BorderLayout.CENTER);
 
 
@@ -123,7 +119,6 @@ public class ProfilePanel extends JPanel {
     private JPanel createFavSong() {
 
         JPanel jpSong = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        //jpSong.setLayout(new BoxLayout(jpSong, BoxLayout.X_AXIS));
         JLabel jlTag = new JLabel(SONG_TAG); //omplire amb la informacio de l'usuari
         jlTag.setIcon(new ImageIcon("icons/music-player.png"));
         jlTag.setFont(TAG_FONT);
@@ -131,7 +126,7 @@ public class ProfilePanel extends JPanel {
         jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpSong.add(jlTag);
 
-        jlFavSong = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlFavSong = new JLabel(""); //omplire mes endavant amb la informacio de l'usuari
         jlFavSong.setFont(INFO_FONT);
         jlFavSong.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpSong.add(jlFavSong);
@@ -147,12 +142,11 @@ public class ProfilePanel extends JPanel {
     private JPanel createFavProg() {
 
         JPanel jpProg = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        //jpProg.setLayout(new BoxLayout(jpProg, BoxLayout.X_AXIS));
+
         JLabel jlTag = new JLabel(PROGRAMMING_TAG); //omplire amb la informacio de l'usuari
         jlTag.setIcon(new ImageIcon("icons/programming-code.png"));
         jlTag.setFont(TAG_FONT);
         jlTag.setForeground(Color.GRAY);
-        //jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpProg.add(jlTag);
 
         jlFavProgramming = new JLabel(""); //omplire amb la informacio de l'usuari
@@ -173,7 +167,7 @@ public class ProfilePanel extends JPanel {
     private JPanel createFavHobbies() {
 
         JPanel jpHobbies = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        //jpHobbies.setLayout(new BoxLayout(jpHobbies, BoxLayout.X_AXIS));
+
         JLabel jlTag = new JLabel(HOBBIES_TAG); //omplire amb la informacio de l'usuari
         jlTag.setIcon(new ImageIcon("icons/ticket.png"));
         jlTag.setFont(TAG_FONT);
@@ -198,7 +192,6 @@ public class ProfilePanel extends JPanel {
      */
     private JPanel createDescription() {
         JPanel jpDescription = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        //jpDescription.setLayout(new BoxLayout(jpDescription, BoxLayout.X_AXIS));
         JLabel jlTag = new JLabel(DESCRIPTION_TAG); //omplire amb la informacio de l'usuari
         jlTag.setIcon(new ImageIcon("icons/hastag.png"));
         jlTag.setFont(TAG_FONT);
@@ -221,8 +214,7 @@ public class ProfilePanel extends JPanel {
      * imatge, ja que aquesta nomes es posara quan es cridi a la funcio IncludePhoto amb la info de l'usuari
      */
     private void createPhoto() {
-        //TODO: aquest metode nomes crea els jlabels per a que a la funcio de AddUserInfo s'atualitzi la informacio de les
-        //TODO: etiquetes
+
         JPanel jpUserPhoto = new JPanel();
         jpUserPhoto.setLayout(new BoxLayout(jpUserPhoto, BoxLayout.PAGE_AXIS));
         jlPhoto = new JLabel(new ImageIcon("Pictures/user-64px.png"));
@@ -299,14 +291,15 @@ public class ProfilePanel extends JPanel {
      * @return Imatge en format Icon circular.
      */
     private Icon toCircle(ImageIcon icon) {
-        BufferedImage image = new BufferedImage(64, 64, TYPE_INT_RGB); // Assuming logo 150x150
+        //Definim un BufferedImage de 64x64 per a escalar la imatge original a aquesta dimensio
+        BufferedImage image = new BufferedImage(64, 64, TYPE_INT_RGB);
         Graphics2D g = image.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.fillOval(1, 1, 148, 148); // Leaving some room for antialiasing if needed
+        g.fillOval(1, 1, 148, 148);
         g.setComposite(AlphaComposite.SrcIn);
         g.drawImage(icon.getImage(), 0, 0, null);
         g.dispose();
-
+        //agafem l'amplada de la imatge en questio i arrodonim les cantonades
         int width = image.getWidth();
         BufferedImage circleBuffer = new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = circleBuffer.createGraphics();
@@ -319,6 +312,7 @@ public class ProfilePanel extends JPanel {
     /**
      * Metode que actualitza el text del jlabel que mostra la informacio del llenguatge de programacio de l'usuari que
      * ha fet login
+     *
      * @param likesJava boolean que indica si li agrada el Java
      * @param likesC boolean que indica si li agrada el C
      */
@@ -339,6 +333,7 @@ public class ProfilePanel extends JPanel {
     /**
      * Metode que actualitza el text del jlabel que mostra la descripcio l'usuari que
      * ha fet login
+     *
      * @param description String que conte el text escrit per l'usuari a la hora de definir/editar el seu perfil i que
      *                    vol que es mostri
      */
@@ -350,6 +345,7 @@ public class ProfilePanel extends JPanel {
     /**
      * Metode que actualitza el text del jlabel que mostra la informacio del Nom i Edat de l'usuari que
      * ha fet login (i que es mostra a la part superior de la finestra, junt amb la seva imatge de perfil)
+     *
      * @param username nom de l'usuari
      * @param age edat de l'usuari
      */
@@ -361,6 +357,7 @@ public class ProfilePanel extends JPanel {
     /**
      * Metode que actualitza el text del jlabel que mostra la llista de hobbies seguida de comes de l'usuari que
      * ha fet login
+     *
      * @param hobbies Array de Strings on cadascun representa una accio
      */
     private void updateHobbies(String hobbies) {
@@ -370,6 +367,7 @@ public class ProfilePanel extends JPanel {
     /**
      * Metode que actualitza el text del jlabel que mostra la informacio de la canco preferida de l'usuari que
      * ha fet login
+     *
      * @param song nom de la canco a mostrar
      */
     private void updateSong(String song){

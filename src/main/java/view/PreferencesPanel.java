@@ -34,7 +34,6 @@ public class PreferencesPanel extends JPanel {
         createUsernameField();
         createPasswordPanel();
         createMailField();
-        //createAgeField();
         createPremiumOptions();
         createAgeFilter();
         updateUneditableFields();
@@ -75,32 +74,35 @@ public class PreferencesPanel extends JPanel {
     /**
      * Metode que genera els tres camps corresponents a la contrassenya
      */
-    private void createPasswordPanel() { //TODO: nomes quan els tres camps siguin isEmpty, no demanar al server el login i actualitzar els altres camps
+    private void createPasswordPanel() {
+        //Titol de l'espai de contrassenyes
         TitledBorder border = new TitledBorder("Password");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
+
+        //Panell que engloba tots els camps de les contrassenyes
         JPanel jpPassword = new JPanel();
         jpPassword.setLayout(new GridLayout(3, 2));
         jpPassword.setBorder(border);
 
+        //Etiqueta i PasswordField de la contrassenya actual
         JLabel jlCurrPassword = new JLabel("Current Password:");
         jlCurrPassword.setHorizontalAlignment(SwingConstants.LEFT);
         jpPassword.add(jlCurrPassword);
-
         jtfCurrentPassword = new JPasswordField();
         jpPassword.add(jtfCurrentPassword);
 
+        //Etiqueta i PasswordField de la contrassenya nova
         JLabel jlNewPassword = new JLabel("New Password:");
         jlNewPassword.setHorizontalAlignment(SwingConstants.LEFT);
         jpPassword.add(jlNewPassword);
-
         jtfNewPassword = new JPasswordField();
         jpPassword.add(jtfNewPassword);
 
+        //Etiqueta i PasswordField de la confirmacio de la nova contrassenya
         JLabel jlNewConfirmPassword = new JLabel("Confirm New Password:");
         jlNewConfirmPassword.setHorizontalAlignment(SwingConstants.LEFT);
         jpPassword.add(jlNewConfirmPassword);
-
         jtfNewPasswordConfirm = new JPasswordField();
         jpPassword.add(jtfNewPasswordConfirm);
 
@@ -111,9 +113,12 @@ public class PreferencesPanel extends JPanel {
      * Metode que genera el camp de mail de l'usuari
      */
     private void createMailField() {
+        //Titol de l'espai de email
         TitledBorder border = new TitledBorder("Email");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
+
+        //Panell que engloba els camps del mail
         JPanel jpMail = new JPanel();
         jpMail.setLayout(new GridLayout(1, 2));
         jpMail.setBorder(border);
@@ -128,41 +133,17 @@ public class PreferencesPanel extends JPanel {
         add(jpMail);
     }
 
-    private void createAgeField() {
-        TitledBorder border = new TitledBorder("Age");
-        border.setTitleJustification(TitledBorder.LEFT);
-        border.setTitlePosition(TitledBorder.TOP);
-        JPanel jpAge = new JPanel();
-        jpAge.setLayout(new GridLayout(1, 2));
-        jpAge.setBorder(border);
-
-        JLabel jlAge = new JLabel("Your age:");
-        jlAge.setHorizontalAlignment(SwingConstants.LEFT);
-        jpAge.add(jlAge);
-
-        jcbAge = new JComboBox();
-        jcbAge.setEditable(false);
-        jcbAge.setPreferredSize(new Dimension(100,30));
-        //jcbAge.setMaximumSize(jcbMaxAgeFilter.getPreferredSize());
-
-        for (int i = 18; i <= 100; ++i) {
-            jcbAge.addItem(i);
-        }
-
-        jpAge.add(jcbAge);
-
-        add(jpAge);
-    }
 
     /**
-     * Metode que genera les dues opcions de "premium" i "no premium"
+     * Metode que genera les dues opcions de "premium" i "no premium", deixant per defecte el radioButton de no premium
      */
     private void createPremiumOptions() {
+        //Titol de l'espai de premium
         TitledBorder border = new TitledBorder("Premium Access");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
 
-        //Premium or Not Premium
+        //Premium or Not Premium panell
         JPanel jpPremiumOption = new JPanel();
         jpPremiumOption.setLayout(new FlowLayout());
         jpPremiumOption.setBorder(border);
@@ -179,7 +160,7 @@ public class PreferencesPanel extends JPanel {
 
         jpPremiumOption.add(jrbPremium);
 
-
+        //Agrupem els dos buttons
         ButtonGroup bgOption = new ButtonGroup();
         bgOption.add(jrbNoPremium);
         bgOption.add(jrbPremium);
@@ -189,27 +170,32 @@ public class PreferencesPanel extends JPanel {
     }
 
     /**
-     * Metode que genera els dos despplegables per al filtre d'edat i el checkbox per a no aplicar aquest
+     * Metode que genera els dos despplegables per al filtre d'edat minima i maxima a triar per l'usuari
+     * i el checkbox per a no aplicar aquest
      */
     private void createAgeFilter(){
-
+        //Titol de l'espai de filtre d'edat
         TitledBorder border = new TitledBorder("Age Filter");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
 
+        //Panell que engloba els camps del filtre d'edat
         JPanel jpBothFilters = new JPanel();
         jpBothFilters.setBorder(border);
         jpBothFilters.setLayout(new GridLayout(2,2));
 
-
+        //Etiqueta i comboBox de l'edat minima i maxima
         JLabel jlMin = new JLabel("Minimum Age:");
         jlMin.setHorizontalAlignment(SwingConstants.LEFT);
         jpBothFilters.add(jlMin);
+        JLabel jlMax = new JLabel("Maximum Age:");
+        jlMax.setHorizontalAlignment(SwingConstants.LEFT);
+        jpBothFilters.add(jlMax);
 
         jcbMinAgeFilter = new JComboBox();
         jcbMinAgeFilter.setEditable(false);
         jcbMinAgeFilter.setPreferredSize(new Dimension(100,30));
-        //jcbAge.setMaximumSize(jcbMaxAgeFilter.getPreferredSize());
+
         jcbMaxAgeFilter = new JComboBox();
         jcbMaxAgeFilter.setEditable(false);
         jcbMaxAgeFilter.setPreferredSize(new Dimension(100,30));
@@ -220,15 +206,11 @@ public class PreferencesPanel extends JPanel {
         }
 
         jpBothFilters.add(jcbMinAgeFilter);
-
-        JLabel jlMax = new JLabel("Maximum Age:");
-        jlMax.setHorizontalAlignment(SwingConstants.LEFT);
-        jpBothFilters.add(jlMax);
-
         jpBothFilters.add(jcbMaxAgeFilter);
-
         add(jpBothFilters);
 
+        //CheckBox per a triar si es vol aplicar filtre d'edat mitjancant els dos filtres anteriors o si no es vol
+        //aplicar el filtre anterior
         jcNoFilter = new JCheckBox("I don't want any age filter");
         jcNoFilter.setAlignmentX(CENTER_ALIGNMENT);
         add(jcNoFilter);
@@ -265,12 +247,14 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Metode encarregat de mostrar per defecte les dades de l'usuari per a poder-les modificar
-     * @param username
-     * @param email
-     * @param age
-     * @param isPremium
-     * @param minAge
-     * @param maxAge
+     *
+     * @param username Nom de l'usuari.
+     * @param age Edat de l'usuari.
+     * @param isPremium Indica si es usuari premium o normal.
+     * @param email Mail de l'usuari.
+     * @param noFilter l'usuari vol filtre d'edat o no.
+     * @param minAge Edat minima del filtre per edat.
+     * @param maxAge Edat maxima del filtre per edat.
      */
     public void initiatePreferences(String username, String email, int age, boolean isPremium, int minAge, int maxAge, boolean noFilter) {
         //es pot fer mes optim pero ara me la sua
@@ -292,7 +276,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Metode que genera un optionPane amb l'error generat
-     * @param message
+     *
+     * @param message text a mostrar al nou frame informatoi
      */
     public void showWarning(String message) {
         JOptionPane.showMessageDialog(null, message,"Warning", JOptionPane.WARNING_MESSAGE);
@@ -300,7 +285,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Metode que vinvula les accions dels botons i checkbox amb el controlador
-     * @param ec
+     *
+     * @param ec controlador que s'ha de vincular amb aquests botons
      */
     public void registerController(PreferencesController ec){
         jbSave.addActionListener(ec);
@@ -314,7 +300,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Getter del text introduit al camp Current Password
-     * @return
+     *
+     * @return String amb el contingut del JPasswordField de la contrassenya actual
      */
     public String getCurrentPassword(){
         return String.valueOf(jtfCurrentPassword.getPassword());
@@ -322,7 +309,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Getter del text introduit al camp New Password
-     * @return
+     *
+     * @return String amb el contingut del JPasswordField de la nova contrassenya
      */
     public String getNewPassword(){
         return String.valueOf(jtfNewPassword.getPassword());
@@ -330,7 +318,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Getter del text introduit al camp New Password Confirmation
-     * @return
+     *
+     * @return String amb el contingut del JPasswordField de la nova contrassenya
      */
     public String getNewPasswordConfirm(){
         return String.valueOf(jtfNewPasswordConfirm.getPassword());
@@ -338,7 +327,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Getter del text introduit al camp Username
-     * @return
+     *
+     * @return String amb el nom introduit per l'usuari
      */
     public String getUsername() {
         return jtfUsername.getText();
@@ -346,6 +336,7 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Getter del radiobutton Premium
+     *
      * @return 1 si es Premium i 0 si no ho es
      */
     public boolean getIsPremium(){
@@ -354,7 +345,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Getter del item seleccionat al desplegable del camp Minimum age filter
-     * @return
+     *
+     * @return enter amb l'edat seleccionada al desplegable del filtre de minima edat
      */
     public int getMinAge() {
         int age = jcbMinAgeFilter.getSelectedIndex() + 18;
@@ -362,7 +354,8 @@ public class PreferencesPanel extends JPanel {
     }
     /**
      * Getter del item seleccionat al desplegable del camp Maximum age filter
-     * @return
+     *
+     * @return enter amb l'edat seleccionada al desplegable del filtre de maxima edat
      */
     public int getMaxAge() {
         int age = jcbMaxAgeFilter.getSelectedIndex() + 18;
@@ -388,7 +381,9 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Getter del CheckBox que indica si l'usuari vol utilitzar el filtre d'edat o no
-     * @return
+     *
+     * @return true en cas que l'usuari no vulgui cap filtre d'edat, false en cas de que haguem de fer cas dels valors
+     * continguts als  ComboBox
      */
     public boolean noFilterChecked() {
         return jcNoFilter.isSelected();
@@ -396,7 +391,8 @@ public class PreferencesPanel extends JPanel {
 
     /**
      * Metode que genera un OptionPane mostrant un missatge d'exit després de completar correctament l'edicio
-     * @param message
+     *
+     * @param message text a mostrar al nou frame informatoi
      */
     public void showSuccess(String message) {
         JOptionPane.showMessageDialog(null, message,"Success", JOptionPane.INFORMATION_MESSAGE);
