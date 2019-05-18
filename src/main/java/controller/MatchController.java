@@ -1,12 +1,15 @@
 package controller;
 
-import model.entity.User;
+
 import network.ServerComunicationConnect;
 import view.MatchPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Controlador de la pantalla emergent de Match.
+ */
 public class MatchController implements ActionListener {
     //Communication commands
     private static final char CONNECT_USER = 'k';
@@ -17,7 +20,8 @@ public class MatchController implements ActionListener {
 
     /**
      * Constructor per parametres que guarda la vista i el controlador superior que provocara l'execucio d'aquest.
-     * @param matchPanel        Panell de match associat als dos usuaris.
+     * @param matchPanel  Panell de match associat als dos usuaris.
+     * @param menuController Controlador del menu principal.
      * @param connectController controlador de la pestanya connect.
      */
     public MatchController(MatchPanel matchPanel, MenuController menuController, ConnectController connectController) {
@@ -26,6 +30,11 @@ public class MatchController implements ActionListener {
         serverComunicationConnect = new ServerComunicationConnect(connectController);
     }
 
+
+    /**
+     * Metode que permet reaccionar als esdeveniments provocats per els botons del panell de match
+     * @param e Accio que ve dels botons del panell
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();

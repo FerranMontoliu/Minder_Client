@@ -5,6 +5,9 @@ import view.ProfilePanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Controlador del panell de perfil d'un altre usuari que no es el client.
+ */
 public class OtherUserProfileController implements ActionListener {
     private ProfilePanel otherUserProfilePanel;
     private MenuController menuController;
@@ -21,21 +24,15 @@ public class OtherUserProfileController implements ActionListener {
     }
 
 
-    @Override
     /**
-     * Metode que permet reaccionar als events provoctats per els botons del panell de preferencies
-     *
+     * Metode que permet reaccionar als esdeveniments provocats per els botons del panell de preferencies
      * @param e Accio que ve dels botons del panell
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-
-        switch (actionCommand) {
-            case "BACK":
-                menuController.goToConnectPanel();
-                break;
-            default:
-                break;
+        if(actionCommand.equals("BACK")){
+            menuController.goToConnectPanel();
         }
     }
 }

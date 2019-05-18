@@ -16,6 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * Controlador encarregat del panell d'edicio de preferecies d'usuari.
+ */
 public class PreferencesController implements ActionListener {
     private static final char EDIT_PREFERENCES = 'l';
     private static final char CHECK_USER = 'a'; //IMPLEMENTACIO IGUAL A LOGIN_USER
@@ -41,12 +44,13 @@ public class PreferencesController implements ActionListener {
         this.editResult = false;
         sc = new ServerCommunicationPreferences(this);
     }
-    @Override
+
     /**
      * Metode que permet reaccionar als events provoctats per els botons del panell de preferencies
      *
      * @param e Accio que ve dels botons del panell
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -130,39 +134,39 @@ public class PreferencesController implements ActionListener {
     }
 
     /**
-     * Metode que actuaitza el camp
+     * Metode que actualitza el camp.
      */
     private void updateMaxAgeNoFilter() {
         associatedUser.setMaxAge(0);
     }
 
     /**
-     * Getter de l'usuari associat a la compta iniciada a la finestra actual
-     * @return usuari
+     * Getter de l'usuari associat a la compta iniciada a la finestra actual.
+     * @return usuari associat.
      */
     public User getAssociatedUser(){
         return associatedUser;
     }
 
     /**
-     * Setter del parametre editResult
-     * @param editResult que ens indica si l'usuari s'ha pogut editar correctament o no
+     * Setter del parametre editResult.
+     * @param editResult que ens indica si l'usuari s'ha pogut editar correctament o no.
      */
     public void setEditResult(boolean editResult){
         this.editResult = editResult;
     }
 
     /**
-     * Setter del parametre correctLogin
-     * @param b que indica si el login es correcte o no
+     * Setter del parametre correctLogin.
+     * @param b que indica si el login es correcte o no.
      */
     public void setCorrectLogin(boolean b) {
         this.correctLogin = b;
     }
 
     /**
-     * Setter de l'usuari associat a aquest compte
-     * @param u
+     * Setter de l'usuari associat a aquest compte.
+     * @param u sign in user.
      */
     public void setSignInUser(User u) {
         this.associatedUser = u;

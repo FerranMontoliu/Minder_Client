@@ -9,10 +9,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Base64;
 
+/**
+ * Classe que representa un usuari del Minder. Aquest es guarda a la base de dades.
+ */
 public class User implements Serializable {
 
     private boolean completed;
-
     private String username;
     private int age;
     private boolean premium;
@@ -325,7 +327,7 @@ public class User implements Serializable {
 
     /**
      * Metode encarregat de reconstruir una imatge a partir d'un String.
-     *
+     * @param destination directori desti de la descarrega de la imatge.
      * @param username String que definira el nom de la imatge a descarregar.
      */
     public void base64ToImage(String destination, String username) {

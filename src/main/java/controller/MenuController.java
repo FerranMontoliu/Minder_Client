@@ -3,12 +3,10 @@ package controller;
 import model.DownloadsManager;
 import model.entity.User;
 import network.ServerComunicationChat;
-import network.ServerComunicationLogin;
 import network.ServerComunicationLogout;
 import view.MainWindow;
 import view.NotificationPopUp;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -66,8 +64,6 @@ public class MenuController implements ActionListener, WindowListener {
         mainWindow.registraOtherProfileController(otherUserProfileController);
         mainWindow.registraPreferencesController(preferencesController);
 
-        //Opcional que mostra notificacions en cas de voler avisar a l'usuari de nous matches que no ha vist
-        //updateNotifications();
     }
 
     /**
@@ -78,16 +74,14 @@ public class MenuController implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-        chatController.runDefaultAppearance();  //Necessari
+        chatController.runDefaultAppearance();
         chatController.finishComunications();
         switch (actionCommand) {
             case "CHAT":
                 if(associatedUser.isCompleted()){
                     if(!mainWindow.isSelected("CHAT")) {
                         serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-
                         mainWindow.generateMatchList(matchedUsernames, chatController);
-                        //selecciono el logo mes fosc del chat per a simbolitzar que estic a aquella finestra del menu
                         mainWindow.selectChat();
                         mainWindow.changePanel("CHAT");
                     }
@@ -110,7 +104,6 @@ public class MenuController implements ActionListener, WindowListener {
                     if(!mainWindow.isSelected("PROFILE")) {
                         mainWindow.selectProfile();
                         mainWindow.changePanel("PROFILE");
-                        //li envio la informacio de l'usuari rebut del servidor
                         profileController.showUser(associatedUser);
                     }
                 }
@@ -126,35 +119,29 @@ public class MenuController implements ActionListener, WindowListener {
 
             case "EDIT":
                 mainWindow.changePanel("EDIT");
-                //Agafo la informacio de l'usuari
                 associatedUser.base64ToImage(associatedUser.getUsername(), associatedUser.getUsername());
                 String userDescription = associatedUser.getDescription();
                 boolean java = associatedUser.getLikesJava();
                 boolean c = associatedUser.getLikesC();
                 String song = associatedUser.getFavSong();
                 String hobbies = associatedUser.getHobbies();
-                //Mostro els valors ja seleccionats per l'usuari
                 mainWindow.initiateEdit(associatedUser.getUsername(), userDescription, java, c, song, hobbies);
                 break;
 
-            case "ACCOUNT PREFERENCES":
+            case "ACCOUNT PREFERENCES"://Incloc les dades inicials de l'usuari als camps a modificar per a que l'usuari sapiga com te les preferencies configurades
                 mainWindow.changePanel("ACCOUNT PREFERENCES");
                 int minAge = associatedUser.getMinAge();
                 int maxAge = associatedUser.getMaxAge();
                 String email = associatedUser.getMail();
-                //Incloc les dades inicials de l'usuari als camps a modificar per a que l'usuari sapiga com te les preferencies configurades
-                mainWindow.initiatePreferences(associatedUser.getUsername(), email, associatedUser.getAge(), associatedUser.isPremium(), minAge, maxAge);
+                 mainWindow.initiatePreferences(associatedUser.getUsername(), email, associatedUser.getAge(), associatedUser.isPremium(), minAge, maxAge);
                 break;
             case "YES LOGOUT":
-                //Elimino les imatges que m'havia descarregat i acabo les comunicacions amb servidor
-                DownloadsManager.deleteDirectory(associatedUser.getUsername());
+                DownloadsManager.deleteDirectory(associatedUser.getUsername()); //Elimino les imatges que m'havia descarregat i acabo les comunicacions amb servidor
                 chatController.finishComunications();
                 logoutController.hideLogout();
-
                 try {
                     serverCommunicationLogout = new ServerComunicationLogout();
                     serverCommunicationLogout.startServerComunication(associatedUser.getUsername());
-                    System.out.println(associatedUser.getUsername());
                     mainWindow.dispose();
                 } catch (IOException e1) {
                     mainWindow.showWarning("Error when disconnecting!");
@@ -184,34 +171,17 @@ public class MenuController implements ActionListener, WindowListener {
         mainWindow.changePanel("PROFILE");
     }
     /**
-     * Metode que tanca la pestanya informativa de "It's a match" i torna al connect panel
+     * Metode que tanca la pestanya informativa de "It's a match" i torna al connect panel.
      */
     public void closeMatch() { mainWindow.changePanel("CONNECT");
     }
 
     /**
-     * Metode que permet obrir directament un chat en concret entre dues persones
-     * @param userMatched user amb qui s'ha fet match
-     */
-    public void goToChatWith(User userMatched) {
-        //TODO: Descomentar la Comunicacio quan tot funcioni
-        //Obtenim la info per carregar el ChatPanel
-        serverComunicationChat.startServerComunication(USER_MATCH_LIST);
-        mainWindow.generateMatchList(matchedUsernames, chatController);
-
-        //Obrim directament el chat concret
-        chatController.loadMatchingChat(userMatched.getUsername());
-
-        //Canvia el panell
-        mainWindow.changePanel("CHAT");
-        mainWindow.selectChat();
-    }
-
-    /**
-     * Metode que canvia el panell Connect a Match en cas de que hi hagi match entre dos usuaris
+     * Metode que canvia el panell Connect a Match en cas de que hi hagi match entre dos usuaris.
+     * @param associatedUsername username del client.
+     * @param connectedUsername username del usuari amb qui esta fent connect.
      */
     public void showMatch(String associatedUsername, String connectedUsername) {
-        //a la funcio showUsers es passarien els usuaris en questio
         matchController.showUsers(associatedUsername, connectedUsername);
         mainWindow.changePanel("MATCH");
     }
@@ -250,6 +220,10 @@ public class MenuController implements ActionListener, WindowListener {
 
     }
 
+    /**
+     * Setter del panell de retorn.
+     * @param panelReturn panell a retornar quan es crida una funcio determinada.
+     */
     public void setPanelReturn(int panelReturn){
         this.panelReturn = panelReturn;
     }
@@ -266,48 +240,67 @@ public class MenuController implements ActionListener, WindowListener {
 
     }
 
+    /**
+     * Unimplemented
+     * @param e --
+     */
     @Override
     public void windowOpened(WindowEvent e) {
-
     }
 
-    @Override
     /**
-     * Metode que indica si s'esta prement la opcio de tancar la finestra
+     * Metode que indica si s'esta prement la opcio de tancar la finestra.
+     * @param e esdeveniment.
      */
+    @Override
     public void windowClosing(WindowEvent e) {
         if(associatedUser.isCompleted()){
             if(!mainWindow.isSelected("LOGOUT")) {
                 logoutController.showLogout();
             }
         }else{
-            mainWindow.showWarning("No pots abandonar fins que el perfil no estigui complert.");
+            mainWindow.showWarning("You can't quit until you finish your profile!");
         }
     }
 
+    /**
+     * Unimplemented
+     * @param e --
+     */
     @Override
     public void windowClosed(WindowEvent e) {
-
     }
 
+    /**
+     * Unimplemented
+     * @param e --
+     */
     @Override
     public void windowIconified(WindowEvent e) {
-
     }
 
+    /**
+     * Unimplemented
+     * @param e --
+     */
     @Override
     public void windowDeiconified(WindowEvent e) {
-
     }
 
+    /**
+     * Unimplemented
+     * @param e --
+     */
     @Override
     public void windowActivated(WindowEvent e) {
-
     }
 
+    /**
+     * Unimplemented
+     * @param e --
+     */
     @Override
     public void windowDeactivated(WindowEvent e) {
-
     }
 
     /**
@@ -362,6 +355,5 @@ public class MenuController implements ActionListener, WindowListener {
     public void loadProfile() {
         profileController.showUser(associatedUser);
     }
-
 
 }

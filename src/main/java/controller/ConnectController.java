@@ -82,7 +82,6 @@ public class ConnectController implements ActionListener, MouseListener {
      * Metode que gestiona la opcio d'acceptar/donar like (accessible tant fent drag and drop com des del boto verd)
      */
     private void likeActions() {
-        System.out.println("I like you!");
         serverComunicationConnect.startServerComunication(CONNECT_LIKE); //Demanem nou User a visualitzar
         serverComunicationConnect.startServerComunication(CONNECT_USER);
     }
@@ -91,7 +90,6 @@ public class ConnectController implements ActionListener, MouseListener {
      * Metode que gestiona la opcio d'ignorar/donar dislike (accessible tant fent drag and drop com des del boto vermell)
      */
     private void dislikeActions() {
-        System.out.println("I don't like you..");
         serverComunicationConnect.startServerComunication(CONNECT_DISLIKE);
         serverComunicationConnect.startServerComunication(CONNECT_USER);
     }
@@ -165,7 +163,6 @@ public class ConnectController implements ActionListener, MouseListener {
      */
     public void loadNewUser(User connectUser) {
         if (connectUser.getUsername() == null){
-            System.out.println("no hi ha mes usuaris a mostrar");
             moreUsers = false;
             connectPanel.showEndOfUsers();
             connectPanel.enableButtons(moreUsers);
