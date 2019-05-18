@@ -1,7 +1,6 @@
 package network;
 
 import controller.ChatController;
-import controller.MenuController;
 import model.ClientConfig;
 import model.Json;
 import model.entity.Chat;
@@ -10,6 +9,9 @@ import model.entity.Message;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Comunicacio client-servidor per gestionar l'intercanvi de missatges.
+ */
 public class ServerComunicationMessage extends Thread {
     private static final char SEND_MESSAGE = 'g';
 
@@ -24,9 +26,8 @@ public class ServerComunicationMessage extends Thread {
 
     /**
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
-     *
-     * @param chatController Controlador del panell de chats entre usuaris amb matches
-     * @param sender nom de l'usuari que esta xatejant
+     * @param chatController Controlador del panell de chats entre usuaris amb matches.
+     * @param sender nom de l'usuari que esta xatejant.
      */
     public ServerComunicationMessage(ChatController chatController, String sender){
         try {
@@ -100,7 +101,6 @@ public class ServerComunicationMessage extends Thread {
 
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Received chat failed");
         }
     }
 

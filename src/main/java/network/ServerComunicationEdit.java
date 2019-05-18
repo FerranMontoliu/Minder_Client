@@ -8,6 +8,9 @@ import model.entity.User;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Comunicacio client-servidor per gestionar l'edicio de perfil.
+ */
 public class ServerComunicationEdit {
     private static final char EDIT_PROFILE = 'c';
 
@@ -18,6 +21,11 @@ public class ServerComunicationEdit {
     private ObjectInputStream objectIn;
     private ObjectOutputStream objectOut;
 
+
+    /**
+     * Constructor per parametres.
+     * @param editController controlador d'edit panel associat.
+     */
     public ServerComunicationEdit(EditController editController){
         try {
             this.editController = editController;

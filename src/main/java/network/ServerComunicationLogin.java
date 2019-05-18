@@ -7,6 +7,9 @@ import model.entity.User;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Comunicacio client-servidor per gestionar el login i register.
+ */
 public class ServerComunicationLogin {
 
     private static final char LOGIN_USER = 'a';
@@ -20,7 +23,7 @@ public class ServerComunicationLogin {
     private ObjectOutputStream objectOut;
 
     /**
-     * Constructor del Thread encarregat d'establir la connexió client-servidor.
+     * Constructor per parametres.
      * @param controller controlador que inicia la comunicacio
      */
     public ServerComunicationLogin(LoginController controller) throws IOException {

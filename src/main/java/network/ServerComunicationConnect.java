@@ -1,8 +1,6 @@
 package network;
 
-import controller.ChatController;
 import controller.ConnectController;
-import controller.MenuController;
 import model.ClientConfig;
 import model.Json;
 import model.entity.User;
@@ -10,6 +8,9 @@ import model.entity.User;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Comunicacio client-servidor per gestionar el connect panel.
+ */
 public class ServerComunicationConnect  {
     private static final char USER_MATCHED = 'd';
     private static final char CONNECT_LIKE = 'i';
@@ -25,8 +26,8 @@ public class ServerComunicationConnect  {
     private char command;
 
     /**
-     *
-     * @param connectController
+     * Constrcutor per parametres.
+     * @param connectController controlador de connect associat.
      */
     public ServerComunicationConnect(ConnectController connectController){
         try {

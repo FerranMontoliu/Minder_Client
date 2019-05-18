@@ -8,6 +8,9 @@ import model.entity.User;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Comunicacio client-servidor per gestionar les preferencies d'usuari.
+ */
 public class ServerCommunicationPreferences {
     private static final char EDIT_PREFERENCES = 'l';
     private static final char CHECK_USER = 'a'; //IMPLEMENTACIO IGUAL A LOGIN_USER
@@ -42,27 +45,30 @@ public class ServerCommunicationPreferences {
         }
     }
 
+    /**
+     * Metode encarregat d'establir la comunicacio client-servidor.
+     */
     public void startServerComunication(char command) throws IOException {
         switch (command){
             case EDIT_PREFERENCES:
-                //Enviem l'etiqueta d'aquesta opcio
+
                 dataOut.writeChar(EDIT_PREFERENCES);
-                //Enviem l'usuari associat al compte que es vol canviar
+
                 User associatedUser = preferencesController.getAssociatedUser();
                 objectOut.writeObject(associatedUser);
-                //Llegim si s'ha pogut modificar correctament els canvis
+
                 boolean editOK = dataIn.readBoolean();
-                if (editOK == true){
-                    //mostrem un missatge d'exit
+                if (editOK){
+
                     preferencesController.showEditOk();
                 }
                 preferencesController.setEditResult(editOK);
                 break;
             case CHECK_USER: //IGUAL A LOGIN_USER: volem saber si existeix aquest usuari i contrassenya
                 try {
-                    //Etiqueta que correspon a la de LOGIN_USER
+
                     dataOut.writeChar(CHECK_USER);
-                    //Enviem el login i contrassenya de l'usuari del que volem saber si es pot autentificar amb aquestes credencials
+
                     User loginUser = preferencesController.getChekingUser();
                     objectOut.writeObject(loginUser);
 
@@ -70,7 +76,6 @@ public class ServerCommunicationPreferences {
 
                     if(existsL) {
                         boolean sameUser = dataIn.readBoolean();
-
                         if(sameUser){
                             //Llegim tota la informacio de l'usuari autentificat
                             User dataBaseUser = (User) objectIn.readObject();

@@ -6,7 +6,6 @@ import model.entity.Chat;
 import model.ClientConfig;
 import model.Json;
 import model.entity.MatchLoader;
-import model.entity.Message;
 import model.entity.User;
 
 import java.io.*;
@@ -30,6 +29,11 @@ public class ServerComunicationChat {
     private ObjectOutputStream objectOut;
     private char command;
 
+    /**
+     * Constructor per parametres.
+     * @param menuController controlador de menu associat.
+     * @param chatController controlador de chat associat.
+     */
     public ServerComunicationChat(MenuController menuController, ChatController chatController){
         try {
             this.menuController = menuController;

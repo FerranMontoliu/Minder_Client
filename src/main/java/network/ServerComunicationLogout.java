@@ -6,6 +6,9 @@ import model.Json;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Comunicacio client-servidor per gestionar el logout.
+ */
 public class ServerComunicationLogout {
     private static final char USER_DISCONNECTS = 'n';
 
@@ -17,7 +20,6 @@ public class ServerComunicationLogout {
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
      */
     public ServerComunicationLogout() throws IOException {
-
 
         //Configuració inicial del client:
         ClientConfig cc = Json.parseJson();
