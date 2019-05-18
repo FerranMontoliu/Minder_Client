@@ -6,8 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Classe encarregada de generar i gestionar el panell de Sign Up.
+ */
 public class SignUpPanel extends JPanel {
     private static final Color BG_COLOR = new Color(255, 101, 91);
+
     private JTextField jtfNewUsername;
     private JPasswordField jtfNewPassword;
     private JPasswordField jtfNewPasswordConfirm;
@@ -24,7 +28,8 @@ public class SignUpPanel extends JPanel {
     /**
      * Constructor del panell de Sign-Up.
      * Aquest panell conte diferents camps o zones a omplir: usuari, contrassenyes, email, acces Premium, edat,
-     * filtre d'edat i registre
+     * filtre d'edat i registre.
+     * @param clSignInUp card Layout al que pertany.
      */
     public SignUpPanel(CardLayout clSignInUp) {
         super(clSignInUp);
@@ -138,8 +143,7 @@ public class SignUpPanel extends JPanel {
 
 
     /**
-     * Metode que afegeix la capçalera de la pantalla.
-     *
+     * Metode que afegeix la capsalera de la pantalla.
      */
     private void createTitle(){
         JPanel jpTitle = new JPanel();
@@ -157,7 +161,6 @@ public class SignUpPanel extends JPanel {
 
     /**
      * Metode encarregat de crear i afegir el camp del nom d'usuari.
-     *
      */
     private void createUsernameField(){
         //Username
@@ -328,11 +331,11 @@ public class SignUpPanel extends JPanel {
     }
 
     /**
-     * Mètode encarregat de registrar el controlador associat a aquesta vista.
+     * Metode encarregat de registrar el controlador associat a aquesta vista.
      *
      * @param c  Controlador de la pantalla de Log-In.
      */
-    public void registerController(LoginController c){  //Flta el controlador com a parametre
+    public void registerController(LoginController c){
         jcbShowPassword.addActionListener(c);
         jcbShowPassword.setActionCommand("SHOW-UP");
         jbSignUp.addActionListener(c);
@@ -456,7 +459,7 @@ public class SignUpPanel extends JPanel {
 
 
     /**
-     * Mètode encarregat de netejar tots els camps del panell de Sign-Up.
+     * Metode encarregat de netejar tots els camps del panell de Sign-Up.
      *
      */
     public void clean() {
@@ -474,8 +477,8 @@ public class SignUpPanel extends JPanel {
     }
 
     /**
-     * Getter del CheckBox que indica si l'usuari vol utilitzar el filtre d'edat o no
-     * @return
+     * Getter del CheckBox que indica si l'usuari vol utilitzar el filtre d'edat o no.
+     * @return valor de la check Box NoFilter.
      */
     public boolean noFilterChecked() {
         return jcNoFilter.isSelected();

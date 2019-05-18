@@ -9,9 +9,9 @@ import java.io.FileReader;
 public class Json {
 
     /**
-     * Funció encarregada de parsejar el Json per a extreure'n la informació.
+     * Funcio encarregada de parsejar el Json per a extreure'n la informacio.
      *
-     * @return Retorna un ServerConfig que conté tota la informació del Json.
+     * @return Retorna un ServerConfig que conte tota la informacio del Json.
      */
     public static ClientConfig parseJson() {
         ClientConfig c = null;
@@ -20,7 +20,7 @@ public class Json {
             FileReader nomFitxer = new FileReader("data/config.json");
             c = gson.fromJson(new BufferedReader(nomFitxer), ClientConfig.class);
         } catch (FileNotFoundException error) {
-            System.out.println("Error! Fitxer de configuració no trobat!");
+            error.printStackTrace();
         }
         return c;
     }

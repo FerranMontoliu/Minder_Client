@@ -10,9 +10,9 @@ import javax.swing.*;
 public class UserManager {
 
     /**
-     * Funció que s'encarrega de comprovar si l'usuari és major d'edat o no.
-     *
-     * @return Retorna true si es major d'edat, false sino.
+     * Funcio que s'encarrega de comprovar si l'usuari es major d'edat o no.
+     * @throws InvalidFormatException excepcio de format invalid.
+     * @param age edat en format string.
      */
     public static void isAdult(String age) throws InvalidFormatException {
         try{
@@ -27,9 +27,11 @@ public class UserManager {
     }
 
     /**
-     * Funció que s'encarrega de comprovar si les edats minimes i maximes seleccionades al desplegable son coherents.
-     *
-     * @return Retorna true si es coherent, false sino.
+     * Funcio que s'encarrega de comprovar si les edats minimes i maximes seleccionades al desplegable son coherents.
+     * @param minAge edat minima en string.
+     * @param maxAge edat maxima en string.
+     * @param noFilter boolea que indica si l'usuari vol filtre o no.
+     * @throws InvalidFormatException excepcio que indica un format no valid.
      */
     public static void isAgeFilterCorrect(String minAge, String maxAge, boolean noFilter) throws InvalidFormatException {
         int am = getAge(minAge);
@@ -44,8 +46,7 @@ public class UserManager {
 
     /**
      * Funcio que s'encarrega de comprovar si el format del mail es correcte o no.
-     *
-     * @param mail correu electronic introduit per l'usuari
+     * @param mail correu electronic introduit per l'usuari.
      */
     public static void mailCorrectFormat(String mail) throws InvalidFormatException {
         EmailValidator v = EmailValidator.getInstance();
@@ -55,9 +56,9 @@ public class UserManager {
     }
 
     /**
-     * Funcio que gestiona si el format del correu es correcte o no
+     * Funcio que gestiona si el format del correu es correcte o no.
      *
-     * @param usernameField email de l'usuari introduit
+     * @param usernameField email de l'usuari introduit.
      *
      * @return Retorna true si el format es correcte, false sino.
      */
@@ -72,8 +73,9 @@ public class UserManager {
 
     /**
      * Funcio que s'encarrega de comprovar si la password concorda amb el camp de confirmacio de password.
-     *
-     * @return Retorna true si concorda, false sino.
+     * @param password contrasenya introduida.
+     * @param passwordConfirmation contrasenya de confirmacio introduida.
+     * @throws InvalidFormatException excepcio de format invalid.
      */
     public static void passwordConfirm(String password, String passwordConfirmation) throws InvalidFormatException {
         System.out.println(password);
@@ -84,9 +86,9 @@ public class UserManager {
     }
 
     /**
-     * Funció que s'encarrega de comprovar si el format de la password és correcte o no
-     *
-     * @return Retorna true si el format és correcte, false sinó.
+     * Funcio que s'encarrega de comprovar si el format de la password es correcte o no.
+     * @param password contrasenya introduida.
+     * @throws InvalidFormatException excepcio de format invalid.
      */
     public static void passwordCorrectFormat(String password) throws InvalidFormatException{
         boolean hasUppercase = !password.equals(password.toLowerCase());
@@ -100,8 +102,10 @@ public class UserManager {
     }
 
     /**
-     * Funció que s'encarrega de comprovar si la password es correcta o no quan un es registra.
-     * @return Retorna true si es correcta, false sino.
+     * Funcio que s'encarrega de comprovar si la password es correcta o no quan un es registra.
+     * @param password contrasenya introduida.
+     * @param passwordConfirmation contrasenya de confiramcio introduida.
+     * @throws InvalidFormatException excepcio de format invalid.
      */
     public static void signUpPasswordIsCorrect(String password,String passwordConfirmation) throws InvalidFormatException {
         passwordConfirm(password, passwordConfirmation);
@@ -110,7 +114,7 @@ public class UserManager {
 
     /**
      * Getter de l'edat de l'usuari.
-     * @return Retorna un int que conté l'edat de l'usuari.
+     * @return Retorna un int que conte l'edat de l'usuari.
      */
     public static int getAge(String age) throws NumberFormatException{
         int a = Integer.parseInt(age);
@@ -118,12 +122,12 @@ public class UserManager {
     }
 
     /**
-     * Metode que permet mirar si un camp esta buit
+     * Metode que permet mirar si un camp esta buit.
      *
-     * @param fieldContent Contingut del camp a analitzar en format String
-     * @param fieldName Nom del camp a omplir
+     * @param fieldContent Contingut del camp a analitzar en format String.
+     * @param fieldName Nom del camp a omplir..
      *
-     * @throws EmptyTextFieldException
+     * @throws EmptyTextFieldException excepcio de textfield buit.
      */
     public static void isEmpty(String fieldContent, String fieldName) throws EmptyTextFieldException {
         if(fieldContent.isEmpty()){
@@ -135,10 +139,9 @@ public class UserManager {
      * Metode que permet comprovar si s'han seleccionat els camps obligatoris per a la creacio d'un nou perfil.
      * @param img imatge seleccionada per l'usuari del FileChooser.
      * @param description descripcio de l'usuari.
-     * @param java boolean que indica si a l'usuari li agrada aquest llenguatge de programacio
-     * @param c boolean que infica si a l'usuari li agrada aquest llenguatge de programacio
-     *
-     * @throws InvalidFormatException
+     * @param java boolean que indica si a l'usuari li agrada aquest llenguatge de programacio.
+     * @param c boolean que infica si a l'usuari li agrada aquest llenguatge de programacio.
+     * @throws InvalidFormatException excepcio de format invalid.
      */
     public static void checkEditProfileNewData(ImageIcon img, String description, boolean java, boolean c) throws InvalidFormatException {
         if(img == null){
@@ -153,23 +156,23 @@ public class UserManager {
     }
 
     /**
-     * Metode que substitueix possibles caracters erronis en el recull i processament de dades
+     * Metode que substitueix possibles caracters erronis en el recull i processament de dades.
      *
-     * @param fixThis string que conte el caracter amb possible error
+     * @param fixThis string que conte el caracter amb possible error.
      *
-     * @return String amb el caracter reemplacat per un de correcte
+     * @return String amb el caracter reemplacat per un de correcte.
      */
     public static String fixSQLInjections(String fixThis){
         return fixThis.replace("'","`");
     }
 
     /**
-     * Metode que comprova quina es la maxima edat a enviar a la database en funcio de si l'usuari vol filtre o no
+     * Metode que comprova quina es la maxima edat a enviar a la database en funcio de si l'usuari vol filtre o no.
      *
-     * @param maxAge String que conte l'edat seleccionada del desplegable de max age
-     * @param noFilter boolea que indica si l'usuari vol filtre (false) o si no el vol (true)
+     * @param maxAge String que conte l'edat seleccionada del desplegable de max age.
+     * @param noFilter boolea que indica si l'usuari vol filtre (false) o si no el vol (true).
      *
-     * @return edat maxima a carregar a la base de dades
+     * @return edat maxima a carregar a la base de dades.
      */
     public static int checkMaxAge(String maxAge, boolean noFilter) {
         int age = noFilter? 0: Integer.parseInt(maxAge);

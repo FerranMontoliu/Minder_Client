@@ -83,7 +83,6 @@ public class ConnectPanel extends JPanel {
      * Metode que mostra l'usuari desitjat des del controlador per tal de mostrar les seves dades: Nom, edat, i fotografia de perfil
      *
      */
-
     public void showUser() {
 
         JPanel jpUserImage = new JPanel();

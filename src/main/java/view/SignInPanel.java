@@ -5,8 +5,12 @@ import controller.LoginController;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe encarregada de generar i gestionar el panell de Sign In.
+ */
 public class SignInPanel extends JPanel {
     private static final Color BG_COLOR = new Color(255, 101, 91);
+
     private JTextField jtfUsername;
     private JPasswordField jtfPassword;
     private JCheckBox jcbShowPassword;
@@ -14,7 +18,7 @@ public class SignInPanel extends JPanel {
 
     /**
      * Constructor del panell de Sign-In.
-     *
+     * @param clSignInUp card layout al qual pertany.
      */
     public SignInPanel(CardLayout clSignInUp){
         super(clSignInUp);
@@ -27,7 +31,7 @@ public class SignInPanel extends JPanel {
     }
 
     /**
-     * Mètode que afegeix la capçalera de la pantalla.
+     * Metode que afegeix la capçalera de la pantalla.
      */
     private void createTitle(){
         JPanel jpTitle = new JPanel();
@@ -108,14 +112,13 @@ public class SignInPanel extends JPanel {
         jcbShowPassword.setForeground(Color.WHITE);
         jcbShowPassword.setBackground(BG_COLOR);
 
-        //add(jlPassword);
         add(jpPassword);
         add(jcbShowPassword);
         add(Box.createVerticalStrut(10));
     }
 
     /**
-     * Mètode encarregat de crear i afegir el botó de Sign In.
+     * Metode encarregat de crear i afegir el boto de Sign In.
      */
     private void createButtons(){
         //JPanel Buttons: Buttons Show Password i Sign In
@@ -131,11 +134,11 @@ public class SignInPanel extends JPanel {
     }
 
     /**
-     * Mètode encarregat de registrar el controlador associat a aquesta vista.
+     * Metode encarregat de registrar el controlador associat a aquesta vista.
      *
      * @param c  Controlador de la pantalla de Log-In.
      */
-    public void regsitrarControlador(LoginController c){  //Flta el controlador com a parametre
+    public void regsitrarControlador(LoginController c){
         jcbShowPassword.addActionListener(c);
         jcbShowPassword.setActionCommand("SHOW-IN");
         jbSignIn.addActionListener(c);
@@ -162,15 +165,15 @@ public class SignInPanel extends JPanel {
     }
 
     /**
-     * Metode que retorna el nom introduït per l'usuari al Sign In.
-     * @return nom introduït per l'usuari.
+     * Metode que retorna el nom introduit per l'usuari al Sign In.
+     * @return nom introduit per l'usuari.
      */
     public String getUsername(){
         return jtfUsername.getText();
     }
 
     /**
-     * Mètode encarregat de netejar tots els camps del panell de Sign-In.
+     * Metode encarregat de netejar tots els camps del panell de Sign-In.
      */
     public void clean() {
         jtfUsername.setText("");

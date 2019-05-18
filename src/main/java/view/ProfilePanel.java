@@ -2,7 +2,7 @@ package view;
 
 import controller.MenuController;
 import controller.OtherUserProfileController;
-import model.entity.User;
+
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
+/**
+ * Classe encarregada de generar i gestionar el panell de Profile.
+ */
 public class ProfilePanel extends JPanel {
     private static final String DESCRIPTION_TAG = " Description: ";
     private static final String HOBBIES_TAG = " Favourite Hobbies: ";
@@ -32,6 +35,7 @@ public class ProfilePanel extends JPanel {
     private JButton jbBack;
     private JPanel jpEdit;
     private JButton jbAccountPreferences;
+
     /**
      * Constructor del panell principal de connexions entre usuaris. aquest panell es genera en dos casos: per a mostrar
      * la informacio de l'usuari associat a la compta, o be per a mostrar els usuaris dels que demana informació addicional.
@@ -91,7 +95,6 @@ public class ProfilePanel extends JPanel {
      * s'incloura al metode includeUserInfo on se li passara la informacio de l'usuari en concret
      */
     private void createUserInfo() {
-        //Titol de l'area que compren la "account information"
         TitledBorder border = new TitledBorder("Basic Information");
         border.setTitleColor(MINDER_PINK);
         border.setTitleJustification(TitledBorder.LEFT);
@@ -117,16 +120,15 @@ public class ProfilePanel extends JPanel {
      * @return JPanel a incloure al jpUserInfo, que conte els 4 panells d'informacio
      */
     private JPanel createFavSong() {
-
         JPanel jpSong = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        JLabel jlTag = new JLabel(SONG_TAG); //omplire amb la informacio de l'usuari
+        JLabel jlTag = new JLabel(SONG_TAG);
         jlTag.setIcon(new ImageIcon("icons/music-player.png"));
         jlTag.setFont(TAG_FONT);
         jlTag.setForeground(Color.GRAY);
         jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpSong.add(jlTag);
 
-        jlFavSong = new JLabel(""); //omplire mes endavant amb la informacio de l'usuari
+        jlFavSong = new JLabel("");
         jlFavSong.setFont(INFO_FONT);
         jlFavSong.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpSong.add(jlFavSong);
@@ -134,6 +136,7 @@ public class ProfilePanel extends JPanel {
 
         return jpSong;
     }
+
     /**
      * Metode que genera el panell de mes baix nivell amb l'etiqueta i icone de llenguatge de programacio preferit
      * amb el jlabel que contindra la info de la bbdd
@@ -143,15 +146,15 @@ public class ProfilePanel extends JPanel {
 
         JPanel jpProg = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        JLabel jlTag = new JLabel(PROGRAMMING_TAG); //omplire amb la informacio de l'usuari
+        JLabel jlTag = new JLabel(PROGRAMMING_TAG);
         jlTag.setIcon(new ImageIcon("icons/programming-code.png"));
         jlTag.setFont(TAG_FONT);
         jlTag.setForeground(Color.GRAY);
         jpProg.add(jlTag);
 
-        jlFavProgramming = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlFavProgramming = new JLabel("");
         jlFavProgramming.setFont(INFO_FONT);
-        //jlFavProgramming.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         jpProg.add(jlFavProgramming);
 
         jpProg.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
@@ -168,14 +171,14 @@ public class ProfilePanel extends JPanel {
 
         JPanel jpHobbies = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        JLabel jlTag = new JLabel(HOBBIES_TAG); //omplire amb la informacio de l'usuari
+        JLabel jlTag = new JLabel(HOBBIES_TAG);
         jlTag.setIcon(new ImageIcon("icons/ticket.png"));
         jlTag.setFont(TAG_FONT);
         jlTag.setForeground(Color.GRAY);
         jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpHobbies.add(jlTag);
 
-        jlFavHobbies = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlFavHobbies = new JLabel("");
         jlFavHobbies.setFont(INFO_FONT);
         jlFavHobbies.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpHobbies.add(jlFavHobbies);
@@ -192,14 +195,14 @@ public class ProfilePanel extends JPanel {
      */
     private JPanel createDescription() {
         JPanel jpDescription = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        JLabel jlTag = new JLabel(DESCRIPTION_TAG); //omplire amb la informacio de l'usuari
+        JLabel jlTag = new JLabel(DESCRIPTION_TAG);
         jlTag.setIcon(new ImageIcon("icons/hastag.png"));
         jlTag.setFont(TAG_FONT);
         jlTag.setForeground(Color.GRAY);
         jlTag.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpDescription.add(jlTag);
 
-        jlDescription = new JLabel(""); //omplire amb la informacio de l'usuari
+        jlDescription = new JLabel("");
         jlDescription.setFont(INFO_FONT);
         jlDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
         jpDescription.add(jlDescription);
@@ -240,7 +243,8 @@ public class ProfilePanel extends JPanel {
     }
 
     /**
-     * Metode que registra un ActionListener al JButton d'edicio de perfil
+     * Metode que registra un ActionListener al JButton d'edicio de perfil.
+     * @param mc controlador associat als components del panell de perfil que soliciten un canvi de panell.
      */
     public void registraAssociatedProfileController(MenuController mc){
         jbEditProfile.addActionListener(mc);
@@ -252,7 +256,7 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que registra i vincula un actionListener del boto que permet tornar al menu principal
-     * @param c
+     * @param c controlador associat al jbBack.
      */
     public void registraOtherProfileController(OtherUserProfileController c){
         jbBack.addActionListener(c);
@@ -260,8 +264,16 @@ public class ProfilePanel extends JPanel {
     }
 
     /**
-     * Metode que actualitza la informacio de l'usuari segons la informacio que se li passa com a parametre, de tal
-     * manera que omple els camps del perfil amb aquesta informacio
+     *  Metode que actualitza la informacio de l'usuari segons la informacio que se li passa com a parametre, de tal
+     * manera que omple els camps del perfil amb aquesta informacio.
+     * @param associated directori de les imatges.
+     * @param username nom d'usuari associat.
+     * @param age edat de l'usuari associat.
+     * @param description descripcio de l'usuari associat.
+     * @param likesJava gust per java de l'usuari associat.
+     * @param likesC gust per C de l'usuari associat.
+     * @param hobbies hobbies de l'usuari associat.
+     * @param song canso preferida de l'usuari associat.
      */
     public void updateInfo(String associated, String username, int age, String description, boolean likesJava, boolean likesC, String hobbies, String song){
         updateNameAge(username, age);
@@ -274,8 +286,9 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que actualitza la informacio rebuda de la bbdd. Es converteix l'string en format base64 a imatge (que es
-     * guarda al fitxer username.jpg), i s'escala i arrodoneix al disseny desitjat
-     * @param photoName Usuari que ha fet login
+     * guarda al fitxer username.jpg), i s'escala i arrodoneix al disseny desitjat.
+     * @param associated directori on es guardara la photo.
+     * @param photoName Usuari que ha fet login.
      */
     private void updatePhoto(String associated, String photoName) {
         ImageIcon picture = new ImageIcon(associated+"MinderDownloads/"+photoName+".jpg");
@@ -287,7 +300,7 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que permet canviar el format d'una imatge quadrada per una circular.
-     * @param icon: imatge quadrada a transformar
+     * @param icon imatge quadrada a transformar
      * @return Imatge en format Icon circular.
      */
     private Icon toCircle(ImageIcon icon) {
@@ -311,10 +324,10 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que actualitza el text del jlabel que mostra la informacio del llenguatge de programacio de l'usuari que
-     * ha fet login
+     * ha fet login.
      *
-     * @param likesJava boolean que indica si li agrada el Java
-     * @param likesC boolean que indica si li agrada el C
+     * @param likesJava boolean que indica si li agrada el Java.
+     * @param likesC boolean que indica si li agrada el C.
      */
     private void updateFavProgramming(boolean likesJava, boolean likesC) {
         String fav;
@@ -332,10 +345,10 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que actualitza el text del jlabel que mostra la descripcio l'usuari que
-     * ha fet login
+     * ha fet login.
      *
      * @param description String que conte el text escrit per l'usuari a la hora de definir/editar el seu perfil i que
-     *                    vol que es mostri
+     *                    vol que es mostri.
      */
     private void updateDescription(String description) {
         jlDescription.setText(description);
@@ -344,10 +357,10 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que actualitza el text del jlabel que mostra la informacio del Nom i Edat de l'usuari que
-     * ha fet login (i que es mostra a la part superior de la finestra, junt amb la seva imatge de perfil)
+     * ha fet login (i que es mostra a la part superior de la finestra, junt amb la seva imatge de perfil).
      *
-     * @param username nom de l'usuari
-     * @param age edat de l'usuari
+     * @param username nom de l'usuari.
+     * @param age edat de l'usuari.
      */
     private void updateNameAge(String username, int age) {
         jlName.setText(username);
@@ -356,9 +369,9 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que actualitza el text del jlabel que mostra la llista de hobbies seguida de comes de l'usuari que
-     * ha fet login
+     * ha fet login.
      *
-     * @param hobbies Array de Strings on cadascun representa una accio
+     * @param hobbies Array de Strings on cadascun representa una accio.
      */
     private void updateHobbies(String hobbies) {
         jlFavHobbies.setText(hobbies);
@@ -366,9 +379,9 @@ public class ProfilePanel extends JPanel {
 
     /**
      * Metode que actualitza el text del jlabel que mostra la informacio de la canco preferida de l'usuari que
-     * ha fet login
+     * ha fet login.
      *
-     * @param song nom de la canco a mostrar
+     * @param song nom de la canso a mostrar.
      */
     private void updateSong(String song){
         jlFavSong.setText(song);

@@ -70,7 +70,7 @@ public class ChatPanel extends JPanel {
 
         jpMessage = new JPanel(new BorderLayout());
         jtfMissatge = new JTextField(50);
-        jtfMissatge.setEnabled(false);      //TODO: Quan es cliqui a un chat, habilitar el jtf i el jbutton send
+        jtfMissatge.setEnabled(false);
 
         jbInfo = new JButton(new ImageIcon("icons/info.png"));
         jbInfo.setEnabled(false);
@@ -280,6 +280,9 @@ public class ChatPanel extends JPanel {
         jtaChat.setText(sb.toString());
     }
 
+    /**
+     * Metode que neteja el TextAre del chat.
+     */
     public void resetJTextArea() {
         jtaChat.setText("");
     }

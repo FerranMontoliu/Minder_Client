@@ -1,7 +1,7 @@
 package view;
 
 import controller.ChatController;
-import controller.MenuController;
+
 
 import javax.swing.*;
 import java.awt.*;

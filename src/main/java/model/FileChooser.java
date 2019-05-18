@@ -16,7 +16,7 @@ public class FileChooser {
     /**
      * Metode que obra l'explorador d'arxius i permet seleccionar una imatge
      * @return Imatge seleccionada
-     * @throws IOException
+     * @throws IOException excepcio llencada.
      */
     public ProfileImage findImage() throws IOException {
         fileChooser = new JFileChooser();
@@ -28,8 +28,6 @@ public class FileChooser {
             String fullPath = file.getCanonicalPath() + File.separator + fileChooser.getDescription(fileChooser.getSelectedFile());
             ProfileImage img = new ProfileImage(ImageIO.read(fileChooser.getSelectedFile()),fullPath);
             return img;
-        }else if(result == JFileChooser.CANCEL_OPTION){
-            System.out.println("No file selected.");
         }
         return null;
     }
