@@ -46,6 +46,10 @@ public class ServerComunicationEdit {
 
     /**
      * Metode encarregat d'establir la comunicacio client-servidor.
+     *
+     * @param command Indica quina accio ha de fer.
+     *
+     * @throws IOException Es tira si hi ha un problema amb els streams.
      */
     public void startServerComunication(char command) throws IOException {
         if(command == EDIT_PROFILE){

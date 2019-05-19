@@ -195,6 +195,7 @@ public class User implements Serializable {
     /**
      * Setter de l'edat minima que ha seleccionat l'usuari per al filtre d'edat
      *
+     * @param minAge Nova edat minima del filtre per edat.
      */
     public void setMinAge(int minAge) {
         this.minAge = minAge;
@@ -212,6 +213,7 @@ public class User implements Serializable {
     /**
      * Setter de l'edat maxima que ha seleccionat l'usuari per al filtre d'edat
      *
+     * @param maxAge Nova edat maxima del filtre per edat.
      */
     public void setMaxAge(int maxAge) {
         this.maxAge = maxAge;

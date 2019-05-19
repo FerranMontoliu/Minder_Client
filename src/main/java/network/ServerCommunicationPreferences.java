@@ -47,50 +47,68 @@ public class ServerCommunicationPreferences {
 
     /**
      * Metode encarregat d'establir la comunicacio client-servidor.
+     *
+     * @param command Indica que fer.
+     *
+     * @throws IOException Es tira si hi ha algun problema amb els streams.
      */
     public void startServerComunication(char command) throws IOException {
         switch (command){
             case EDIT_PREFERENCES:
-
-                dataOut.writeChar(EDIT_PREFERENCES);
-
-                User associatedUser = preferencesController.getAssociatedUser();
-                objectOut.writeObject(associatedUser);
-
-                boolean editOK = dataIn.readBoolean();
-                if (editOK){
-
-                    preferencesController.showEditOk();
-                }
-                preferencesController.setEditResult(editOK);
+                editPreferences();
                 break;
             case CHECK_USER: //IGUAL A LOGIN_USER: volem saber si existeix aquest usuari i contrassenya
-                try {
-
-                    dataOut.writeChar(CHECK_USER);
-
-                    User loginUser = preferencesController.getChekingUser();
-                    objectOut.writeObject(loginUser);
-
-                    boolean existsL = dataIn.readBoolean();
-
-                    if(existsL) {
-                        boolean sameUser = dataIn.readBoolean();
-                        if(sameUser){
-                            //Llegim tota la informacio de l'usuari autentificat
-                            User dataBaseUser = (User) objectIn.readObject();
-                            preferencesController.setCorrectLogin(true);
-                            preferencesController.setSignInUser(dataBaseUser);
-                        }else{
-                            preferencesController.setCorrectLogin(false);
-                        }
-                    }
-                } catch (IOException | ClassNotFoundException e) {
-                    preferencesController.setCorrectLogin(false);
-                }
+                checkUser();
                 break;
         }
 
+    }
+
+    /**
+     * Metode encarregat de mirar si existeix un usuari i si te la mateixa password.
+     */
+    private void checkUser() {
+        try {
+            dataOut.writeChar(CHECK_USER);
+
+            User loginUser = preferencesController.getChekingUser();
+            objectOut.writeObject(loginUser);
+
+            boolean existsL = dataIn.readBoolean();
+
+            if(existsL) {
+                boolean sameUser = dataIn.readBoolean();
+                if(sameUser) {
+                    //Llegim tota la informacio de l'usuari autentificat
+                    User dataBaseUser = (User) objectIn.readObject();
+                    preferencesController.setCorrectLogin(true);
+                    preferencesController.setSignInUser(dataBaseUser);
+                } else {
+                    preferencesController.setCorrectLogin(false);
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            preferencesController.setCorrectLogin(false);
+        }
+    }
+
+    /**
+     * Metode que edita les preferencies d'un usuari.
+     *
+     * @throws IOException Es tira si hi ha problemes amb els streams.
+     */
+    private void editPreferences() throws IOException{
+        dataOut.writeChar(EDIT_PREFERENCES);
+
+        User associatedUser = preferencesController.getAssociatedUser();
+        objectOut.writeObject(associatedUser);
+
+        boolean editOK = dataIn.readBoolean();
+        if (editOK){
+
+            preferencesController.showEditOk();
+        }
+        preferencesController.setEditResult(editOK);
     }
 
 }

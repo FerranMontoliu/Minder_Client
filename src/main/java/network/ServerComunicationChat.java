@@ -55,6 +55,8 @@ public class ServerComunicationChat {
 
     /**
      * Metode encarregat d'establir la comunicacio client-servidor.
+     *
+     * @param command Indica quina accio fer.
      */
     public void startServerComunication(char command) {
         this.command = command;
@@ -62,35 +64,73 @@ public class ServerComunicationChat {
             dataOut.writeChar(command);
             switch (command){
                 case USER_MATCH_LIST: //Obte i carrega la llista de matches del user associat
-                    dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
-                    MatchLoader matchLoader = (MatchLoader) objectIn.readObject();
-                    menuController.loadMatchesList(matchLoader.getMatchedUsernames());
-                    chatController.loadMatchesList(matchLoader.getMatchedUsernames());
+                    getUserMatchList();
                     break;
                 case LOAD_CHAT:
-                    dataOut.writeUTF(chatController.getSourceUsername());
-                    dataOut.writeUTF(chatController.getDestinationUsername());
-                    boolean chatExists = dataIn.readBoolean();
-                    if(chatExists){
-                        Chat receivedChat = (Chat) objectIn.readObject();
-                        chatController.setReceivedChat(receivedChat);
-                    }else{
-                        chatController.setReceivedChat(null);
-                    }
-
+                    loadChat();
                     break;
                 case USER_UNMATCHED:
-                    dataOut.writeUTF(chatController.getSourceUsername());
-                    dataOut.writeUTF(chatController.getUnmatchingUsername());
+                    userUnmatched();
                     break;
                 case USER_INFO:
-                    dataOut.writeUTF(chatController.getDestinationUsername());
-                    User userInfo = (User) objectIn.readObject();
-                    chatController.setUserInfo(userInfo);
+                    getUserInfo();
                     break;
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch(IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Metode encarregat d'obtenir la info d'un usuari.
+     *
+     * @throws IOException Es tira si hi ha algun problema amb els streams.
+     * @throws ClassNotFoundException Es tira si hi ha algun problema rebent les dades.
+     */
+    private void getUserInfo() throws IOException, ClassNotFoundException {
+        dataOut.writeUTF(chatController.getDestinationUsername());
+        User userInfo = (User) objectIn.readObject();
+        chatController.setUserInfo(userInfo);
+    }
+
+    /**
+     * Metode encarregat d'enrregistrar un unmatch.
+     *
+     * @throws IOException Es tira si hi ha algun problema amb els streams.
+     */
+    private void userUnmatched() throws IOException {
+        dataOut.writeUTF(chatController.getSourceUsername());
+        dataOut.writeUTF(chatController.getUnmatchingUsername());
+    }
+
+    /**
+     * Metode encarregat de carregar el xat entre dos usuaris.
+     *
+     * @throws IOException Es tira si hi ha algun problema amb els streams.
+     * @throws ClassNotFoundException Es tira si hi ha algun problema rebent les dades.
+     */
+    private void loadChat() throws IOException, ClassNotFoundException {
+        dataOut.writeUTF(chatController.getSourceUsername());
+        dataOut.writeUTF(chatController.getDestinationUsername());
+        boolean chatExists = dataIn.readBoolean();
+        if(chatExists) {
+            Chat receivedChat = (Chat) objectIn.readObject();
+            chatController.setReceivedChat(receivedChat);
+        } else {
+            chatController.setReceivedChat(null);
+        }
+    }
+
+    /**
+     * Metode encarregat d'obtenir i carregar la llista de matchs de l'usuari.
+     *
+     * @throws IOException Es tira si hi ha algun problema amb els streams.
+     * @throws ClassNotFoundException Es tira si hi ha algun problema rebent les dades.
+     */
+    private void getUserMatchList() throws IOException, ClassNotFoundException {
+        dataOut.writeUTF(chatController.getAssociatedUser().getUsername());
+        MatchLoader matchLoader = (MatchLoader) objectIn.readObject();
+        menuController.loadMatchesList(matchLoader.getMatchedUsernames());
+        chatController.loadMatchesList(matchLoader.getMatchedUsernames());
     }
 }

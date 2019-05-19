@@ -241,6 +241,8 @@ public class ChatPanel extends JPanel {
 
     /**
      * Metode que mostra un missatge d'error si algun element o accio no es correcte.
+     *
+     * @param message Missatge que es mostra en el JDialog.
      */
     public void throwErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);

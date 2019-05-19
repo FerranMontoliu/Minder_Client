@@ -11,6 +11,8 @@ public class ProfileController {
 
     /**
      * Constructor del controlador associat a la pantalla de Profile.
+     *
+     * @param profilePanel Panell de profile associat al controlador.
      */
     public ProfileController(ProfilePanel profilePanel) {
         this.profilePanel = profilePanel;

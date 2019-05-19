@@ -18,9 +18,10 @@ public class ServerComunicationLogout {
 
     /**
      * Constructor del Thread encarregat d'establir la connexió client-servidor.
+     *
+     * @throws IOException Es tira si hi ha problema amb els streams.
      */
     public ServerComunicationLogout() throws IOException {
-
         //Configuració inicial del client:
         ClientConfig cc = Json.parseJson();
 
@@ -28,11 +29,14 @@ public class ServerComunicationLogout {
 
         this.dataOut = new DataOutputStream(socketToServer.getOutputStream());
         this.objectOut = new ObjectOutputStream(socketToServer.getOutputStream());
-
     }
 
     /**
      * Metode encarregat d'establir la comunicacio client-servidor.
+     *
+     * @param username Usuari que esta utilitzant el programa.
+     *
+     * @throws IOException Es tira si hi ha problema amb els streams.
      */
     public void startServerComunication(String username) throws IOException {
         dataOut.writeChar(USER_DISCONNECTS);

@@ -46,7 +46,10 @@ public class UserManager {
 
     /**
      * Funcio que s'encarrega de comprovar si el format del mail es correcte o no.
+     *
      * @param mail correu electronic introduit per l'usuari.
+     *
+     * @throws InvalidFormatException Es tira si el mail te format incorrecte.
      */
     public static void mailCorrectFormat(String mail) throws InvalidFormatException {
         EmailValidator v = EmailValidator.getInstance();
@@ -114,6 +117,9 @@ public class UserManager {
 
     /**
      * Getter de l'edat de l'usuari.
+     *
+     * @param age String que conte l'edat de l'usuari.
+     *
      * @return Retorna un int que conte l'edat de l'usuari.
      */
     public static int getAge(String age) throws NumberFormatException{

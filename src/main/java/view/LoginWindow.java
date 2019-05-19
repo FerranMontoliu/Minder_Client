@@ -303,13 +303,17 @@ public class LoginWindow extends JFrame {
 
     /**
      * Getter del camp del panell de sign up corresponent a si l'usuari desitja utilitzar filtre d'edat o no
-     * @return
+     *
+     * @return true si no utilitza filtre, false altrament
      */
     public boolean getNoFilter(){
         return jpSignUp.noFilterChecked();
     }
+
+    /**
+     * Metode que endica un missatge quan s'esta tancant la finestra.
+     */
     public void quitWindow() {
         JOptionPane.showMessageDialog(null, "Quiting","Warning", JOptionPane.WARNING_MESSAGE);
-
     }
 }

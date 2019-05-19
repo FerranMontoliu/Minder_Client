@@ -24,7 +24,10 @@ public class ServerComunicationLogin {
 
     /**
      * Constructor per parametres.
+     *
      * @param controller controlador que inicia la comunicacio
+     *
+     * @throws IOException Es tira si hi ha algun problema amb els streams
      */
     public ServerComunicationLogin(LoginController controller) throws IOException {
         this.loginController = controller;
@@ -43,43 +46,58 @@ public class ServerComunicationLogin {
 
     /**
      * Metode encarregat d'establir la comunicacio client-servidor.
+     *
+     * @param command Indica si ha de fer login o registrar un usuari.
      */
     public void startServerComunication(char command) {
         switch(command) {
             case LOGIN_USER:
-                try {
-                    dataOut.writeChar(LOGIN_USER);
-                    User loginUser = loginController.getLoginUser();
-                    objectOut.writeObject(loginUser);
-                    boolean existsL = dataIn.readBoolean();
-                    if(existsL) {
-                        boolean sameUser = dataIn.readBoolean();
-                        if(sameUser){
-                            User dataBaseUser = (User) objectIn.readObject();
-                            loginController.setCorrectLogin(true);
-                            loginController.setSignInUser(dataBaseUser);
-                        }else{
-                            loginController.setCorrectLogin(false);
-                        }
-                    }
-                } catch (IOException | ClassNotFoundException e) {
-                    loginController.setCorrectLogin(false);
-                }
+                login();
                 break;
             case REGISTER_USER:
-                try {
-                    dataOut.writeChar(REGISTER_USER);
-                    User newUser = loginController.getRegisteredUser();
-                    objectOut.writeObject(newUser);
-                    boolean registerOK = dataIn.readBoolean();
-                    loginController.setCorrectRegister(registerOK);
-                } catch (IOException e) {
-                    loginController.setCorrectRegister(false);
-                }
+                register();
                 break;
         }
     }
 
+    /**
+     * Metode encarregat de fer login a un usuari.
+     */
+    private void login() {
+        try {
+            dataOut.writeChar(LOGIN_USER);
+            User loginUser = loginController.getLoginUser();
+            objectOut.writeObject(loginUser);
+            boolean existsL = dataIn.readBoolean();
+            if(existsL) {
+                boolean sameUser = dataIn.readBoolean();
+                if(sameUser) {
+                    User dataBaseUser = (User) objectIn.readObject();
+                    loginController.setCorrectLogin(true);
+                    loginController.setSignInUser(dataBaseUser);
+                } else {
+                    loginController.setCorrectLogin(false);
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            loginController.setCorrectLogin(false);
+        }
+    }
+
+    /**
+     * Metode encarregat de registrar un usuari.
+     */
+    private void register() {
+        try {
+            dataOut.writeChar(REGISTER_USER);
+            User newUser = loginController.getRegisteredUser();
+            objectOut.writeObject(newUser);
+            boolean registerOK = dataIn.readBoolean();
+            loginController.setCorrectRegister(registerOK);
+        } catch (IOException e) {
+            loginController.setCorrectRegister(false);
+        }
+    }
 
 }
 

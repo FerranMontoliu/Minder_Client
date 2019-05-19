@@ -251,10 +251,13 @@ public class EditPanel extends JPanel {
 
     /**
      * Metode que omple el EditPanel amb els continguts del User.
+     *
      * @param username titol de la imatge seleccionada.
      * @param userDescription descripcio del User.
      * @param java boolean que es true si li agrada Java.
      * @param c boolean que es true si li agrada C.
+     * @param song canco preferida de l'usuari.
+     * @param hobbies llista de hobbies de l'usuari.
      */
     public void initiateEdit(String username, String userDescription, boolean java, boolean c, String song, String hobbies) {
         jlProfilePic.setText("No image selected.");
@@ -281,7 +284,7 @@ public class EditPanel extends JPanel {
         }else{
             jtfSong.setText(song);
         }
-        if((hobbies == null) || (hobbies == "")){
+        if((hobbies == null) || (hobbies.equals(""))){
             jtaHobbies.setText(HOBBIES_DEFAULT_TEXT);
         }else{
             jtaHobbies.setText(hobbies);

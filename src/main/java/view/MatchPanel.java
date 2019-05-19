@@ -61,6 +61,8 @@ public class MatchPanel extends JPanel {
     /**
      * Metode que mostra el missatge de connexio entre l'usuari que ha donat el segon like amb el que ja li havia donat
      * anteriorment
+     *
+     * @param name Nom de la persona amb la qual s'ha fet match.
      */
     public void showNamesMessage(String name){
         jldescription.setText("You and "+ name + " have liked each other!");
@@ -97,6 +99,9 @@ public class MatchPanel extends JPanel {
     /**
      * Metode que actualitza la informacio principal del panell i la substitueix per els noms dels dos usuaris que es passen
      * per parametre corresponent als dos usuaris que han fet match, aixi com obtenir les seves imatges
+     *
+     * @param associatedUsername Usuari que esta utilitzant el programa.
+     * @param connectedUsername Usuari amb el qual connecta.
      */
     public void setUsersMatched(String associatedUsername, String connectedUsername){
         //agafem les dues imatges dels usuaris de la carpeta MinderDownloads

@@ -27,6 +27,8 @@ public class MainWindow extends JFrame{
      * Constructor de la vista de la pantalla principal del programa. Es crea la barra de menú superior i s'inicialitzen
      * tots els panells que es mostraran a la part central de la pantalla, mostrant unicament al principi la pantalla de
      * Connect (like o dislike d'usuaris)
+     *
+     * @param s Indica a quina pestanya anar (connect, profile o edit)
      */
     public MainWindow(String s){
         createMenu(s);
@@ -325,7 +327,8 @@ public class MainWindow extends JFrame{
 
     /**
      * Getter del panell que els chats entre usuaris que han fet match
-     * @return
+     *
+     * @return panell que els chats entre usuaris que han fet match
      */
     public ChatPanel getChat() {
         return jpChat;
@@ -333,7 +336,8 @@ public class MainWindow extends JFrame{
 
     /**
      * Getter del panell que conte la info addicional de l'usuari del que es vol saber mes informacio des del connect panel
-     * @return
+     *
+     * @return panell que conte la info addicional de l'usuari del que es vol saber mes informacio des del connect panel
      */
     public ProfilePanel getOtherUserProfile() {
         return jpOtherProfile;
@@ -342,11 +346,18 @@ public class MainWindow extends JFrame{
     /**
      * Getter del panell que permet canviar els ajustaments principals del seu compte (usuari, contrassenya, edat, mail i filtre
      * d'edat
-     * @return
+     *
+     * @return panell per canviar els ajustaments principals del seu compte.
      */
     public PreferencesPanel getPreferences() {
         return jpPreferences;
     }
+
+    /**
+     * Setter del panell de xat.
+     *
+     * @param jpChat Nou panell de xat.
+     */
     public void setChat(ChatPanel jpChat) {
         this.jpChat = jpChat;
     }
@@ -393,6 +404,8 @@ public class MainWindow extends JFrame{
 
     /**
      * Metode que vincula el controlador del OtherUserProfile amb la seva vista
+     *
+     * @param otherUserProfileController controlador del OtherUserProfile.
      */
     public void registraOtherProfileController(OtherUserProfileController otherUserProfileController){
         jpOtherProfile.registraOtherProfileController(otherUserProfileController);

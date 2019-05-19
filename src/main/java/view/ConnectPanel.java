@@ -145,7 +145,11 @@ public class ConnectPanel extends JPanel {
     }
 
     /**
-     * Metode que carrega les dades principals de l'usuari solicitat al servidor que es visualitza en el connectPanel .
+     * Metode que carrega les dades principals de l'usuari solicitat al servidor que es visualitza en el connectPanel.
+     *
+     * @param associated Nom de l'usuari que esta utilitzant el programa.
+     * @param username Nom de l'usuari que esta visualitzant.
+     * @param age Edat de l'usuari que esta visualitzant.
      */
     public void loadNewUser(String associated, String username, int age) {
         lblProfilename.setText(username + ", "+age);

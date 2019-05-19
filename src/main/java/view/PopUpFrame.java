@@ -29,8 +29,9 @@ public class PopUpFrame extends JFrame {
     }
 
     /**
-     * Metode que afegeix el boto d'anar als missatges
-     * @param jbChat
+     * Metode que afegeix el boto d'anar als missatges.
+     *
+     * @param jbChat Boto d'anar als missatges.
      */
     public void addChat(JButton jbChat){
         //Boto de missatges
@@ -44,8 +45,9 @@ public class PopUpFrame extends JFrame {
     }
 
     /**
-     * Metode que afegeix el boto de tancar el popup
-     * @param jbSkip
+     * Metode que afegeix el boto de tancar el popup.
+     *
+     * @param jbSkip Boto de tancar el popup.
      */
     public void addSkip (JButton jbSkip){
         //Boto de Skip
