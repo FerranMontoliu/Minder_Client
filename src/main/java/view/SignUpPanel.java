@@ -138,6 +138,7 @@ public class SignUpPanel extends JPanel {
         jcNoFilter = new JCheckBox("I don't want any age filter");
         jcNoFilter.setAlignmentX(CENTER_ALIGNMENT);
         jcNoFilter.setForeground(Color.white);
+        jcNoFilter.setBackground(BG_COLOR);
         add(jcNoFilter);
     }
 
